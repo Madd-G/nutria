@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:nutria/ui/home_screen/screen/home_screen.dart';
+import 'package:nutria/utils/constants.dart';
+import 'router.dart' as router;
 
 void main() {
   runApp(const MyApp());
@@ -17,7 +18,8 @@ class MyApp extends StatelessWidget {
           primary: const Color(0xff58D7B7),
         ),
       ),
-      home: const HomeScreen(),
+      initialRoute: homeRoute,
+      onGenerateRoute: router.Router.generateRoute,
     );
   }
 }
