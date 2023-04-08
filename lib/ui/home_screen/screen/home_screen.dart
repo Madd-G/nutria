@@ -1,19 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:nutria/utils/constants.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: Center(
-        child: GestureDetector(
-          onTap: () {
-            Navigator.pushNamed(context, profileRoute);
-          },
-          child: const Text('Home Screen'),
-        ),
+        child: Text('Home Screen'),
       ),
     );
   }
