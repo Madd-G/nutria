@@ -1,9 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:nutria/utils/constants.dart';
+import 'blocs/app_bloc_observer.dart';
+import 'blocs/bottom_nav_bar_bloc/bottom_nav_bar_bloc.dart';
 import 'router.dart' as router;
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  HydratedBlocOverrides.runZoned(
+    () => runApp(const MyApp()),
+    blocObserver: AppBlocObserver(),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -11,15 +19,19 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSwatch().copyWith(
-          primary: const Color(0xff58D7B7),
+    return BlocProvider(
+      lazy: false,
+      create: (context) => BottomNavBarBloc(),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSwatch().copyWith(
+            primary: const Color(0xff58D7B7),
+          ),
         ),
+        initialRoute: screenControllerRoute,
+        onGenerateRoute: router.Router.generateRoute,
       ),
-      initialRoute: homeRoute,
-      onGenerateRoute: router.Router.generateRoute,
     );
   }
 }
