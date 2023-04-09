@@ -53,7 +53,7 @@ class RecommendationCarousel extends StatelessWidget {
                           const Padding(
                             padding: EdgeInsets.fromLTRB(5, 3, 0, 0),
                             child: Text(
-                              'Fruit',
+                              'Name',
                               style: TextStyle(
                                 color: Colors.black26,
                                 fontSize: 20.0,

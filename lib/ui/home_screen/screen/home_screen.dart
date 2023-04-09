@@ -81,25 +81,29 @@ class HomeScreen extends StatelessWidget {
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceAround,
                                       children: const [
-                                        FittedBox(
-                                          fit: BoxFit.contain,
-                                          child: Text(
-                                            'SCAN TO LEARN ABOUT',
-                                            style: TextStyle(
-                                              fontSize: 22.0,
-                                              fontWeight: FontWeight.w700,
-                                              color: Colors.white,
+                                        Expanded(
+                                          child: FittedBox(
+                                            fit: BoxFit.fitWidth,
+                                            child: Text(
+                                              'SCAN TO LEARN ABOUT',
+                                              style: TextStyle(
+                                                fontSize: 22.0,
+                                                fontWeight: FontWeight.w700,
+                                                color: Colors.white,
+                                              ),
                                             ),
                                           ),
                                         ),
-                                        FittedBox(
-                                          fit: BoxFit.contain,
-                                          child: Text(
-                                            'FRUITS AND VEGETABLES',
-                                            style: TextStyle(
-                                              fontSize: 22.0,
-                                              fontWeight: FontWeight.w700,
-                                              color: Colors.white,
+                                        Expanded(
+                                          child: FittedBox(
+                                            fit: BoxFit.fitWidth,
+                                            child: Text(
+                                              'FRUITS AND VEGETABLES',
+                                              style: TextStyle(
+                                                fontSize: 22.0,
+                                                fontWeight: FontWeight.w700,
+                                                color: Colors.white,
+                                              ),
                                             ),
                                           ),
                                         ),
