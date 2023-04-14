@@ -1,10 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:nutria/blocs/recommendations_bloc/recommendations_bloc.dart';
 
 import '../widgets/category_box.dart';
 import '../widgets/recommendation_carousel.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(Duration.zero, () {
+      context.read<RecommendationsBloc>().add(GetRecommendations());
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
