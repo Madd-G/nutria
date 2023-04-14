@@ -40,6 +40,7 @@ dependencies:
   hydrated_bloc: ^8.1.0
   google_nav_bar: ^5.0.6
   meta:
+  dio: ^5.1.1
 
 dev_dependencies:
   flutter_test:
