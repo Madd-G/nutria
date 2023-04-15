@@ -2,24 +2,24 @@ part of 'screen_bloc.dart';
 
 @immutable
 abstract class ScreenState {
-  final int index;
-
-  const ScreenState({required this.index});
+  final String route;
+  final int? index;
+  const ScreenState({required this.route, this.index});
 }
 
 class InitialState extends ScreenState {
   @override
-  const InitialState() : super(index: 1);
+  const InitialState() : super(index: 1, route: '/');
 }
 
-class ScanState extends ScreenState {
-  const ScanState() : super(index: 0);
+class ScreenStateIsInScanScreen extends ScreenState {
+  const ScreenStateIsInScanScreen({required super.index, required super.route});
 }
 
-class HomeState extends ScreenState {
-  const HomeState() : super(index: 1);
+class ScreenStateIsInHomeScreen extends ScreenState {
+  const ScreenStateIsInHomeScreen({required super.index, required super.route});
 }
 
-class ProfileState extends ScreenState {
-  const ProfileState() : super(index: 2);
+class ScreenStateIsInProfileScreen extends ScreenState {
+  const ScreenStateIsInProfileScreen({required super.index, required super.route});
 }
