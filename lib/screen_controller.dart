@@ -12,12 +12,17 @@ class ScreenController extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocBuilder<ScreenBloc, ScreenState>(
-          builder: (_, state) => (state is ScanState)
-              ? const ScanScreen()
-              : (state is ProfileState)
-                  ? const ProfileScreen()
-                  : const HomeScreen()),
+      body: BlocBuilder<ScreenBloc, ScreenState>(builder: (_, screenState) {
+        if (screenState is ScreenStateIsInScanScreen) {
+          return const ScanScreen();
+        } else if (screenState is ScreenStateIsInProfileScreen) {
+          return const ProfileScreen();
+        } else if (screenState is ScreenStateIsInHomeScreen) {
+          return const HomeScreen();
+        } else {
+          return Container();
+        }
+      }),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
           color: Colors.white,
@@ -58,14 +63,20 @@ class ScreenController extends StatelessWidget {
                       text: 'PROFILE',
                     ),
                   ],
-                  selectedIndex: state.index,
+                  selectedIndex: state.index!,
                   onTabChange: (index) {
                     if (index == 0) {
-                      context.read<ScreenBloc>().add(ScanEvent());
+                      context
+                          .read<ScreenBloc>()
+                          .add(ScreenEventGoToScanScreen());
                     } else if (index == 1) {
-                      context.read<ScreenBloc>().add(HomeEvent());
+                      context
+                          .read<ScreenBloc>()
+                          .add(ScreenEventGoToHomeScreen());
                     } else if (index == 2) {
-                      context.read<ScreenBloc>().add(ProfileEvent());
+                      context
+                          .read<ScreenBloc>()
+                          .add(ScreenEventGoToProfileScreen());
                     }
                   },
                 );

@@ -6,15 +6,15 @@ part 'screen_event.dart';
 part 'screen_state.dart';
 
 class ScreenBloc extends Bloc<ScreenEvent, ScreenState> {
-  ScreenBloc() : super(const InitialState()) {
-    on<ScanEvent>((event, emit) {
-      emit(const ScanState());
+  ScreenBloc() : super(const ScreenStateIsInHomeScreen(index: 1, route: '/')) {
+    on<ScreenEventGoToScanScreen>((event, emit) {
+      emit(const ScreenStateIsInScanScreen(index: 0, route: '/scan'));
     });
-    on<HomeEvent>((event, emit) {
-      emit(const HomeState());
+    on<ScreenEventGoToHomeScreen>((event, emit) {
+      emit(const ScreenStateIsInHomeScreen(index: 1, route: '/home'));
     });
-    on<ProfileEvent>((event, emit) {
-      emit(const ProfileState());
+    on<ScreenEventGoToProfileScreen>((event, emit) {
+      emit(const ScreenStateIsInProfileScreen(index: 2, route: '/profile'));
     });
   }
 }

@@ -7,17 +7,23 @@ import 'package:nutria/utils/constants.dart';
 
 class Router {
   static Route<dynamic> generateRoute(RouteSettings settings) {
+    print('settings.name: ${settings.name}');
     switch (settings.name) {
       case screenControllerRoute:
-        return MaterialPageRoute(builder: (_) => const ScreenController());
+        return MaterialPageRoute(
+            settings: settings, builder: (_) => const ScreenController());
       case homeRoute:
-        return MaterialPageRoute(builder: (_) => const HomeScreen());
+        return MaterialPageRoute(
+            settings: settings, builder: (_) => const HomeScreen());
       case profileRoute:
-        return MaterialPageRoute(builder: (_) => const ProfileScreen());
+        return MaterialPageRoute(
+            settings: settings, builder: (_) => const ProfileScreen());
       case scanRoute:
-        return MaterialPageRoute(builder: (_) => const ScanScreen());
+        return MaterialPageRoute(
+            settings: settings, builder: (_) => const ScanScreen());
       default:
         return MaterialPageRoute(
+          settings: settings,
           builder: (_) => Scaffold(
             body: Center(child: Text('No route defined for ${settings.name}')),
           ),
