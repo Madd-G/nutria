@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:nutria/blocs/bottom_nav_bar_bloc/bottom_nav_bar_bloc.dart';
+import 'package:nutria/blocs/screen_bloc/screen_bloc.dart';
 import 'package:nutria/ui/home_screen/screen/home_screen.dart';
 import 'package:nutria/ui/profile_screen/screen/profile_screen.dart';
 import 'package:nutria/ui/scan_screen/screen/scan_screen.dart';
@@ -12,7 +12,7 @@ class ScreenController extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocBuilder<BottomNavBarBloc, ScreenState>(
+      body: BlocBuilder<ScreenBloc, ScreenState>(
           builder: (_, state) => (state is ScanState)
               ? const ScanScreen()
               : (state is ProfileState)
@@ -31,7 +31,7 @@ class ScreenController extends StatelessWidget {
         child: SafeArea(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8),
-            child: BlocBuilder<BottomNavBarBloc, ScreenState>(
+            child: BlocBuilder<ScreenBloc, ScreenState>(
               builder: (context, state) {
                 return GNav(
                   rippleColor: Colors.grey[300]!,
@@ -61,11 +61,11 @@ class ScreenController extends StatelessWidget {
                   selectedIndex: state.index,
                   onTabChange: (index) {
                     if (index == 0) {
-                      context.read<BottomNavBarBloc>().add(ScanEvent());
+                      context.read<ScreenBloc>().add(ScanEvent());
                     } else if (index == 1) {
-                      context.read<BottomNavBarBloc>().add(HomeEvent());
+                      context.read<ScreenBloc>().add(HomeEvent());
                     } else if (index == 2) {
-                      context.read<BottomNavBarBloc>().add(ProfileEvent());
+                      context.read<ScreenBloc>().add(ProfileEvent());
                     }
                   },
                 );

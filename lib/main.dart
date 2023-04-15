@@ -4,7 +4,7 @@ import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:nutria/blocs/recommendations_bloc/recommendations_bloc.dart';
 import 'package:nutria/utils/constants.dart';
 import 'blocs/app_bloc_observer.dart';
-import 'blocs/bottom_nav_bar_bloc/bottom_nav_bar_bloc.dart';
+import 'blocs/screen_bloc/screen_bloc.dart';
 import 'router.dart' as router;
 
 void main() async {
@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(
           lazy: false,
-          create: (context) => BottomNavBarBloc(),
+          create: (context) => ScreenBloc(),
         ),
         BlocProvider(
           lazy: true,

@@ -1,4 +1,4 @@
-part of 'bottom_nav_bar_bloc.dart';
+part of 'screen_bloc.dart';
 
 @immutable
 abstract class ScreenEvent {}
