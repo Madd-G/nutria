@@ -1,5 +1,50 @@
 import 'package:flutter/material.dart';
 
+class CategorySection extends StatelessWidget {
+  const CategorySection({
+    super.key,
+    required this.size,
+  });
+
+  final Size size;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        const Align(
+          alignment: Alignment.centerLeft,
+          child: Text(
+            'Category',
+            style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600),
+          ),
+        ),
+        SizedBox(
+          height: size.height * 0.01,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: const [
+            CategoryBox(
+              imagePath: 'assets/images/fruit.png',
+              route: '/fruit_list_screen',
+              label: 'Fruit',
+            ),
+            SizedBox(
+              width: 10.0,
+            ),
+            CategoryBox(
+              imagePath: 'assets/images/vegetable.png',
+              route: '/vegetable_list_screen',
+              label: 'Vegetable',
+            )
+          ],
+        ),
+      ],
+    );
+  }
+}
+
 class CategoryBox extends StatelessWidget {
   final String imagePath;
   final String route;
