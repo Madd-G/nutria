@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:nutria/blocs/screen_bloc/screen_bloc.dart';
 import 'package:nutria/ui/home_screen/screen/home_screen.dart';
+import 'package:nutria/ui/login_screen/screen/login_screen.dart';
 import 'package:nutria/ui/profile_screen/screen/profile_screen.dart';
 import 'package:nutria/ui/scan_screen/screen/scan_screen.dart';
 
@@ -12,17 +13,27 @@ class ScreenController extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocBuilder<ScreenBloc, ScreenState>(builder: (_, screenState) {
-        if (screenState is ScreenStateIsInScanScreen) {
-          return const ScanScreen();
-        } else if (screenState is ScreenStateIsInProfileScreen) {
-          return const ProfileScreen();
-        } else if (screenState is ScreenStateIsInHomeScreen) {
-          return const HomeScreen();
-        } else {
-          return Container();
-        }
-      }),
+      body: BlocBuilder<ScreenBloc, ScreenState>(
+        builder: (_, screenState) {
+          if (screenState is ScreenStateIsInScreenController) {
+            return const HomeScreen();
+          } else if (screenState is ScreenStateIsInScanScreen) {
+            return const ScanScreen();
+          } else if (screenState is ScreenStateIsInProfileScreen) {
+            return const ProfileScreen();
+          } else if (screenState is ScreenStateIsInHomeScreen) {
+            return const HomeScreen();
+          } else if (screenState is ScreenStateIsInLoginScreen) {
+            return const LoginScreen();
+          } else {
+            return const Scaffold(
+              body: Center(
+                child: Text('Screen Controller builder error'),
+              ),
+            );
+          }
+        },
+      ),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
           color: Colors.white,
@@ -63,7 +74,11 @@ class ScreenController extends StatelessWidget {
                       text: 'PROFILE',
                     ),
                   ],
-                  selectedIndex: state.index!,
+                  selectedIndex: (state is ScreenStateIsInScanScreen)
+                      ? 0
+                      : (state is ScreenStateIsInProfileScreen)
+                          ? 2
+                          : 1,
                   onTabChange: (index) {
                     if (index == 0) {
                       context

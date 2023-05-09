@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>210550974337-68l7dobh86q17rjo5b254scb3tbs60g5.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.210550974337-68l7dobh86q17rjo5b254scb3tbs60g5</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAZcdmJcoUXiY0tM7mQRQN3I9UnWn-onTQ</string>
+	<key>GCM_SENDER_ID</key>
+	<string>210550974337</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.nutria</string>
+	<key>PROJECT_ID</key>
+	<string>nutria-29b7b</string>
+	<key>STORAGE_BUCKET</key>
+	<string>nutria-29b7b.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:210550974337:ios:6d80cc391991d7618cea80</string>
+</dict>
+</plist>
