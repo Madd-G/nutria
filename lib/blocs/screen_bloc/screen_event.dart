@@ -14,3 +14,7 @@ class ScreenEventGoToRegistrationScreen extends ScreenEvent {}
 class ScreenEventGoToLoginScreen extends ScreenEvent {}
 
 class ScreenEventGoToScreenController extends ScreenEvent {}
+
+class ScreenEventIsInUserDataScreen extends ScreenEvent {}
+
+class ScreenEventIsInChangePasswordScreen extends ScreenEvent {}

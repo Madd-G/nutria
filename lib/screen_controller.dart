@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:nutria/blocs/screen_bloc/screen_bloc.dart';
-import 'package:nutria/ui/home_screen/screen/home_screen.dart';
-import 'package:nutria/ui/login_screen/screen/login_screen.dart';
-import 'package:nutria/ui/profile_screen/screen/profile_screen.dart';
-import 'package:nutria/ui/scan_screen/screen/scan_screen.dart';
+import 'ui/screen_imports.dart';
+import 'blocs/bloc_imports.dart';
 
 class ScreenController extends StatelessWidget {
   const ScreenController({super.key});
