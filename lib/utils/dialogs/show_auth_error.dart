@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart' show BuildContext;
 import '../auth/auth_error.dart';
-import 'generic_dialog.dart';
+import 'dialogs.dart';
 
 Future<void> showAuthError({
   required AuthError authError,
