@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:nutria/blocs/bloc_imports.dart';
-import '../../../utils/dialogs/logout_dialog.dart';
+import 'package:nutria/blocs/blocs.dart';
+import '../../../utils/dialogs/dialogs.dart';
 
 class LogoutButton extends StatelessWidget {
   const LogoutButton({

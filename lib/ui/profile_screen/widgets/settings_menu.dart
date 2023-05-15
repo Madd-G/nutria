@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:nutria/blocs/bloc_imports.dart';
+import 'package:nutria/blocs/blocs.dart';
+import '../../../utils/dialogs/dialogs.dart';
 
 class SettingsMenu extends StatefulWidget {
   const SettingsMenu({Key? key}) : super(key: key);
@@ -15,6 +16,7 @@ class _SettingsMenuState extends State<SettingsMenu> {
   @override
   Widget build(BuildContext context) {
     final screenBloc = context.read<ScreenBloc>();
+    final authBloc = context.read<AuthBloc>();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -116,12 +118,21 @@ class _SettingsMenuState extends State<SettingsMenu> {
                 height: 5,
                 thickness: 1,
               ),
-              const ListTile(
-                leading: Icon(
+              ListTile(
+                onTap: () async {
+                  final shouldDeleteAccount =
+                      await showDeleteAccountDialog(context);
+                  if (shouldDeleteAccount) {
+                    authBloc.add(
+                      const AuthEventDeleteAccount(),
+                    );
+                  }
+                },
+                leading: const Icon(
                   Icons.delete_forever,
                   size: 30.0,
                 ),
-                title: Text(
+                title: const Text(
                   'Delete Account',
                   style: TextStyle(fontSize: 20.0),
                 ),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nutria/blocs/bloc_imports.dart';
+import 'package:nutria/blocs/blocs.dart';
 
 class UserDataScreen extends StatefulWidget {
   const UserDataScreen({Key? key}) : super(key: key);

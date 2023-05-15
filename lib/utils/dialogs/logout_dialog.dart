@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart' show BuildContext;
-import 'generic_dialog.dart';
+import 'dialogs.dart';
 
 Future<bool> showLogOutDialog(BuildContext context) {
   return showGenericDialog<bool>(
