@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nutria/screen_controller.dart';
-import 'package:nutria/ui/home_screen/screen/home_screen.dart';
-import 'package:nutria/ui/login_screen/screen/login_screen.dart';
-import 'package:nutria/ui/profile_screen/screen/profile_screen.dart';
-import 'package:nutria/ui/register_screen/screen/register_screen.dart';
-import 'package:nutria/ui/scan_screen/screen/scan_screen.dart';
 import 'package:nutria/utils/constants.dart';
+import 'ui/screen_imports.dart';
 
 class Router {
   static Route<dynamic> generateRoute(RouteSettings settings) {

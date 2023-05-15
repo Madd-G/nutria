@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 
@@ -10,38 +9,32 @@ part 'screen_event.dart';
 part 'screen_state.dart';
 
 class ScreenBloc extends Bloc<ScreenEvent, ScreenState> {
-  ScreenBloc()
-      : super(const ScreenStateIsInLoginScreen(
-            isLoading: false, route: '/login')) {
+  ScreenBloc() : super(const ScreenStateIsInLoginScreen(isLoading: false)) {
     on<ScreenEventGoToScanScreen>((event, emit) {
-      emit(const ScreenStateIsInScanScreen(
-          index: 0, route: '/scan', isLoading: false));
+      emit(const ScreenStateIsInScanScreen(isLoading: false));
     });
     on<ScreenEventGoToHomeScreen>((event, emit) {
-      emit(const ScreenStateIsInHomeScreen(
-          index: 1, route: '/home', isLoading: false));
+      emit(const ScreenStateIsInHomeScreen(isLoading: false));
     });
     on<ScreenEventGoToProfileScreen>((event, emit) {
-      emit(const ScreenStateIsInProfileScreen(
-          index: 2, route: '/profile', isLoading: false));
+      emit(const ScreenStateIsInProfileScreen(isLoading: false));
     });
 
     on<ScreenEventGoToRegistrationScreen>((event, emit) {
-      emit(const ScreenStateIsInRegistrationScreen(
-          route: '/registration', isLoading: false));
+      emit(const ScreenStateIsInRegistrationScreen(isLoading: false));
     });
     on<ScreenEventGoToLoginScreen>((event, emit) {
-      emit(const ScreenStateIsInLoginScreen(route: '/login', isLoading: false));
+      emit(const ScreenStateIsInLoginScreen(isLoading: false));
     });
     on<ScreenEventGoToScreenController>((event, emit) {
-      emit(const ScreenStateIsInScreenController(
-          route: '/controller', isLoading: false));
+      emit(const ScreenStateIsInScreenController(isLoading: false));
     });
-  }
 
-  @override
-  Future<void> close() {
-    // dispose
-    return super.close();
+    on<ScreenEventIsInUserDataScreen>((event, emit) {
+      emit(const ScreenStateIsInUserDataScreen(isLoading: false));
+    });
+    on<ScreenEventIsInChangePasswordScreen>((event, emit) {
+      emit(const ScreenStateIsInChangePasswordScreen(isLoading: false));
+    });
   }
 }

@@ -1,16 +1,12 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:nutria/blocs/auth_bloc/auth_bloc.dart';
-import 'package:nutria/blocs/recommendations_bloc/recommendations_bloc.dart';
 import 'package:nutria/screen_controller.dart';
-import 'package:nutria/ui/login_screen/screen/login_screen.dart';
-import 'package:nutria/ui/register_screen/screen/register_screen.dart';
 import 'package:nutria/utils/dialogs/show_auth_error.dart';
 import 'package:nutria/utils/loading/loading_screen.dart';
-import 'blocs/screen_bloc/screen_bloc.dart';
 import 'firebase_options.dart';
+import 'ui/screen_imports.dart';
+import 'blocs/bloc_imports.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -102,6 +98,10 @@ class MyApp extends StatelessWidget {
                 return const ScreenController();
               } else if (screenState is ScreenStateIsInProfileScreen) {
                 return const ScreenController();
+              } else if (screenState is ScreenStateIsInUserDataScreen) {
+                return const UserDataScreen();
+              }else if (screenState is ScreenStateIsInChangePasswordScreen) {
+                return const ChangePasswordScreen();
               } else {
                 // this should never happen
                 return const Scaffold(
