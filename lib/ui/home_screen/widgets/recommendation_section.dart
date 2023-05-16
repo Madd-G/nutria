@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../blocs/bloc_imports.dart';
+import '../../../blocs/blocs.dart';
 
 class RecommendationSection extends StatelessWidget {
   const RecommendationSection({

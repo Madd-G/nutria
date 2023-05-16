@@ -2,7 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 
 import '../../utils/auth/auth_error.dart';
-import '../bloc_imports.dart';
+import '../blocs.dart';
 
 part 'screen_event.dart';
 

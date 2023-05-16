@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nutria/blocs/bloc_imports.dart';
+import 'package:nutria/blocs/blocs.dart';
 import 'package:nutria/utils/extensions/extensions.dart';
 
 class LoginScreen extends StatefulWidget {

@@ -2,11 +2,11 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:nutria/screen_controller.dart';
-import 'package:nutria/utils/dialogs/show_auth_error.dart';
+import 'package:nutria/utils/dialogs/dialogs.dart';
 import 'package:nutria/utils/loading/loading_screen.dart';
 import 'firebase_options.dart';
-import 'ui/screen_imports.dart';
-import 'blocs/bloc_imports.dart';
+import 'ui/screens.dart';
+import 'blocs/blocs.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -50,8 +50,6 @@ class MyApp extends StatelessWidget {
             primary: const Color(0xff58D7B7),
           ),
         ),
-        // initialRoute: loginRoute,
-        // onGenerateRoute: router.Router.generateRoute,
         home: BlocListener<AuthBloc, AuthState>(
           listener: (context, state) {
             if (state is AuthStateLoggedIn) {
@@ -100,7 +98,7 @@ class MyApp extends StatelessWidget {
                 return const ScreenController();
               } else if (screenState is ScreenStateIsInUserDataScreen) {
                 return const UserDataScreen();
-              }else if (screenState is ScreenStateIsInChangePasswordScreen) {
+              } else if (screenState is ScreenStateIsInChangePasswordScreen) {
                 return const ChangePasswordScreen();
               } else {
                 // this should never happen

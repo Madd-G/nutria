@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:nutria/blocs/bloc_imports.dart';
 import '../widgets/widgets.dart';
+import 'package:nutria/blocs/blocs.dart';
 
 class UserDataScreen extends StatelessWidget {
   const UserDataScreen({Key? key}) : super(key: key);

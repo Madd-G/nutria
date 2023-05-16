@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'ui/screen_imports.dart';
-import 'blocs/bloc_imports.dart';
+import 'ui/screens.dart';
+import 'blocs/blocs.dart';
 
 class ScreenController extends StatelessWidget {
   const ScreenController({super.key});

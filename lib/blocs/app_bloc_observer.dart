@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'bloc_imports.dart';
+import 'blocs.dart';
 
 class AppBlocObserver extends BlocObserver {
   @override

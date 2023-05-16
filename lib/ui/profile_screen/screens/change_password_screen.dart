@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:nutria/blocs/bloc_imports.dart';
 import '../widgets/widgets.dart';
+import 'package:nutria/blocs/blocs.dart';
 
 class ChangePasswordScreen extends StatelessWidget {
   const ChangePasswordScreen({Key? key}) : super(key: key);
