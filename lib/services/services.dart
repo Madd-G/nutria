@@ -22,7 +22,9 @@ class ApiService {
 
   final Dio _dio = Dio();
 
-  final String _baseUrl = 'http://127.0.0.1:8000/nutria/';
+  // final String _baseUrl = 'http://127.0.0.1:8000/nutria/';
+  final String _baseUrl = 'http://192.168.18.55:8000/nutria/';
+  // final String _baseUrl = 'http://10.0.2.2:8000/nutria/';
 
   Future<RecommendationsModel> fetchRecommendations() async {
     try {
