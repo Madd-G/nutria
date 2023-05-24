@@ -69,15 +69,12 @@ class ScanScreenState extends State<ScanScreen> {
             color: Colors.white, fontSize: 20.0, fontWeight: FontWeight.bold),
       );
     }
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: <Widget>[
-        Expanded(
-          flex: 2,
-          child: CameraPreview(cameraController!),
-        ),
-      ],
+    return AspectRatio(
+      aspectRatio: 1 / cameraController!.value.aspectRatio,
+      child: CameraPreview(
+        cameraController!,
+        child: CameraPreview(cameraController!)
+      ),
     );
   }
 
