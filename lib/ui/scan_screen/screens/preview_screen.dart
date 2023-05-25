@@ -1,6 +1,6 @@
 import 'dart:io';
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 
 class PreviewScreen extends StatefulWidget {
   final XFile imgPath;
@@ -12,14 +12,15 @@ class PreviewScreen extends StatefulWidget {
 }
 
 class PreviewScreenState extends State<PreviewScreen> {
+  CameraController? cameraController;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black,
       body: Stack(
         children: [
-          SizedBox(
-            width: double.infinity,
-            height: 800.0,
+          Center(
             child: Image.file(
               File(widget.imgPath.path),
               fit: BoxFit.fitWidth,
