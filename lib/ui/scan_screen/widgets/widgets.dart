@@ -1,2 +1,4 @@
 export 'camera_screen_header.dart';
 export 'camera_content.dart';
+export 'image_preview.dart';
+export 'identify_button.dart';

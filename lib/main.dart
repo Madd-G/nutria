@@ -13,14 +13,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  // HydratedBloc.storage = await HydratedStorage.build(
-  //   storageDirectory: await getTemporaryDirectory(),
-  // );
   runApp(const MyApp());
-  // HydratedBlocOverrides.runZoned(
-  //   () => runApp(const MyApp()),
-  //   blocObserver: AppBlocObserver(),
-  // );
 }
 
 class MyApp extends StatelessWidget {
@@ -42,6 +35,10 @@ class MyApp extends StatelessWidget {
           lazy: true,
           create: (context) => RecommendationsBloc(),
         ),
+        BlocProvider(
+          lazy: true,
+          create: (context) => PredictionBloc(),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -62,7 +59,6 @@ class MyApp extends StatelessWidget {
                     ScreenEventGoToLoginScreen(),
                   );
             }
-
             if (state.isLoading) {
               LoadingScreen.instance().show(
                 context: context,

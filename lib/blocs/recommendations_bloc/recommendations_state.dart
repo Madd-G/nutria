@@ -5,18 +5,20 @@ abstract class RecommendationsState {}
 
 // class RecommendationsInitial extends RecommendationsState {}
 
-class LoadingState extends RecommendationsState {
-}
+@immutable
+class RecommendationsLoadingState extends RecommendationsState {}
 
-class SuccessState extends RecommendationsState {
+@immutable
+class RecommendationsSuccessState extends RecommendationsState {
   final RecommendationsModel recommendations;
 
-  SuccessState(this.recommendations);
+  RecommendationsSuccessState(this.recommendations);
 }
 
-class ErrorState extends RecommendationsState {
+@immutable
+class RecommendationsErrorState extends RecommendationsState {
   final Object error;
   final String errorMessage;
 
-  ErrorState(this.error, this.errorMessage);
+  RecommendationsErrorState(this.error, this.errorMessage);
 }

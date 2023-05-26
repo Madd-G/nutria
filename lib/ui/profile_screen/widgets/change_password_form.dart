@@ -27,7 +27,7 @@ class _ChangePasswordFormState extends State<ChangePasswordForm> {
 
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
+    Size size = MediaQuery.of(context).size;
 
     return Expanded(
       child: Form(

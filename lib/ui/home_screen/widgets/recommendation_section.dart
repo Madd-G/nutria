@@ -47,14 +47,14 @@ class RecommendationCarousel extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<RecommendationsBloc, RecommendationsState>(
       builder: (context, state) {
-        if (state is LoadingState) {
+        if (state is RecommendationsLoadingState) {
           return const SizedBox(
             height: 150.0,
             child: Center(
               child: CircularProgressIndicator(),
             ),
           );
-        } else if (state is ErrorState) {
+        } else if (state is RecommendationsErrorState) {
           return SizedBox(
             height: 150.0,
             child: Column(
@@ -79,7 +79,7 @@ class RecommendationCarousel extends StatelessWidget {
               ],
             ),
           );
-        } else if (state is SuccessState) {
+        } else if (state is RecommendationsSuccessState) {
           return SizedBox(
             height: 180,
             child: ListView.builder(
