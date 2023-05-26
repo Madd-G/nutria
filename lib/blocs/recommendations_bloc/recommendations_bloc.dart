@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
-import 'package:nutria/models/recommendations_model.dart';
+import 'package:nutria/models/models.dart';
 import '../../services/services.dart';
 
 part 'recommendations_event.dart';
@@ -9,17 +9,17 @@ part 'recommendations_state.dart';
 
 class RecommendationsBloc
     extends Bloc<RecommendationsEvent, RecommendationsState> {
-  RecommendationsBloc() : super(LoadingState()) {
+  RecommendationsBloc() : super(RecommendationsLoadingState()) {
     final ApiService service = ApiService();
-    on<RecommendationsEvent>(
+    on<GetRecommendations>(
       (event, emit) async {
         try {
-          emit(LoadingState());
+          emit(RecommendationsLoadingState());
           final RecommendationsModel result =
               await service.fetchRecommendations();
-          emit(SuccessState(result));
+          emit(RecommendationsSuccessState(result));
         } catch (e) {
-          emit(ErrorState(e, e.toString()));
+          emit(RecommendationsErrorState(e, e.toString()));
         }
       },
     );

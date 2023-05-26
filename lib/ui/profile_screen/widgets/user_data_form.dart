@@ -21,7 +21,7 @@ class _UserDataFormState extends State<UserDataForm> {
 
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery
+    Size size = MediaQuery
         .of(context)
         .size;
 
