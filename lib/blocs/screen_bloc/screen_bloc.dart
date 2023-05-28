@@ -34,10 +34,10 @@ class ScreenBloc extends Bloc<ScreenEvent, ScreenState> {
       emit(const ScreenStateIsInListScreen(isLoading: false));
     });
 
-    on<ScreenEventIsInUserDataScreen>((event, emit) {
+    on<ScreenEventGoToUserDataScreen>((event, emit) {
       emit(const ScreenStateIsInUserDataScreen(isLoading: false));
     });
-    on<ScreenEventIsInChangePasswordScreen>((event, emit) {
+    on<ScreenEventGoToChangePasswordScreen>((event, emit) {
       emit(const ScreenStateIsInChangePasswordScreen(isLoading: false));
     });
   }
