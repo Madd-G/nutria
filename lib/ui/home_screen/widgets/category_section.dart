@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nutria/blocs/blocs.dart';
 
 class CategorySection extends StatelessWidget {
   const CategorySection({
@@ -24,19 +25,29 @@ class CategorySection extends StatelessWidget {
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: const [
+          children: [
             CategoryBox(
               imagePath: 'assets/images/fruit.png',
               route: '/fruit_list_screen',
               label: 'Fruit',
+              onTap: () {
+                context.read<ScreenBloc>().add(
+                      ScreenEventGoToListScreen(),
+                    );
+              },
             ),
-            SizedBox(
+            const SizedBox(
               width: 10.0,
             ),
             CategoryBox(
               imagePath: 'assets/images/vegetable.png',
               route: '/vegetable_list_screen',
               label: 'Vegetable',
+              onTap: () {
+                context.read<ScreenBloc>().add(
+                      ScreenEventGoToListScreen(),
+                    );
+              },
             )
           ],
         ),
@@ -49,17 +60,19 @@ class CategoryBox extends StatelessWidget {
   final String imagePath;
   final String route;
   final String label;
+  final VoidCallback onTap;
 
   const CategoryBox(
       {super.key,
       required this.imagePath,
       required this.route,
-      required this.label});
+      required this.label,
+      required this.onTap});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: onTap,
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 15.0),
         width: MediaQuery.of(context).size.width * 0.45,

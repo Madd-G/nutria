@@ -3,18 +3,29 @@ part of 'screen_bloc.dart';
 @immutable
 abstract class ScreenEvent {}
 
+@immutable
 class ScreenEventGoToScanScreen extends ScreenEvent {}
 
+@immutable
 class ScreenEventGoToHomeScreen extends ScreenEvent {}
 
+@immutable
 class ScreenEventGoToProfileScreen extends ScreenEvent {}
 
+@immutable
 class ScreenEventGoToRegistrationScreen extends ScreenEvent {}
 
+@immutable
 class ScreenEventGoToLoginScreen extends ScreenEvent {}
 
+@immutable
 class ScreenEventGoToScreenController extends ScreenEvent {}
 
+@immutable
+class ScreenEventGoToListScreen extends ScreenEvent {}
+
+@immutable
 class ScreenEventIsInUserDataScreen extends ScreenEvent {}
 
+@immutable
 class ScreenEventIsInChangePasswordScreen extends ScreenEvent {}
