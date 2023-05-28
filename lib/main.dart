@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           lazy: true,
-          create: (context) => RecommendationsBloc(),
+          create: (context) => DataBloc(),
         ),
         BlocProvider(
           lazy: true,

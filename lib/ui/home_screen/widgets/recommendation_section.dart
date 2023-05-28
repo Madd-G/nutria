@@ -45,16 +45,16 @@ class RecommendationCarousel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<RecommendationsBloc, RecommendationsState>(
+    return BlocBuilder<DataBloc, DataState>(
       builder: (context, state) {
-        if (state is RecommendationsLoadingState) {
+        if (state is LoadingState) {
           return const SizedBox(
             height: 150.0,
             child: Center(
               child: CircularProgressIndicator(),
             ),
           );
-        } else if (state is RecommendationsErrorState) {
+        } else if (state is ErrorState) {
           return SizedBox(
             height: 150.0,
             child: Column(
@@ -66,9 +66,7 @@ class RecommendationCarousel extends StatelessWidget {
                 ),
                 IconButton(
                   onPressed: () {
-                    context
-                        .read<RecommendationsBloc>()
-                        .add(GetRecommendations());
+                    context.read<DataBloc>().add(GetRecommendations());
                   },
                   icon: Icon(
                     Icons.refresh,

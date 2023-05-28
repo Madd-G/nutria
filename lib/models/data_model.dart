@@ -1,11 +1,11 @@
-class RecommendationsModel {
+class DataModel {
   List<Data>? data;
 
-  RecommendationsModel({
+  DataModel({
     this.data,
   });
 
-  RecommendationsModel.fromJson(Map<String, dynamic> json) {
+  DataModel.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
       data = <Data>[];
       json['data'].forEach((v) {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/widgets.dart';
 
 class FruitsVegetablesListContent extends StatelessWidget {
   const FruitsVegetablesListContent({
@@ -26,16 +27,8 @@ class FruitsVegetablesListContent extends StatelessWidget {
             height: 500,
             child: TabBarView(
               children: [
-                SizedBox(
-                  child: Center(
-                    child: Text('Fruit'),
-                  ),
-                ),
-                SizedBox(
-                  child: Center(
-                    child: Text('Vegetable'),
-                  ),
-                ),
+                FruitContent(),
+                VegetableContent(),
               ],
             ),
           ),

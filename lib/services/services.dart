@@ -22,12 +22,31 @@ class ApiService {
   }
 
   final Dio _dio = Dio();
-  final String _baseUrl = 'http://192.168.18.55:8000/nutria/';
+  // final String _baseUrl = 'http://192.168.18.55:8000/nutria/';
+  final String _baseUrl = 'http://10.0.2.2:8000/nutria/';
 
-  Future<RecommendationsModel> fetchRecommendations() async {
+  Future<DataModel> fetchRecommendations() async {
     try {
       final response = await _dio.get('${_baseUrl}get-all');
-      return RecommendationsModel.fromJson(response.data);
+      return DataModel.fromJson(response.data);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<DataModel> fetchFruits() async {
+    try {
+      final response = await _dio.get('${_baseUrl}get-fruit');
+      return DataModel.fromJson(response.data);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<DataModel> fetchVegetables() async {
+    try {
+      final response = await _dio.get('${_baseUrl}get-vegetable');
+      return DataModel.fromJson(response.data);
     } catch (e) {
       rethrow;
     }

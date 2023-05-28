@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:nutria/blocs/recommendations_bloc/recommendations_bloc.dart';
 import '../widgets/widgets.dart';
+import 'package:nutria/blocs/blocs.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -17,7 +16,7 @@ class _HomeScreenState extends State<HomeScreen> {
     Future.delayed(
       Duration.zero,
       () {
-        context.read<RecommendationsBloc>().add(GetRecommendations());
+        context.read<DataBloc>().add(GetRecommendations());
       },
     );
   }
