@@ -70,3 +70,9 @@ class ScreenStateIsInChangePasswordScreen extends ScreenState {
       {required bool isLoading, AuthError? authError})
       : super(isLoading: isLoading);
 }
+
+class ScreenStateIsInListScreen extends ScreenState {
+  const ScreenStateIsInListScreen(
+      {required bool isLoading, AuthError? authError})
+      : super(isLoading: isLoading);
+}
