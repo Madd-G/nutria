@@ -57,7 +57,7 @@ class _SettingsMenuState extends State<SettingsMenu> {
                 ),
                 trailing: const Icon(Icons.arrow_forward_ios),
                 onTap: () {
-                  screenBloc.add(ScreenEventIsInUserDataScreen());
+                  screenBloc.add(ScreenEventGoToUserDataScreen());
                 },
               ),
               const Divider(
@@ -75,7 +75,7 @@ class _SettingsMenuState extends State<SettingsMenu> {
                 ),
                 trailing: const Icon(Icons.arrow_forward_ios),
                 onTap: () {
-                  screenBloc.add(ScreenEventIsInChangePasswordScreen());
+                  screenBloc.add(ScreenEventGoToChangePasswordScreen());
                 },
               ),
               const Divider(

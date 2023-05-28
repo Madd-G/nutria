@@ -25,7 +25,7 @@ class ScreenEventGoToScreenController extends ScreenEvent {}
 class ScreenEventGoToListScreen extends ScreenEvent {}
 
 @immutable
-class ScreenEventIsInUserDataScreen extends ScreenEvent {}
+class ScreenEventGoToUserDataScreen extends ScreenEvent {}
 
 @immutable
-class ScreenEventIsInChangePasswordScreen extends ScreenEvent {}
+class ScreenEventGoToChangePasswordScreen extends ScreenEvent {}
