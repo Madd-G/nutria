@@ -8,69 +8,63 @@ abstract class ScreenState {
   const ScreenState({required this.isLoading, this.authError});
 }
 
-// class ScreenStateInitial extends ScreenState {
-//   final AuthBloc? authBloc;
-//   StreamSubscription? streamSubscription;
-//
-//   @override
-//   ScreenStateInitial({this.authBloc, required bool isLoading, AuthError? authError, required String route}) : super(isLoading: false, route: '') {
-//     streamSubscription = authBloc!.stream.listen((state) {
-//       if (state.isLogin == true ) {
-//        authBloc!.add(const AuthEventInitial());
-//       }
-//     });
-//
-//   }
-// }
-
+@immutable
 class ScreenStateIsInScanScreen extends ScreenState {
   const ScreenStateIsInScanScreen(
       {required bool isLoading, AuthError? authError})
       : super(isLoading: isLoading);
 }
 
+@immutable
 class ScreenStateIsInHomeScreen extends ScreenState {
   const ScreenStateIsInHomeScreen(
       {required bool isLoading, AuthError? authError})
       : super(isLoading: isLoading);
 }
 
+@immutable
 class ScreenStateIsInProfileScreen extends ScreenState {
   const ScreenStateIsInProfileScreen(
       {required bool isLoading, AuthError? authError})
       : super(isLoading: isLoading);
 }
 
+@immutable
 class ScreenStateIsInRegistrationScreen extends ScreenState {
   const ScreenStateIsInRegistrationScreen(
       {required bool isLoading, AuthError? authError})
       : super(isLoading: isLoading);
 }
 
+@immutable
 class ScreenStateIsInLoginScreen extends ScreenState {
   const ScreenStateIsInLoginScreen(
       {required bool isLoading, AuthError? authError})
       : super(isLoading: isLoading);
 }
 
+@immutable
 class ScreenStateIsInScreenController extends ScreenState {
   const ScreenStateIsInScreenController(
       {required bool isLoading, AuthError? authError})
       : super(isLoading: isLoading);
 }
 
+@immutable
 class ScreenStateIsInUserDataScreen extends ScreenState {
   const ScreenStateIsInUserDataScreen(
       {required bool isLoading, AuthError? authError})
       : super(isLoading: isLoading);
 }
 
+@immutable
 class ScreenStateIsInChangePasswordScreen extends ScreenState {
   const ScreenStateIsInChangePasswordScreen(
       {required bool isLoading, AuthError? authError})
       : super(isLoading: isLoading);
 }
 
+@immutable
 class ScreenStateIsInListScreen extends ScreenState {
   const ScreenStateIsInListScreen(
       {required bool isLoading, AuthError? authError})
