@@ -11,6 +11,8 @@ class CategorySection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ScreenBloc screenBloc = context.read<ScreenBloc>();
+    final TabBloc tabBloc = context.read<TabBloc>();
     return Column(
       children: [
         const Align(
@@ -28,12 +30,10 @@ class CategorySection extends StatelessWidget {
           children: [
             CategoryBox(
               imagePath: 'assets/images/fruit.png',
-              route: '/fruit_list_screen',
               label: 'Fruit',
               onTap: () {
-                context.read<ScreenBloc>().add(
-                      ScreenEventGoToListScreen(),
-                    );
+                tabBloc.add(TabEventFruit());
+                screenBloc.add(ScreenEventGoToListScreen());
               },
             ),
             const SizedBox(
@@ -41,12 +41,10 @@ class CategorySection extends StatelessWidget {
             ),
             CategoryBox(
               imagePath: 'assets/images/vegetable.png',
-              route: '/vegetable_list_screen',
               label: 'Vegetable',
               onTap: () {
-                context.read<ScreenBloc>().add(
-                      ScreenEventGoToListScreen(),
-                    );
+                tabBloc.add(TabEventVegetable());
+                screenBloc.add(ScreenEventGoToListScreen());
               },
             )
           ],
@@ -58,14 +56,12 @@ class CategorySection extends StatelessWidget {
 
 class CategoryBox extends StatelessWidget {
   final String imagePath;
-  final String route;
   final String label;
   final VoidCallback onTap;
 
   const CategoryBox(
       {super.key,
       required this.imagePath,
-      required this.route,
       required this.label,
       required this.onTap});
 
@@ -74,7 +70,6 @@ class CategoryBox extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 15.0),
         width: MediaQuery.of(context).size.width * 0.45,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10.0),

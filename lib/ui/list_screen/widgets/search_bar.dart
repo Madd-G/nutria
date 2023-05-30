@@ -8,6 +8,7 @@ class SearchBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: MediaQuery.of(context).size.height * 0.18,
       color: Theme.of(context).colorScheme.primary,
       child: Padding(
         padding: const EdgeInsets.all(16.0),

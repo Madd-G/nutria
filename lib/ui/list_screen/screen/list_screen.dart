@@ -3,27 +3,55 @@ import '../widgets/widgets.dart';
 import 'package:nutria/blocs/blocs.dart';
 
 class ListScreen extends StatelessWidget {
-  const ListScreen({Key? key}) : super(key: key);
+  const ListScreen({Key? key, this.tabIndex}) : super(key: key);
+
+  final int? tabIndex;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        leading: IconButton(
-          icon: const Icon(
-            Icons.arrow_back_ios,
-            size: 30.0,
+    final TabBloc tabBloc = context.read<TabBloc>();
+
+    return DefaultTabController(
+      initialIndex: (tabBloc.state is TabStateIsInFruitTab) ? 0 : 1,
+      length: 2,
+      child: Scaffold(
+        appBar: AppBar(
+          elevation: 0,
+          leading: IconButton(
+            icon: const Icon(
+              Icons.arrow_back_ios,
+              size: 30.0,
+            ),
+            onPressed: () {
+              context.read<ScreenBloc>().add(ScreenEventGoToHomeScreen());
+            },
           ),
-          onPressed: () {
-            context.read<ScreenBloc>().add(ScreenEventGoToHomeScreen());
-          },
+          title: const Text('Fruits and Vegetables'),
+          bottom: PreferredSize(
+            preferredSize: const Size.fromHeight(200.0),
+            child: Column(
+              children: [
+                const SearchBar(),
+                Material(
+                  color: Colors.white,
+                  child: TabBar(
+                    indicatorColor: Theme.of(context).colorScheme.primary,
+                    labelColor: Colors.black,
+                    tabs: const [
+                      Tab(text: 'Fruit'),
+                      Tab(text: 'Vegetable'),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
         ),
-        title: const Text('Fruits and Vegetables'),
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: const [SearchBar(), FruitsVegetablesListContent()],
+        body: const TabBarView(
+          children: [
+            FruitContent(),
+            VegetableContent(),
+          ],
         ),
       ),
     );
