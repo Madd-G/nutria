@@ -39,6 +39,10 @@ class MyApp extends StatelessWidget {
           lazy: true,
           create: (context) => PredictionBloc(),
         ),
+        BlocProvider(
+          lazy: true,
+          create: (context) => TabBloc(),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
