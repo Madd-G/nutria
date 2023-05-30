@@ -102,6 +102,8 @@ class MyApp extends StatelessWidget {
                 return const ChangePasswordScreen();
               } else if (screenState is ScreenStateIsInListScreen) {
                 return const ListScreen();
+              } else if (screenState is ScreenStateIsInDetailScreen) {
+                return const DetailScreen();
               } else {
                 // this should never happen
                 return const Scaffold(

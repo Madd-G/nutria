@@ -29,3 +29,6 @@ class ScreenEventGoToUserDataScreen extends ScreenEvent {}
 
 @immutable
 class ScreenEventGoToChangePasswordScreen extends ScreenEvent {}
+
+@immutable
+class ScreenEventGoToDetailScreen extends ScreenEvent {}
