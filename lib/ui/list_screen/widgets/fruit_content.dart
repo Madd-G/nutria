@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nutria/blocs/blocs.dart';
 import 'package:nutria/ui/list_screen/widgets/widgets.dart';
+import 'package:nutria/models/models.dart';
 
 class FruitContent extends StatefulWidget {
   const FruitContent({super.key});
@@ -39,7 +40,8 @@ class _FruitContentState extends State<FruitContent> {
               scrollDirection: Axis.vertical,
               itemCount: state.fruits.data?.length,
               itemBuilder: (context, index) {
-                return ProductCard(model: state.fruits, index: index);
+                Data data = state.fruits.data![index];
+                return ProductCard(data: data);
               },
             );
           } else if (state is ErrorState) {
