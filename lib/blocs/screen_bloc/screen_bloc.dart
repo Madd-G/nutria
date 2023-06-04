@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 
+import '../../models/data_model.dart';
 import '../../utils/auth/auth_error.dart';
 import '../blocs.dart';
 
@@ -41,7 +42,8 @@ class ScreenBloc extends Bloc<ScreenEvent, ScreenState> {
       emit(const ScreenStateIsInChangePasswordScreen(isLoading: false));
     });
     on<ScreenEventGoToDetailScreen>((event, emit) {
-      emit(const ScreenStateIsInDetailScreen(isLoading: false));
+      final Data data = event.data;
+      emit(ScreenStateIsInDetailScreen(isLoading: false, data: data));
     });
   }
 }
