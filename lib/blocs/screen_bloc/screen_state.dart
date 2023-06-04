@@ -71,9 +71,10 @@ class ScreenStateIsInListScreen extends ScreenState {
       : super(isLoading: isLoading);
 }
 
-@immutable
 class ScreenStateIsInDetailScreen extends ScreenState {
+  final Data data;
+
   const ScreenStateIsInDetailScreen(
-      {required bool isLoading, AuthError? authError})
+      {required bool isLoading, AuthError? authError, required this.data})
       : super(isLoading: isLoading);
 }

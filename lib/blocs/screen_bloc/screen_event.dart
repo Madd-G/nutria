@@ -31,4 +31,8 @@ class ScreenEventGoToUserDataScreen extends ScreenEvent {}
 class ScreenEventGoToChangePasswordScreen extends ScreenEvent {}
 
 @immutable
-class ScreenEventGoToDetailScreen extends ScreenEvent {}
+class ScreenEventGoToDetailScreen extends ScreenEvent {
+  final Data data;
+
+  ScreenEventGoToDetailScreen({required this.data});
+}
