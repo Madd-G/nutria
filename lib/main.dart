@@ -43,6 +43,10 @@ class MyApp extends StatelessWidget {
           lazy: true,
           create: (context) => TabBloc(),
         ),
+        BlocProvider(
+          lazy: true,
+          create: (context) => SearchBloc(),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -104,6 +108,8 @@ class MyApp extends StatelessWidget {
                 return const ListScreen();
               } else if (screenState is ScreenStateIsInDetailScreen) {
                 return const DetailScreen();
+              } else if (screenState is ScreenStateIsInSearchScreen) {
+                return const SearchScreen();
               } else {
                 // this should never happen
                 return const Scaffold(

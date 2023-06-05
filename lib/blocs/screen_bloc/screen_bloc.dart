@@ -45,5 +45,8 @@ class ScreenBloc extends Bloc<ScreenEvent, ScreenState> {
       final Data data = event.data;
       emit(ScreenStateIsInDetailScreen(isLoading: false, data: data));
     });
+    on<ScreenEventGoToSearchScreen>((event, emit) {
+      emit(const ScreenStateIsInSearchScreen(isLoading: false));
+    });
   }
 }

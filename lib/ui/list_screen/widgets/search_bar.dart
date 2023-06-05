@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nutria/blocs/blocs.dart';
 
 class SearchBar extends StatelessWidget {
   const SearchBar({
@@ -31,22 +32,33 @@ class SearchBar extends StatelessWidget {
                 const SizedBox(
                   height: 20.0,
                 ),
-                TextField(
-                  onChanged: (value) {},
-                  keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
-                    contentPadding:
-                        const EdgeInsets.only(left: 10.0, right: 10.0),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                      borderSide: const BorderSide(
-                        color: Color(0xFFEAEBEF),
+                GestureDetector(
+                  onTap: () {
+                    context
+                        .read<ScreenBloc>()
+                        .add(ScreenEventGoToSearchScreen());
+                  },
+                  child: TextField(
+                    onTap: () {
+                      context
+                          .read<ScreenBloc>()
+                          .add(ScreenEventGoToSearchScreen());
+                    },
+                    readOnly: true,
+                    decoration: InputDecoration(
+                      contentPadding:
+                          const EdgeInsets.only(left: 10.0, right: 10.0),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                        borderSide: const BorderSide(
+                          color: Color(0xFFEAEBEF),
+                        ),
                       ),
-                    ),
-                    filled: true,
-                    fillColor: const Color(0xFFF6F6F6),
-                    hintStyle: const TextStyle(
-                      color: Color(0xFF99A1B5),
+                      filled: true,
+                      fillColor: const Color(0xFFF6F6F6),
+                      hintStyle: const TextStyle(
+                        color: Color(0xFF99A1B5),
+                      ),
                     ),
                   ),
                 )
