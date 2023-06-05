@@ -36,3 +36,6 @@ class ScreenEventGoToDetailScreen extends ScreenEvent {
 
   ScreenEventGoToDetailScreen({required this.data});
 }
+
+@immutable
+class ScreenEventGoToSearchScreen extends ScreenEvent {}

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 class DataModel {
   List<Data>? data;
 
@@ -21,6 +23,11 @@ class DataModel {
     }
     return data;
   }
+}
+
+List<Data> dataModelFromJson(String str) {
+  // print('modelFromJson prediction_model');
+  return List<Data>.from(json.decode(str).map((x) => Data.fromJson(x)));
 }
 
 class Data {
