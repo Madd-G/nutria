@@ -48,6 +48,7 @@ dependencies:
   camera: ^0.9.8+1
   either_option: ^2.0.0
   http: ^0.13.5
+  image_cropper: ^4.0.1
 
 dev_dependencies:
   flutter_test:

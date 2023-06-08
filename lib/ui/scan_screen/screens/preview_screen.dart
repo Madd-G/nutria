@@ -1,11 +1,14 @@
-import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:image_cropper/image_cropper.dart';
 import '../widgets/widgets.dart';
+import 'dart:io';
 
 class PreviewScreen extends StatelessWidget {
-  final XFile imgPath;
+  final File imgPath;
 
-  const PreviewScreen({Key? key, required this.imgPath}) : super(key: key);
+  PreviewScreen({Key? key, required this.imgPath}) : super(key: key);
+
+  final ImageCropper imageCropper = ImageCropper();
 
   @override
   Widget build(BuildContext context) {

@@ -2,7 +2,10 @@ import 'dart:io';
 import 'package:camera/camera.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:nutria/blocs/blocs.dart';
 import '../../screens.dart';
 
 class CameraContent extends StatefulWidget {
@@ -106,6 +109,92 @@ class _CameraContentState extends State<CameraContent> {
     );
   }
 
+  pickImageFromGallery() async {
+    try {
+      XFile? pickedFile = await _picker.pickImage(source: ImageSource.gallery);
+      if (pickedFile == null) return;
+
+      File? img = File(pickedFile.path);
+      img = await cropImage(imageFile: File(pickedFile.path));
+      setState(() {
+        imageFile = img;
+      });
+      if (mounted) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => PreviewScreen(imgPath: imageFile!),
+          ),
+        );
+      }
+    } on PlatformException {
+      context.read<ScreenBloc>().add(ScreenEventGoToScanScreen());
+    }
+  }
+
+  takePictureFromCamera() async {
+    try {
+      await cameraController?.takePicture().then(
+        (value) async {
+          File? img = File(value.path);
+          img = await cropImage(imageFile: File(value.path));
+          if (mounted) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => PreviewScreen(imgPath: img!),
+              ),
+            );
+          }
+        },
+      );
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+    }
+  }
+
+  Future<File?> cropImage({required File imageFile}) async {
+    CroppedFile? croppedImage = await ImageCropper().cropImage(
+        sourcePath: imageFile.path,
+        aspectRatioPresets: (Platform.isAndroid || Platform.isIOS)
+            ? [
+                CropAspectRatioPreset.square,
+                CropAspectRatioPreset.ratio3x2,
+                CropAspectRatioPreset.original,
+                CropAspectRatioPreset.ratio4x3,
+                CropAspectRatioPreset.ratio16x9
+              ]
+            : [
+                CropAspectRatioPreset.original,
+                CropAspectRatioPreset.square,
+                CropAspectRatioPreset.ratio3x2,
+                CropAspectRatioPreset.ratio4x3,
+                CropAspectRatioPreset.ratio5x3,
+                CropAspectRatioPreset.ratio5x4,
+                CropAspectRatioPreset.ratio7x5,
+                CropAspectRatioPreset.ratio16x9
+              ],
+        uiSettings: [
+          AndroidUiSettings(
+            toolbarColor: Theme.of(context).colorScheme.primary,
+            toolbarWidgetColor: Colors.white,
+            initAspectRatio: CropAspectRatioPreset.original,
+            lockAspectRatio: false,
+          ),
+          IOSUiSettings()
+        ]);
+
+    if (croppedImage == null) {
+      (mounted) {
+        context.read<ScreenBloc>().add(ScreenEventGoToScanScreen());
+      };
+    }
+
+    return File(croppedImage!.path);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -130,22 +219,7 @@ class _CameraContentState extends State<CameraContent> {
                     alignment: Alignment.center,
                     child: GestureDetector(
                       onTap: () async {
-                        XFile? pickedFile = await _picker.pickImage(
-                            source: ImageSource.gallery);
-                        if (pickedFile != null) {
-                          setState(() {
-                            imageFile = File(pickedFile.path);
-                          });
-                          if (mounted) {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    PreviewScreen(imgPath: pickedFile),
-                              ),
-                            );
-                          }
-                        }
+                        await pickImageFromGallery();
                       },
                       child: const CircleAvatar(
                         radius: 25,
@@ -163,23 +237,7 @@ class _CameraContentState extends State<CameraContent> {
                       "assets/images/take_photo_button.png",
                     ),
                     onPressed: () async {
-                      try {
-                        await cameraController?.takePicture().then(
-                          (value) {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    PreviewScreen(imgPath: value),
-                              ),
-                            );
-                          },
-                        );
-                      } catch (e) {
-                        if (kDebugMode) {
-                          print(e);
-                        }
-                      }
+                      await takePictureFromCamera();
                     },
                   ),
                 ),
