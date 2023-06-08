@@ -27,6 +27,7 @@ class ApiService {
 
   // final String _baseUrl = 'http://192.168.18.55:8000/nutria/';
   final String _baseUrl = 'http://10.0.2.2:8000/nutria/';
+
   // final String _baseUrl = 'http://127.0.0.1:8000/nutria/';
 
   Future<DataModel> fetchRecommendations() async {
@@ -68,7 +69,7 @@ class ApiService {
   Future<Either<String, List<Data>>> searchForWord(String input) async {
     try {
       final searchWordRequest = await http.Client().get(
-        Uri.parse('http://10.0.2.2:8000/nutria/get-all/$input'),
+        Uri.parse('${_baseUrl}get-all/$input'),
       );
       final wordResponse = dataModelFromJson(searchWordRequest.body);
 

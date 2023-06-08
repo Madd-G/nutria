@@ -13,12 +13,16 @@ class _SearchBarState extends State<SearchBar> {
   TextEditingController searchController = TextEditingController();
 
   @override
+  void dispose() {
+    searchController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
       child: TextFormField(
-        // controller: context.read<SearchBloc>().wordSearchTextFieldController,
-        // controller: context.read<SearchBloc>(),
         controller: searchController,
         keyboardType: TextInputType.text,
         maxLengthEnforcement: MaxLengthEnforcement.enforced,
