@@ -9,3 +9,5 @@ class GetPrediction extends PredictionEvent {
 
   GetPrediction({required this.imagePath});
 }
+
+class ShowResult extends PredictionEvent {}

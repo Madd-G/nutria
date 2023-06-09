@@ -220,6 +220,11 @@ class _CameraContentState extends State<CameraContent> {
                     child: GestureDetector(
                       onTap: () async {
                         await pickImageFromGallery();
+                        (mounted) {
+                          context
+                              .read<ScreenBloc>()
+                              .add(ScreenEventGoToPreviewScreen());
+                        };
                       },
                       child: const CircleAvatar(
                         radius: 25,

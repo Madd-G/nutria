@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nutria/blocs/blocs.dart';
+import 'package:nutria/ui/scan_screen/widgets/widgets.dart';
 
 class IdentifyButton extends StatelessWidget {
   const IdentifyButton({
@@ -22,27 +23,10 @@ class IdentifyButton extends StatelessWidget {
                   .add(GetPrediction(imagePath: imagePath));
               showModalBottomSheet<void>(
                 context: context,
-                builder: (BuildContext context) {
-                  return BlocBuilder<PredictionBloc, PredictionState>(
-                      builder: (context, state) {
-                    if (state is PredictionLoadingState) {
-                      return const Center(child: CircularProgressIndicator());
-                    } else if (state is PredictionSuccessState) {
-                      return Center(
-                        child: Text((double.parse(
-                                    state.predictionModel.confidence) <
-                                0.5)
-                            ? 'No fruit or vegetables detected'
-                            : '${state.predictionModel.className}, confidence: ${double.parse(state.predictionModel.confidence).toStringAsFixed(2)}%'),
-                      );
-                    } else if (state is PredictionErrorState) {
-                      return const Center(child: Text('An error occurred'));
-                      // child: Text('An error occurred'));
-                    } else {
-                      return const SizedBox();
-                    }
-                  });
-                },
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12.0),
+                ),
+                builder: (_) => const PredictionResult(),
               );
             },
             child: const Text('IDENTIFY')),

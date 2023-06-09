@@ -49,7 +49,12 @@ class SearchScreen extends StatelessWidget {
 
   Widget returnOnState(SearchState state) {
     if (state is WordExistState) {
-      return WordsList(state.words);
+      return Column(
+        children: [
+          const Text('haha'),
+          WordsList(state.words),
+        ],
+      );
     } else if (state is SearchingWordState) {
       return const LoadingWidget();
     } else if (state is NotSearchingWordState) {

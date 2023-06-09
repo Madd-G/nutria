@@ -85,3 +85,17 @@ class ScreenStateIsInSearchScreen extends ScreenState {
       {required bool isLoading, AuthError? authError})
       : super(isLoading: isLoading);
 }
+
+@immutable
+class ScreenStateIsInPreviewScreen extends ScreenState {
+  const ScreenStateIsInPreviewScreen(
+      {required bool isLoading, AuthError? authError})
+      : super(isLoading: isLoading);
+}
+
+@immutable
+class ScreenStateIsInDetailObjectScreen extends ScreenState {
+  const ScreenStateIsInDetailObjectScreen(
+      {required bool isLoading, AuthError? authError})
+      : super(isLoading: isLoading);
+}

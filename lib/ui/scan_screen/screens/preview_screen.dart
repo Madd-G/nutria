@@ -17,9 +17,12 @@ class PreviewScreen extends StatelessWidget {
       body: Stack(
         children: [
           ImagePreview(imagePath: imgPath.path),
-          IdentifyButton(imagePath: imgPath.path)
+          IdentifyButton(
+            imagePath: imgPath.path,
+          ),
         ],
       ),
     );
   }
 }
+

@@ -25,7 +25,7 @@ class PredictionBloc extends Bloc<PredictionEvent, PredictionState> {
       try {
         emit(PredictionLoadingState());
         List<PredictionModel> result = await getPrediction(event.imagePath);
-        emit(PredictionSuccessState(result[0]));
+        emit(PredictionSuccessState(result));
       } catch (e) {
         emit(PredictionErrorState(e, e.toString()));
       }
