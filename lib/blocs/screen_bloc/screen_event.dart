@@ -39,3 +39,9 @@ class ScreenEventGoToDetailScreen extends ScreenEvent {
 
 @immutable
 class ScreenEventGoToSearchScreen extends ScreenEvent {}
+
+@immutable
+class ScreenEventGoToPreviewScreen extends ScreenEvent {}
+
+@immutable
+class ScreenEventGoToDetailObjectScreen extends ScreenEvent {}

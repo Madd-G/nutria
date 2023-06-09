@@ -110,6 +110,8 @@ class MyApp extends StatelessWidget {
                 return const DetailScreen();
               } else if (screenState is ScreenStateIsInSearchScreen) {
                 return const SearchScreen();
+              } else if (screenState is ScreenStateIsInDetailObjectScreen) {
+                return const DetailObjectScreen();
               } else {
                 // this should never happen
                 return const Scaffold(

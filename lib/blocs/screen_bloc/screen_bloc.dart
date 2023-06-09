@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
+import 'package:nutria/models/models.dart';
 
 import '../../models/data_model.dart';
 import '../../utils/auth/auth_error.dart';
@@ -47,6 +48,13 @@ class ScreenBloc extends Bloc<ScreenEvent, ScreenState> {
     });
     on<ScreenEventGoToSearchScreen>((event, emit) {
       emit(const ScreenStateIsInSearchScreen(isLoading: false));
+    });
+
+    on<ScreenEventGoToPreviewScreen>((event, emit) {
+      emit(const ScreenStateIsInPreviewScreen(isLoading: false));
+    });
+    on<ScreenEventGoToDetailObjectScreen>((event, emit) {
+      emit(const ScreenStateIsInDetailObjectScreen(isLoading: false));
     });
   }
 }
