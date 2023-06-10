@@ -14,16 +14,13 @@ class PredictionModel {
     required this.confidence,
   });
 
-  factory PredictionModel.fromJson(Map<String, dynamic> json){
+  factory PredictionModel.fromJson(Map<String, dynamic> json) {
     return PredictionModel(
-      classLabel: json["class_label"],
+        classLabel: json["class_label"],
         className: json["class_name"],
         // bbox: json["bbox"],
-        confidence: json["confidence"]
-    );
+        confidence: json["confidence"]);
   }
-
-
 
   Map<String, dynamic> toJson() => {
         "class_label": classLabel,
@@ -34,11 +31,9 @@ class PredictionModel {
 }
 
 List<PredictionModel> modelFromJson(String str) {
-  // print('modelFromJson prediction_model');
   return List<PredictionModel>.from(
       json.decode(str).map((x) => PredictionModel.fromJson(x)));
 }
-
 
 // String modelToJson(List<PredictionModel> data) =>
 //     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));

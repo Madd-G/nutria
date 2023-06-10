@@ -4,9 +4,9 @@ import '../widgets/widgets.dart';
 import 'dart:io';
 
 class PreviewScreen extends StatelessWidget {
-  final File imgPath;
+  final File? imgPath;
 
-  PreviewScreen({Key? key, required this.imgPath}) : super(key: key);
+  PreviewScreen({Key? key, this.imgPath}) : super(key: key);
 
   final ImageCropper imageCropper = ImageCropper();
 
@@ -16,9 +16,9 @@ class PreviewScreen extends StatelessWidget {
       backgroundColor: Colors.black,
       body: Stack(
         children: [
-          ImagePreview(imagePath: imgPath.path),
+          ImagePreview(imagePath: imgPath!.path),
           IdentifyButton(
-            imagePath: imgPath.path,
+            imagePath: imgPath!.path,
           ),
         ],
       ),

@@ -11,7 +11,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   SearchBloc() : super(SearchInitial()) {
     ApiService apiService = ApiService();
     on<SearchItemEvent>((event, emit) async {
-      final String searchedWord = event.searchedWord;
+      final String searchedWord = event.searchedWord!;
       if (searchedWord.isEmpty) {
         emit(NotSearchingWordState());
       } else {
@@ -20,11 +20,9 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
         makeRequest.fold((onLeft) {
           emit(ErrorsState(onLeft));
         }, (onRight) {
-          emit(WordExistState(onRight));
+          emit(WordExistState(words: onRight));
         });
       }
     });
   }
-
-
 }

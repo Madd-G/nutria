@@ -1,52 +1,33 @@
 import 'package:flutter/material.dart';
 import '../../../blocs/blocs.dart';
+import '../widgets/widgets.dart';
 
-class DetailObjectScreen extends StatefulWidget {
-  // final PredictionModel? data;
-
-  const DetailObjectScreen({
-    super.key,
-    // this.data,
-  });
-
-  @override
-  State<DetailObjectScreen> createState() => _DetailObjectScreenState();
-}
-
-class _DetailObjectScreenState extends State<DetailObjectScreen> {
-  // @override
-  // void initState() {
-  //   context
-  //       .read<SearchBloc>()
-  //       .add(SearchItemEvent(searchedWord: widget.data!.className));
-  //   super.initState();
-  // }
+class DetailObjectScreen extends StatelessWidget {
+  const DetailObjectScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      // body: BlocBuilder<SearchBloc, SearchState>(
-      //   builder: (context, state) {
-      //     if (state is WordExistState) {
-      //       var object = state.words[0];
-      //       return Center(child: Text(object.name!));
-      //     } else if (state is SearchingWordState) {
-      //       return const Center(child: LoadingWidget());
-      //     } else if (state is ErrorsState) {
-      //       return const Center(child: Text('Word not found'));
-      //     } else {
-      //       return const Center(child: Text('Error'));
-      //     }
-      //   },
-      // ),
-      body: Center(
-        child: TextButton(
-          child: const Text('Home Screen'),
-          onPressed: () {
-            context.read<ScreenBloc>().add(ScreenEventGoToHomeScreen());
-          },
-        ),
-      ),
+    Size size = MediaQuery.of(context).size;
+    return BlocBuilder<PredictionBloc, PredictionState>(
+      builder: (context, predictionState) {
+        if (predictionState is PredictionLoadingState) {
+          return const Scaffold(
+              body: Center(child: CircularProgressIndicator()));
+        } else if (predictionState is PredictionSuccessState) {
+          return DefaultTabController(
+            length: predictionState.predictionModel.length,
+            child: PredictionSuccessView(
+              size: size,
+              predictionSuccess: predictionState,
+              predictionModel: predictionState.predictionModel,
+            ),
+          );
+        } else if (predictionState is PredictionErrorState) {
+          return const Center(child: Text('An error occurred'));
+        } else {
+          return const SizedBox();
+        }
+      },
     );
   }
 }
