@@ -14,6 +14,7 @@ class DetailObjectScreen extends StatelessWidget {
           return const Scaffold(
               body: Center(child: CircularProgressIndicator()));
         } else if (predictionState is PredictionSuccessState) {
+          print('PredictionSuccessState');
           return DefaultTabController(
             length: predictionState.predictionModel.length,
             child: PredictionSuccessView(
