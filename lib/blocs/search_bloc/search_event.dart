@@ -5,7 +5,7 @@ abstract class SearchEvent {}
 
 @immutable
 class SearchItemEvent extends SearchEvent {
-  final String searchedWord;
+  final String? searchedWord;
 
-  SearchItemEvent({required this.searchedWord});
+  SearchItemEvent({this.searchedWord});
 }

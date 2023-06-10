@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nutria/blocs/blocs.dart';
 import '../../../models/data_model.dart';
@@ -10,8 +9,7 @@ class SearchScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cubit = BlocProvider.of<SearchBloc>(context);
-    return BlocConsumer<SearchBloc, SearchState>(
-        listener: (context, state) {},
+    return BlocBuilder<SearchBloc, SearchState>(
         bloc: cubit,
         builder: (context, state) {
           return Scaffold(
@@ -49,14 +47,9 @@ class SearchScreen extends StatelessWidget {
 
   Widget returnOnState(SearchState state) {
     if (state is WordExistState) {
-      return Column(
-        children: [
-          const Text('haha'),
-          WordsList(state.words),
-        ],
-      );
+      return WordsList(state.words!);
     } else if (state is SearchingWordState) {
-      return const LoadingWidget();
+      return const CircularProgressIndicator();
     } else if (state is NotSearchingWordState) {
       return const NoWordsSearchedYet();
     } else if (state is ErrorsState) {
@@ -99,20 +92,6 @@ class WordsList extends StatelessWidget {
             );
           })
         ],
-      ),
-    );
-  }
-}
-
-class LoadingWidget extends StatelessWidget {
-  const LoadingWidget({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 90),
-      child: Center(
-        child: CupertinoActivityIndicator(),
       ),
     );
   }

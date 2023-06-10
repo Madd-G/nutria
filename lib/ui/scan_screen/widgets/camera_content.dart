@@ -24,6 +24,36 @@ class _CameraContentState extends State<CameraContent> {
   late String imgPath;
   File? imageGallery;
 
+  @override
+  void initState() {
+    super.initState();
+    availableCameras().then(
+      (value) {
+        cameras = value;
+        if (cameras.isNotEmpty) {
+          setState(
+            () {
+              selectedCameraIndex = 0;
+            },
+          );
+          initCamera(cameras[selectedCameraIndex]).then(
+            (value) {},
+          );
+        } else {
+          if (kDebugMode) {
+            print('No camera available');
+          }
+        }
+      },
+    ).catchError(
+      (e) {
+        if (kDebugMode) {
+          print('Error : ${e.code}');
+        }
+      },
+    );
+  }
+
   Future initCamera(CameraDescription cameraDescription) async {
     if (cameraController != null) {
       await cameraController?.dispose();
@@ -76,36 +106,6 @@ class _CameraContentState extends State<CameraContent> {
       child: CameraPreview(
         cameraController!,
       ),
-    );
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    availableCameras().then(
-      (value) {
-        cameras = value;
-        if (cameras.isNotEmpty) {
-          setState(
-            () {
-              selectedCameraIndex = 0;
-            },
-          );
-          initCamera(cameras[selectedCameraIndex]).then(
-            (value) {},
-          );
-        } else {
-          if (kDebugMode) {
-            print('No camera available');
-          }
-        }
-      },
-    ).catchError(
-      (e) {
-        if (kDebugMode) {
-          print('Error : ${e.code}');
-        }
-      },
     );
   }
 
@@ -193,6 +193,12 @@ class _CameraContentState extends State<CameraContent> {
     }
 
     return File(croppedImage!.path);
+  }
+
+  @override
+  void dispose() {
+    cameraController?.dispose();
+    super.dispose();
   }
 
   @override

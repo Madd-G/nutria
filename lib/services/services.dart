@@ -63,6 +63,9 @@ class ApiService {
     Response response = await _dio.post('${_baseUrl}detect', data: formData);
     String responses = jsonEncode(response.data).toString();
     List<PredictionModel> result = modelFromJson(responses);
+    // result = result
+    //     .where((element) => double.parse(element.confidence) > 50)
+    //     .toList();
     return result;
   }
 
