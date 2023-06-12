@@ -28,7 +28,6 @@ class _PredictionSuccessViewState extends State<PredictionSuccessView>
 
   @override
   void initState() {
-    print('initState');
     super.initState();
     if (widget.predictionModel.isNotEmpty) {
       context.read<SearchBloc>().add(SearchItemEvent(
@@ -150,37 +149,35 @@ class _PredictionSuccessViewState extends State<PredictionSuccessView>
           ),
         ),
       ),
-      body: BlocBuilder<SearchBloc, SearchState>(
-        builder: (context, state) {
-          return TabBarView(
-            controller: _controller,
-            children: (widget.predictionSuccess.predictionModel!.isEmpty)
-                ? [
-                    const Center(
-                      child: Text('There Is No Fruit Or Vegetable'),
-                    ),
-                  ]
-                : widget.predictionSuccess.predictionModel!.map((e) {
-                    return BlocBuilder<SearchBloc, SearchState>(
-                        builder: (context, state) {
-                      if (state is WordExistState) {
-                        var object = state.words![0];
-                        return ItemInfo(
-                          size: widget.size,
-                          object: object,
-                        );
-                      } else if (state is SearchingWordState) {
-                        return const Center(child: CircularProgressIndicator());
-                      } else if (state is ErrorsState) {
-                        return const Center(
-                            child: Text('There is no information'));
-                      } else {
-                        return const Center(child: Text('Else'));
-                      }
-                    });
-                  }).toList(),
-          );
-        },
+      body: TabBarView(
+        controller: _controller,
+        children: (widget.predictionSuccess.predictionModel!.isEmpty)
+            ? [
+                const Center(
+                  child: Text('There Is No Fruit Or Vegetable'),
+                ),
+              ]
+            : widget.predictionSuccess.predictionModel!.map((e) {
+                return BlocBuilder<SearchBloc, SearchState>(
+                    builder: (context, state) {
+                  if (state is WordExistState) {
+                    var object = state.words![0];
+                    return ItemInfo(
+                      size: widget.size,
+                      object: object,
+                    );
+                  } else if (state is SearchingWordState) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else if (state is ErrorsState) {
+                    context.read<SearchBloc>().add(SearchItemEvent(
+                        searchedWord: widget.predictionSuccess
+                            .predictionModel![selectedIndex].className));
+                    return const Center(child: Text('There is no information'));
+                  } else {
+                    return const Center(child: Text('Else'));
+                  }
+                });
+              }).toList(),
       ),
     );
   }
