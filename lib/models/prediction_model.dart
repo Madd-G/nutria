@@ -3,14 +3,13 @@ import 'dart:convert';
 class PredictionModel {
   int classLabel;
   String className;
-
-  // List<int> bbox;
+  List<dynamic> bbox;
   String confidence;
 
   PredictionModel({
     required this.classLabel,
     required this.className,
-    // required this.bbox,
+    required this.bbox,
     required this.confidence,
   });
 
@@ -18,14 +17,14 @@ class PredictionModel {
     return PredictionModel(
         classLabel: json["class_label"],
         className: json["class_name"],
-        // bbox: json["bbox"],
+        bbox: json["bbox"],
         confidence: json["confidence"]);
   }
 
   Map<String, dynamic> toJson() => {
         "class_label": classLabel,
         "class_name": className,
-        // "bbox": bbox,
+        "bbox": bbox,
         "confidence": confidence,
       };
 }

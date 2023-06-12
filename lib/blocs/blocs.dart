@@ -6,3 +6,4 @@ export 'data_bloc/data_bloc.dart';
 export 'app_bloc_observer.dart';
 export 'tab_bloc/tab_bloc.dart';
 export 'search_bloc/search_bloc.dart';
+export 'history_bloc/history_bloc.dart';

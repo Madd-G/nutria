@@ -31,12 +31,13 @@ List<Data> dataModelFromJson(String str) {
 }
 
 class Data {
-  int? id;
+  String? id;
   String? name;
   String? description;
   String? category;
   String? nutrients;
   String? benefits;
+  // FieldValue? timestamp;
 
   Data(
       {this.id,
@@ -44,7 +45,9 @@ class Data {
       this.description,
       this.category,
       this.nutrients,
-      this.benefits});
+      this.benefits,
+      // this.timestamp
+      });
 
   Data.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -53,6 +56,7 @@ class Data {
     category = json['category'];
     nutrients = json['nutrients'];
     benefits = json['benefits'];
+    // timestamp = json['timestamp'];
   }
 
   Map<String, dynamic> toJson() {
@@ -63,6 +67,7 @@ class Data {
     data['category'] = category;
     data['nutrients'] = nutrients;
     data['benefits'] = benefits;
+    // data['timestamp'] = timestamp;
     return data;
   }
 }

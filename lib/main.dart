@@ -47,6 +47,10 @@ class MyApp extends StatelessWidget {
           lazy: true,
           create: (context) => SearchBloc(),
         ),
+        BlocProvider(
+          lazy: true,
+          create: (context) => HistoryBloc(),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

@@ -82,17 +82,17 @@ class _SettingsMenuState extends State<SettingsMenu> {
                 height: 5,
                 thickness: 1,
               ),
-              const ListTile(
-                leading: Icon(
-                  Icons.language,
-                  size: 30.0,
-                ),
-                title: Text(
-                  'Language',
-                  style: TextStyle(fontSize: 20.0),
-                ),
-                trailing: Icon(Icons.arrow_forward_ios),
-              ),
+              // const ListTile(
+              //   leading: Icon(
+              //     Icons.language,
+              //     size: 30.0,
+              //   ),
+              //   title: Text(
+              //     'Language',
+              //     style: TextStyle(fontSize: 20.0),
+              //   ),
+              //   trailing: Icon(Icons.arrow_forward_ios),
+              // ),
               const Divider(
                 height: 5,
                 thickness: 1,
@@ -113,6 +113,21 @@ class _SettingsMenuState extends State<SettingsMenu> {
                         light = value;
                       });
                     }),
+              ),
+              const Divider(
+                height: 5,
+                thickness: 1,
+              ),
+              const ListTile(
+                leading: Icon(
+                  Icons.language,
+                  size: 30.0,
+                ),
+                title: Text(
+                  'History',
+                  style: TextStyle(fontSize: 20.0),
+                ),
+                trailing: Icon(Icons.arrow_forward_ios),
               ),
               const Divider(
                 height: 5,
