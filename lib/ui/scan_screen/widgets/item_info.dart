@@ -19,9 +19,6 @@ class ItemInfo extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(
-              height: 10.0,
-            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -36,7 +33,7 @@ class ItemInfo extends StatelessWidget {
                       borderRadius:
                       const BorderRadius.all(Radius.circular(8.0))),
                   child: Padding(
-                    padding: const EdgeInsets.fromLTRB(20.0, 8.0, 20.0, 8.0),
+                    padding: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 25.0),
                     child: Text(
                       object.category!,
                       textAlign: TextAlign.justify,

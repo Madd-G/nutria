@@ -11,9 +11,9 @@ class PredictionLoadingState extends PredictionState {}
 
 @immutable
 class PredictionSuccessState extends PredictionState {
-  final List<PredictionModel> predictionModel;
+  final List<PredictionModel>? predictionModel;
 
-  PredictionSuccessState(this.predictionModel);
+  PredictionSuccessState({required this.predictionModel});
 }
 
 @immutable

@@ -44,4 +44,7 @@ class ScreenEventGoToSearchScreen extends ScreenEvent {}
 class ScreenEventGoToPreviewScreen extends ScreenEvent {}
 
 @immutable
-class ScreenEventGoToDetailObjectScreen extends ScreenEvent {}
+class ScreenEventGoToDetailObjectScreen extends ScreenEvent {
+  final String imagePath;
+  ScreenEventGoToDetailObjectScreen({required this.imagePath});
+}

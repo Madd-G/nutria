@@ -63,9 +63,7 @@ class ApiService {
     Response response = await _dio.post('${_baseUrl}detect', data: formData);
     String responses = jsonEncode(response.data).toString();
     List<PredictionModel> result = modelFromJson(responses);
-    // result = result
-    //     .where((element) => double.parse(element.confidence) > 50)
-    //     .toList();
+    result = result.where((element) => double.parse(element.confidence) > 50).toList();
     return result;
   }
 
@@ -80,7 +78,7 @@ class ApiService {
         return Right(wordResponse);
       }
       return Left(
-          "Sorry pal, we couldn't find definitions for the word you were looking for.");
+          "No fruit or vegetables detected");
     } catch (e) {
       return Left(e.toString());
     }

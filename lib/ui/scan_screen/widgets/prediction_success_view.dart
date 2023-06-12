@@ -28,12 +28,19 @@ class _PredictionSuccessViewState extends State<PredictionSuccessView>
 
   @override
   void initState() {
+    print('initState');
     super.initState();
-    context.read<SearchBloc>().add(SearchItemEvent(
-        searchedWord: widget
-            .predictionSuccess.predictionModel[selectedIndex].className));
+    if (widget.predictionModel.isNotEmpty) {
+      context.read<SearchBloc>().add(SearchItemEvent(
+          searchedWord: widget
+              .predictionSuccess.predictionModel![selectedIndex].className));
+    }
     _controller = TabController(
-        initialIndex: 0, length: widget.predictionModel.length, vsync: this);
+        initialIndex: 0,
+        length: (widget.predictionModel.isEmpty)
+            ? 1
+            : widget.predictionModel.length,
+        vsync: this);
 
     _controller?.animation?.addListener(() {
       if (!_tapIsBeingExecuted &&
@@ -47,8 +54,8 @@ class _PredictionSuccessViewState extends State<PredictionSuccessView>
         setState(() {
           selectedIndex = newIndex;
           context.read<SearchBloc>().add(SearchItemEvent(
-              searchedWord: widget
-                  .predictionSuccess.predictionModel[selectedIndex].className));
+              searchedWord: widget.predictionSuccess
+                  .predictionModel![selectedIndex].className));
         });
       }
     });
@@ -62,8 +69,8 @@ class _PredictionSuccessViewState extends State<PredictionSuccessView>
       } else {
         if (_controller!.indexIsChanging) {
           context.read<SearchBloc>().add(SearchItemEvent(
-              searchedWord: widget
-                  .predictionSuccess.predictionModel[selectedIndex].className));
+              searchedWord: widget.predictionSuccess
+                  .predictionModel![selectedIndex].className));
           _tapIsBeingExecuted = true;
         }
       }
@@ -71,28 +78,74 @@ class _PredictionSuccessViewState extends State<PredictionSuccessView>
   }
 
   @override
+  void dispose() {
+    _controller!.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    var toolbarHeight = 300.0;
     return Scaffold(
       appBar: AppBar(
-        flexibleSpace: const Image(
-          image: AssetImage("assets/images/fruit.png"),
-          fit: BoxFit.cover,
+        backgroundColor: Colors.black,
+        flexibleSpace: const SizedBox(
+          child: Image(
+            image: AssetImage("assets/images/apples.png"),
+            fit: BoxFit.cover,
+          ),
         ),
-        toolbarHeight: 230.0,
+        toolbarHeight: toolbarHeight,
         elevation: 0.0,
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(0),
-          child: Material(
-            color: Colors.white,
-            child: TabBar(
-              controller: _controller,
-              indicatorColor: Theme.of(context).colorScheme.primary,
-              labelColor: Colors.black,
-              tabs: (widget.predictionSuccess.predictionModel.isEmpty)
-                  ? []
-                  : widget.predictionSuccess.predictionModel.map((e) {
-                      return Text(e.className);
-                    }).toList(),
+          child: Align(
+            alignment: Alignment.centerLeft,
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                border: Border(
+                  bottom: BorderSide(color: Colors.black, width: 1),
+                ),
+              ),
+              child: TabBar(
+                isScrollable: true,
+                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                labelPadding: const EdgeInsets.symmetric(horizontal: 5),
+                unselectedLabelColor: Theme.of(context).colorScheme.primary,
+                indicatorSize: TabBarIndicatorSize.label,
+                indicator: BoxDecoration(
+                    borderRadius: BorderRadius.circular(50),
+                    color: Theme.of(context).colorScheme.primary),
+                controller: _controller,
+                indicatorColor: Theme.of(context).colorScheme.primary,
+                labelColor: Colors.black,
+                tabs: (widget.predictionSuccess.predictionModel!.isEmpty)
+                    ? [
+                        const Tab(
+                            height: 0.0,
+                            iconMargin: EdgeInsets.only(bottom: 0.0),
+                            child: SizedBox.shrink())
+                      ]
+                    : widget.predictionSuccess.predictionModel!.map((label) {
+                        return Tab(
+                          height: 30.0,
+                          child: Container(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 16.0),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(50),
+                                  border: Border.all(
+                                      color:
+                                          Theme.of(context).colorScheme.primary,
+                                      width: 1)),
+                              child: Align(
+                                  alignment: Alignment.center,
+                                  child: Text(label.className))),
+                        );
+                      }).toList(),
+              ),
             ),
           ),
         ),
@@ -101,13 +154,13 @@ class _PredictionSuccessViewState extends State<PredictionSuccessView>
         builder: (context, state) {
           return TabBarView(
             controller: _controller,
-            children: (widget.predictionSuccess.predictionModel.isEmpty)
+            children: (widget.predictionSuccess.predictionModel!.isEmpty)
                 ? [
                     const Center(
                       child: Text('There Is No Fruit Or Vegetable'),
-                    )
+                    ),
                   ]
-                : widget.predictionSuccess.predictionModel.map((e) {
+                : widget.predictionSuccess.predictionModel!.map((e) {
                     return BlocBuilder<SearchBloc, SearchState>(
                         builder: (context, state) {
                       if (state is WordExistState) {
