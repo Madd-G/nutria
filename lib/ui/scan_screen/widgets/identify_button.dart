@@ -19,11 +19,11 @@ class IdentifyButton extends StatelessWidget {
             onPressed: () {
               context
                   .read<PredictionBloc>()
-                  .add(GetPrediction(imagePath: imagePath));
+                  .add(GetPrediction(imagePath: imagePath, ));
               Navigator.pop(context);
               context
                   .read<ScreenBloc>()
-                  .add(ScreenEventGoToDetailObjectScreen());
+                  .add(ScreenEventGoToDetailObjectScreen(imagePath: imagePath));
             },
             child: const Text('IDENTIFY')),
       ),

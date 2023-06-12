@@ -54,7 +54,9 @@ class ScreenBloc extends Bloc<ScreenEvent, ScreenState> {
       emit(const ScreenStateIsInPreviewScreen(isLoading: false));
     });
     on<ScreenEventGoToDetailObjectScreen>((event, emit) {
-      emit(const ScreenStateIsInDetailObjectScreen(isLoading: false));
+      final String imagePath = event.imagePath;
+      emit(ScreenStateIsInDetailObjectScreen(
+          isLoading: false, imagePath: imagePath));
     });
   }
 }
