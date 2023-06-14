@@ -18,8 +18,8 @@ class ScreenBloc extends Bloc<ScreenEvent, ScreenState> {
     on<ScreenEventGoToHomeScreen>((event, emit) {
       emit(const ScreenStateIsInHomeScreen(isLoading: false));
     });
-    on<ScreenEventGoToProfileScreen>((event, emit) {
-      emit(const ScreenStateIsInProfileScreen(isLoading: false));
+    on<ScreenEventGoToArticleScreen>((event, emit) {
+      emit(const ScreenStateIsInArticleScreen(isLoading: false));
     });
 
     on<ScreenEventGoToRegistrationScreen>((event, emit) {
@@ -34,13 +34,6 @@ class ScreenBloc extends Bloc<ScreenEvent, ScreenState> {
 
     on<ScreenEventGoToListScreen>((event, emit) {
       emit(const ScreenStateIsInListScreen(isLoading: false));
-    });
-
-    on<ScreenEventGoToUserDataScreen>((event, emit) {
-      emit(const ScreenStateIsInUserDataScreen(isLoading: false));
-    });
-    on<ScreenEventGoToChangePasswordScreen>((event, emit) {
-      emit(const ScreenStateIsInChangePasswordScreen(isLoading: false));
     });
     on<ScreenEventGoToDetailScreen>((event, emit) {
       final Data data = event.data;
@@ -57,14 +50,6 @@ class ScreenBloc extends Bloc<ScreenEvent, ScreenState> {
       final String imagePath = event.imagePath;
       emit(ScreenStateIsInDetailObjectScreen(
           isLoading: false, imagePath: imagePath));
-    });
-
-    on<ScreenEventGoToHistoryScreen>((event, emit) {
-      emit(const ScreenStateIsInHistoryScreen(isLoading: false));
-    });
-
-    on<ScreenEventGoToHistoryDetailScreen>((event, emit) {
-      emit(const ScreenStateIsInHistoryDetailScreen(isLoading: false));
     });
   }
 }

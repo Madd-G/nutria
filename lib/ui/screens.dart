@@ -1,15 +1,10 @@
 export 'home_screen/screen/home_screen.dart';
 export 'login_screen/screen/login_screen.dart';
-export 'profile_screen/screens/profile_screen.dart';
-export 'profile_screen/screens/user_data_screen.dart';
-export 'profile_screen/screens/change_password_screen.dart';
 export 'register_screen/screen/register_screen.dart';
 export 'scan_screen/screens/scan_screen.dart';
+export 'article_screen/screen/article_screen.dart';
 export 'scan_screen/screens/preview_screen.dart';
 export 'list_screen/screen/list_screen.dart';
 export 'detail_screen/screen/detail_screen.dart';
 export 'search_screen/screen/search_screen.dart';
 export 'scan_screen/screens/detail_object_screen.dart';
-export 'history_screen/screens/detail_history_screen.dart';
-export 'history_screen/screens/history_screen.dart';
-export 'history_screen/screens/history_success_screen.dart';
