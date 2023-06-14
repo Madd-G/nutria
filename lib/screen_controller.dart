@@ -15,8 +15,8 @@ class ScreenController extends StatelessWidget {
             return const HomeScreen();
           } else if (screenState is ScreenStateIsInScanScreen) {
             return const ScanScreen();
-          } else if (screenState is ScreenStateIsInProfileScreen) {
-            return const ProfileScreen();
+          } else if (screenState is ScreenStateIsInArticleScreen) {
+            return const ArticleScreen();
           } else if (screenState is ScreenStateIsInHomeScreen) {
             return const HomeScreen();
           } else if (screenState is ScreenStateIsInLoginScreen) {
@@ -66,13 +66,13 @@ class ScreenController extends StatelessWidget {
                       text: 'HOME',
                     ),
                     GButton(
-                      icon: Icons.person,
-                      text: 'PROFILE',
+                      icon: Icons.article,
+                      text: 'Article',
                     ),
                   ],
                   selectedIndex: (state is ScreenStateIsInScanScreen)
                       ? 0
-                      : (state is ScreenStateIsInProfileScreen)
+                      : (state is ScreenStateIsInArticleScreen)
                           ? 2
                           : 1,
                   onTabChange: (index) {
@@ -87,7 +87,7 @@ class ScreenController extends StatelessWidget {
                     } else if (index == 2) {
                       context
                           .read<ScreenBloc>()
-                          .add(ScreenEventGoToProfileScreen());
+                          .add(ScreenEventGoToArticleScreen());
                     }
                   },
                 );

@@ -102,12 +102,8 @@ class MyApp extends StatelessWidget {
                 return const ScreenController();
               } else if (screenState is ScreenStateIsInScanScreen) {
                 return const ScreenController();
-              } else if (screenState is ScreenStateIsInProfileScreen) {
+              } else if (screenState is ScreenStateIsInArticleScreen) {
                 return const ScreenController();
-              } else if (screenState is ScreenStateIsInUserDataScreen) {
-                return const UserDataScreen();
-              } else if (screenState is ScreenStateIsInChangePasswordScreen) {
-                return const ChangePasswordScreen();
               } else if (screenState is ScreenStateIsInListScreen) {
                 return const ListScreen();
               } else if (screenState is ScreenStateIsInDetailScreen) {
@@ -116,10 +112,6 @@ class MyApp extends StatelessWidget {
                 return const SearchScreen();
               } else if (screenState is ScreenStateIsInDetailObjectScreen) {
                 return const DetailObjectScreen();
-              } else if (screenState is ScreenStateIsInHistoryScreen) {
-                return const HistoryScreen();
-              } else if (screenState is ScreenStateIsInHistoryDetailScreen) {
-                return const DetailHistoryScreen();
               } else {
                 // this should never happen
                 return const Scaffold(

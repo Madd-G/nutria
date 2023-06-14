@@ -23,8 +23,8 @@ class ScreenStateIsInHomeScreen extends ScreenState {
 }
 
 @immutable
-class ScreenStateIsInProfileScreen extends ScreenState {
-  const ScreenStateIsInProfileScreen(
+class ScreenStateIsInArticleScreen extends ScreenState {
+  const ScreenStateIsInArticleScreen(
       {required bool isLoading, AuthError? authError})
       : super(isLoading: isLoading);
 }
