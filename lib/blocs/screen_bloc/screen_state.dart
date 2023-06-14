@@ -96,7 +96,22 @@ class ScreenStateIsInPreviewScreen extends ScreenState {
 @immutable
 class ScreenStateIsInDetailObjectScreen extends ScreenState {
   final String imagePath;
+
   const ScreenStateIsInDetailObjectScreen(
       {required bool isLoading, AuthError? authError, required this.imagePath})
+      : super(isLoading: isLoading);
+}
+
+@immutable
+class ScreenStateIsInHistoryScreen extends ScreenState {
+  const ScreenStateIsInHistoryScreen(
+      {required bool isLoading, AuthError? authError})
+      : super(isLoading: isLoading);
+}
+
+@immutable
+class ScreenStateIsInHistoryDetailScreen extends ScreenState {
+  const ScreenStateIsInHistoryDetailScreen(
+      {required bool isLoading, AuthError? authError})
       : super(isLoading: isLoading);
 }

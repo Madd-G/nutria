@@ -8,7 +8,9 @@ class HistoryInitial extends HistoryState {}
 
 class HistoryLoading extends HistoryState {}
 
-class GetHistory extends HistoryState {
-  final List<PredictionModel>? predictionModel;
-  GetHistory({required this.predictionModel});
+class HistorySuccessState extends HistoryState {
+  final List<Prediction> historyModel;
+  HistorySuccessState({required this.historyModel});
 }
+
+

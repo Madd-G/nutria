@@ -57,13 +57,23 @@ class ApiService {
     }
   }
 
-  Future<List<PredictionModel>> uploadImage(String imgPath) async {
+  Future<List<Prediction>> uploadImage(String imgPath) async {
     FormData formData =
         FormData.fromMap({"file": await MultipartFile.fromFile(imgPath)});
     Response response = await _dio.post('${_baseUrl}detect', data: formData);
+    print('<<<<<<responses 1>>>>>> $response');
+    print('<<<<<<responses 1>>>>>> ${response.runtimeType}');
     String responses = jsonEncode(response.data).toString();
-    List<PredictionModel> result = modelFromJson(responses);
-    result = result.where((element) => double.parse(element.confidence) > 50).toList();
+    print('<<<<<<responses data>>>>>> ${response.data}');
+    print('<<<<<<responses data>>>>>> ${response.data.runtimeType}');
+    print('<<<<<<responses>>>>>> $responses');
+    print('<<<<<<responses>>>>>> ${responses.runtimeType}');
+    List<Prediction> result = modelFromJson(responses);
+    print('List<Prediction> result $result');
+    result = result
+        .where((element) => double.parse(element.confidence) > 50)
+        .toList();
+    print('akhir $result');
     return result;
   }
 
@@ -77,8 +87,7 @@ class ApiService {
       if (searchWordRequest.statusCode == 200 && wordResponse.isNotEmpty) {
         return Right(wordResponse);
       }
-      return Left(
-          "No fruit or vegetables detected");
+      return Left("No fruit or vegetables detected");
     } catch (e) {
       return Left(e.toString());
     }

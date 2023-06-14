@@ -13,7 +13,7 @@ class PredictionSuccessView extends StatefulWidget {
 
   final Size size;
   final PredictionSuccessState predictionSuccess;
-  final List<PredictionModel> predictionModel;
+  final List<Prediction> predictionModel;
 
   @override
   State<PredictionSuccessView> createState() => _PredictionSuccessViewState();
@@ -32,7 +32,7 @@ class _PredictionSuccessViewState extends State<PredictionSuccessView>
     if (widget.predictionModel.isNotEmpty) {
       context.read<SearchBloc>().add(SearchItemEvent(
           searchedWord: widget
-              .predictionSuccess.predictionModel![selectedIndex].className));
+              .predictionSuccess.prediction![selectedIndex].className));
     }
     _controller = TabController(
         initialIndex: 0,
@@ -54,7 +54,7 @@ class _PredictionSuccessViewState extends State<PredictionSuccessView>
           selectedIndex = newIndex;
           context.read<SearchBloc>().add(SearchItemEvent(
               searchedWord: widget.predictionSuccess
-                  .predictionModel![selectedIndex].className));
+                  .prediction![selectedIndex].className));
         });
       }
     });
@@ -69,7 +69,7 @@ class _PredictionSuccessViewState extends State<PredictionSuccessView>
         if (_controller!.indexIsChanging) {
           context.read<SearchBloc>().add(SearchItemEvent(
               searchedWord: widget.predictionSuccess
-                  .predictionModel![selectedIndex].className));
+                  .prediction![selectedIndex].className));
           _tapIsBeingExecuted = true;
         }
       }
@@ -120,14 +120,14 @@ class _PredictionSuccessViewState extends State<PredictionSuccessView>
                 controller: _controller,
                 indicatorColor: Theme.of(context).colorScheme.primary,
                 labelColor: Colors.black,
-                tabs: (widget.predictionSuccess.predictionModel!.isEmpty)
+                tabs: (widget.predictionSuccess.prediction!.isEmpty)
                     ? [
                         const Tab(
                             height: 0.0,
                             iconMargin: EdgeInsets.only(bottom: 0.0),
                             child: SizedBox.shrink())
                       ]
-                    : widget.predictionSuccess.predictionModel!.map((label) {
+                    : widget.predictionSuccess.prediction!.map((label) {
                         return Tab(
                           height: 30.0,
                           child: Container(
@@ -151,13 +151,13 @@ class _PredictionSuccessViewState extends State<PredictionSuccessView>
       ),
       body: TabBarView(
         controller: _controller,
-        children: (widget.predictionSuccess.predictionModel!.isEmpty)
+        children: (widget.predictionSuccess.prediction!.isEmpty)
             ? [
                 const Center(
                   child: Text('There Is No Fruit Or Vegetable'),
                 ),
               ]
-            : widget.predictionSuccess.predictionModel!.map((e) {
+            : widget.predictionSuccess.prediction!.map((e) {
                 return BlocBuilder<SearchBloc, SearchState>(
                     builder: (context, state) {
                   if (state is WordExistState) {
@@ -171,7 +171,7 @@ class _PredictionSuccessViewState extends State<PredictionSuccessView>
                   } else if (state is ErrorsState) {
                     context.read<SearchBloc>().add(SearchItemEvent(
                         searchedWord: widget.predictionSuccess
-                            .predictionModel![selectedIndex].className));
+                            .prediction![selectedIndex].className));
                     return const Center(child: Text('There is no information'));
                   } else {
                     return const Center(child: Text('Else'));

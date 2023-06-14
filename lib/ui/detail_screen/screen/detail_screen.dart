@@ -3,9 +3,7 @@ import 'package:nutria/models/models.dart';
 import 'package:nutria/blocs/blocs.dart';
 
 class DetailScreen extends StatelessWidget {
-  const DetailScreen({Key? key, this.model}) : super(key: key);
-
-  final DataModel? model;
+  const DetailScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

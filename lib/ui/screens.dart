@@ -10,3 +10,6 @@ export 'list_screen/screen/list_screen.dart';
 export 'detail_screen/screen/detail_screen.dart';
 export 'search_screen/screen/search_screen.dart';
 export 'scan_screen/screens/detail_object_screen.dart';
+export 'history_screen/screens/detail_history_screen.dart';
+export 'history_screen/screens/history_screen.dart';
+export 'history_screen/screens/history_success_screen.dart';
