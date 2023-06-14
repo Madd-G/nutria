@@ -116,6 +116,10 @@ class MyApp extends StatelessWidget {
                 return const SearchScreen();
               } else if (screenState is ScreenStateIsInDetailObjectScreen) {
                 return const DetailObjectScreen();
+              } else if (screenState is ScreenStateIsInHistoryScreen) {
+                return const HistoryScreen();
+              } else if (screenState is ScreenStateIsInHistoryDetailScreen) {
+                return const DetailHistoryScreen();
               } else {
                 // this should never happen
                 return const Scaffold(

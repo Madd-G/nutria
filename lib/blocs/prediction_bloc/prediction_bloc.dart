@@ -13,10 +13,9 @@ class PredictionBloc extends Bloc<PredictionEvent, PredictionState> {
     ApiService apiService = ApiService();
 
     on<GetPrediction>((event, emit) async {
-      Future<List<PredictionModel>> getPrediction(String imgPath) async {
+      Future<List<Prediction>> getPrediction(String imgPath) async {
         try {
-          List<PredictionModel> prediction =
-              await apiService.uploadImage(imgPath);
+          List<Prediction> prediction = await apiService.uploadImage(imgPath);
           return prediction;
         } on DioError catch (_) {
           rethrow;
@@ -25,8 +24,8 @@ class PredictionBloc extends Bloc<PredictionEvent, PredictionState> {
 
       try {
         emit(PredictionLoadingState());
-        List<PredictionModel> result = await getPrediction(event.imagePath);
-        emit(PredictionSuccessState(predictionModel: result));
+        List<Prediction> result = await getPrediction(event.imagePath);
+        emit(PredictionSuccessState(prediction: result));
       } catch (e) {
         emit(PredictionErrorState(e, e.toString()));
       }

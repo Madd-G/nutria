@@ -118,16 +118,19 @@ class _SettingsMenuState extends State<SettingsMenu> {
                 height: 5,
                 thickness: 1,
               ),
-              const ListTile(
-                leading: Icon(
+              ListTile(
+                leading: const Icon(
                   Icons.language,
                   size: 30.0,
                 ),
-                title: Text(
+                title: const Text(
                   'History',
                   style: TextStyle(fontSize: 20.0),
                 ),
-                trailing: Icon(Icons.arrow_forward_ios),
+                trailing: const Icon(Icons.arrow_forward_ios),
+                onTap: () {
+                  screenBloc.add(ScreenEventGoToHistoryDetailScreen());
+                },
               ),
               const Divider(
                 height: 5,

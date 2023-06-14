@@ -15,18 +15,16 @@ class DetailObjectScreen extends StatelessWidget {
           return const Scaffold(
               body: Center(child: CircularProgressIndicator()));
         } else if (predictionState is PredictionSuccessState) {
-          context
-              .read<HistoryBloc>()
-              .add(AddHistory(predResult: predictionState.predictionModel!));
-
+        print('PredictionSuccessState');
+          context.read<HistoryBloc>().add(AddHistory(predResult: predictionState.prediction!));
           return DefaultTabController(
-            length: (predictionState.predictionModel!.isEmpty)
+            length: (predictionState.prediction!.isEmpty)
                 ? 1
-                : predictionState.predictionModel!.length,
+                : predictionState.prediction!.length,
             child: PredictionSuccessView(
               size: size,
               predictionSuccess: predictionState,
-              predictionModel: predictionState.predictionModel!,
+              predictionModel: predictionState.prediction!,
             ),
           );
         } else if (predictionState is PredictionErrorState) {

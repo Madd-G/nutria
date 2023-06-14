@@ -46,5 +46,12 @@ class ScreenEventGoToPreviewScreen extends ScreenEvent {}
 @immutable
 class ScreenEventGoToDetailObjectScreen extends ScreenEvent {
   final String imagePath;
+
   ScreenEventGoToDetailObjectScreen({required this.imagePath});
 }
+
+@immutable
+class ScreenEventGoToHistoryScreen extends ScreenEvent {}
+
+@immutable
+class ScreenEventGoToHistoryDetailScreen extends ScreenEvent {}
