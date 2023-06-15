@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:nutria/blocs/blocs.dart';
 import 'package:nutria/models/models.dart';
+import '../../detail_screen/screen/detail_screen.dart';
 
 class ProductCard extends StatelessWidget {
   final Data data;
@@ -14,13 +14,11 @@ class ProductCard extends StatelessWidget {
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
-    final ScreenBloc screenBloc = context.read<ScreenBloc>();
     return Padding(
       padding: const EdgeInsets.only(left: 4.0, right: 4.0, top: 4.0),
       child: GestureDetector(
-        onTap: () {
-          screenBloc.add(ScreenEventGoToDetailScreen(data: data));
-        },
+        onTap: () => Navigator.push(context,
+            MaterialPageRoute(builder: (context) => DetailScreen(data: data))),
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(2.0),

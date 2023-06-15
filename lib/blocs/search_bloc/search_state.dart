@@ -7,19 +7,19 @@ abstract class SearchState {}
 class SearchInitial extends SearchState {}
 
 @immutable
-class NotSearchingWordState extends SearchState {}
+class NotSearchingItemState extends SearchState {}
 
 @immutable
-class SearchingWordState extends SearchState {}
+class SearchingItemState extends SearchState {}
 
 @immutable
-class WordNotFound extends SearchState {}
+class ItemNotFound extends SearchState {}
 
 @immutable
-class WordExistState extends SearchState {
-  final List<Data>? words;
+class ItemExistState extends SearchState {
+  final List<Data>? items;
 
-  WordExistState({this.words});
+  ItemExistState({this.items});
 }
 
 @immutable

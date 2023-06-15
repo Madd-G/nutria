@@ -29,11 +29,9 @@ class _SearchBarState extends State<SearchBar> {
         decoration: InputDecoration(
           suffixIcon: UnconstrainedBox(
             child: IconButton(
-              onPressed: () {
-                context
-                    .read<SearchBloc>()
-                    .add(SearchItemEvent(searchedWord: searchController.text));
-              },
+              onPressed: () => context
+                  .read<SearchBloc>()
+                  .add(SearchItemEvent(searchedItem: searchController.text)),
               icon: const Icon(
                 Icons.send,
                 size: 18,

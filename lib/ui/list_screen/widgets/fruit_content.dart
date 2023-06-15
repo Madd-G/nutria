@@ -53,9 +53,7 @@ class _FruitContentState extends State<FruitContent> {
                   height: 10.0,
                 ),
                 IconButton(
-                  onPressed: () {
-                    context.read<DataBloc>().add(GetFruits());
-                  },
+                  onPressed: () => context.read<DataBloc>().add(GetFruits()),
                   icon: Icon(
                     Icons.refresh,
                     color: Theme.of(context).colorScheme.primary,

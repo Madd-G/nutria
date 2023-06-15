@@ -11,16 +11,16 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   SearchBloc() : super(SearchInitial()) {
     ApiService apiService = ApiService();
     on<SearchItemEvent>((event, emit) async {
-      final String searchedWord = event.searchedWord!;
-      if (searchedWord.isEmpty) {
-        emit(NotSearchingWordState());
+      final String searchedItem = event.searchedItem!;
+      if (searchedItem.isEmpty) {
+        emit(NotSearchingItemState());
       } else {
-        emit(SearchingWordState());
-        final makeRequest = await apiService.searchForWord(searchedWord);
+        emit(SearchingItemState());
+        final makeRequest = await apiService.searchForItem(searchedItem);
         makeRequest.fold((onLeft) {
           emit(ErrorsState(onLeft));
         }, (onRight) {
-          emit(WordExistState(words: onRight));
+          emit(ItemExistState(items: onRight));
         });
       }
     });

@@ -78,15 +78,15 @@ class ApiService {
     return result;
   }
 
-  Future<Either<String, List<Data>>> searchForWord(String input) async {
+  Future<Either<String, List<Data>>> searchForItem(String input) async {
     try {
-      final searchWordRequest = await http.Client().get(
+      final searchItemRequest = await http.Client().get(
         Uri.parse('${_baseUrl}get-all/$input'),
       );
-      final wordResponse = dataModelFromJson(searchWordRequest.body);
+      final itemResponse = dataModelFromJson(searchItemRequest.body);
 
-      if (searchWordRequest.statusCode == 200 && wordResponse.isNotEmpty) {
-        return Right(wordResponse);
+      if (searchItemRequest.statusCode == 200 && itemResponse.isNotEmpty) {
+        return Right(itemResponse);
       }
       return Left("No fruit or vegetables detected");
     } catch (e) {

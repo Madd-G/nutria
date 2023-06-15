@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nutria/blocs/blocs.dart';
 import 'package:nutria/models/article_model.dart';
+import 'package:nutria/ui/article_screen/screens/article_screen.dart';
 
 class ArticleListScreen extends StatefulWidget {
   const ArticleListScreen({Key? key}) : super(key: key);
@@ -27,6 +28,7 @@ class _ArticleListScreenState extends State<ArticleListScreen> {
     return Scaffold(
         appBar: AppBar(
           title: const Text('Articles'),
+          automaticallyImplyLeading: false,
         ),
         body: BlocBuilder<ArticleBloc, ArticleState>(
           builder: (context, state) {
@@ -45,9 +47,8 @@ class _ArticleListScreenState extends State<ArticleListScreen> {
                       height: 10.0,
                     ),
                     IconButton(
-                      onPressed: () {
-                        context.read<ArticleBloc>().add(GetArticle());
-                      },
+                      onPressed: () =>
+                          context.read<ArticleBloc>().add(GetArticle()),
                       icon: Icon(
                         Icons.refresh,
                         color: Theme.of(context).colorScheme.primary,
@@ -66,8 +67,11 @@ class _ArticleListScreenState extends State<ArticleListScreen> {
                     Article? article = state.article.articles?[index];
                     return GestureDetector(
                       onTap: () {
-                        context.read<ScreenBloc>().add(
-                            ScreenEventGoToArticleScreen(article: article));
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    ArticleScreen(article: article)));
                         context.read<ArticleBloc>().add(GetArticle());
                       },
                       child: SizedBox(

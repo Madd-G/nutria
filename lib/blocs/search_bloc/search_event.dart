@@ -4,8 +4,11 @@ part of 'search_bloc.dart';
 abstract class SearchEvent {}
 
 @immutable
-class SearchItemEvent extends SearchEvent {
-  final String? searchedWord;
+class SearchEventInitial extends SearchEvent {}
 
-  SearchItemEvent({this.searchedWord});
+@immutable
+class SearchItemEvent extends SearchEvent {
+  final String? searchedItem;
+
+  SearchItemEvent({this.searchedItem});
 }

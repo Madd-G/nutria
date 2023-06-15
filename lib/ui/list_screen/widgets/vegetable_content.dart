@@ -53,9 +53,8 @@ class _VegetableContentState extends State<VegetableContent> {
                   height: 10.0,
                 ),
                 IconButton(
-                  onPressed: () {
-                    context.read<DataBloc>().add(GetVegetables());
-                  },
+                  onPressed: () =>
+                      context.read<DataBloc>().add(GetVegetables()),
                   icon: Icon(
                     Icons.refresh,
                     color: Theme.of(context).colorScheme.primary,

@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:nutria/blocs/blocs.dart';
 import '../../screens.dart';
 
 class CameraContent extends StatefulWidget {
@@ -128,7 +127,9 @@ class _CameraContentState extends State<CameraContent> {
         );
       }
     } on PlatformException {
-      context.read<ScreenBloc>().add(ScreenEventGoToScanScreen());
+      // context.read<ScreenBloc>().add(ScreenEventGoToScanScreen());
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => const ScanScreen()));
     }
   }
 
@@ -188,7 +189,9 @@ class _CameraContentState extends State<CameraContent> {
 
     if (croppedImage == null) {
       (mounted) {
-        context.read<ScreenBloc>().add(ScreenEventGoToScanScreen());
+        // context.read<ScreenBloc>().add(ScreenEventGoToScanScreen());
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const ScanScreen()));
       };
     }
 
@@ -227,9 +230,11 @@ class _CameraContentState extends State<CameraContent> {
                       onTap: () async {
                         await pickImageFromGallery();
                         (mounted) {
-                          context
-                              .read<ScreenBloc>()
-                              .add(ScreenEventGoToPreviewScreen());
+                          // context.read<ScreenBloc>().add(ScreenEventGoToPreviewScreen());
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => PreviewScreen()));
                         };
                       },
                       child: const CircleAvatar(
@@ -247,9 +252,7 @@ class _CameraContentState extends State<CameraContent> {
                     icon: Image.asset(
                       "assets/images/take_photo_button.png",
                     ),
-                    onPressed: () async {
-                      await takePictureFromCamera();
-                    },
+                    onPressed: () async => await takePictureFromCamera(),
                   ),
                 ),
                 Expanded(

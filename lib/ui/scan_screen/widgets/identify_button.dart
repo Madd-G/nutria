@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nutria/blocs/blocs.dart';
+import 'package:nutria/ui/scan_screen/screens/detail_object_screen.dart';
 
 class IdentifyButton extends StatelessWidget {
   const IdentifyButton({
@@ -21,9 +22,7 @@ class IdentifyButton extends StatelessWidget {
                   .read<PredictionBloc>()
                   .add(GetPrediction(imagePath: imagePath,));
               Navigator.pop(context);
-              context
-                  .read<ScreenBloc>()
-                  .add(ScreenEventGoToDetailObjectScreen(imagePath: imagePath));
+              Navigator.push(context, MaterialPageRoute(builder: (context) => DetailObjectScreen(imagePath: imagePath)));
             },
             child: const Text('IDENTIFY')),
       ),

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:nutria/blocs/blocs.dart';
 import '../../../models/models.dart';
@@ -9,11 +11,13 @@ class PredictionSuccessView extends StatefulWidget {
     required this.size,
     required this.predictionSuccess,
     required this.predictionModel,
+    required this.imagePath,
   });
 
   final Size size;
   final PredictionSuccessState predictionSuccess;
   final List<Prediction> predictionModel;
+  final String? imagePath;
 
   @override
   State<PredictionSuccessView> createState() => _PredictionSuccessViewState();
@@ -31,8 +35,8 @@ class _PredictionSuccessViewState extends State<PredictionSuccessView>
     super.initState();
     if (widget.predictionModel.isNotEmpty) {
       context.read<SearchBloc>().add(SearchItemEvent(
-          searchedWord: widget
-              .predictionSuccess.prediction![selectedIndex].className));
+          searchedItem:
+              widget.predictionSuccess.prediction![selectedIndex].className));
     }
     _controller = TabController(
         initialIndex: 0,
@@ -53,8 +57,8 @@ class _PredictionSuccessViewState extends State<PredictionSuccessView>
         setState(() {
           selectedIndex = newIndex;
           context.read<SearchBloc>().add(SearchItemEvent(
-              searchedWord: widget.predictionSuccess
-                  .prediction![selectedIndex].className));
+              searchedItem: widget
+                  .predictionSuccess.prediction![selectedIndex].className));
         });
       }
     });
@@ -68,8 +72,8 @@ class _PredictionSuccessViewState extends State<PredictionSuccessView>
       } else {
         if (_controller!.indexIsChanging) {
           context.read<SearchBloc>().add(SearchItemEvent(
-              searchedWord: widget.predictionSuccess
-                  .prediction![selectedIndex].className));
+              searchedItem: widget
+                  .predictionSuccess.prediction![selectedIndex].className));
           _tapIsBeingExecuted = true;
         }
       }
@@ -88,9 +92,9 @@ class _PredictionSuccessViewState extends State<PredictionSuccessView>
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black,
-        flexibleSpace: const SizedBox(
+        flexibleSpace: SizedBox(
           child: Image(
-            image: AssetImage("assets/images/apples.png"),
+            image: FileImage(File(widget.imagePath!)),
             fit: BoxFit.cover,
           ),
         ),
@@ -160,17 +164,17 @@ class _PredictionSuccessViewState extends State<PredictionSuccessView>
             : widget.predictionSuccess.prediction!.map((e) {
                 return BlocBuilder<SearchBloc, SearchState>(
                     builder: (context, state) {
-                  if (state is WordExistState) {
-                    var object = state.words![0];
+                  if (state is ItemExistState) {
+                    var object = state.items![0];
                     return ItemInfo(
                       size: widget.size,
                       object: object,
                     );
-                  } else if (state is SearchingWordState) {
+                  } else if (state is SearchingItemState) {
                     return const Center(child: CircularProgressIndicator());
                   } else if (state is ErrorsState) {
                     context.read<SearchBloc>().add(SearchItemEvent(
-                        searchedWord: widget.predictionSuccess
+                        searchedItem: widget.predictionSuccess
                             .prediction![selectedIndex].className));
                     return const Center(child: Text('There is no information'));
                   } else {

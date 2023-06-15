@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nutria/blocs/blocs.dart';
+import 'package:nutria/ui/list_screen/screen/list_screen.dart';
 
 class CategorySection extends StatelessWidget {
   const CategorySection({
@@ -11,7 +12,7 @@ class CategorySection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ScreenBloc screenBloc = context.read<ScreenBloc>();
+    // final ScreenBloc screenBloc = context.read<ScreenBloc>();
     final TabBloc tabBloc = context.read<TabBloc>();
     return Column(
       children: [
@@ -32,8 +33,12 @@ class CategorySection extends StatelessWidget {
               imagePath: 'assets/images/fruit.png',
               label: 'Fruit',
               onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const ListScreen()));
                 tabBloc.add(TabEventFruit());
-                screenBloc.add(ScreenEventGoToListScreen());
+                // screenBloc.add(ScreenEventGoToListScreen());
               },
             ),
             const SizedBox(
@@ -43,8 +48,12 @@ class CategorySection extends StatelessWidget {
               imagePath: 'assets/images/vegetable.png',
               label: 'Vegetable',
               onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const ListScreen()));
                 tabBloc.add(TabEventVegetable());
-                screenBloc.add(ScreenEventGoToListScreen());
+                // screenBloc.add(ScreenEventGoToListScreen());
               },
             )
           ],

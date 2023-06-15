@@ -22,9 +22,8 @@ class ListScreen extends StatelessWidget {
               Icons.arrow_back_ios,
               size: 30.0,
             ),
-            onPressed: () {
-              context.read<ScreenBloc>().add(ScreenEventGoToHomeScreen());
-            },
+            // onPressed: () => Navigator.pop(context),
+            onPressed: () => Navigator.pop(context),
           ),
           title: const Text('Fruits and Vegetables'),
           bottom: PreferredSize(
