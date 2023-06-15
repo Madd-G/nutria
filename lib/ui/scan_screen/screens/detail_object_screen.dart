@@ -7,7 +7,6 @@ class DetailObjectScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final user = FirebaseAuth.instance.currentUser;
     Size size = MediaQuery.of(context).size;
     return BlocBuilder<PredictionBloc, PredictionState>(
       builder: (context, predictionState) {
@@ -15,8 +14,6 @@ class DetailObjectScreen extends StatelessWidget {
           return const Scaffold(
               body: Center(child: CircularProgressIndicator()));
         } else if (predictionState is PredictionSuccessState) {
-        print('PredictionSuccessState');
-          context.read<HistoryBloc>().add(AddHistory(predResult: predictionState.prediction!));
           return DefaultTabController(
             length: (predictionState.prediction!.isEmpty)
                 ? 1

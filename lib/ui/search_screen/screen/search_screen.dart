@@ -9,54 +9,52 @@ class SearchScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cubit = BlocProvider.of<SearchBloc>(context);
-    return BlocBuilder<SearchBloc, SearchState>(
-        bloc: cubit,
-        builder: (context, state) {
-          return Scaffold(
-            appBar: AppBar(
-              leading: IconButton(
-                icon: const Icon(Icons.arrow_back_ios),
-                onPressed: () {
-                  context.read<ScreenBloc>().add(ScreenEventGoToListScreen());
-                },
-              ),
-              title: const Text('Search'),
-              elevation: 0.0,
-            ),
-            body: SizedBox(
-              width: double.infinity,
-              height: double.infinity,
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    const Padding(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 15.0,
-                        vertical: 10,
-                      ),
-                      child: SearchBar(),
-                    ),
-                    returnOnState(state)
-                  ],
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios),
+          onPressed: () {
+            context.read<ScreenBloc>().add(ScreenEventGoToListScreen());
+          },
+        ),
+        title: const Text('Search'),
+        elevation: 0.0,
+      ),
+      body: SizedBox(
+        width: double.infinity,
+        height: double.infinity,
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              const Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: 15.0,
+                  vertical: 10,
                 ),
+                child: SearchBar(),
               ),
-            ),
-          );
-        });
-  }
-
-  Widget returnOnState(SearchState state) {
-    if (state is WordExistState) {
-      return WordsList(state.words!);
-    } else if (state is SearchingWordState) {
-      return const CircularProgressIndicator();
-    } else if (state is NotSearchingWordState) {
-      return const NoWordsSearchedYet();
-    } else if (state is ErrorsState) {
-      return const Center(child: Text('Word not found'));
-    } else {
-      return const ErrorWidget();
-    }
+              BlocBuilder<SearchBloc, SearchState>(
+                  bloc: cubit,
+                  builder: (context, state) {
+                    if (state is SearchInitial) {
+                      return const NoWordsSearchedYet();
+                    } else if (state is WordExistState) {
+                      return WordsList(state.words!);
+                    } else if (state is SearchingWordState) {
+                      return const CircularProgressIndicator();
+                    } else if (state is NotSearchingWordState) {
+                      return const NoWordsSearchedYet();
+                    } else if (state is ErrorsState) {
+                      return const Center(child: Text('Not found'));
+                    } else {
+                      return const ErrorWidget();
+                    }
+                  })
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
 
@@ -98,9 +96,9 @@ class WordsList extends StatelessWidget {
 }
 
 class ErrorWidget extends StatelessWidget {
-  final String? erroMessage;
+  final String? errorMessage;
 
-  const ErrorWidget({super.key, this.erroMessage});
+  const ErrorWidget({super.key, this.errorMessage});
 
   @override
   Widget build(BuildContext context) {
@@ -108,7 +106,7 @@ class ErrorWidget extends StatelessWidget {
         child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 90),
             child: Text(
-              erroMessage ?? "Word not found",
+              errorMessage ?? "Word not found",
               textAlign: TextAlign.center,
             )));
   }
@@ -125,18 +123,6 @@ class NoWordsSearchedYet extends StatelessWidget {
         children: [
           const SizedBox(
             height: 10.0,
-          ),
-          Row(
-            children: [
-              const Expanded(child: Text("Recent words")),
-              if (AppConstants.recentWordList.isNotEmpty)
-                TextButton(
-                  onPressed: () {},
-                  child: const Text(
-                    "clear all",
-                  ),
-                )
-            ],
           ),
           if (AppConstants.recentWordList.isEmpty)
             const SizedBox(

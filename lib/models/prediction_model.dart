@@ -1,57 +1,9 @@
 import 'dart:convert';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 class PredictionModel {
   List<Prediction>? data;
 
   PredictionModel({this.data});
-
-  PredictionModel.fromJson(DocumentSnapshot<Map<String, dynamic>> json) {
-    if (json['objects'] != null) {
-      data = <Prediction>[];
-      json['objects'].forEach((v) {
-        data!.add(Prediction.fromJson(v));
-      });
-    }
-  }
-
-  factory PredictionModel.fromSnapshotSecond(DocumentSnapshot<Map<String, dynamic>> document) {
-    print('PredictionModel getting data');
-    final dats = document.data()!;
-    if (document['objects'] != null) {
-      var datas = <Prediction>[];
-      dats['objects'].forEach((v) {
-        print('***** v $v');
-        datas.add(Prediction.fromJson(v));
-      });
-      print('datas: ${datas}');
-      return PredictionModel(
-        data: datas,
-      );
-    }
-
-    print('PredictionModel ++++ data $dats');
-    print('PredictionModel ---- data ${dats['objects']}');
-    return PredictionModel(
-      data: dats['objects'],
-    );
-  }
-
-  factory PredictionModel.fromSnapshot(DocumentSnapshot<Map<String, dynamic>> document) {
-    print('PredictionModel getting data');
-    final dats = document.data()!;
-    print('PredictionModel ++++ data $dats');
-    print('PredictionModel ---- data ${dats['objects']}');
-    return PredictionModel(
-      data: dats['objects'],
-    );
-  }
-
-  // factory Prediction.fromJson(Map<String, dynamic> json) {
-  //   return Prediction(
-  //   data:
-  //       // classLabel: json["class_label"],
-  // }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
@@ -82,18 +34,6 @@ class Prediction {
         className: json["class_name"],
         // bbox: json["bbox"],
         confidence: json["confidence"]);
-  }
-
-  factory Prediction.fromSnapshot(DocumentSnapshot<Map<String, dynamic>> document) {
-    print('getting data');
-    final data = document.data()!;
-    print('++++ data $data');
-    print('---- data ${data['objects'][0]['className']}');
-    return Prediction(
-      classLabel: data['objects'][1]['classLabel'],
-      className: data['objects'][1]['className'],
-      confidence: data['objects'][1]['confidence'],
-    );
   }
 
   Map<String, dynamic> toJson() => {

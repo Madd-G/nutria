@@ -49,7 +49,7 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           lazy: true,
-          create: (context) => HistoryBloc(),
+          create: (context) => ArticleBloc(),
         ),
       ],
       child: MaterialApp(
@@ -103,6 +103,8 @@ class MyApp extends StatelessWidget {
               } else if (screenState is ScreenStateIsInScanScreen) {
                 return const ScreenController();
               } else if (screenState is ScreenStateIsInArticleScreen) {
+                return const ArticleScreen();
+              } else if (screenState is ScreenStateIsInArticleListScreen) {
                 return const ScreenController();
               } else if (screenState is ScreenStateIsInListScreen) {
                 return const ListScreen();

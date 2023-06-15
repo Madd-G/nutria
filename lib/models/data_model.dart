@@ -37,17 +37,18 @@ class Data {
   String? category;
   String? nutrients;
   String? benefits;
+
   // FieldValue? timestamp;
 
-  Data(
-      {this.id,
-      this.name,
-      this.description,
-      this.category,
-      this.nutrients,
-      this.benefits,
-      // this.timestamp
-      });
+  Data({
+    this.id,
+    this.name,
+    this.description,
+    this.category,
+    this.nutrients,
+    this.benefits,
+    // this.timestamp
+  });
 
   Data.fromJson(Map<String, dynamic> json) {
     id = json['id'];
