@@ -40,7 +40,7 @@ class _ArticleListScreenState extends State<ArticleListScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    const Text('An error occurred'),
+                    const Text('An error occurred, reload'),
                     const SizedBox(
                       height: 10.0,
                     ),
@@ -109,7 +109,7 @@ class _ArticleListScreenState extends State<ArticleListScreen> {
                                       SizedBox(
                                         width: size.width * 0.46,
                                         child: Text(
-                                          '${article!.title}',
+                                          '${article.title}',
                                           maxLines: 3,
                                           // textAlign: TextAlign.left,
                                           overflow: TextOverflow.clip,

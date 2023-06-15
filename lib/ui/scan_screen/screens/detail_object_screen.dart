@@ -26,7 +26,22 @@ class DetailObjectScreen extends StatelessWidget {
           );
         } else if (predictionState is PredictionErrorState) {
           return Scaffold(
-              body: Center(child: Text(predictionState.errorMessage)));
+            body: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text('Oops, an error occurred'),
+                  ElevatedButton(
+                      onPressed: () {
+                        context.read<ScreenBloc>().add(
+                              ScreenEventGoToScreenController(),
+                            );
+                      },
+                      child: const Text('BACK'))
+                ],
+              ),
+            ),
+          );
         } else {
           return const Scaffold();
         }

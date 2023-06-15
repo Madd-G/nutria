@@ -45,7 +45,25 @@ class _VegetableContentState extends State<VegetableContent> {
               },
             );
           } else if (state is ErrorState) {
-            return const Center(child: Text('Error'));
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text('An error occurred'),
+                const SizedBox(
+                  height: 10.0,
+                ),
+                IconButton(
+                  onPressed: () {
+                    context.read<DataBloc>().add(GetVegetables());
+                  },
+                  icon: Icon(
+                    Icons.refresh,
+                    color: Theme.of(context).colorScheme.primary,
+                    size: 30,
+                  ),
+                ),
+              ],
+            );
           } else {
             return Container();
           }
