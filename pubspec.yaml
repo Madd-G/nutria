@@ -49,9 +49,6 @@ dependencies:
   either_option: ^2.0.0
   http: ^0.13.5
   image_cropper: ^4.0.1
-  cloud_firestore: ^4.8.0
-  uuid: ^3.0.7
-  deep_collection: ^1.0.2
 
 dev_dependencies:
   flutter_test:

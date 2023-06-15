@@ -24,7 +24,15 @@ class ScreenStateIsInHomeScreen extends ScreenState {
 
 @immutable
 class ScreenStateIsInArticleScreen extends ScreenState {
+  final Article article;
   const ScreenStateIsInArticleScreen(
+      {required bool isLoading, AuthError? authError, required this.article})
+      : super(isLoading: isLoading);
+}
+
+@immutable
+class ScreenStateIsInArticleListScreen extends ScreenState {
+  const ScreenStateIsInArticleListScreen(
       {required bool isLoading, AuthError? authError})
       : super(isLoading: isLoading);
 }

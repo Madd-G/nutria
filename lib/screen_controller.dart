@@ -15,8 +15,8 @@ class ScreenController extends StatelessWidget {
             return const HomeScreen();
           } else if (screenState is ScreenStateIsInScanScreen) {
             return const ScanScreen();
-          } else if (screenState is ScreenStateIsInArticleScreen) {
-            return const ArticleScreen();
+          } else if (screenState is ScreenStateIsInArticleListScreen) {
+            return const ArticleListScreen();
           } else if (screenState is ScreenStateIsInHomeScreen) {
             return const HomeScreen();
           } else if (screenState is ScreenStateIsInLoginScreen) {
@@ -87,7 +87,7 @@ class ScreenController extends StatelessWidget {
                     } else if (index == 2) {
                       context
                           .read<ScreenBloc>()
-                          .add(ScreenEventGoToArticleScreen());
+                          .add(ScreenEventGoToArticleListScreen());
                     }
                   },
                 );

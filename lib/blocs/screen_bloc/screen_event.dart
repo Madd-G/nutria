@@ -10,7 +10,14 @@ class ScreenEventGoToScanScreen extends ScreenEvent {}
 class ScreenEventGoToHomeScreen extends ScreenEvent {}
 
 @immutable
-class ScreenEventGoToArticleScreen extends ScreenEvent {}
+class ScreenEventGoToArticleScreen extends ScreenEvent {
+  final Article article;
+
+  ScreenEventGoToArticleScreen({required this.article});
+}
+
+@immutable
+class ScreenEventGoToArticleListScreen extends ScreenEvent {}
 
 @immutable
 class ScreenEventGoToRegistrationScreen extends ScreenEvent {}

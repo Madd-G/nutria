@@ -39,6 +39,15 @@ class ApiService {
     }
   }
 
+  Future<ArticleModel> fetchArticles() async {
+    try {
+      Response response = await _dio.get('${_baseUrl}get-articles');
+      return ArticleModel.fromJson(response.data);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   Future<DataModel> fetchFruits() async {
     try {
       Response response = await _dio.get('${_baseUrl}get-fruit');
@@ -61,19 +70,11 @@ class ApiService {
     FormData formData =
         FormData.fromMap({"file": await MultipartFile.fromFile(imgPath)});
     Response response = await _dio.post('${_baseUrl}detect', data: formData);
-    print('<<<<<<responses 1>>>>>> $response');
-    print('<<<<<<responses 1>>>>>> ${response.runtimeType}');
     String responses = jsonEncode(response.data).toString();
-    print('<<<<<<responses data>>>>>> ${response.data}');
-    print('<<<<<<responses data>>>>>> ${response.data.runtimeType}');
-    print('<<<<<<responses>>>>>> $responses');
-    print('<<<<<<responses>>>>>> ${responses.runtimeType}');
     List<Prediction> result = modelFromJson(responses);
-    print('List<Prediction> result $result');
     result = result
         .where((element) => double.parse(element.confidence) > 50)
         .toList();
-    print('akhir $result');
     return result;
   }
 
