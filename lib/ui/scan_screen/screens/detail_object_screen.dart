@@ -3,7 +3,9 @@ import '../../../blocs/blocs.dart';
 import '../widgets/widgets.dart';
 
 class DetailObjectScreen extends StatelessWidget {
-  const DetailObjectScreen({super.key});
+  const DetailObjectScreen({super.key, this.imagePath});
+
+  final String? imagePath;
 
   @override
   Widget build(BuildContext context) {
@@ -22,6 +24,7 @@ class DetailObjectScreen extends StatelessWidget {
               size: size,
               predictionSuccess: predictionState,
               predictionModel: predictionState.prediction!,
+              imagePath: imagePath,
             ),
           );
         } else if (predictionState is PredictionErrorState) {
@@ -32,11 +35,7 @@ class DetailObjectScreen extends StatelessWidget {
                 children: [
                   const Text('Oops, an error occurred'),
                   ElevatedButton(
-                      onPressed: () {
-                        context.read<ScreenBloc>().add(
-                              ScreenEventGoToScreenController(),
-                            );
-                      },
+                      onPressed: () => Navigator.pop(context),
                       child: const Text('BACK'))
                 ],
               ),

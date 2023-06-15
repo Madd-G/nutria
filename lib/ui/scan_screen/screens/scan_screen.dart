@@ -10,7 +10,21 @@ class ScanScreen extends StatelessWidget {
       backgroundColor: Colors.black,
       body: Column(
         children: const [
-          Flexible(flex: 1, child: CameraScreenHeader()),
+          Flexible(
+            flex: 1,
+            child: SafeArea(
+              child: Center(
+                child: Text(
+                  "Scan your thing",
+                  style: TextStyle(
+                    fontFamily: 'GT Maru',
+                    color: Colors.white,
+                    fontSize: 21,
+                  ),
+                ),
+              ),
+            ),
+          ),
           Expanded(flex: 9, child: CameraContent()),
         ],
       ),

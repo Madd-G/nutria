@@ -65,9 +65,8 @@ class RecommendationCarousel extends StatelessWidget {
                   height: 10.0,
                 ),
                 IconButton(
-                  onPressed: () {
-                    context.read<DataBloc>().add(GetRecommendations());
-                  },
+                  onPressed: () =>
+                      context.read<DataBloc>().add(GetRecommendations()),
                   icon: Icon(
                     Icons.refresh,
                     color: Theme.of(context).colorScheme.primary,

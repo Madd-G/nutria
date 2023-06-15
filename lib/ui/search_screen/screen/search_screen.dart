@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nutria/blocs/blocs.dart';
+import 'package:nutria/ui/detail_screen/screen/detail_screen.dart';
 import '../../../models/data_model.dart';
 import '../widgets/widgets.dart';
 
@@ -8,14 +9,11 @@ class SearchScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cubit = BlocProvider.of<SearchBloc>(context);
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios),
-          onPressed: () {
-            context.read<ScreenBloc>().add(ScreenEventGoToListScreen());
-          },
+          onPressed: () => Navigator.pop(context),
         ),
         title: const Text('Search'),
         elevation: 0.0,
@@ -33,23 +31,21 @@ class SearchScreen extends StatelessWidget {
                 ),
                 child: SearchBar(),
               ),
-              BlocBuilder<SearchBloc, SearchState>(
-                  bloc: cubit,
-                  builder: (context, state) {
-                    if (state is SearchInitial) {
-                      return const NoWordsSearchedYet();
-                    } else if (state is WordExistState) {
-                      return WordsList(state.words!);
-                    } else if (state is SearchingWordState) {
-                      return const CircularProgressIndicator();
-                    } else if (state is NotSearchingWordState) {
-                      return const NoWordsSearchedYet();
-                    } else if (state is ErrorsState) {
-                      return const Center(child: Text('Not found'));
-                    } else {
-                      return const ErrorWidget();
-                    }
-                  })
+              BlocBuilder<SearchBloc, SearchState>(builder: (context, state) {
+                if (state is SearchInitial) {
+                  return const NoWordsSearchedYet();
+                } else if (state is ItemExistState) {
+                  return WordsList(state.items!);
+                } else if (state is SearchingItemState) {
+                  return const CircularProgressIndicator();
+                } else if (state is NotSearchingItemState) {
+                  return const NoWordsSearchedYet();
+                } else if (state is ErrorsState) {
+                  return const Center(child: Text('Not found'));
+                } else {
+                  return const ErrorWidget();
+                }
+              })
             ],
           ),
         ),
@@ -73,20 +69,21 @@ class WordsList extends StatelessWidget {
       child: Column(
         children: [
           ...words.map((e) {
+            Data dataModel = Data(
+                name: e.name,
+                description: e.description,
+                category: e.category,
+                nutrients: e.nutrients,
+                benefits: e.benefits);
             return ListTile(
               leading: const Icon(Icons.book),
               title: Text(e.name!),
-              onTap: () {
-                Data dataModel = Data(
-                    name: e.name,
-                    description: e.description,
-                    category: e.category,
-                    nutrients: e.nutrients,
-                    benefits: e.benefits);
-                context
-                    .read<ScreenBloc>()
-                    .add(ScreenEventGoToDetailScreen(data: dataModel));
-              },
+              onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => DetailScreen(
+                            data: dataModel,
+                          ))),
             );
           })
         ],
@@ -183,9 +180,7 @@ class PWidgetsWordTile extends StatelessWidget {
           title: Text(
             title,
           ),
-          onTap: () {
-            onTap();
-          },
+          onTap: () => onTap(),
         ),
         const Divider()
       ],

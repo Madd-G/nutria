@@ -1,6 +1,4 @@
 export 'home_screen/screen/home_screen.dart';
-export 'login_screen/screen/login_screen.dart';
-export 'register_screen/screen/register_screen.dart';
 export 'scan_screen/screens/scan_screen.dart';
 export 'article_screen/screens/article_screen.dart';
 export 'article_screen/screens/article_list_screen.dart';
