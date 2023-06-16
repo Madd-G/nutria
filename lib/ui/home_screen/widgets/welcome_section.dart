@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nutria/ui/chat_screen/screen/chat_screen.dart';
 
 class WelcomeSection extends StatelessWidget {
   const WelcomeSection({
@@ -22,12 +23,20 @@ class WelcomeSection extends StatelessWidget {
             SizedBox(
               height: size.height * 0.055,
             ),
-            const Text(
-              'Hello alamsyah',
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 40,
-                  fontWeight: FontWeight.w700),
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const ChatScreen()));
+              },
+              child: const Text(
+                'Hello alamsyah',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 40,
+                    fontWeight: FontWeight.w700),
+              ),
             ),
             SizedBox(
               height: size.height * 0.005,
