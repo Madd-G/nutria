@@ -1,7 +1,12 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:floating_draggable_widget/floating_draggable_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:nutria/blocs/blocs.dart';
 import 'package:nutria/models/article_model.dart';
 import 'package:nutria/ui/article_screen/screens/article_screen.dart';
+import 'package:nutria/widgets/nutriai_button.dart';
+
+import '../../chat_screen/screen/chat_screen.dart';
 
 class ArticleListScreen extends StatefulWidget {
   const ArticleListScreen({Key? key}) : super(key: key);
@@ -25,7 +30,8 @@ class _ArticleListScreenState extends State<ArticleListScreen> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Scaffold(
+    return FloatingDraggableWidget(
+      mainScreenWidget: Scaffold(
         appBar: AppBar(
           title: const Text('Articles'),
           automaticallyImplyLeading: false,
@@ -174,6 +180,30 @@ class _ArticleListScreenState extends State<ArticleListScreen> {
               return const SizedBox();
             }
           },
-        ));
+        ),
+        // bottomNavigationBar: const NutriAIButton(),
+      ),
+      screenHeight: MediaQuery.of(context).size.height * 0.95,
+      floatingWidget: FloatingActionButton(
+          foregroundColor: Colors.white,
+          backgroundColor: Theme.of(context).colorScheme.primary,
+          tooltip: 'Hello, may I help you?',
+          onPressed: () {
+            if (FirebaseAuth.instance.currentUser?.uid == null) {
+              context.read<AuthCubit>().signInWithGoogle(context);
+            } else {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const ChatScreen()));
+            }
+          },
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Image.asset(
+              'assets/images/AI.png',
+            ),
+          )),
+      floatingWidgetWidth: 55,
+      floatingWidgetHeight: 55,
+    );
   }
 }

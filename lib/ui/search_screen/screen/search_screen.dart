@@ -1,7 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:floating_draggable_widget/floating_draggable_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:nutria/blocs/blocs.dart';
 import 'package:nutria/ui/detail_screen/screen/detail_screen.dart';
 import '../../../models/data_model.dart';
+import '../../chat_screen/screen/chat_screen.dart';
 import '../widgets/widgets.dart';
 
 class SearchScreen extends StatelessWidget {
@@ -9,47 +12,69 @@ class SearchScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios),
-          onPressed: () => Navigator.pop(context),
+    return FloatingDraggableWidget(
+      mainScreenWidget: Scaffold(
+        appBar: AppBar(
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back_ios),
+            onPressed: () => Navigator.pop(context),
+          ),
+          title: const Text('Search'),
+          elevation: 0.0,
         ),
-        title: const Text('Search'),
-        elevation: 0.0,
-      ),
-      body: SizedBox(
-        width: double.infinity,
-        height: double.infinity,
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              const Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 15.0,
-                  vertical: 10,
+        body: SizedBox(
+          width: double.infinity,
+          height: double.infinity,
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                const Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 15.0,
+                    vertical: 10,
+                  ),
+                  child: SearchBar(),
                 ),
-                child: SearchBar(),
-              ),
-              BlocBuilder<SearchBloc, SearchState>(builder: (context, state) {
-                if (state is SearchInitial) {
-                  return const NoWordsSearchedYet();
-                } else if (state is ItemExistState) {
-                  return WordsList(state.items!);
-                } else if (state is SearchingItemState) {
-                  return const CircularProgressIndicator();
-                } else if (state is NotSearchingItemState) {
-                  return const NoWordsSearchedYet();
-                } else if (state is ErrorsState) {
-                  return const Center(child: Text('Not found'));
-                } else {
-                  return const ErrorWidget();
-                }
-              })
-            ],
+                BlocBuilder<SearchBloc, SearchState>(builder: (context, state) {
+                  if (state is SearchInitial) {
+                    return const NoWordsSearchedYet();
+                  } else if (state is ItemExistState) {
+                    return WordsList(state.items!);
+                  } else if (state is SearchingItemState) {
+                    return const CircularProgressIndicator();
+                  } else if (state is NotSearchingItemState) {
+                    return const NoWordsSearchedYet();
+                  } else if (state is ErrorsState) {
+                    return const Center(child: Text('Not found'));
+                  } else {
+                    return const ErrorWidget();
+                  }
+                })
+              ],
+            ),
           ),
         ),
       ),
+      floatingWidget: FloatingActionButton(
+          foregroundColor: Colors.white,
+          backgroundColor: Theme.of(context).colorScheme.primary,
+          tooltip: 'Hello, may I help you?',
+          onPressed: () {
+            if (FirebaseAuth.instance.currentUser?.uid == null) {
+              context.read<AuthCubit>().signInWithGoogle(context);
+            } else {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const ChatScreen()));
+            }
+          },
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Image.asset(
+              'assets/images/AI.png',
+            ),
+          )),
+      floatingWidgetWidth: 55,
+      floatingWidgetHeight: 55,
     );
   }
 }

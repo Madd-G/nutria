@@ -32,6 +32,10 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           lazy: true,
+          create: (context) => AuthCubit(),
+        ),
+        BlocProvider(
+          lazy: true,
           create: (context) => TabBloc(),
         ),
         BlocProvider(
