@@ -54,6 +54,14 @@ dependencies:
   provider: ^6.0.5
   animated_text_kit: ^4.2.2
   floating_draggable_widget: ^2.1.2
+  flutter_launcher_icons: ^0.13.1
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/images/ic_launcher.png"
+  adaptive_icon_background: "#FFFFFF"
+  adaptive_icon_foreground: "assets/images/1024.png"
 
 dev_dependencies:
   flutter_test:
