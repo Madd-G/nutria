@@ -17,7 +17,7 @@ class PredictionBloc extends Bloc<PredictionEvent, PredictionState> {
         try {
           List<Prediction> prediction = await apiService.uploadImage(imgPath);
           return prediction;
-        } on DioError catch (_) {
+        } on DioException catch (_) {
           rethrow;
         }
       }

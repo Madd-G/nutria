@@ -14,7 +14,7 @@ class ApiService {
         onResponse: (response, handler) {
           return handler.next(response);
         },
-        onError: (DioError e, handler) {
+        onError: (DioException e, handler) {
           if (e.response!.statusCode == 401) {
           } else {}
           return handler.next(e);
@@ -25,10 +25,8 @@ class ApiService {
 
   final Dio _dio = Dio();
 
-  // final String _baseUrl = 'http://192.168.18.55:8000/nutria/';
-  final String _baseUrl = 'http://10.0.2.2:8000/nutria/';
-
-  // final String _baseUrl = 'http://127.0.0.1:8000/nutria/';
+  final String _baseUrl =
+      'https://alamsyahyolo-35iuseuykq-et.a.run.app/nutria/';
 
   Future<DataModel> fetchRecommendations() async {
     try {
