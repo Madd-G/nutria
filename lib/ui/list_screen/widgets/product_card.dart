@@ -1,13 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:nutria/models/models.dart';
 import '../../detail_screen/screen/detail_screen.dart';
 
 class ProductCard extends StatelessWidget {
-  final Data data;
+  final DocumentSnapshot doc;
 
   const ProductCard({
     super.key,
-    required this.data,
+    required this.doc,
   });
 
   @override
@@ -18,7 +18,7 @@ class ProductCard extends StatelessWidget {
       padding: const EdgeInsets.only(left: 4.0, right: 4.0, top: 4.0),
       child: GestureDetector(
         onTap: () => Navigator.push(context,
-            MaterialPageRoute(builder: (context) => DetailScreen(data: data))),
+            MaterialPageRoute(builder: (context) => DetailScreen(doc: doc))),
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(2.0),
@@ -67,7 +67,7 @@ class ProductCard extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
-                            data.name!,
+                            doc['name'],
                             style: const TextStyle(
                                 fontSize: 22.0, fontWeight: FontWeight.w700),
                           ),
@@ -83,7 +83,7 @@ class ProductCard extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.fromLTRB(8.0, 0, 0, 8.0),
                           child: Text(
-                            data.category!,
+                            doc['category'],
                             style: const TextStyle(fontSize: 15.0),
                           ),
                         ),
@@ -98,7 +98,7 @@ class ProductCard extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.fromLTRB(8.0, 0, 0, 2.0),
                           child: Text(
-                            data.description!,
+                            doc['description'],
                             textAlign: TextAlign.justify,
                             maxLines: 3,
                             style: const TextStyle(

@@ -21,19 +21,24 @@ class ListScreen extends StatelessWidget {
         child: Scaffold(
           appBar: AppBar(
             elevation: 0,
-            leading: IconButton(
-              icon: const Icon(
-                Icons.arrow_back_ios,
-                size: 30.0,
-              ),
-              // onPressed: () => Navigator.pop(context),
-              onPressed: () => Navigator.pop(context),
-            ),
-            title: const Text('Fruits and Vegetables'),
+            automaticallyImplyLeading: false,
             bottom: PreferredSize(
               preferredSize: const Size.fromHeight(200.0),
               child: Column(
                 children: [
+                  const SafeArea(
+                    child: Center(
+                      child: Text(
+                        'Fruits and Vegetables',
+                        style: TextStyle(
+                          fontFamily: 'GT Maru',
+                          color: Colors.white,
+                          fontWeight: FontWeight.w700,
+                          fontSize: 23,
+                        ),
+                      ),
+                    ),
+                  ),
                   const SearchBar(),
                   Material(
                     color: Colors.white,
