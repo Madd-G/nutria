@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:floating_draggable_widget/floating_draggable_widget.dart';
 import 'package:flutter/material.dart';
@@ -5,10 +6,37 @@ import '../../chat_screen/screen/chat_screen.dart';
 import '../widgets/widgets.dart';
 import 'package:nutria/blocs/blocs.dart';
 
-class ListScreen extends StatelessWidget {
+class ListScreen extends StatefulWidget {
   const ListScreen({Key? key, this.tabIndex}) : super(key: key);
 
   final int? tabIndex;
+
+  @override
+  State<ListScreen> createState() => _ListScreenState();
+}
+
+class _ListScreenState extends State<ListScreen> {
+  late String searched;
+  TextEditingController searchController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+
+    searchController.addListener(_updateText);
+  }
+
+  @override
+  void dispose() {
+    searchController.dispose();
+    super.dispose();
+  }
+
+  void _updateText() {
+    setState(() {
+      searched = searchController.text;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,28 +67,55 @@ class ListScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  const SearchBar(),
-                  Material(
-                    color: Colors.white,
-                    child: TabBar(
-                      indicatorColor: Theme.of(context).colorScheme.primary,
-                      labelColor: Colors.black,
-                      tabs: const [
-                        Tab(text: 'Fruit'),
-                        Tab(text: 'Vegetable'),
-                      ],
-                    ),
+                  SearchBar(
+                    searchController: searchController,
                   ),
+                  (searchController.text.isEmpty)
+                      ? Material(
+                          color: Colors.white,
+                          child: TabBar(
+                            indicatorColor:
+                                Theme.of(context).colorScheme.primary,
+                            unselectedLabelColor: Colors.black,
+                            labelColor: Theme.of(context).colorScheme.primary,
+                            tabs: const [
+                              Tab(text: 'Fruit'),
+                              Tab(text: 'Vegetable'),
+                            ],
+                          ),
+                        )
+                      : const SizedBox(),
                 ],
               ),
             ),
           ),
-          body: const TabBarView(
-            children: [
-              FruitContent(),
-              VegetableContent(),
-            ],
-          ),
+          body: (searchController.text.isEmpty)
+              ? const TabBarView(
+                  children: [
+                    FruitContent(),
+                    VegetableContent(),
+                  ],
+                )
+              : FutureBuilder<QuerySnapshot>(
+                  future: FirebaseFirestore.instance
+                      .collection('items')
+                      .where("name", isEqualTo: searchController.text)
+                      .get(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(child: CircularProgressIndicator());
+                    }
+                    if (snapshot.data!.docs.isEmpty) {
+                      return const Center(child: Text("Not Found"));
+                    }
+                    if (snapshot.hasData) {
+                      final DocumentSnapshot doc = snapshot.data!.docs[0];
+                      return ProductCard(doc: doc);
+                    } else {
+                      return const SizedBox();
+                    }
+                  },
+                ),
           // floatingActionButton: const NutriAIButton(),
         ),
       ),

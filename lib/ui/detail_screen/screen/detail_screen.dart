@@ -13,43 +13,44 @@ class DetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
-      // appBar: AppBar(
-      //   title: const Text('Detail Screen'),
-      //   leading: IconButton(
-      //     icon: const Icon(
-      //       Icons.arrow_back_ios,
-      //       size: 30.0,
-      //     ),
-      //     onPressed: () => Navigator.pop(context),
-      //   ),
-      // ),
       body: FloatingDraggableWidget(
         mainScreenWidget: SafeArea(
           child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  height: height * 0.3,
-                  width: double.infinity,
-                  child: const Hero(
-                    tag: 'hero',
-                    child: Image(
-                      image: AssetImage("assets/images/fruit.png"),
-                      fit: BoxFit.cover,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(
+                    height: 15.0,
+                  ),
+                  Center(
+                    child: Text(
+                      doc['name'],
+                      style: const TextStyle(
+                          fontSize: 30.0, fontWeight: FontWeight.w700),
                     ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Column(
+                  const SizedBox(
+                    height: 10.0,
+                  ),
+                  SizedBox(
+                    height: height * 0.3,
+                    width: double.infinity,
+                    child: const Hero(
+                      tag: 'hero',
+                      child: Image(
+                        image: AssetImage("assets/images/apples.png"),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                  // const SizedBox(
+                  //   height: 10.0,
+                  // ),
+                  Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        doc['name'],
-                        style: const TextStyle(
-                            fontSize: 30.0, fontWeight: FontWeight.w700),
-                      ),
                       SizedBox(
                         height: height * 0.025,
                       ),
@@ -115,9 +116,9 @@ class DetailScreen extends StatelessWidget {
                         style: const TextStyle(fontSize: 17.0),
                       ),
                     ],
-                  ),
-                )
-              ],
+                  )
+                ],
+              ),
             ),
           ),
         ),

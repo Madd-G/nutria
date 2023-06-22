@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:nutria/ui/screens.dart';
 
 class SearchBar extends StatelessWidget {
-  const SearchBar({
-    super.key,
-  });
+  const SearchBar({super.key, required this.searchController});
+
+  final TextEditingController searchController;
 
   @override
   Widget build(BuildContext context) {
@@ -33,11 +32,12 @@ class SearchBar extends StatelessWidget {
                   height: 20.0,
                 ),
                 TextField(
-                  onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const SearchScreen())),
-                  readOnly: true,
+                  controller: searchController,
+                  // onTap: () => Navigator.push(
+                  //     context,
+                  //     MaterialPageRoute(
+                  //         builder: (context) => const SearchScreen())),
+                  // readOnly: true,
                   decoration: InputDecoration(
                     contentPadding:
                         const EdgeInsets.only(left: 10.0, right: 10.0),
