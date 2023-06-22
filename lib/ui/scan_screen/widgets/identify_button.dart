@@ -18,11 +18,15 @@ class IdentifyButton extends StatelessWidget {
         alignment: Alignment.bottomCenter,
         child: ElevatedButton(
             onPressed: () {
-              context
-                  .read<PredictionBloc>()
-                  .add(GetPrediction(imagePath: imagePath,));
+              context.read<PredictionBloc>().add(GetPrediction(
+                    imagePath: imagePath,
+                  ));
               Navigator.pop(context);
-              Navigator.push(context, MaterialPageRoute(builder: (context) => DetailObjectScreen(imagePath: imagePath)));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          DetailObjectScreen(imagePath: imagePath)));
             },
             child: const Text('IDENTIFY')),
       ),

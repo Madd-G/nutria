@@ -24,10 +24,6 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(
           lazy: true,
-          create: (context) => DataBloc(),
-        ),
-        BlocProvider(
-          lazy: true,
           create: (context) => PredictionBloc(),
         ),
         BlocProvider(
@@ -41,10 +37,6 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           lazy: true,
           create: (context) => BottomNavBarBloc(),
-        ),
-        BlocProvider(
-          lazy: true,
-          create: (context) => SearchBloc(),
         ),
         BlocProvider(
           lazy: true,
