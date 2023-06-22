@@ -1,13 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:floating_draggable_widget/floating_draggable_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:nutria/models/models.dart';
 import '../../../blocs/blocs.dart';
 import '../../chat_screen/screen/chat_screen.dart';
 
 class DetailScreen extends StatelessWidget {
-  const DetailScreen({Key? key, this.data}) : super(key: key);
-  final Data? data;
+  const DetailScreen({Key? key, required this.doc}) : super(key: key);
+  final DocumentSnapshot doc;
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +46,7 @@ class DetailScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        data!.name!,
+                        doc['name'],
                         style: const TextStyle(
                             fontSize: 30.0, fontWeight: FontWeight.w700),
                       ),
@@ -62,7 +62,7 @@ class DetailScreen extends StatelessWidget {
                         height: height * 0.003,
                       ),
                       Text(
-                        data!.category!,
+                        doc['category'],
                         style: const TextStyle(fontSize: 17.0),
                       ),
                       SizedBox(
@@ -77,7 +77,7 @@ class DetailScreen extends StatelessWidget {
                         height: height * 0.003,
                       ),
                       Text(
-                        data!.nutrients!,
+                        doc['nutrients'],
                         style: const TextStyle(fontSize: 17.0),
                       ),
                       SizedBox(
@@ -92,7 +92,7 @@ class DetailScreen extends StatelessWidget {
                         height: height * 0.01,
                       ),
                       Text(
-                        data!.description!,
+                        doc['description'],
                         textAlign: TextAlign.justify,
                         style: const TextStyle(
                           fontSize: 17.0,
@@ -111,7 +111,7 @@ class DetailScreen extends StatelessWidget {
                         height: height * 0.003,
                       ),
                       Text(
-                        data!.benefits!,
+                        doc['benefits'],
                         style: const TextStyle(fontSize: 17.0),
                       ),
                     ],

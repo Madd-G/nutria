@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:floating_draggable_widget/floating_draggable_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:nutria/blocs/blocs.dart';
-import 'package:nutria/ui/detail_screen/screen/detail_screen.dart';
 import '../../../models/data_model.dart';
 import '../../chat_screen/screen/chat_screen.dart';
 import '../widgets/widgets.dart';
@@ -103,12 +102,14 @@ class WordsList extends StatelessWidget {
             return ListTile(
               leading: const Icon(Icons.book),
               title: Text(e.name!),
-              onTap: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => DetailScreen(
-                            data: dataModel,
-                          ))),
+              onTap: () {
+                // Navigator.push(
+                //     context,
+                //     MaterialPageRoute(
+                //         builder: (context) => DetailScreen(
+                //           doc: dataModel,
+                //         )));
+              }
             );
           })
         ],
