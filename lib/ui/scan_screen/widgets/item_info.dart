@@ -1,18 +1,17 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:nutria/models/models.dart';
 
 class ItemInfo extends StatelessWidget {
   const ItemInfo({
     super.key,
-    required this.size,
-    required this.object,
+    required this.doc,
   });
 
-  final Size size;
-  final Data object;
+  final DocumentSnapshot doc;
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -23,7 +22,7 @@ class ItemInfo extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  object.name!,
+                  doc['name'],
                   style: const TextStyle(
                       fontSize: 35.0, fontWeight: FontWeight.w900),
                 ),
@@ -31,11 +30,12 @@ class ItemInfo extends StatelessWidget {
                   decoration: BoxDecoration(
                       color: Theme.of(context).colorScheme.primary,
                       borderRadius:
-                      const BorderRadius.all(Radius.circular(8.0))),
+                          const BorderRadius.all(Radius.circular(8.0))),
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 25.0),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 6.0, horizontal: 25.0),
                     child: Text(
-                      object.category!,
+                      doc['category'],
                       textAlign: TextAlign.justify,
                       style: const TextStyle(
                         fontSize: 20.0,
@@ -57,7 +57,7 @@ class ItemInfo extends StatelessWidget {
               height: size.height * 0.003,
             ),
             Text(
-              object.nutrients!,
+              doc['nutrients'],
               textAlign: TextAlign.justify,
               style: const TextStyle(fontSize: 17.0),
             ),
@@ -72,7 +72,7 @@ class ItemInfo extends StatelessWidget {
               height: size.height * 0.01,
             ),
             Text(
-              object.description!,
+              doc['description'],
               textAlign: TextAlign.justify,
               style: const TextStyle(
                 fontSize: 17.0,
@@ -90,7 +90,7 @@ class ItemInfo extends StatelessWidget {
               height: size.height * 0.003,
             ),
             Text(
-              object.benefits!,
+              doc['benefits'],
               textAlign: TextAlign.justify,
               style: const TextStyle(fontSize: 17.0),
             ),

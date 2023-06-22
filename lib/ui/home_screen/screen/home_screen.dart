@@ -5,24 +5,8 @@ import '../../chat_screen/screen/chat_screen.dart';
 import '../widgets/widgets.dart';
 import 'package:nutria/blocs/blocs.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
-
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  @override
-  void initState() {
-    super.initState();
-    Future.delayed(
-      Duration.zero,
-      () {
-        context.read<DataBloc>().add(GetRecommendations());
-      },
-    );
-  }
 
   @override
   Widget build(BuildContext context) {

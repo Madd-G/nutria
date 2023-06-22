@@ -9,7 +9,6 @@ class DetailObjectScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return BlocBuilder<PredictionBloc, PredictionState>(
       builder: (context, predictionState) {
         if (predictionState is PredictionLoadingState) {
@@ -21,7 +20,6 @@ class DetailObjectScreen extends StatelessWidget {
                 ? 1
                 : predictionState.prediction!.length,
             child: PredictionSuccessView(
-              size: size,
               predictionSuccess: predictionState,
               predictionModel: predictionState.prediction!,
               imagePath: imagePath,

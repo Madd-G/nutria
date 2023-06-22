@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:floating_draggable_widget/floating_draggable_widget.dart';
 import 'package:flutter/material.dart';
@@ -11,13 +12,11 @@ import 'widgets.dart';
 class PredictionSuccessView extends StatefulWidget {
   const PredictionSuccessView({
     super.key,
-    required this.size,
     required this.predictionSuccess,
     required this.predictionModel,
     required this.imagePath,
   });
 
-  final Size size;
   final PredictionSuccessState predictionSuccess;
   final List<Prediction> predictionModel;
   final String? imagePath;
@@ -30,59 +29,8 @@ class _PredictionSuccessViewState extends State<PredictionSuccessView>
     with SingleTickerProviderStateMixin {
   TabController? _controller;
   int selectedIndex = 0;
-  bool _swipeIsInProgress = false;
-  bool _tapIsBeingExecuted = false;
 
   @override
-  void initState() {
-    super.initState();
-    if (widget.predictionModel.isNotEmpty) {
-      context.read<SearchBloc>().add(SearchItemEvent(
-          searchedItem:
-              widget.predictionSuccess.prediction![selectedIndex].className));
-    }
-    _controller = TabController(
-        initialIndex: 0,
-        length: (widget.predictionModel.isEmpty)
-            ? 1
-            : widget.predictionModel.length,
-        vsync: this);
-
-    _controller?.animation?.addListener(() {
-      if (!_tapIsBeingExecuted &&
-          !_swipeIsInProgress &&
-          (_controller!.offset >= 0.5 || _controller!.offset <= -0.5)) {
-        int newIndex = _controller!.offset > 0
-            ? _controller!.index + 1
-            : _controller!.index - 1;
-
-        _swipeIsInProgress = true;
-        setState(() {
-          selectedIndex = newIndex;
-          context.read<SearchBloc>().add(SearchItemEvent(
-              searchedItem: widget
-                  .predictionSuccess.prediction![selectedIndex].className));
-        });
-      }
-    });
-    _controller!.addListener(() {
-      _swipeIsInProgress = false;
-      setState(() {
-        selectedIndex = _controller!.index;
-      });
-      if (_tapIsBeingExecuted == true) {
-        _tapIsBeingExecuted = false;
-      } else {
-        if (_controller!.indexIsChanging) {
-          context.read<SearchBloc>().add(SearchItemEvent(
-              searchedItem: widget
-                  .predictionSuccess.prediction![selectedIndex].className));
-          _tapIsBeingExecuted = true;
-        }
-      }
-    });
-  }
-
   @override
   void dispose() {
     _controller!.dispose();
@@ -95,6 +43,7 @@ class _PredictionSuccessViewState extends State<PredictionSuccessView>
     return FloatingDraggableWidget(
       mainScreenWidget: Scaffold(
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           backgroundColor: Colors.black,
           flexibleSpace: SizedBox(
             child: Image(
@@ -116,26 +65,22 @@ class _PredictionSuccessViewState extends State<PredictionSuccessView>
                     bottom: BorderSide(color: Colors.black, width: 1),
                   ),
                 ),
-                child: TabBar(
-                  isScrollable: true,
-                  padding: const EdgeInsets.symmetric(vertical: 8.0),
-                  labelPadding: const EdgeInsets.symmetric(horizontal: 5),
-                  unselectedLabelColor: Theme.of(context).colorScheme.primary,
-                  indicatorSize: TabBarIndicatorSize.label,
-                  indicator: BoxDecoration(
-                      borderRadius: BorderRadius.circular(50),
-                      color: Theme.of(context).colorScheme.primary),
-                  controller: _controller,
-                  indicatorColor: Theme.of(context).colorScheme.primary,
-                  labelColor: Colors.black,
-                  tabs: (widget.predictionSuccess.prediction!.isEmpty)
-                      ? [
-                          const Tab(
-                              height: 0.0,
-                              iconMargin: EdgeInsets.only(bottom: 0.0),
-                              child: SizedBox.shrink())
-                        ]
-                      : widget.predictionSuccess.prediction!.map((label) {
+                child: (widget.predictionSuccess.prediction!.isEmpty)
+                    ? const SizedBox.shrink()
+                    : TabBar(
+                        isScrollable: true,
+                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                        labelPadding: const EdgeInsets.symmetric(horizontal: 5),
+                        unselectedLabelColor:
+                            Theme.of(context).colorScheme.primary,
+                        indicatorSize: TabBarIndicatorSize.label,
+                        indicator: BoxDecoration(
+                            borderRadius: BorderRadius.circular(50),
+                            color: Theme.of(context).colorScheme.primary),
+                        controller: _controller,
+                        indicatorColor: Theme.of(context).colorScheme.primary,
+                        labelColor: Colors.black,
+                        tabs: widget.predictionSuccess.prediction!.map((label) {
                           return Tab(
                             height: 30.0,
                             child: Container(
@@ -153,42 +98,39 @@ class _PredictionSuccessViewState extends State<PredictionSuccessView>
                                     child: Text(label.className))),
                           );
                         }).toList(),
-                ),
+                      ),
               ),
             ),
           ),
         ),
-        body: TabBarView(
-          controller: _controller,
-          children: (widget.predictionSuccess.prediction!.isEmpty)
-              ? [
-                  const Center(
-                    child: Text('There Is No Fruit Or Vegetable'),
-                  ),
-                ]
-              : widget.predictionSuccess.prediction!.map((e) {
-                  return BlocBuilder<SearchBloc, SearchState>(
-                      builder: (context, state) {
-                    if (state is ItemExistState) {
-                      var object = state.items![0];
-                      return ItemInfo(
-                        size: widget.size,
-                        object: object,
-                      );
-                    } else if (state is SearchingItemState) {
-                      return const Center(child: CircularProgressIndicator());
-                    } else if (state is ErrorsState) {
-                      context.read<SearchBloc>().add(SearchItemEvent(
-                          searchedItem: widget.predictionSuccess
-                              .prediction![selectedIndex].className));
-                      return const Center(
-                          child: Text('There is no information'));
-                    } else {
-                      return const Center(child: Text('Else'));
-                    }
-                  });
+        body: (widget.predictionSuccess.prediction!.isEmpty)
+            ? const Center(child: Text('Not Found'))
+            : TabBarView(
+                controller: _controller,
+                children: widget.predictionSuccess.prediction!.map((e) {
+                  return FutureBuilder<QuerySnapshot>(
+                      future: FirebaseFirestore.instance
+                          .collection('items')
+                          .where("name", isEqualTo: e.className)
+                          .get(),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return const Center(
+                              child: CircularProgressIndicator());
+                        }
+                        if (snapshot.data!.docs.isEmpty) {
+                          return const Center(child: Text("Not Found"));
+                        }
+                        if (snapshot.hasData) {
+                          final DocumentSnapshot doc = snapshot.data!.docs[0];
+                          return ItemInfo(doc: doc);
+                        } else {
+                          return const SizedBox();
+                        }
+                      });
                 }).toList(),
-        ),
+              ),
       ),
       floatingWidget: FloatingActionButton(
           foregroundColor: Colors.white,
