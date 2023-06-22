@@ -1,31 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:floating_draggable_widget/floating_draggable_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:nutria/blocs/blocs.dart';
-import 'package:nutria/models/article_model.dart';
-import 'package:nutria/ui/article_screen/screens/article_screen.dart';
-import 'package:nutria/widgets/nutriai_button.dart';
-
 import '../../chat_screen/screen/chat_screen.dart';
+import '../widgets/widgets.dart';
 
-class ArticleListScreen extends StatefulWidget {
+class ArticleListScreen extends StatelessWidget {
   const ArticleListScreen({Key? key}) : super(key: key);
-
-  @override
-  State<ArticleListScreen> createState() => _ArticleListScreenState();
-}
-
-class _ArticleListScreenState extends State<ArticleListScreen> {
-  @override
-  void initState() {
-    super.initState();
-    Future.delayed(
-      Duration.zero,
-      () {
-        context.read<ArticleBloc>().add(GetArticle());
-      },
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,159 +15,50 @@ class _ArticleListScreenState extends State<ArticleListScreen> {
     return FloatingDraggableWidget(
       mainScreenWidget: Scaffold(
         appBar: AppBar(
-          title: const Text('Articles'),
           automaticallyImplyLeading: false,
+          bottom: PreferredSize(
+            preferredSize: Size.fromHeight(size.height * 0.18),
+            child: Column(
+              children: const [
+                SafeArea(
+                  child: Center(
+                    child: Text(
+                      'Articles',
+                      style: TextStyle(
+                        fontFamily: 'GT Maru',
+                        color: Colors.white,
+                        fontWeight: FontWeight.w700,
+                        fontSize: 25,
+                      ),
+                    ),
+                  ),
+                ),
+                SearchBar(),
+              ],
+            ),
+          ),
         ),
-        body: BlocBuilder<ArticleBloc, ArticleState>(
-          builder: (context, state) {
-            if (state is ArticleLoadingState) {
-              return const Center(
-                child: CircularProgressIndicator(),
+        body: FutureBuilder<QuerySnapshot>(
+          future: FirebaseFirestore.instance.collection('article').get(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            }
+            if (snapshot.data!.docs.isEmpty) {
+              return const SizedBox(
+                child: Center(child: Text("There is no article")),
               );
-            } else if (state is ArticleErrorState) {
-              return Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const Text('An error occurred, reload'),
-                    const SizedBox(
-                      height: 10.0,
-                    ),
-                    IconButton(
-                      onPressed: () =>
-                          context.read<ArticleBloc>().add(GetArticle()),
-                      icon: Icon(
-                        Icons.refresh,
-                        color: Theme.of(context).colorScheme.primary,
-                        size: 30,
-                      ),
-                    ),
-                  ],
-                ),
-              );
-            } else if (state is ArticleSuccessState) {
-              return Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: ListView.builder(
-                  itemCount: state.article.articles!.length,
-                  itemBuilder: (context, index) {
-                    Article? article = state.article.articles?[index];
-                    return GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    ArticleScreen(article: article)));
-                        context.read<ArticleBloc>().add(GetArticle());
-                      },
-                      child: SizedBox(
-                        height: 150.0,
-                        child: Card(
-                          elevation: 0.0,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Container(
-                                width: size.width * 0.35,
-                                foregroundDecoration: BoxDecoration(
-                                  image: DecorationImage(
-                                      image: NetworkImage(article!.image!),
-                                      fit: BoxFit.fill),
-                                  borderRadius: const BorderRadius.all(
-                                    Radius.circular(15.0),
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(
-                                width: 10.0,
-                              ),
-                              Expanded(
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 8.0, horizontal: 2.0),
-                                  child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      const Text(
-                                        'Health',
-                                        style: TextStyle(
-                                            fontSize: 15.0, color: Colors.grey),
-                                      ),
-                                      SizedBox(
-                                        width: size.width * 0.46,
-                                        child: Text(
-                                          '${article.title}',
-                                          maxLines: 3,
-                                          // textAlign: TextAlign.left,
-                                          overflow: TextOverflow.clip,
-                                          style: const TextStyle(
-                                              fontSize: 20.0,
-                                              fontWeight: FontWeight.w700),
-                                        ),
-                                      ),
-                                      // const SizedBox(
-                                      //   height: 10.0,
-                                      // ),
-                                      // const Text('{article.tag'),
-                                      Column(
-                                        children: [
-                                          const SizedBox(
-                                            height: 15.0,
-                                          ),
-                                          Row(
-                                            children: [
-                                              ClipRRect(
-                                                borderRadius:
-                                                    BorderRadius.circular(16.0),
-                                                child: SizedBox(
-                                                  width: 20.0,
-                                                  height: 20.0,
-                                                  child: Image.network(
-                                                    article.profileImage!,
-                                                    fit: BoxFit.cover,
-                                                  ),
-                                                ),
-                                              ),
-                                              const SizedBox(
-                                                width: 5.0,
-                                              ),
-                                              Text(
-                                                '${article.author}  ●  ${article.date}',
-                                                style: const TextStyle(
-                                                    fontSize: 15.0,
-                                                    color: Colors.grey),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    );
-                  },
-                ),
-              );
+            }
+            if (snapshot.hasData) {
+              return ArticleList(size: size);
             } else {
               return const SizedBox();
             }
           },
         ),
-        // bottomNavigationBar: const NutriAIButton(),
       ),
-      screenHeight: MediaQuery.of(context).size.height * 0.95,
+      // screenHeight: MediaQuery.of(context).size.height * 0.95,
       floatingWidget: FloatingActionButton(
-          foregroundColor: Colors.white,
           backgroundColor: Theme.of(context).colorScheme.primary,
           tooltip: 'Hello, may I help you?',
           onPressed: () {
