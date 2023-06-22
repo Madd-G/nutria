@@ -55,6 +55,7 @@ dependencies:
   animated_text_kit: ^4.2.2
   floating_draggable_widget: ^2.1.2
   flutter_launcher_icons: ^0.13.1
+  cloud_firestore: ^4.8.1
 
 flutter_icons:
   android: true

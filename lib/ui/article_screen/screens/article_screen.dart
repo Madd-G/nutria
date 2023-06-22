@@ -1,14 +1,14 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:floating_draggable_widget/floating_draggable_widget.dart';
 import 'package:flutter/material.dart';
 import '../../../blocs/blocs.dart';
-import '../../../models/models.dart';
 import '../../chat_screen/screen/chat_screen.dart';
 
 class ArticleScreen extends StatelessWidget {
-  const ArticleScreen({Key? key, this.article}) : super(key: key);
+  const ArticleScreen({Key? key, required this.doc}) : super(key: key);
 
-  final Article? article;
+  final DocumentSnapshot doc;
 
   @override
   Widget build(BuildContext context) {
@@ -42,13 +42,13 @@ class ArticleScreen extends StatelessWidget {
                           width: 20.0,
                           height: 20.0,
                           child: Image.network(
-                            article!.profileImage!,
+                            doc['profile-image'],
                             fit: BoxFit.cover,
                           ),
                         ),
                       ),
                       Text(
-                        '  ${article!.author}  •  ${article!.date}  •  ${article!.category}',
+                        '  ${doc['author']}  •  ${doc['date']}  •  ${doc['category']}',
                         style:
                             const TextStyle(color: Colors.grey, fontSize: 13.0),
                       ),
@@ -58,7 +58,7 @@ class ArticleScreen extends StatelessWidget {
                     height: 15.0,
                   ),
                   Text(
-                    article!.title!,
+                    doc['title'],
                     style: const TextStyle(
                         fontSize: 22.0, fontWeight: FontWeight.w700),
                   ),
@@ -71,7 +71,7 @@ class ArticleScreen extends StatelessWidget {
                       height: 250.0,
                       width: size.width,
                       child: Image.network(
-                        article!.image!,
+                        doc['item-image'],
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -80,13 +80,13 @@ class ArticleScreen extends StatelessWidget {
                     height: 5.0,
                   ),
                   Center(
-                      child: Text('${article!.pictureDescription}',
+                      child: Text('${doc['picture-description']}',
                           style: const TextStyle(color: Colors.grey))),
                   const SizedBox(
                     height: 20.0,
                   ),
                   Text(
-                    article!.article!,
+                    doc['article'],
                     textAlign: TextAlign.justify,
                     style: const TextStyle(
                       fontSize: 16.0,

@@ -1,8 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:nutria/blocs/blocs.dart';
-import 'package:nutria/ui/chat_screen/screen/chat_screen.dart';
 
 class WelcomeSection extends StatelessWidget {
   const WelcomeSection({super.key, required this.size});
