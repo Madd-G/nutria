@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:nutria/ui/screens.dart';
 
 class SearchBar extends StatelessWidget {
-  const SearchBar({
-    super.key,
-  });
+  const SearchBar({super.key});
 
   @override
   Widget build(BuildContext context) {

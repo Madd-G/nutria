@@ -46,7 +46,7 @@ class ArticleListScreen extends StatelessWidget {
             }
             if (snapshot.data!.docs.isEmpty) {
               return const SizedBox(
-                child: Center(child: Text("There is no article")),
+                child: Center(child: Text("Not found")),
               );
             }
             if (snapshot.hasData) {

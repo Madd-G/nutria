@@ -12,107 +12,97 @@ class ProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var height = MediaQuery.of(context).size.height;
-    var width = MediaQuery.of(context).size.width;
+    var size = MediaQuery.of(context).size;
     return Padding(
-      padding: const EdgeInsets.only(left: 4.0, right: 4.0, top: 4.0),
+      padding:
+          const EdgeInsets.only(left: 6.0, right: 6.0, top: 6.0, bottom: 3.0),
       child: GestureDetector(
         onTap: () => Navigator.push(context,
             MaterialPageRoute(builder: (context) => DetailScreen(doc: doc))),
-        child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(2.0),
-            color: const Color(0xffF7F9FB),
-            boxShadow: const [
-              BoxShadow(color: Colors.black26, blurRadius: 0.5)
-            ],
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(2),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(
-                  height: height * 0.21,
-                  width: width * 0.47,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(2.0),
-                    color: Colors.white,
-                    boxShadow: const [
-                      BoxShadow(
-                          color: Colors.black26,
-                          // offset: Offset(0.0, 2.0),
-                          blurRadius: 0.5)
-                    ],
-                  ),
-                  child: Center(
-                    child: Image(
-                      height: height * 0.20,
-                      width: width * 0.43,
-                      image: const AssetImage("assets/images/fruit.png"),
-                      fit: BoxFit.contain,
-                    ),
+        child: SizedBox(
+          height: size.width * 0.35,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                width: size.width * 0.4,
+                height: size.width * 0.35,
+                foregroundDecoration: const BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage("assets/images/apples.png"),
+                      fit: BoxFit.fill),
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(3.0),
+                    bottomLeft: Radius.circular(3.0),
+                    bottomRight: Radius.circular(2.0),
+                    topRight: Radius.circular(2.0),
                   ),
                 ),
-                Container(
-                  color: Colors.white,
-                  height: height * 0.21,
-                  width: width * 0.47,
+              ),
+              Expanded(
+                child: Container(
+                  height: size.width * 0.35,
+                  decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(3.0),
+                        bottomRight: Radius.circular(3.0)),
+                    color: Color(0xffF7F9FB),
+                    boxShadow: [
+                      BoxShadow(color: Colors.black26, blurRadius: 0.5)
+                    ],
+                  ),
                   child: Padding(
-                    padding: const EdgeInsets.all(2.0),
+                    padding: const EdgeInsets.all(8.0),
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            doc['name'],
-                            style: const TextStyle(
-                                fontSize: 22.0, fontWeight: FontWeight.w700),
-                          ),
+                        Text(
+                          doc['name'],
+                          style: const TextStyle(
+                              fontSize: 16.0, fontWeight: FontWeight.w700),
                         ),
-                        const Padding(
-                          padding: EdgeInsets.fromLTRB(8.0, 2.0, 0, 2.0),
-                          child: Text(
-                            'Category',
-                            style: TextStyle(
-                                color: Color(0xffA1A8B9), fontSize: 17.0),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(8.0, 0, 0, 8.0),
-                          child: Text(
-                            doc['category'],
-                            style: const TextStyle(fontSize: 15.0),
-                          ),
-                        ),
-                        const Padding(
-                          padding: EdgeInsets.fromLTRB(8.0, 0, 0, 2.0),
-                          child: Text(
-                            'Description',
-                            style: TextStyle(
-                                color: Color(0xffA1A8B9), fontSize: 17.0),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(8.0, 0, 0, 2.0),
-                          child: Text(
-                            doc['description'],
-                            textAlign: TextAlign.justify,
-                            maxLines: 3,
-                            style: const TextStyle(
-                              fontSize: 15.0,
-                              overflow: TextOverflow.ellipsis,
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              'Category',
+                              style: TextStyle(
+                                  color: Color(0xffA1A8B9), fontSize: 12.0),
                             ),
-                          ),
-                        )
+                            Text(
+                              doc['category'],
+                              style: const TextStyle(fontSize: 10.0),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(),
+                        const SizedBox(),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              'Description',
+                              style: TextStyle(
+                                  color: Color(0xffA1A8B9), fontSize: 12.0),
+                            ),
+                            Text(
+                              doc['description'],
+                              textAlign: TextAlign.justify,
+                              maxLines: 4,
+                              style: const TextStyle(
+                                fontSize: 10.0,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            )
+                          ],
+                        ),
                       ],
                     ),
                   ),
-                )
-              ],
-            ),
+                ),
+              )
+            ],
           ),
         ),
       ),
