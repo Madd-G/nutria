@@ -6,11 +6,13 @@ class ChatWidget extends StatelessWidget {
       {super.key,
       required this.msg,
       required this.chatIndex,
-      this.shouldAnimate = false});
+      this.shouldAnimate = false,
+      required this.isAutoScroll});
 
   final String msg;
   final int chatIndex;
   final bool shouldAnimate;
+  final bool isAutoScroll;
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +34,7 @@ class ChatWidget extends StatelessWidget {
               Expanded(
                 child: chatIndex == 0
                     ? UserInput(
+                        fontSize: 30.0,
                         label: msg,
                       )
                     : AiAnswer(

@@ -5,8 +5,11 @@ class AiAnswer extends StatelessWidget {
   final String msg;
   final bool shouldAnimate;
 
-  const AiAnswer({Key? key, required this.msg, required this.shouldAnimate})
-      : super(key: key);
+  const AiAnswer({
+    Key? key,
+    required this.msg,
+    required this.shouldAnimate,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,8 +28,8 @@ class AiAnswer extends StatelessWidget {
                 child: const Center(
                     child: Text(
                   'N',
-                  style:
-                      TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
+                  style: TextStyle(
+                      color: Colors.white, fontWeight: FontWeight.w700),
                 )),
               ),
               const SizedBox(
@@ -34,7 +37,10 @@ class AiAnswer extends StatelessWidget {
               ),
               const Text(
                 'NutriAI',
-                style: TextStyle(fontSize: 14.0, color: Colors.grey, fontWeight: FontWeight.w500),
+                style: TextStyle(
+                    fontSize: 14.0,
+                    color: Colors.grey,
+                    fontWeight: FontWeight.w500),
               ),
             ],
           ),
@@ -45,11 +51,11 @@ class AiAnswer extends StatelessWidget {
               ),
               shouldAnimate
                   ? Expanded(
-                    child: DefaultTextStyle(
+                      child: DefaultTextStyle(
                         style: const TextStyle(
                             color: Colors.black,
                             // fontWeight: FontWeight.w700,
-                            fontSize: 14),
+                            fontSize: 30.0),
                         child: AnimatedTextKit(
                           isRepeatingAnimation: false,
                           repeatForever: false,
@@ -62,16 +68,16 @@ class AiAnswer extends StatelessWidget {
                           ],
                         ),
                       ),
-                  )
+                    )
                   : Expanded(
-                    child: Text(
+                      child: Text(
                         msg.trim(),
                         style: const TextStyle(
                             color: Colors.black,
                             // fontWeight: FontWeight.w700,
                             fontSize: 16),
                       ),
-                  ),
+                    ),
             ],
           ),
         ],

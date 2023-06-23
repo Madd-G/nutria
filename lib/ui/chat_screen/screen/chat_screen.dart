@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -15,7 +16,7 @@ class ChatScreen extends StatefulWidget {
 
 class _ChatScreenState extends State<ChatScreen> {
   bool _isTyping = false;
-
+  bool isAutoScroll = true;
   late TextEditingController textEditingController;
   late ScrollController _listScrollController;
   late FocusNode focusNode;
@@ -25,7 +26,13 @@ class _ChatScreenState extends State<ChatScreen> {
     _listScrollController = ScrollController();
     textEditingController = TextEditingController();
     focusNode = FocusNode();
+
     super.initState();
+  }
+
+  _scrollToBottom() {
+    _listScrollController
+        .jumpTo(_listScrollController.position.maxScrollExtent);
   }
 
   @override
@@ -40,27 +47,39 @@ class _ChatScreenState extends State<ChatScreen> {
   Widget build(BuildContext context) {
     final chatProvider = Provider.of<ChatProvider>(context);
     return Scaffold(
-      // appBar: AppBar(
-      //   elevation: 2,
-      //   title: const Text("NutriAI"),
-      // ),
       body: SafeArea(
         child: Column(
           children: [
             Flexible(
-              child: ListView.builder(
-                  controller: _listScrollController,
-                  itemCount: chatProvider.getChatList.length, //chatList.length,
-                  itemBuilder: (context, index) {
-                    return ChatWidget(
-                      msg: chatProvider
-                          .getChatList[index].msg, // chatList[index].msg,
-                      chatIndex: chatProvider.getChatList[index]
-                          .chatIndex, //chatList[index].chatIndex,
-                      shouldAnimate:
-                          chatProvider.getChatList.length - 1 == index,
-                    );
-                  }),
+              child: GestureDetector(
+                onTap: () => isAutoScroll = false,
+                child: ListView.builder(
+                    controller: _listScrollController,
+                    itemCount: chatProvider.getChatList.length,
+                    //chatList.length,
+                    itemBuilder: (context, index) {
+                      print('isAutoScroll: $isAutoScroll');
+                      if (isAutoScroll == true) {
+                        Timer.periodic(const Duration(milliseconds: 100),
+                            (timer) {
+                          if (mounted) {
+                            _scrollToBottom();
+                          } else {
+                            timer.cancel();
+                          }
+                        });
+                      }
+                      return ChatWidget(
+                        isAutoScroll: isAutoScroll,
+                        msg: chatProvider
+                            .getChatList[index].msg, // chatList[index].msg,
+                        chatIndex: chatProvider.getChatList[index]
+                            .chatIndex, //chatList[index].chatIndex,
+                        shouldAnimate:
+                            chatProvider.getChatList.length - 1 == index,
+                      );
+                    }),
+              ),
             ),
             if (_isTyping) ...[
               const SpinKitThreeBounce(
@@ -69,39 +88,63 @@ class _ChatScreenState extends State<ChatScreen> {
               ),
             ],
             const SizedBox(
-              height: 15,
+              height: 5,
             ),
-            Material(
-              color: const Color(0xff58D7B7),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SizedBox(
                 child: Row(
                   children: [
                     Expanded(
-                      child: TextField(
-                        focusNode: focusNode,
-                        style: const TextStyle(color: Colors.black),
-                        controller: textEditingController,
-                        onSubmitted: (value) async {
-                          await sendMessageFCT(chatProvider: chatProvider);
-                        },
-                        decoration: const InputDecoration.collapsed(
-                            hintText: "How can I help you",
-                            hintStyle: TextStyle(color: Colors.black)),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: TextField(
+                          keyboardType: TextInputType.multiline,
+                          showCursor: true,
+                          cursorColor: Colors.black,
+                          minLines: 1,
+                          maxLines: 10,
+                          focusNode: focusNode,
+                          style: const TextStyle(
+                              color: Colors.black, fontSize: 14.0),
+                          controller: textEditingController,
+                          onSubmitted: (value) async {
+                            await sendMessageFCT(chatProvider: chatProvider);
+                          },
+                          decoration: InputDecoration(
+                            hintText: "Hai, ada yang bisa saya bantu?",
+                            hintStyle: const TextStyle(color: Colors.grey),
+                            contentPadding: const EdgeInsets.only(
+                                left: 15.0,
+                                right: 15.0,
+                                top: 10.0,
+                                bottom: 10.0),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(15.0),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(color: Colors.grey),
+                              borderRadius: BorderRadius.circular(15.0),
+                            ),
+                            filled: true,
+                            fillColor: const Color(0xFFF6F6F6),
+                          ),
+                        ),
                       ),
                     ),
                     IconButton(
-                        onPressed: () async {
-                          await sendMessageFCT(chatProvider: chatProvider);
-                        },
-                        icon: const Icon(
-                          Icons.send,
-                          color: Colors.black,
-                        ))
+                      onPressed: () async {
+                        await sendMessageFCT(chatProvider: chatProvider);
+                      },
+                      icon: const Icon(
+                        Icons.send,
+                        color: Colors.black,
+                      ),
+                    ),
                   ],
                 ),
               ),
-            ),
+            )
           ],
         ),
       ),
