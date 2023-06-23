@@ -11,29 +11,32 @@ class RecommendationSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            const Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                'Recommendations',
-                style: TextStyle(fontSize: 22.0, fontWeight: FontWeight.w600),
-              ),
-            ),
-            GestureDetector(
-              onTap: () {},
-              child: Text(
-                'See All',
-                style: TextStyle(
-                  fontSize: 20.0,
-                  color: Theme.of(context).colorScheme.primary,
-                  fontWeight: FontWeight.w600,
-                  letterSpacing: 1.0,
+        Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Recommendations',
+                  style: TextStyle(fontSize: 22.0, fontWeight: FontWeight.w600),
                 ),
               ),
-            ),
-          ],
+              GestureDetector(
+                onTap: () {},
+                child: Text(
+                  'See All',
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    color: Theme.of(context).colorScheme.primary,
+                    fontWeight: FontWeight.w600,
+                    letterSpacing: 1.0,
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
         StreamBuilder<QuerySnapshot>(
           stream: FirebaseFirestore.instance

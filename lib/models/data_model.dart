@@ -35,7 +35,7 @@ class Data {
   String? name;
   String? description;
   String? category;
-  String? nutrients;
+  List<String>? nutrients;
   String? benefits;
 
   // FieldValue? timestamp;
