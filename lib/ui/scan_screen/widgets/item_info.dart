@@ -1,5 +1,9 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import '../../../blocs/blocs.dart';
 
 class ItemInfo extends StatelessWidget {
   const ItemInfo({
@@ -11,6 +15,7 @@ class ItemInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print('object $ItemInfo');
     Size size = MediaQuery.of(context).size;
     return SingleChildScrollView(
       child: Padding(
@@ -56,10 +61,74 @@ class ItemInfo extends StatelessWidget {
             SizedBox(
               height: size.height * 0.003,
             ),
-            Text(
-              doc['nutrients'],
-              textAlign: TextAlign.justify,
-              style: const TextStyle(fontSize: 17.0),
+            StaggeredGrid.count(
+              crossAxisCount: 3,
+              mainAxisSpacing: 10.0,
+              crossAxisSpacing: 10.0,
+              children: doc['nutrients'].map<Widget>(
+                (label) {
+                  return GestureDetector(
+                    onTap: () async {
+                      showDialog(
+                          context: context,
+                          builder: (context) {
+                            context.read<ChatGPTBloc>().add(GetResult(
+                                message: 'Pengertian dan manfaat $label'));
+                            return AlertDialog(
+                              insetPadding: const EdgeInsets.all(8.0),
+                              title: Text(label),
+                              content: BlocBuilder<ChatGPTBloc, ChatGPTState>(
+                                builder: (context, state) {
+                                  if (state is ChatGPTIsSuccess) {
+                                    return SizedBox(
+                                      width: size.width * 0.8,
+                                      height: size.height * 0.7,
+                                      child: SingleChildScrollView(
+                                        child: AnimatedTextKit(
+                                          isRepeatingAnimation: true,
+                                          repeatForever: false,
+                                          displayFullTextOnTap: true,
+                                          totalRepeatCount: 1,
+                                          animatedTexts: [
+                                            TyperAnimatedText(state.result),
+                                          ],
+                                        ),
+                                      ),
+                                    );
+                                  } else {
+                                    return SizedBox(
+                                      width: size.width * 0.8,
+                                      height: size.height * 0.7,
+                                      child: const SpinKitThreeBounce(
+                                        color: Colors.black,
+                                        size: 18,
+                                      ),
+                                    );
+                                  }
+                                },
+                              ),
+                            );
+                          });
+                    },
+                    child: Container(
+                        decoration: BoxDecoration(
+                            color: Theme.of(context).colorScheme.primary,
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(5.0))),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 6.0, horizontal: 2.0),
+                          child: Center(
+                              child: Text(
+                            label,
+                            style: const TextStyle(),
+                            softWrap: false,
+                            textAlign: TextAlign.center,
+                          )),
+                        )),
+                  );
+                },
+              ).toList(),
             ),
             SizedBox(
               height: size.height * 0.025,
