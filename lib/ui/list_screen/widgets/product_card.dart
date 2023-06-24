@@ -17,8 +17,10 @@ class ProductCard extends StatelessWidget {
       padding:
           const EdgeInsets.only(left: 6.0, right: 6.0, top: 6.0, bottom: 3.0),
       child: GestureDetector(
-        onTap: () => Navigator.push(context,
-            MaterialPageRoute(builder: (context) => DetailScreen(doc: doc))),
+        onTap: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => DetailScreen(doc: doc))),
         child: SizedBox(
           height: size.width * 0.35,
           child: Row(

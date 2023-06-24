@@ -8,9 +8,23 @@ import '../../../blocs/blocs.dart';
 import '../../screens.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
-class DetailScreen extends StatelessWidget {
+class DetailScreen extends StatefulWidget {
   const DetailScreen({Key? key, required this.doc}) : super(key: key);
   final DocumentSnapshot doc;
+
+  @override
+  State<DetailScreen> createState() => _DetailScreenState();
+}
+
+class _DetailScreenState extends State<DetailScreen> {
+  @override
+  void initState() {
+    FirebaseFirestore.instance
+        .collection('items')
+        .doc(widget.doc.id)
+        .update({'viewed': widget.doc['viewed'] + 1});
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +63,7 @@ class DetailScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          doc['name'],
+                          widget.doc['name'],
                           style: const TextStyle(
                               fontSize: 30.0, fontWeight: FontWeight.w700),
                         ),
@@ -63,7 +77,7 @@ class DetailScreen extends StatelessWidget {
                                   vertical: 6.0, horizontal: 12.0),
                               child: Center(
                                   child: Text(
-                                doc['category'],
+                                widget.doc['category'],
                                 style: const TextStyle(),
                                 softWrap: false,
                                 textAlign: TextAlign.center,
@@ -75,7 +89,7 @@ class DetailScreen extends StatelessWidget {
                       height: size.height * 0.025,
                     ),
                     Text(
-                      'Daftar informasi gizi umum untuk ${doc['name']} (per 100 gram)',
+                      'Daftar informasi gizi umum untuk ${widget.doc['name']} (per 100 gram)',
                       style: const TextStyle(
                           fontSize: 12.0, fontWeight: FontWeight.w600),
                     ),
@@ -86,7 +100,7 @@ class DetailScreen extends StatelessWidget {
                       crossAxisCount: 3,
                       mainAxisSpacing: 10.0,
                       crossAxisSpacing: 10.0,
-                      children: doc['nutrients'].map<Widget>(
+                      children: widget.doc['nutrients'].map<Widget>(
                         (label) {
                           return GestureDetector(
                             onTap: () async {
@@ -159,7 +173,7 @@ class DetailScreen extends StatelessWidget {
                       height: 15.0,
                     ),
                     Text(
-                      doc['description'],
+                      widget.doc['description'],
                       textAlign: TextAlign.justify,
                       style: const TextStyle(
                         fontSize: 17.0,
@@ -170,7 +184,7 @@ class DetailScreen extends StatelessWidget {
                       height: size.height * 0.025,
                     ),
                     Text(
-                      'Manfaat ${doc['name']}',
+                      'Manfaat ${widget.doc['name']}',
                       style: const TextStyle(
                           fontSize: 20.0, fontWeight: FontWeight.w600),
                     ),
@@ -178,7 +192,7 @@ class DetailScreen extends StatelessWidget {
                       height: size.height * 0.003,
                     ),
                     Text(
-                      doc['benefits'],
+                      widget.doc['benefits'],
                       style: const TextStyle(fontSize: 17.0),
                     ),
                   ],

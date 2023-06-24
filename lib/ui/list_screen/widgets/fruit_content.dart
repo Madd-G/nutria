@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:nutria/models/data_model.dart';
 import 'package:nutria/ui/list_screen/widgets/widgets.dart';
 
 class FruitContent extends StatelessWidget {
