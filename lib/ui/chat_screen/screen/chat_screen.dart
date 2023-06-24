@@ -1,11 +1,9 @@
 import 'dart:convert';
-import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:http/http.dart' as http;
-
 import '../../../models/models.dart';
 
 class ChatScreen extends StatefulWidget {
@@ -22,6 +20,32 @@ class ChatScreenState extends State<ChatScreen> {
   final userInstance = FirebaseFirestore.instance;
   User? loggedInUser = FirebaseAuth.instance.currentUser!;
   bool _isTyping = false;
+
+  Future<String> sendMessageToChatGpt(String message) async {
+    Uri uri = Uri.parse("https://api.openai.com/v1/chat/completions");
+
+    Map<String, dynamic> body = {
+      "model": "gpt-3.5-turbo",
+      "messages": [
+        {"role": "user", "content": message}
+      ],
+    };
+
+    final response = await http.post(
+      uri,
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization":
+            "Bearer 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",
+      },
+      body: json.encode(body),
+    );
+
+    Map<String, dynamic> parsedResponse = json.decode(response.body);
+
+    String reply = parsedResponse['choices'][0]['message']['content'];
+    return reply;
+  }
 
   void onSendMessage() async {
     if (_isTyping) {
@@ -55,7 +79,8 @@ class ChatScreenState extends State<ChatScreen> {
         _messages.insert(0, message);
       });
 
-      String response = await sendMessageToChatGpt(message.text);
+      String response = await sendMessageToChatGpt(
+          'Ayo bermain peran, kamu hanya tahu tentang buah dan sayuran, kalau pertanyaan selain itu atau sapaan kamu berpura-pura tidak tahu, hanya jawab pertanyaan berikut, pertanyaan: ${message.text}');
 
       userInstance
           .collection('messages')
@@ -76,33 +101,6 @@ class ChatScreenState extends State<ChatScreen> {
       });
       _textEditingController.clear();
     }
-  }
-
-  Future<String> sendMessageToChatGpt(String message) async {
-    Uri uri = Uri.parse("https://api.openai.com/v1/chat/completions");
-
-    Map<String, dynamic> body = {
-      "model": "gpt-3.5-turbo",
-      "messages": [
-        {"role": "user", "content": message}
-      ],
-      // "max_tokens": 50,
-    };
-
-    final response = await http.post(
-      uri,
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization":
-            "Bearer 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",
-      },
-      body: json.encode(body),
-    );
-
-    Map<String, dynamic> parsedResponse = json.decode(response.body);
-
-    String reply = parsedResponse['choices'][0]['message']['content'];
-    return reply;
   }
 
   final _auth = FirebaseAuth.instance;
@@ -260,14 +258,6 @@ class MessageStream extends StatelessWidget {
             reverse: true,
             children: messageWidgets,
           ),
-          // child: ListView.builder(
-          //     itemCount: messageWidgets.length,
-          //     // reverse: true,
-          //     itemBuilder: (context, index) {
-          //       ChatContent obj = messageWidgets.reversed.toList()[index];
-          //       return ChatContent(
-          //           text: obj.text, sender: obj.sender, isMe: obj.isMe);
-          //     }),
         );
       },
     );

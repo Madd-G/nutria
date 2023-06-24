@@ -1,7 +1,9 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:floating_draggable_widget/floating_draggable_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import '../../../blocs/blocs.dart';
 import '../../screens.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -12,63 +14,8 @@ class DetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Container(
-    //   color: Theme.of(context).colorScheme.primary,
-    //   height: 15.0,
-    // ),
-    // Container(
-    //   color: Theme.of(context).colorScheme.primary,
-    //   height: 15.0,
-    // ),
-    // Container(
-    //   color: Theme.of(context).colorScheme.primary,
-    //   height: 15.0,
-    // ),
-    // Container(
-    //   color: Theme.of(context).colorScheme.primary,
-    //   height: 15.0,
-    // ),
-    // Container(
-    //   color: Theme.of(context).colorScheme.primary,
-    //   height: 15.0,
-    // ),
-    // Container(
-    //   color: Theme.of(context).colorScheme.primary,
-    //   height: 15.0,
-    // ),
-    // Container(
-    //   color: Theme.of(context).colorScheme.primary,
-    //   height: 15.0,
-    // ),
-    // Container(
-    //   color: Theme.of(context).colorScheme.primary,
-    //   height: 15.0,
-    // ),
-    // Container(
-    //   color: Theme.of(context).colorScheme.primary,
-    //   height: 15.0,
-    // ),
-    // Container(
-    //   color: Theme.of(context).colorScheme.primary,
-    //   height: 15.0,
-    // ),
-    // Container(
-    //   color: Theme.of(context).colorScheme.primary,
-    //   height: 15.0,
-    // ),
-    // Container(
-    //   color: Theme.of(context).colorScheme.primary,
-    //   height: 15.0,
-    // ),
-    // Container(
-    //   color: Theme.of(context).colorScheme.primary,
-    //   height: 15.0,
-    // ),
-    // Container(
-    //   color: Theme.of(context).colorScheme.primary,
-    //   height: 15.0,
-    // ),
     double height = MediaQuery.of(context).size.height;
+
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -141,22 +88,60 @@ class DetailScreen extends StatelessWidget {
                       crossAxisSpacing: 10.0,
                       children: doc['nutrients'].map<Widget>(
                         (label) {
-                          return Container(
-                              decoration: BoxDecoration(
-                                  color: Theme.of(context).colorScheme.primary,
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(5.0))),
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: 6.0, horizontal: 2.0),
-                                child: Center(
-                                    child: Text(
-                                  label,
-                                  style: const TextStyle(),
-                                  softWrap: false,
-                                  textAlign: TextAlign.center,
+                          return GestureDetector(
+                            onTap: () async {
+                              showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    context.read<ChatGPTBloc>().add(GetResult(
+                                        message:
+                                            'Pengertian dan manfaat $label'));
+                                    return AlertDialog(
+                                      title: Text(label),
+                                      content: BlocBuilder<ChatGPTBloc,
+                                          ChatGPTState>(
+                                        builder: (context, state) {
+                                          if (state is ChatGPTIsSuccess) {
+                                            return AnimatedTextKit(
+                                              isRepeatingAnimation: true,
+                                              repeatForever: false,
+                                              displayFullTextOnTap: true,
+                                              totalRepeatCount: 1,
+                                              animatedTexts: [
+                                                TyperAnimatedText(
+                                                  state.result,
+                                                ),
+                                              ],
+                                            );
+                                          } else {
+                                            return const SpinKitThreeBounce(
+                                              color: Colors.black,
+                                              size: 18,
+                                            );
+                                          }
+                                        },
+                                      ),
+                                    );
+                                  });
+                            },
+                            child: Container(
+                                decoration: BoxDecoration(
+                                    color:
+                                        Theme.of(context).colorScheme.primary,
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(5.0))),
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 6.0, horizontal: 2.0),
+                                  child: Center(
+                                      child: Text(
+                                    label,
+                                    style: const TextStyle(),
+                                    softWrap: false,
+                                    textAlign: TextAlign.center,
+                                  )),
                                 )),
-                              ));
+                          );
                         },
                       ).toList(),
                     ),

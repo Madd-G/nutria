@@ -42,9 +42,13 @@ class MyApp extends StatelessWidget {
           lazy: true,
           create: (context) => ArticleBloc(),
         ),
-        // ChangeNotifierProvider(
-        //   create: (_) => ChatProvider(),
-        // ),
+        BlocProvider(
+          lazy: true,
+          create: (context) => ChatGPTBloc(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => ChatProvider(),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
