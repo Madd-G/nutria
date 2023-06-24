@@ -124,6 +124,8 @@ class _PredictionSuccessViewState extends State<PredictionSuccessView>
                         }
                         if (snapshot.hasData) {
                           final DocumentSnapshot doc = snapshot.data!.docs[0];
+                          print('doc: $doc');
+                          print('doc type: ${doc.runtimeType}');
                           return ItemInfo(doc: doc);
                         } else {
                           return const SizedBox();

@@ -132,44 +132,6 @@ class DetailScreen extends StatelessWidget {
                                         },
                                       ),
                                     );
-                                    // return AlertDialog(
-                                    //   title: Text(label),
-                                    //   content: BlocBuilder<ChatGPTBloc,
-                                    //       ChatGPTState>(
-                                    //     builder: (context, state) {
-                                    //       if (state is ChatGPTIsSuccess) {
-                                    //         return SingleChildScrollView(
-                                    //           child: Container(
-                                    //             color: Colors.blueAccent,
-                                    //             height: size.height * 0.8,
-                                    //             width: size.width,
-                                    //             child: AnimatedTextKit(
-                                    //               isRepeatingAnimation: true,
-                                    //               repeatForever: false,
-                                    //               displayFullTextOnTap: true,
-                                    //               totalRepeatCount: 1,
-                                    //               animatedTexts: [
-                                    //                 TyperAnimatedText(
-                                    //                   state.result,
-                                    //                 ),
-                                    //               ],
-                                    //             ),
-                                    //           ),
-                                    //         );
-                                    //       } else {
-                                    //         return Container(
-                                    //           color: Colors.yellow,
-                                    //           height: size.height * 0.8,
-                                    //           width: size.width * 0.9,
-                                    //           child: const SpinKitThreeBounce(
-                                    //             color: Colors.black,
-                                    //             size: 18,
-                                    //           ),
-                                    //         );
-                                    //       }
-                                    //     },
-                                    //   ),
-                                    // );
                                   });
                             },
                             child: Container(
