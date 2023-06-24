@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:floating_draggable_widget/floating_draggable_widget.dart';
 import 'package:flutter/material.dart';
-import '../../chat_screen/screen/chat_screen.dart';
+import '../../screens.dart';
 import '../widgets/widgets.dart';
 import 'package:nutria/blocs/blocs.dart';
 
