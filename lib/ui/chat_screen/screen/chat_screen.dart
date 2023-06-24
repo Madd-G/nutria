@@ -20,6 +20,9 @@ class ChatScreenState extends State<ChatScreen> {
   final userInstance = FirebaseFirestore.instance;
   User? loggedInUser = FirebaseAuth.instance.currentUser!;
   bool _isTyping = false;
+  List<String> chatSession = [
+    'Ayo bermain peran, kamu hanya tahu tentang buah dan sayuran, selain sapaan atau pertanyaan yang tidak berkaitan dengan itu kamu berpura-pura tidak tahu, hanya jawab pertanyaan terakhir, pertanyaan:'
+  ];
 
   Future<String> sendMessageToChatGpt(String message) async {
     Uri uri = Uri.parse("https://api.openai.com/v1/chat/completions");
@@ -45,6 +48,31 @@ class ChatScreenState extends State<ChatScreen> {
 
     String reply = parsedResponse['choices'][0]['message']['content'];
     return reply;
+  }
+
+  final _auth = FirebaseAuth.instance;
+  late String messageText;
+  final messageTextController = TextEditingController();
+
+  @override
+  void initState() {
+    getCurrentUser();
+    focusNode = FocusNode();
+    List<String> chatSession = [
+      'Ayo bermain peran, kamu hanya tahu tentang buah dan sayuran, selain sapaan atau pertanyaan yang tidak berkaitan dengan itu, kamu berpura-pura tidak tahu, hanya jawab pertanyaan terakhir, pertanyaan:'
+    ];
+    super.initState();
+  }
+
+  void getCurrentUser() {
+    try {
+      final user = _auth.currentUser;
+      if (user != null) {
+        loggedInUser = user;
+      }
+    } catch (e) {
+      rethrow;
+    }
   }
 
   void onSendMessage() async {
@@ -78,9 +106,10 @@ class ChatScreenState extends State<ChatScreen> {
       setState(() {
         _messages.insert(0, message);
       });
+      chatSession.add(messageText);
+      String chats = chatSession.join(',');
 
-      String response = await sendMessageToChatGpt(
-          'Ayo bermain peran, kamu hanya tahu tentang buah dan sayuran, kalau pertanyaan selain itu atau sapaan kamu berpura-pura tidak tahu, hanya jawab pertanyaan berikut, pertanyaan: ${message.text}');
+      String response = await sendMessageToChatGpt(chats);
 
       userInstance
           .collection('messages')
@@ -100,28 +129,6 @@ class ChatScreenState extends State<ChatScreen> {
         _messages.insert(0, chatGpt);
       });
       _textEditingController.clear();
-    }
-  }
-
-  final _auth = FirebaseAuth.instance;
-  late String messageText;
-  final messageTextController = TextEditingController();
-
-  @override
-  void initState() {
-    getCurrentUser();
-    focusNode = FocusNode();
-    super.initState();
-  }
-
-  void getCurrentUser() {
-    try {
-      final user = _auth.currentUser;
-      if (user != null) {
-        loggedInUser = user;
-      }
-    } catch (e) {
-      rethrow;
     }
   }
 

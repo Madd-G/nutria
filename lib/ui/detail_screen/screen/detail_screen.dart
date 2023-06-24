@@ -14,7 +14,7 @@ class DetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
+    Size size = MediaQuery.of(context).size;
 
     return Scaffold(
       appBar: AppBar(
@@ -29,7 +29,7 @@ class DetailScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(
-                  height: height * 0.3,
+                  height: size.height * 0.3,
                   width: double.infinity,
                   child: const Hero(
                     tag: 'hero',
@@ -72,7 +72,7 @@ class DetailScreen extends StatelessWidget {
                       ],
                     ),
                     SizedBox(
-                      height: height * 0.025,
+                      height: size.height * 0.025,
                     ),
                     Text(
                       'Daftar informasi gizi umum untuk ${doc['name']} (per 100 gram)',
@@ -80,7 +80,7 @@ class DetailScreen extends StatelessWidget {
                           fontSize: 12.0, fontWeight: FontWeight.w600),
                     ),
                     SizedBox(
-                      height: height * 0.01,
+                      height: size.height * 0.01,
                     ),
                     StaggeredGrid.count(
                       crossAxisCount: 3,
@@ -97,31 +97,79 @@ class DetailScreen extends StatelessWidget {
                                         message:
                                             'Pengertian dan manfaat $label'));
                                     return AlertDialog(
+                                      insetPadding: const EdgeInsets.all(8.0),
                                       title: Text(label),
                                       content: BlocBuilder<ChatGPTBloc,
                                           ChatGPTState>(
                                         builder: (context, state) {
                                           if (state is ChatGPTIsSuccess) {
-                                            return AnimatedTextKit(
-                                              isRepeatingAnimation: true,
-                                              repeatForever: false,
-                                              displayFullTextOnTap: true,
-                                              totalRepeatCount: 1,
-                                              animatedTexts: [
-                                                TyperAnimatedText(
-                                                  state.result,
+                                            return SizedBox(
+                                              width: size.width * 0.8,
+                                              height: size.height * 0.7,
+                                              child: SingleChildScrollView(
+                                                child: AnimatedTextKit(
+                                                  isRepeatingAnimation: true,
+                                                  repeatForever: false,
+                                                  displayFullTextOnTap: true,
+                                                  totalRepeatCount: 1,
+                                                  animatedTexts: [
+                                                    TyperAnimatedText(
+                                                        state.result),
+                                                  ],
                                                 ),
-                                              ],
+                                              ),
                                             );
                                           } else {
-                                            return const SpinKitThreeBounce(
-                                              color: Colors.black,
-                                              size: 18,
+                                            return SizedBox(
+                                              width: size.width * 0.8,
+                                              height: size.height * 0.7,
+                                              child: const SpinKitThreeBounce(
+                                                color: Colors.black,
+                                                size: 18,
+                                              ),
                                             );
                                           }
                                         },
                                       ),
                                     );
+                                    // return AlertDialog(
+                                    //   title: Text(label),
+                                    //   content: BlocBuilder<ChatGPTBloc,
+                                    //       ChatGPTState>(
+                                    //     builder: (context, state) {
+                                    //       if (state is ChatGPTIsSuccess) {
+                                    //         return SingleChildScrollView(
+                                    //           child: Container(
+                                    //             color: Colors.blueAccent,
+                                    //             height: size.height * 0.8,
+                                    //             width: size.width,
+                                    //             child: AnimatedTextKit(
+                                    //               isRepeatingAnimation: true,
+                                    //               repeatForever: false,
+                                    //               displayFullTextOnTap: true,
+                                    //               totalRepeatCount: 1,
+                                    //               animatedTexts: [
+                                    //                 TyperAnimatedText(
+                                    //                   state.result,
+                                    //                 ),
+                                    //               ],
+                                    //             ),
+                                    //           ),
+                                    //         );
+                                    //       } else {
+                                    //         return Container(
+                                    //           color: Colors.yellow,
+                                    //           height: size.height * 0.8,
+                                    //           width: size.width * 0.9,
+                                    //           child: const SpinKitThreeBounce(
+                                    //             color: Colors.black,
+                                    //             size: 18,
+                                    //           ),
+                                    //         );
+                                    //       }
+                                    //     },
+                                    //   ),
+                                    // );
                                   });
                             },
                             child: Container(
@@ -157,7 +205,7 @@ class DetailScreen extends StatelessWidget {
                       ),
                     ),
                     SizedBox(
-                      height: height * 0.025,
+                      height: size.height * 0.025,
                     ),
                     Text(
                       'Manfaat ${doc['name']}',
@@ -165,7 +213,7 @@ class DetailScreen extends StatelessWidget {
                           fontSize: 20.0, fontWeight: FontWeight.w600),
                     ),
                     SizedBox(
-                      height: height * 0.003,
+                      height: size.height * 0.003,
                     ),
                     Text(
                       doc['benefits'],

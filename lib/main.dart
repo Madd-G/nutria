@@ -1,9 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:nutria/blocs/bottom_nav_bar_bloc/bottom_nav_bar_bloc.dart';
-import 'package:nutria/provider/chat_provider.dart';
 import 'package:nutria/screen_controller.dart';
-import 'package:provider/provider.dart';
 import 'firebase_options.dart';
 import 'blocs/blocs.dart';
 
@@ -45,9 +43,6 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           lazy: true,
           create: (context) => ChatGPTBloc(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => ChatProvider(),
         ),
       ],
       child: MaterialApp(
