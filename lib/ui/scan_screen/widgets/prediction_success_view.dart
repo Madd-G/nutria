@@ -6,7 +6,7 @@ import 'package:floating_draggable_widget/floating_draggable_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:nutria/blocs/blocs.dart';
 import '../../../models/models.dart';
-import '../../chat_screen/screen/chat_screen.dart';
+import '../../screens.dart';
 import 'widgets.dart';
 
 class PredictionSuccessView extends StatefulWidget {

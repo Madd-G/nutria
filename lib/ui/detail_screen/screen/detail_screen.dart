@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:floating_draggable_widget/floating_draggable_widget.dart';
 import 'package:flutter/material.dart';
 import '../../../blocs/blocs.dart';
-import '../../chat_screen/screen/chat_screen.dart';
+import '../../screens.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 class DetailScreen extends StatelessWidget {

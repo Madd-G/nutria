@@ -7,3 +7,4 @@ export 'list_screen/screen/list_screen.dart';
 export 'detail_screen/screen/detail_screen.dart';
 export 'scan_screen/screens/detail_object_screen.dart';
 export 'chat_screen/screen/chat_screen.dart';
+export 'chat_screen/screen/chat_screen_old.dart';
