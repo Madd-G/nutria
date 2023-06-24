@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:nutria/ui/home_screen/widgets/widgets.dart';
 
+import '../../detail_screen/screen/detail_screen.dart';
+
 class RecommendationSection extends StatelessWidget {
   const RecommendationSection({
     super.key,
@@ -63,7 +65,14 @@ class RecommendationSection extends StatelessWidget {
                   itemCount: 6,
                   itemBuilder: (BuildContext context, int index) {
                     var doc = documents[index];
-                    return RecommendationCard(doc: doc);
+                    return GestureDetector(
+                        onTap: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => DetailScreen(doc: doc),
+                              ),
+                            ),
+                        child: RecommendationCard(doc: doc));
                   },
                 ),
               );
