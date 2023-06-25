@@ -16,8 +16,8 @@ class ArticleHeader extends StatelessWidget {
         ClipRRect(
           borderRadius: BorderRadius.circular(16.0),
           child: SizedBox(
-            width: 35.0,
-            height: 35.0,
+            width: 40.0,
+            height: 40.0,
             child: Image.network(
               doc['profile-image'],
               fit: BoxFit.cover,
@@ -28,20 +28,20 @@ class ArticleHeader extends StatelessWidget {
           width: 10.0,
         ),
         Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               '${doc['author']}',
               style: const TextStyle(
                   color: Colors.black,
-                  fontSize: 13.0,
+                  fontSize: 15.0,
                   fontWeight: FontWeight.w700),
             ),
             Text(
               '${doc['date']}',
               style: const TextStyle(
-                  color: Colors.grey, fontSize: 11.0),
+                  color: Colors.grey, fontSize: 12.0),
             ),
           ],
         ),

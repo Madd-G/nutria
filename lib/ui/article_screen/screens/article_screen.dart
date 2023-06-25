@@ -16,62 +16,71 @@ class ArticleScreen extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return FloatingDraggableWidget(
       mainScreenWidget: Scaffold(
-        appBar: AppBar(
-          elevation: 0.0,
-          backgroundColor: Colors.white,
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back_ios),
-            color: Colors.black,
-            onPressed: () => Navigator.pop(context),
-          ),
-        ),
-        body: SingleChildScrollView(
-          child: SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(16.0, 10.0, 16.0, 10.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SizedBox(
-                    height: 5.0,
+        body: Stack(
+          children: [
+            ArticleImage(size: size, doc: doc),
+            Positioned(
+              left: 0.0,
+              right: 0.0,
+              bottom: 0.0,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                child: SizedBox(
+                  height: size.height * 0.76,
+                  width: size.width,
+                  child: Card(
+                    margin: EdgeInsets.zero,
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(10.0),
+                          topLeft: Radius.circular(10.0)),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(15.0, 15.0, 15.0, 0.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const SizedBox(
+                            height: 15.0,
+                          ),
+                          ArticleTitle(doc: doc),
+                          const SizedBox(
+                            height: 10.0,
+                          ),
+                          ArticleHeader(doc: doc),
+                          const SizedBox(
+                            height: 20.0,
+                          ),
+                          Article(doc: doc)
+                        ],
+                      ),
+                    ),
                   ),
-                  ArticleHeader(doc: doc),
-                  const SizedBox(
-                    height: 15.0,
-                  ),
-                  ArticleTitle(doc: doc),
-                  const SizedBox(
-                    height: 15.0,
-                  ),
-                  ArticleImage(size: size, doc: doc),
-                  const SizedBox(
-                    height: 20.0,
-                  ),
-                  Article(doc: doc)
-                ],
+                ),
               ),
             ),
-          ),
+          ],
         ),
       ),
       floatingWidget: FloatingActionButton(
-          foregroundColor: Colors.white,
-          backgroundColor: Theme.of(context).colorScheme.primary,
-          tooltip: 'Hello, may I help you?',
-          onPressed: () {
-            if (FirebaseAuth.instance.currentUser?.uid == null) {
-              context.read<AuthCubit>().signInWithGoogle(context);
-            } else {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const ChatScreen()));
-            }
-          },
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Image.asset(
-              'assets/images/AI.png',
-            ),
-          )),
+        foregroundColor: Colors.white,
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        tooltip: 'Hello, may I help you?',
+        onPressed: () {
+          if (FirebaseAuth.instance.currentUser?.uid == null) {
+            context.read<AuthCubit>().signInWithGoogle(context);
+          } else {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const ChatScreen()));
+          }
+        },
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Image.asset(
+            'assets/images/AI.png',
+          ),
+        ),
+      ),
       floatingWidgetWidth: 55,
       floatingWidgetHeight: 55,
     );

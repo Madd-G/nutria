@@ -11,11 +11,26 @@ class Article extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      doc['article'],
-      textAlign: TextAlign.justify,
-      style: const TextStyle(
-        fontSize: 16.0,
+    return Expanded(
+      child: MediaQuery.removePadding(
+        context: context,
+        removeTop: true,
+        child: ListView.separated(
+          shrinkWrap: true,
+          separatorBuilder: (context, index) => const SizedBox(
+            height: 15.0,
+          ),
+          itemCount: doc['article'].length,
+          itemBuilder: (context, index) {
+            return Text(
+              doc['article'][index],
+              textAlign: TextAlign.justify,
+              style: const TextStyle(
+                fontSize: 16.0,
+              ),
+            );
+          },
+        ),
       ),
     );
   }

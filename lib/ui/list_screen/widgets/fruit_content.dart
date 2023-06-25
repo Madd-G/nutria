@@ -11,7 +11,7 @@ class FruitContent extends StatelessWidget {
       child: FutureBuilder<QuerySnapshot>(
         future: FirebaseFirestore.instance
             .collection('items')
-            .where("category", isEqualTo: "Fruit")
+            .where("category", isEqualTo: "Buah")
             .get(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -25,13 +25,14 @@ class FruitContent extends StatelessWidget {
           if (snapshot.hasData) {
             final List<DocumentSnapshot> documents = snapshot.data!.docs;
             return ListView.builder(
-                itemCount: documents.length,
-                itemBuilder: (context, index) {
-                  var doc = documents[index];
-                  return ProductCard(
-                    doc: doc,
-                  );
-                });
+              itemCount: documents.length,
+              itemBuilder: (context, index) {
+                var doc = documents[index];
+                return ProductCard(
+                  doc: doc,
+                );
+              },
+            );
           } else {
             return const SizedBox();
           }
