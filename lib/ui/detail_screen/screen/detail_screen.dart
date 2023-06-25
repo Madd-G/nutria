@@ -1,11 +1,9 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:floating_draggable_widget/floating_draggable_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:nutria/widgets/nutriai_button.dart';
 import '../../../blocs/blocs.dart';
-import '../../screens.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 class DetailScreen extends StatefulWidget {
@@ -35,8 +33,8 @@ class _DetailScreenState extends State<DetailScreen> {
         automaticallyImplyLeading: false,
         toolbarHeight: 10.0,
       ),
-      body: FloatingDraggableWidget(
-        mainScreenWidget: SingleChildScrollView(
+      body: NutriAIButton(
+        mainWidget: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.fromLTRB(8.0, 12.0, 8.0, 8.0),
             child: Column(
@@ -201,28 +199,6 @@ class _DetailScreenState extends State<DetailScreen> {
             ),
           ),
         ),
-        floatingWidget: FloatingActionButton(
-            foregroundColor: Colors.white,
-            backgroundColor: Theme.of(context).colorScheme.primary,
-            tooltip: 'Hello, may I help you?',
-            onPressed: () {
-              if (FirebaseAuth.instance.currentUser?.uid == null) {
-                context.read<AuthCubit>().signInWithGoogle(context);
-              } else {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const ChatScreen()));
-              }
-            },
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Image.asset(
-                'assets/images/AI.png',
-              ),
-            )),
-        floatingWidgetWidth: 55,
-        floatingWidgetHeight: 55,
       ),
     );
   }

@@ -1,12 +1,10 @@
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:floating_draggable_widget/floating_draggable_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:nutria/blocs/blocs.dart';
+import 'package:nutria/widgets/nutriai_button.dart';
 import '../../../models/models.dart';
-import '../../screens.dart';
 import 'widgets.dart';
 
 class PredictionSuccessView extends StatefulWidget {
@@ -40,8 +38,8 @@ class _PredictionSuccessViewState extends State<PredictionSuccessView>
   @override
   Widget build(BuildContext context) {
     var toolbarHeight = 300.0;
-    return FloatingDraggableWidget(
-      mainScreenWidget: Scaffold(
+    return NutriAIButton(
+      mainWidget: Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
           backgroundColor: Colors.black,
@@ -107,8 +105,9 @@ class _PredictionSuccessViewState extends State<PredictionSuccessView>
             ? const Center(child: Text('Not Found'))
             : TabBarView(
                 controller: _controller,
-                children: widget.predictionSuccess.prediction!.map((e) {
-                  return FutureBuilder<QuerySnapshot>(
+                children: widget.predictionSuccess.prediction!.map(
+                  (e) {
+                    return FutureBuilder<QuerySnapshot>(
                       future: FirebaseFirestore.instance
                           .collection('items')
                           .where("name", isEqualTo: e.className)
@@ -116,8 +115,14 @@ class _PredictionSuccessViewState extends State<PredictionSuccessView>
                       builder: (context, snapshot) {
                         if (snapshot.connectionState ==
                             ConnectionState.waiting) {
-                          return const Center(
-                              child: CircularProgressIndicator());
+                          return Center(
+                            child: SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.17,
+                              height: MediaQuery.of(context).size.width * 0.17,
+                              child:
+                                  Lottie.asset('assets/animation/loading.json'),
+                            ),
+                          );
                         }
                         if (snapshot.data!.docs.isEmpty) {
                           return const Center(child: Text("Not Found"));
@@ -132,30 +137,12 @@ class _PredictionSuccessViewState extends State<PredictionSuccessView>
                         } else {
                           return const SizedBox();
                         }
-                      });
-                }).toList(),
+                      },
+                    );
+                  },
+                ).toList(),
               ),
       ),
-      floatingWidget: FloatingActionButton(
-          foregroundColor: Colors.white,
-          backgroundColor: Theme.of(context).colorScheme.primary,
-          tooltip: 'Hello, may I help you?',
-          onPressed: () {
-            if (FirebaseAuth.instance.currentUser?.uid == null) {
-              context.read<AuthCubit>().signInWithGoogle(context);
-            } else {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const ChatScreen()));
-            }
-          },
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Image.asset(
-              'assets/images/AI.png',
-            ),
-          )),
-      floatingWidgetWidth: 55,
-      floatingWidgetHeight: 55,
     );
   }
 }
