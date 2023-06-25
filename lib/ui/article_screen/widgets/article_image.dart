@@ -15,15 +15,12 @@ class ArticleImage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        ClipRRect(
-          borderRadius: BorderRadius.circular(16.0),
-          child: SizedBox(
-            height: 250.0,
-            width: size.width,
-            child: Image.network(
-              doc['item-image'],
-              fit: BoxFit.cover,
-            ),
+        SizedBox(
+          height: size.height * 0.32,
+          width: size.width,
+          child: Image.network(
+            doc['item-image'],
+            fit: BoxFit.cover,
           ),
         ),
         const SizedBox(
