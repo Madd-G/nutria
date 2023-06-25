@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:nutria/ui/list_screen/widgets/widgets.dart';
 
 class VegetableContent extends StatelessWidget {
@@ -15,7 +16,13 @@ class VegetableContent extends StatelessWidget {
             .get(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
+            return Center(
+              child: SizedBox(
+                width: MediaQuery.of(context).size.width * 0.17,
+                height: MediaQuery.of(context).size.width * 0.17,
+                child: Lottie.asset('assets/animation/loading.json'),
+              ),
+            );
           }
           if (snapshot.data!.docs.isEmpty) {
             return const SizedBox(

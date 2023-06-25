@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import '../../../blocs/blocs.dart';
 import '../widgets/widgets.dart';
 
@@ -12,8 +13,13 @@ class DetailObjectScreen extends StatelessWidget {
     return BlocBuilder<PredictionBloc, PredictionState>(
       builder: (context, predictionState) {
         if (predictionState is PredictionLoadingState) {
-          return const Scaffold(
-              body: Center(child: CircularProgressIndicator()));
+          return Scaffold(
+            body: Center(
+              child: Lottie.asset(
+                'assets/animation/scanning.json',
+              ),
+            ),
+          );
         } else if (predictionState is PredictionSuccessState) {
           return DefaultTabController(
             length: (predictionState.prediction!.isEmpty)
