@@ -1,10 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:floating_draggable_widget/floating_draggable_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:nutria/blocs/blocs.dart';
-import '../../chat_screen/screen/chat_screen.dart';
+import 'package:nutria/widgets/nutriai_button.dart';
 import '../widgets/widgets.dart';
 
 class ArticleListScreen extends StatelessWidget {
@@ -13,8 +10,8 @@ class ArticleListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return FloatingDraggableWidget(
-      mainScreenWidget: Scaffold(
+    return NutriAIButton(
+      mainWidget: Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
           bottom: PreferredSize(
@@ -59,26 +56,6 @@ class ArticleListScreen extends StatelessWidget {
           },
         ),
       ),
-      // screenHeight: MediaQuery.of(context).size.height * 0.95,
-      floatingWidget: FloatingActionButton(
-          backgroundColor: Theme.of(context).colorScheme.primary,
-          tooltip: 'Hello, may I help you?',
-          onPressed: () {
-            if (FirebaseAuth.instance.currentUser?.uid == null) {
-              context.read<AuthCubit>().signInWithGoogle(context);
-            } else {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const ChatScreen()));
-            }
-          },
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Image.asset(
-              'assets/images/AI.png',
-            ),
-          )),
-      floatingWidgetWidth: 55,
-      floatingWidgetHeight: 55,
     );
   }
 }
