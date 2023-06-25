@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:nutria/animation_screen.dart';
 
 class WelcomeSection extends StatelessWidget {
   const WelcomeSection({super.key, required this.size});
@@ -22,12 +23,16 @@ class WelcomeSection extends StatelessWidget {
             SizedBox(
               height: size.height * 0.055,
             ),
-            const Text(
-              'Hello alamsyah',
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 40,
-                  fontWeight: FontWeight.w700),
+            GestureDetector(
+              onTap: () => Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const AnimationScreen())),
+              child: const Text(
+                'Hello alamsyah',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 40,
+                    fontWeight: FontWeight.w700),
+              ),
             ),
             SizedBox(
               height: size.height * 0.005,

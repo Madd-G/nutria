@@ -38,10 +38,6 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           lazy: true,
-          create: (context) => ArticleBloc(),
-        ),
-        BlocProvider(
-          lazy: true,
           create: (context) => ChatGPTBloc(),
         ),
       ],

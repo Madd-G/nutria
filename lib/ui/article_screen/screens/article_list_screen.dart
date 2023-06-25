@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:floating_draggable_widget/floating_draggable_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:nutria/blocs/blocs.dart';
 import '../../chat_screen/screen/chat_screen.dart';
 import '../widgets/widgets.dart';
@@ -17,23 +18,20 @@ class ArticleListScreen extends StatelessWidget {
         appBar: AppBar(
           automaticallyImplyLeading: false,
           bottom: PreferredSize(
-            preferredSize: Size.fromHeight(size.height * 0.18),
+            preferredSize: Size.fromHeight(size.height * 0.15),
             child: Column(
-              children: const [
-                SafeArea(
-                  child: Center(
-                    child: Text(
-                      'Articles',
-                      style: TextStyle(
-                        fontFamily: 'GT Maru',
-                        color: Colors.white,
-                        fontWeight: FontWeight.w700,
-                        fontSize: 25,
-                      ),
-                    ),
+              children: [
+                Container(
+                  height: MediaQuery.of(context).size.height * 0.2,
+                  color: Theme.of(context).colorScheme.primary,
+                  child: Lottie.asset(
+                    'assets/animation/articles.json',
                   ),
                 ),
-                SearchBar(),
+                Container(
+                  height: 10.0,
+                  color: Theme.of(context).colorScheme.primary,
+                )
               ],
             ),
           ),
