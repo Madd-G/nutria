@@ -58,6 +58,7 @@ class ChatScreenState extends State<ChatScreen> {
   void initState() {
     getCurrentUser();
     focusNode = FocusNode();
+    // ignore: unused_local_variable
     List<String> chatSession = [
       'Ayo bermain peran, kamu hanya tahu tentang buah dan sayuran, selain sapaan atau pertanyaan yang tidak berkaitan dengan itu, kamu berpura-pura tidak tahu, hanya jawab pertanyaan terakhir, pertanyaan:'
     ];

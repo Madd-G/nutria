@@ -15,7 +15,6 @@ class ItemInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('object $ItemInfo');
     Size size = MediaQuery.of(context).size;
     return SingleChildScrollView(
       child: Padding(

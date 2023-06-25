@@ -4,6 +4,7 @@ import 'package:floating_draggable_widget/floating_draggable_widget.dart';
 import 'package:flutter/material.dart';
 import '../../../blocs/blocs.dart';
 import '../../screens.dart';
+import '../widgets/widgets.dart';
 
 class ArticleScreen extends StatelessWidget {
   const ArticleScreen({Key? key, required this.doc}) : super(key: key);
@@ -32,66 +33,21 @@ class ArticleScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(
-                    height: 10.0,
+                    height: 5.0,
                   ),
-                  Row(
-                    children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(16.0),
-                        child: SizedBox(
-                          width: 20.0,
-                          height: 20.0,
-                          child: Image.network(
-                            doc['profile-image'],
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ),
-                      Text(
-                        '  ${doc['author']}  •  ${doc['date']}  •  ${doc['category']}',
-                        style:
-                            const TextStyle(color: Colors.grey, fontSize: 13.0),
-                      ),
-                    ],
-                  ),
+                  ArticleHeader(doc: doc),
                   const SizedBox(
                     height: 15.0,
                   ),
-                  Text(
-                    doc['title'],
-                    style: const TextStyle(
-                        fontSize: 22.0, fontWeight: FontWeight.w700),
-                  ),
+                  ArticleTitle(doc: doc),
                   const SizedBox(
-                    height: 25.0,
+                    height: 15.0,
                   ),
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(16.0),
-                    child: SizedBox(
-                      height: 250.0,
-                      width: size.width,
-                      child: Image.network(
-                        doc['item-image'],
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 5.0,
-                  ),
-                  Center(
-                      child: Text('${doc['picture-description']}',
-                          style: const TextStyle(color: Colors.grey))),
+                  ArticleImage(size: size, doc: doc),
                   const SizedBox(
                     height: 20.0,
                   ),
-                  Text(
-                    doc['article'],
-                    textAlign: TextAlign.justify,
-                    style: const TextStyle(
-                      fontSize: 16.0,
-                    ),
-                  )
+                  Article(doc: doc)
                 ],
               ),
             ),
