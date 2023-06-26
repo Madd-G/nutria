@@ -81,7 +81,7 @@ class _ListScreenState extends State<ListScreen> {
                             ],
                           ),
                         )
-                      : const SizedBox(),
+                      : const SizedBox.shrink(),
                 ],
               ),
             ),

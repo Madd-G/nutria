@@ -11,6 +11,7 @@ class ArticleListScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return NutriAIButton(
+      screenHeight: MediaQuery.of(context).size.height * 0.95,
       mainWidget: Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
