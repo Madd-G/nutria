@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import '../../detail_screen/screen/detail_screen.dart';
@@ -24,21 +25,19 @@ class ProductCard extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Container(
+              SizedBox(
                 width: size.width * 0.4,
                 height: size.width * 0.35,
-                foregroundDecoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: NetworkImage(
-                        doc['item-image'],
-                      ),
-                      fit: BoxFit.fill),
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(3.0),
-                    bottomLeft: Radius.circular(3.0),
-                    bottomRight: Radius.circular(2.0),
-                    topRight: Radius.circular(2.0),
-                  ),
+                child: CachedNetworkImage(
+                  imageUrl: doc['item-image'],
+                  progressIndicatorBuilder: (_, url, download) {
+                    if (download.progress != null) {
+                      final percent = download.progress! * 100;
+                      return Center(child: Text('loading: ${percent.toStringAsFixed(0)}%'));
+                    }
+                    return const Text('');
+                  },
+                  fit: BoxFit.fill,
                 ),
               ),
               Expanded(

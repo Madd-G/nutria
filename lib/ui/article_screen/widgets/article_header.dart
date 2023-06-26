@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -18,9 +19,19 @@ class ArticleHeader extends StatelessWidget {
           child: SizedBox(
             width: 40.0,
             height: 40.0,
-            child: Image.network(
-              doc['profile-image'],
-              fit: BoxFit.cover,
+            child: CachedNetworkImage(
+              imageUrl: doc['profile-image'],
+              progressIndicatorBuilder: (_, url, download) {
+                if (download.progress != null) {
+                  final percent = download.progress! * 100;
+                  return Center(
+                      child: Text(
+                    'loading: ${percent.toStringAsFixed(0)}%',
+                  ));
+                }
+                return const Text('');
+              },
+              fit: BoxFit.fill,
             ),
           ),
         ),
@@ -40,8 +51,7 @@ class ArticleHeader extends StatelessWidget {
             ),
             Text(
               '${doc['date']}',
-              style: const TextStyle(
-                  color: Colors.grey, fontSize: 12.0),
+              style: const TextStyle(color: Colors.grey, fontSize: 12.0),
             ),
           ],
         ),

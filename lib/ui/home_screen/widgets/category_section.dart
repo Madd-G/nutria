@@ -1,18 +1,14 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:nutria/blocs/blocs.dart';
 import 'package:nutria/ui/list_screen/screen/list_screen.dart';
 
 class CategorySection extends StatelessWidget {
-  const CategorySection({
-    super.key,
-    required this.size,
-  });
-
-  final Size size;
+  const CategorySection({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // final ScreenBloc screenBloc = context.read<ScreenBloc>();
+    final Size size = MediaQuery.of(context).size;
     final TabBloc tabBloc = context.read<TabBloc>();
     return Column(
       children: [
@@ -30,7 +26,8 @@ class CategorySection extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             CategoryBox(
-              imagePath: 'assets/images/fruit.png',
+              imagePath:
+                  'https://firebasestorage.googleapis.com/v0/b/nutria-29b7b.appspot.com/o/app_image%2Fapp%2Ffruit.png?alt=media&token=84c6e087-b405-4b0b-96da-dde2831954f3',
               label: 'Fruit',
               onTap: () {
                 Navigator.push(
@@ -41,11 +38,9 @@ class CategorySection extends StatelessWidget {
                 // screenBloc.add(ScreenEventGoToListScreen());
               },
             ),
-            const SizedBox(
-              width: 10.0,
-            ),
             CategoryBox(
-              imagePath: 'assets/images/vegetable.png',
+              imagePath:
+                  'https://firebasestorage.googleapis.com/v0/b/nutria-29b7b.appspot.com/o/app_image%2Fapp%2Fvegetable.png?alt=media&token=594f15d7-46f9-4128-8c46-2a35d3f65d2c',
               label: 'Vegetable',
               onTap: () {
                 Navigator.push(
@@ -76,29 +71,39 @@ class CategoryBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
     return GestureDetector(
       onTap: onTap,
-      child: Container(
-        width: MediaQuery.of(context).size.width * 0.45,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10.0),
-          boxShadow: const [
-            BoxShadow(
-                color: Colors.white, offset: Offset(0.0, 2.0), blurRadius: 2.0)
-          ],
-        ),
-        child: Column(
-          children: [
-            Image.asset(
-              imagePath,
-              fit: BoxFit.fill,
+      child: SizedBox(
+        width: size.width * 0.47,
+        height: size.height * 0.18,
+        child: Card(
+          child: Padding(
+            padding: const EdgeInsets.all(4.0),
+            child: Column(
+              children: [
+                CachedNetworkImage(
+                  imageUrl: imagePath,
+                  progressIndicatorBuilder: (_, url, download) {
+                    if (download.progress != null) {
+                      final percent = download.progress! * 100;
+                      return Center(
+                          child: Text(
+                        'loading: ${percent.toStringAsFixed(0)}%',
+                      ));
+                    }
+                    return const Text('');
+                  },
+                  fit: BoxFit.fill,
+                ),
+                Text(
+                  label,
+                  style: const TextStyle(
+                      fontSize: 25.0, fontWeight: FontWeight.w500),
+                )
+              ],
             ),
-            Text(
-              label,
-              style:
-                  const TextStyle(fontSize: 25.0, fontWeight: FontWeight.w500),
-            )
-          ],
+          ),
         ),
       ),
     );

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:nutria/widgets/nutriai_button.dart';
@@ -55,9 +56,9 @@ class _DetailScreenState extends State<DetailScreen> {
           appBar: AppBar(
             automaticallyImplyLeading: false,
             flexibleSpace: SizedBox(
-              child: Image(
-                image: NetworkImage(widget.doc['item-image']),
-                fit: BoxFit.cover,
+              height: 275.0,
+              child: CachedNetworkImage(
+                imageUrl: widget.doc['item-image'],fit: BoxFit.cover,
               ),
             ),
             toolbarHeight: toolbarHeight,

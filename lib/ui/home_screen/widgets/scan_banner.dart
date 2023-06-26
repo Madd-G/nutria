@@ -3,13 +3,12 @@ import 'package:flutter/material.dart';
 class ScanBanner extends StatelessWidget {
   const ScanBanner({
     super.key,
-    required this.size,
   });
-
-  final Size size;
 
   @override
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
+
     return ClipRRect(
       borderRadius: BorderRadius.circular(13.0),
       child: GestureDetector(
