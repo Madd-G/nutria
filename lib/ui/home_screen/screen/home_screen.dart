@@ -9,6 +9,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return NutriAIButton(
+      screenHeight: MediaQuery.of(context).size.height * 0.95,
       mainWidget: Scaffold(
         body: SingleChildScrollView(
           child: Stack(
@@ -45,4 +46,3 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
-

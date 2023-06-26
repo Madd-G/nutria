@@ -17,10 +17,10 @@ class RecommendationCard extends StatelessWidget {
         children: <Widget>[
           ClipRRect(
             borderRadius: BorderRadius.circular(10.0),
-            child: const Image(
+            child: Image(
               height: 250.0,
               width: 250.0,
-              image: AssetImage('assets/images/fruit.png'),
+              image: NetworkImage(doc['item-image']),
               fit: BoxFit.cover,
             ),
           ),

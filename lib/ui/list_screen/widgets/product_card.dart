@@ -15,12 +15,10 @@ class ProductCard extends StatelessWidget {
     var size = MediaQuery.of(context).size;
     return Padding(
       padding:
-          const EdgeInsets.only(left: 6.0, right: 6.0, top: 6.0, bottom: 3.0),
+          const EdgeInsets.only(left: 6.0, right: 6.0, top: 1.0, bottom: 2.0),
       child: GestureDetector(
-        onTap: () => Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => DetailScreen(doc: doc))),
+        onTap: () => Navigator.push(context,
+            MaterialPageRoute(builder: (context) => DetailScreen(doc: doc))),
         child: SizedBox(
           height: size.width * 0.35,
           child: Row(
@@ -29,11 +27,13 @@ class ProductCard extends StatelessWidget {
               Container(
                 width: size.width * 0.4,
                 height: size.width * 0.35,
-                foregroundDecoration: const BoxDecoration(
+                foregroundDecoration: BoxDecoration(
                   image: DecorationImage(
-                      image: AssetImage("assets/images/apples.png"),
+                      image: NetworkImage(
+                        doc['item-image'],
+                      ),
                       fit: BoxFit.fill),
-                  borderRadius: BorderRadius.only(
+                  borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(3.0),
                     bottomLeft: Radius.circular(3.0),
                     bottomRight: Radius.circular(2.0),
@@ -89,7 +89,7 @@ class ProductCard extends StatelessWidget {
                                   color: Color(0xffA1A8B9), fontSize: 12.0),
                             ),
                             Text(
-                              doc['description'],
+                              doc['general-info'][0],
                               textAlign: TextAlign.justify,
                               maxLines: 4,
                               style: const TextStyle(

@@ -5,18 +5,17 @@ import '../blocs/blocs.dart';
 import '../ui/chat_screen/screen/chat_screen.dart';
 
 class NutriAIButton extends StatelessWidget {
-  const NutriAIButton({
-    super.key,
-    required this.mainWidget,
-  });
+  const NutriAIButton(
+      {super.key, required this.mainWidget, this.screenHeight});
 
   final Widget mainWidget;
+  final double? screenHeight;
 
   @override
   Widget build(BuildContext context) {
     return FloatingDraggableWidget(
       mainScreenWidget: mainWidget,
-      screenHeight: MediaQuery.of(context).size.height * 0.95,
+      screenHeight: screenHeight,
       floatingWidget: FloatingActionButton(
           foregroundColor: Colors.white,
           backgroundColor: Theme.of(context).colorScheme.primary,

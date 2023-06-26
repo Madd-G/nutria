@@ -23,15 +23,13 @@ class PredictionSuccessView extends StatefulWidget {
   State<PredictionSuccessView> createState() => _PredictionSuccessViewState();
 }
 
-class _PredictionSuccessViewState extends State<PredictionSuccessView>
-    with SingleTickerProviderStateMixin {
-  TabController? _controller;
-  int selectedIndex = 0;
+class _PredictionSuccessViewState extends State<PredictionSuccessView> {
+  TabController? _tabController;
 
   @override
   @override
   void dispose() {
-    _controller!.dispose();
+    _tabController!.dispose();
     super.dispose();
   }
 
@@ -42,7 +40,6 @@ class _PredictionSuccessViewState extends State<PredictionSuccessView>
       mainWidget: Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          backgroundColor: Colors.black,
           flexibleSpace: SizedBox(
             child: Image(
               image: FileImage(File(widget.imagePath!)),
@@ -63,9 +60,11 @@ class _PredictionSuccessViewState extends State<PredictionSuccessView>
                     bottom: BorderSide(color: Colors.black, width: 1),
                   ),
                 ),
-                child: (widget.predictionSuccess.prediction!.isEmpty)
-                    ? const SizedBox.shrink()
-                    : TabBar(
+                child:
+                // (widget.predictionSuccess.prediction!.isEmpty)
+                //     ? const SizedBox.shrink()
+                //     :
+                TabBar(
                         isScrollable: true,
                         padding: const EdgeInsets.symmetric(vertical: 8.0),
                         labelPadding: const EdgeInsets.symmetric(horizontal: 5),
@@ -75,36 +74,42 @@ class _PredictionSuccessViewState extends State<PredictionSuccessView>
                         indicator: BoxDecoration(
                             borderRadius: BorderRadius.circular(50),
                             color: Theme.of(context).colorScheme.primary),
-                        controller: _controller,
+                        controller: _tabController,
                         indicatorColor: Theme.of(context).colorScheme.primary,
                         labelColor: Colors.black,
-                        tabs: widget.predictionSuccess.prediction!.map((label) {
-                          return Tab(
-                            height: 30.0,
-                            child: Container(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 16.0),
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(50),
-                                    border: Border.all(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .primary,
-                                        width: 1)),
-                                child: Align(
+                        tabs: widget.predictionSuccess.prediction!
+                            .map(
+                              (label) => Tab(
+                                height: 30.0,
+                                child: Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 16.0),
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(50),
+                                      border: Border.all(
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .primary,
+                                          width: 1)),
+                                  child: Align(
                                     alignment: Alignment.center,
-                                    child: Text(label.className))),
-                          );
-                        }).toList(),
+                                    child: Text(label.className),
+                                  ),
+                                ),
+                              ),
+                            )
+                            .toList(),
                       ),
               ),
             ),
           ),
         ),
-        body: (widget.predictionSuccess.prediction!.isEmpty)
-            ? const Center(child: Text('Not Found'))
-            : TabBarView(
-                controller: _controller,
+        body:
+        // (widget.predictionSuccess.prediction!.isEmpty)
+        //     ? const Center(child: Text('Not Found'))
+        //     :
+        TabBarView(
+                controller: _tabController,
                 children: widget.predictionSuccess.prediction!.map(
                   (e) {
                     return FutureBuilder<QuerySnapshot>(
