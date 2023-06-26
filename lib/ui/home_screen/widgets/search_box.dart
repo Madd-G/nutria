@@ -1,24 +1,18 @@
 import 'package:flutter/material.dart';
 
 class SearchBox extends StatelessWidget {
-  const SearchBox({
-    super.key,
-    required this.size,
-  });
-
-  final Size size;
+  const SearchBox({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
+
     return Positioned(
       top: 180,
       left: size.width / 14,
       right: size.width / 14,
-      // right: width/2,
-      // left: -175,
       child: Container(
         height: 70.0,
-        // width: 320.0,
         decoration: BoxDecoration(
           color: Colors.white,
           boxShadow: [

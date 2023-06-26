@@ -24,11 +24,11 @@ class HomeScreen extends StatelessWidget {
                     padding: const EdgeInsets.all(10.0),
                     child: Column(
                       children: [
-                        ScanBanner(size: size),
+                        const ScanBanner(),
                         SizedBox(
                           height: size.height * 0.02,
                         ),
-                        CategorySection(size: size),
+                        const CategorySection(),
                         SizedBox(
                           height: size.height * 0.02,
                         ),
@@ -38,7 +38,7 @@ class HomeScreen extends StatelessWidget {
                   const RecommendationSection(),
                 ],
               ),
-              SearchBox(size: size),
+              const SearchBox(),
             ],
           ),
         ),

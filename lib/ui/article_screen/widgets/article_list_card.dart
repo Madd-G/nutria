@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import '../../screens.dart';
@@ -32,16 +33,21 @@ class ArticleListCard extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Container(
+                SizedBox(
                   width: size.width * 0.4,
-                  height: size.height * 0.35,
-                  foregroundDecoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: NetworkImage(doc['item-image']),
-                        fit: BoxFit.fill),
-                    borderRadius: const BorderRadius.all(
-                      Radius.circular(5.0),
-                    ),
+                  height: size.width * 0.35,
+                  child: CachedNetworkImage(
+                    imageUrl: doc['item-image'],
+                    progressIndicatorBuilder: (_, url, download) {
+                      if (download.progress != null) {
+                        final percent = download.progress! * 100;
+                        return Center(
+                            child: Text(
+                                'loading: ${percent.toStringAsFixed(0)}%'));
+                      }
+                      return const Text('');
+                    },
+                    fit: BoxFit.fill,
                   ),
                 ),
                 const SizedBox(
@@ -88,9 +94,19 @@ class ArticleListCard extends StatelessWidget {
                                   child: SizedBox(
                                     width: 20.0,
                                     height: 20.0,
-                                    child: Image.network(
-                                      doc['profile-image'],
-                                      fit: BoxFit.cover,
+                                    child: CachedNetworkImage(
+                                      imageUrl: doc['profile-image'],
+                                      progressIndicatorBuilder: (_, url, download) {
+                                        if (download.progress != null) {
+                                          final percent = download.progress! * 100;
+                                          return Center(
+                                              child: Text(
+                                                'loading: ${percent.toStringAsFixed(0)}%',
+                                              ));
+                                        }
+                                        return const Text('');
+                                      },
+                                      fit: BoxFit.fill,
                                     ),
                                   ),
                                 ),

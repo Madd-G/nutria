@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
@@ -41,6 +42,10 @@ class _PredictionSuccessViewState extends State<PredictionSuccessView> {
         appBar: AppBar(
           automaticallyImplyLeading: false,
           flexibleSpace: SizedBox(
+            height: 275.0,
+            // child: CachedNetworkImage(
+            //   imageUrl: widget.doc['item-image'],fit: BoxFit.cover,
+            // ),
             child: Image(
               image: FileImage(File(widget.imagePath!)),
               fit: BoxFit.cover,
@@ -61,9 +66,9 @@ class _PredictionSuccessViewState extends State<PredictionSuccessView> {
                   ),
                 ),
                 child:
-                // (widget.predictionSuccess.prediction!.isEmpty)
-                //     ? const SizedBox.shrink()
-                //     :
+                (widget.predictionSuccess.prediction!.isEmpty)
+                    ? const SizedBox.shrink()
+                    :
                 TabBar(
                         isScrollable: true,
                         padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -105,9 +110,9 @@ class _PredictionSuccessViewState extends State<PredictionSuccessView> {
           ),
         ),
         body:
-        // (widget.predictionSuccess.prediction!.isEmpty)
-        //     ? const Center(child: Text('Not Found'))
-        //     :
+        (widget.predictionSuccess.prediction!.isEmpty)
+            ? const Center(child: Text('Not Found'))
+            :
         TabBarView(
                 controller: _tabController,
                 children: widget.predictionSuccess.prediction!.map(

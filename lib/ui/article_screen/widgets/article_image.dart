@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -18,9 +19,19 @@ class ArticleImage extends StatelessWidget {
         SizedBox(
           height: size.height * 0.32,
           width: size.width,
-          child: Image.network(
-            doc['item-image'],
-            fit: BoxFit.cover,
+          child: CachedNetworkImage(
+            imageUrl: doc['item-image'],
+            progressIndicatorBuilder: (_, url, download) {
+              if (download.progress != null) {
+                final percent = download.progress! * 100;
+                return Center(
+                    child: Text(
+                  'loading: ${percent.toStringAsFixed(0)}%',
+                ));
+              }
+              return const Text('');
+            },
+            fit: BoxFit.fill,
           ),
         ),
         const SizedBox(
