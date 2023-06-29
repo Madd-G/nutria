@@ -13,9 +13,10 @@ class RecommendationCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Stack(
-        children: <Widget>[
+      padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 0.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(10.0),
             child: SizedBox(
@@ -37,30 +38,13 @@ class RecommendationCard extends StatelessWidget {
               ),
             ),
           ),
-          Positioned(
-            left: 5.0,
-            bottom: 15.0,
-            child: Container(
-              height: 25,
-              decoration: const BoxDecoration(
-                color: Colors.white54,
-                borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(5.0),
-                  bottomRight: Radius.circular(5.0),
-                ),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(5, 3, 0, 0),
-                child: Text(
-                  '${doc['name']}',
-                  style: const TextStyle(
-                    color: Colors.black26,
-                    fontSize: 20.0,
-                    fontWeight: FontWeight.w600,
-                    letterSpacing: 1.2,
-                  ),
-                ),
-              ),
+          Text(
+            '${doc['name']}',
+            style: const TextStyle(
+              color: Colors.black,
+              fontSize: 16.0,
+              fontWeight: FontWeight.w600,
+              letterSpacing: 1.2,
             ),
           ),
         ],

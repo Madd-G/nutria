@@ -15,7 +15,7 @@ class CategorySection extends StatelessWidget {
         const Align(
           alignment: Alignment.centerLeft,
           child: Text(
-            'Category',
+            'Kategori',
             style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600),
           ),
         ),
@@ -28,7 +28,7 @@ class CategorySection extends StatelessWidget {
             CategoryBox(
               imagePath:
                   'https://firebasestorage.googleapis.com/v0/b/nutria-29b7b.appspot.com/o/app_image%2Fapp%2Ffruit.png?alt=media&token=84c6e087-b405-4b0b-96da-dde2831954f3',
-              label: 'Fruit',
+              label: 'BUAH',
               onTap: () {
                 Navigator.push(
                     context,
@@ -41,7 +41,7 @@ class CategorySection extends StatelessWidget {
             CategoryBox(
               imagePath:
                   'https://firebasestorage.googleapis.com/v0/b/nutria-29b7b.appspot.com/o/app_image%2Fapp%2Fvegetable.png?alt=media&token=594f15d7-46f9-4128-8c46-2a35d3f65d2c',
-              label: 'Vegetable',
+              label: 'SAYURAN',
               onTap: () {
                 Navigator.push(
                     context,
