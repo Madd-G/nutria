@@ -14,7 +14,7 @@ class ScanBanner extends StatelessWidget {
       child: GestureDetector(
         onTap: () {},
         child: Container(
-          height: size.height * 0.11,
+          height: size.height * 0.10,
           width: double.infinity,
           color: Theme.of(context).colorScheme.primary,
           child: Padding(
@@ -35,9 +35,8 @@ class ScanBanner extends StatelessWidget {
                         child: FittedBox(
                           fit: BoxFit.fitWidth,
                           child: Text(
-                            'SCAN TO LEARN ABOUT',
+                            'PINDAI SEKARANG UNTUK',
                             style: TextStyle(
-                              fontSize: 22.0,
                               fontWeight: FontWeight.w700,
                               color: Colors.white,
                             ),
@@ -48,9 +47,8 @@ class ScanBanner extends StatelessWidget {
                         child: FittedBox(
                           fit: BoxFit.fitWidth,
                           child: Text(
-                            'FRUITS AND VEGETABLES',
+                            'MENDETEKSI BUAH DAN SAYURAN',
                             style: TextStyle(
-                              fontSize: 22.0,
                               fontWeight: FontWeight.w700,
                               color: Colors.white,
                             ),
