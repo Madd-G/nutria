@@ -21,7 +21,7 @@ class ChatScreenState extends State<ChatScreen> {
   User? loggedInUser = FirebaseAuth.instance.currentUser!;
   bool _isTyping = false;
   List<String> chatSession = [
-    'Saya ingin anda menjadi ahli tanaman dan buah-buahan, ada beberapa pertanyaan, hanya jawab pertanyaan yang terakhir: '
+    'Saya ingin anda menjadi ahli tanaman dan buah-buahan, akan ada beberapa pertanyaan, tetapi hanya jawab pertanyaan yang terakhir: '
   ];
 
   Future<String> sendMessageToChatGpt(String message) async {
@@ -60,7 +60,7 @@ class ChatScreenState extends State<ChatScreen> {
     focusNode = FocusNode();
     // ignore: unused_local_variable
     List<String> chatSession = [
-      'Saya ingin anda menjadi ahli tanaman dan buah-buahan, ada beberapa pertanyaan, hanya jawab pertanyaan yang terakhir: '
+      // 'Saya ingin anda menjadi ahli tanaman dan buah-buahan, '
     ];
     super.initState();
   }

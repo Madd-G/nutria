@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:nutria/ui/article_screen/screens/article_list_screen.dart';
 import 'package:nutria/ui/article_screen/widgets/article_list_card.dart';
 
 import '../../detail_screen/screen/detail_screen.dart';
@@ -14,7 +15,9 @@ class ArticleRecommendation extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const SizedBox(height: 10.0,),
+        const SizedBox(
+          height: 10.0,
+        ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -29,7 +32,14 @@ class ArticleRecommendation extends StatelessWidget {
               ),
             ),
             GestureDetector(
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const ArticleListScreen(),
+                  ),
+                );
+              },
               child: Text(
                 'See All',
                 style: TextStyle(
@@ -43,8 +53,7 @@ class ArticleRecommendation extends StatelessWidget {
           ],
         ),
         StreamBuilder<QuerySnapshot>(
-          stream:
-              FirebaseFirestore.instance.collection('article').snapshots(),
+          stream: FirebaseFirestore.instance.collection('article').snapshots(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(child: CircularProgressIndicator());
