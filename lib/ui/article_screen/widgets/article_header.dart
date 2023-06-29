@@ -26,7 +26,7 @@ class ArticleHeader extends StatelessWidget {
                   final percent = download.progress! * 100;
                   return Center(
                       child: Text(
-                    'loading: ${percent.toStringAsFixed(0)}%',
+                    'loading: ${percent.toStringAsFixed(0)}%', style: const TextStyle(color: Colors.grey),
                   ));
                 }
                 return const Text('');

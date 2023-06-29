@@ -1,11 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'article_list_card.dart';
+import 'widgets.dart';
 
 class ArticleList extends StatelessWidget {
-  const ArticleList({super.key, required this.size, required this.docs});
+  const ArticleList({super.key, required this.docs});
 
-  final Size size;
   final List<DocumentSnapshot> docs;
 
   @override
@@ -16,7 +15,7 @@ class ArticleList extends StatelessWidget {
         itemCount: docs.length,
         itemBuilder: (context, index) {
           DocumentSnapshot doc = docs[index];
-          return ArticleListCard(size: size, doc: doc);
+          return ArticleListCard(doc: doc);
         },
       ),
     );
