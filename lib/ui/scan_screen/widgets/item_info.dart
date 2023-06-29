@@ -28,7 +28,7 @@ class ItemInfo extends StatelessWidget {
                 Text(
                   doc['name'],
                   style: const TextStyle(
-                      fontSize: 35.0, fontWeight: FontWeight.w900),
+                      fontSize: 25.0, fontWeight: FontWeight.w900),
                 ),
                 Container(
                   decoration: BoxDecoration(
@@ -42,7 +42,7 @@ class ItemInfo extends StatelessWidget {
                       doc['category'],
                       textAlign: TextAlign.justify,
                       style: const TextStyle(
-                        fontSize: 20.0,
+                        fontSize: 17.0,
                         fontWeight: FontWeight.w700,
                       ),
                     ),
@@ -55,13 +55,13 @@ class ItemInfo extends StatelessWidget {
             ),
             const Text(
               'Nutrition and mineral',
-              style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.w600),
+              style: TextStyle(fontSize: 17.0, fontWeight: FontWeight.w600),
             ),
             SizedBox(
               height: size.height * 0.003,
             ),
             StaggeredGrid.count(
-              crossAxisCount: 3,
+              crossAxisCount: 4,
               mainAxisSpacing: 10.0,
               crossAxisSpacing: 10.0,
               children: doc['nutrients'].map<Widget>(
@@ -72,7 +72,7 @@ class ItemInfo extends StatelessWidget {
                           context: context,
                           builder: (context) {
                             context.read<ChatGPTBloc>().add(GetResult(
-                                message: 'Pengertian dan manfaat $label'));
+                                message: 'Pengertian dan manfaat mengkonsumsi $label'));
                             return AlertDialog(
                               insetPadding: const EdgeInsets.all(8.0),
                               title: Text(label),
@@ -120,7 +120,7 @@ class ItemInfo extends StatelessWidget {
                           child: Center(
                               child: Text(
                             label,
-                            style: const TextStyle(),
+                            style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 11.0),
                             softWrap: false,
                             textAlign: TextAlign.center,
                           )),
@@ -134,33 +134,54 @@ class ItemInfo extends StatelessWidget {
             ),
             const Text(
               'Description',
-              style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.w600),
+              style: TextStyle(fontSize: 17.0, fontWeight: FontWeight.w600),
             ),
-            SizedBox(
-              height: size.height * 0.01,
+            const SizedBox(
+              height: 3.0,
             ),
-            Text(
-              doc['description'],
-              textAlign: TextAlign.justify,
-              style: const TextStyle(
-                fontSize: 17.0,
-                overflow: TextOverflow.clip,
+            ListView.separated(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              separatorBuilder: (context, index) => const SizedBox(
+                height: 15.0,
               ),
+              itemCount: doc['general-info'].length,
+              itemBuilder: (context, index) {
+                return Text(
+                  doc['general-info'][index],
+                  textAlign: TextAlign.justify,
+                  style: const TextStyle(
+                    fontSize: 13.0,
+                  ),
+                );
+              },
             ),
             SizedBox(
               height: size.height * 0.025,
             ),
             const Text(
               'Benefits',
-              style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.w600),
+              style: TextStyle(fontSize: 17.0, fontWeight: FontWeight.w600),
             ),
             SizedBox(
               height: size.height * 0.003,
             ),
-            Text(
-              doc['benefits'],
-              textAlign: TextAlign.justify,
-              style: const TextStyle(fontSize: 17.0),
+            ListView.separated(
+              physics: const NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              separatorBuilder: (context, index) => const SizedBox(
+                height: 15.0,
+              ),
+              itemCount: doc['benefits'].length,
+              itemBuilder: (context, index) {
+                return Text(
+                  doc['benefits'][index],
+                  textAlign: TextAlign.justify,
+                  style: const TextStyle(
+                    fontSize: 13.0,
+                  ),
+                );
+              },
             ),
           ],
         ),

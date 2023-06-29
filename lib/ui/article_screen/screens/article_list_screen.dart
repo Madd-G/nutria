@@ -47,10 +47,7 @@ class ArticleListScreen extends StatelessWidget {
             }
             if (snapshot.hasData) {
               final List<DocumentSnapshot> documents = snapshot.data!.docs;
-              return ArticleList(
-                size: size,
-                docs: documents,
-              );
+              return ArticleList(docs: documents);
             } else {
               return const SizedBox();
             }

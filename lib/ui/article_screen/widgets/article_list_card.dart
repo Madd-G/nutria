@@ -6,15 +6,14 @@ import '../../screens.dart';
 class ArticleListCard extends StatelessWidget {
   const ArticleListCard({
     super.key,
-    required this.size,
     required this.doc,
   });
 
-  final Size size;
   final DocumentSnapshot<Object?> doc;
 
   @override
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
     return SizedBox(
       height: size.width * 0.35,
       child: GestureDetector(
@@ -43,7 +42,7 @@ class ArticleListCard extends StatelessWidget {
                         final percent = download.progress! * 100;
                         return Center(
                             child: Text(
-                                'loading: ${percent.toStringAsFixed(0)}%'));
+                                'loading: ${percent.toStringAsFixed(0)}%', style: const TextStyle(color: Colors.grey),));
                       }
                       return const Text('');
                     },
@@ -101,7 +100,7 @@ class ArticleListCard extends StatelessWidget {
                                           final percent = download.progress! * 100;
                                           return Center(
                                               child: Text(
-                                                'loading: ${percent.toStringAsFixed(0)}%',
+                                                'loading: ${percent.toStringAsFixed(0)}%', style: const TextStyle(color: Colors.grey),
                                               ));
                                         }
                                         return const Text('');

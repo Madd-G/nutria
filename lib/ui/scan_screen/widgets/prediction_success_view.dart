@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
@@ -8,7 +7,7 @@ import 'package:nutria/widgets/nutriai_button.dart';
 import '../../../models/models.dart';
 import 'widgets.dart';
 
-class PredictionSuccessView extends StatefulWidget {
+class PredictionSuccessView extends StatelessWidget {
   const PredictionSuccessView({
     super.key,
     required this.predictionSuccess,
@@ -21,33 +20,16 @@ class PredictionSuccessView extends StatefulWidget {
   final String? imagePath;
 
   @override
-  State<PredictionSuccessView> createState() => _PredictionSuccessViewState();
-}
-
-class _PredictionSuccessViewState extends State<PredictionSuccessView> {
-  TabController? _tabController;
-
-  @override
-  @override
-  void dispose() {
-    _tabController!.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    var toolbarHeight = 300.0;
+    var toolbarHeight = 250.0;
     return NutriAIButton(
       mainWidget: Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
           flexibleSpace: SizedBox(
-            height: 275.0,
-            // child: CachedNetworkImage(
-            //   imageUrl: widget.doc['item-image'],fit: BoxFit.cover,
-            // ),
+            height: 230.0,
             child: Image(
-              image: FileImage(File(widget.imagePath!)),
+              image: FileImage(File(imagePath!)),
               fit: BoxFit.cover,
             ),
           ),
@@ -65,11 +47,9 @@ class _PredictionSuccessViewState extends State<PredictionSuccessView> {
                     bottom: BorderSide(color: Colors.black, width: 1),
                   ),
                 ),
-                child:
-                (widget.predictionSuccess.prediction!.isEmpty)
+                child: (predictionSuccess.prediction!.isEmpty)
                     ? const SizedBox.shrink()
-                    :
-                TabBar(
+                    : TabBar(
                         isScrollable: true,
                         padding: const EdgeInsets.symmetric(vertical: 8.0),
                         labelPadding: const EdgeInsets.symmetric(horizontal: 5),
@@ -79,10 +59,9 @@ class _PredictionSuccessViewState extends State<PredictionSuccessView> {
                         indicator: BoxDecoration(
                             borderRadius: BorderRadius.circular(50),
                             color: Theme.of(context).colorScheme.primary),
-                        controller: _tabController,
                         indicatorColor: Theme.of(context).colorScheme.primary,
                         labelColor: Colors.black,
-                        tabs: widget.predictionSuccess.prediction!
+                        tabs: predictionSuccess.prediction!
                             .map(
                               (label) => Tab(
                                 height: 30.0,
@@ -109,13 +88,10 @@ class _PredictionSuccessViewState extends State<PredictionSuccessView> {
             ),
           ),
         ),
-        body:
-        (widget.predictionSuccess.prediction!.isEmpty)
+        body: (predictionSuccess.prediction!.isEmpty)
             ? const Center(child: Text('Not Found'))
-            :
-        TabBarView(
-                controller: _tabController,
-                children: widget.predictionSuccess.prediction!.map(
+            : TabBarView(
+                children: predictionSuccess.prediction!.map(
                   (e) {
                     return FutureBuilder<QuerySnapshot>(
                       future: FirebaseFirestore.instance

@@ -2,10 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:nutria/widgets/nutriai_button.dart';
-import '../../scan_screen/widgets/characteristics.dart';
-import '../../scan_screen/widgets/general_info.dart';
-import '../../scan_screen/widgets/benefit_info.dart';
-import '../../scan_screen/widgets/nutrient_info.dart';
+import '../widgets/widgets.dart';
 
 class DetailScreen extends StatefulWidget {
   const DetailScreen({Key? key, required this.doc}) : super(key: key);
@@ -16,8 +13,6 @@ class DetailScreen extends StatefulWidget {
 }
 
 class _DetailScreenState extends State<DetailScreen> {
-  TabController? _tabController;
-
   @override
   void initState() {
     FirebaseFirestore.instance
@@ -27,11 +22,6 @@ class _DetailScreenState extends State<DetailScreen> {
     super.initState();
   }
 
-  @override
-  void dispose() {
-    _tabController!.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +38,7 @@ class _DetailScreenState extends State<DetailScreen> {
       'Manfaat'
     ];
 
-    var toolbarHeight = 300.0;
+    var toolbarHeight = 250.0;
     return DefaultTabController(
       length: tabsList.length,
       child: NutriAIButton(
@@ -56,9 +46,10 @@ class _DetailScreenState extends State<DetailScreen> {
           appBar: AppBar(
             automaticallyImplyLeading: false,
             flexibleSpace: SizedBox(
-              height: 275.0,
+              height: 230.0,
               child: CachedNetworkImage(
-                imageUrl: widget.doc['item-image'],fit: BoxFit.cover,
+                imageUrl: widget.doc['item-image'],
+                fit: BoxFit.cover,
               ),
             ),
             toolbarHeight: toolbarHeight,
@@ -84,7 +75,6 @@ class _DetailScreenState extends State<DetailScreen> {
                     indicator: BoxDecoration(
                         borderRadius: BorderRadius.circular(50),
                         color: Theme.of(context).colorScheme.primary),
-                    controller: _tabController,
                     indicatorColor: Theme.of(context).colorScheme.primary,
                     labelColor: Colors.black,
                     tabs: tabsList
@@ -117,7 +107,6 @@ class _DetailScreenState extends State<DetailScreen> {
             ),
           ),
           body: TabBarView(
-              controller: _tabController,
               children: tabBarViewList.map<Widget>((e) => e).toList()),
         ),
       ),
