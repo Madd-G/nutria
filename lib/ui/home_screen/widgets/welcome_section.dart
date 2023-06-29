@@ -96,8 +96,8 @@ class WelcomeSection extends StatelessWidget {
             ],
           ),
           Container(
-            height: 45.0,
-            width: 45.0,
+            height: 50.0,
+            width: 50.0,
             decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.primary,
               borderRadius: const BorderRadius.all(
@@ -105,12 +105,10 @@ class WelcomeSection extends StatelessWidget {
               ),
             ),
               child: const Center(
-                child: Expanded(
-                  child: Icon(
-                    Icons.account_circle,
-                    size: 45.0,
-                    color: Colors.white,
-                  ),
+                child: Icon(
+                  Icons.account_circle,
+                  size: 50.0,
+                  color: Colors.white,
                 ),
               ),
           )

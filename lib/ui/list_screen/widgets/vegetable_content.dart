@@ -33,14 +33,21 @@ class VegetableContent extends StatelessWidget {
           }
           if (snapshot.hasData) {
             final List<DocumentSnapshot> documents = snapshot.data!.docs;
-            return ListView.builder(
-              itemCount: documents.length,
-              itemBuilder: (context, index) {
-                var doc = documents[index];
-                return ProductCard(
-                  doc: doc,
-                );
-              },
+            return Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: GridView.builder(
+                itemCount: documents.length,
+                itemBuilder: (context, index) {
+                  var doc = documents[index];
+                  return ProductCard(doc: doc);
+                },
+                gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                  maxCrossAxisExtent: 200,
+                  childAspectRatio: 9 / 9,
+                  crossAxisSpacing: 5,
+                  mainAxisSpacing: 5,
+                ),
+              ),
             );
           } else {
             return const SizedBox();
