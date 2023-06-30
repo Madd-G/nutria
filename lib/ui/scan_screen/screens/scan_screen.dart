@@ -6,25 +6,11 @@ class ScanScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       backgroundColor: Colors.black,
       body: Column(
-        children: const [
-          Flexible(
-            flex: 1,
-            child: SafeArea(
-              child: Center(
-                child: Text(
-                  "Scan your thing",
-                  style: TextStyle(
-                    fontFamily: 'GT Maru',
-                    color: Colors.white,
-                    fontSize: 21,
-                  ),
-                ),
-              ),
-            ),
-          ),
+        children: [
+          Flexible(flex: 1, child: CameraScreenHeader()),
           Expanded(flex: 9, child: CameraContent()),
         ],
       ),

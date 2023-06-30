@@ -119,31 +119,46 @@ class _CameraContentState extends State<CameraContent> {
         imageFile = img;
       });
       if (mounted) {
+        // Navigator.push(
+        //   context,
+        //   MaterialPageRoute(
+        //     builder: (context) => PreviewScreen(imgPath: imageFile!),
+        //   ),
+        // );
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => PreviewScreen(imgPath: imageFile!),
+            builder: (context) => DetailObjectScreen(image: imageFile!),
           ),
         );
       }
     } on PlatformException {
       // context.read<ScreenBloc>().add(ScreenEventGoToScanScreen());
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => const ScanScreen()));
+      (mounted) {
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const ScanScreen()));
+      };
     }
   }
 
   takePictureFromCamera() async {
+    cameraController!.setFlashMode(FlashMode.off);
     try {
       await cameraController?.takePicture().then(
         (value) async {
           File? img = File(value.path);
           img = await cropImage(imageFile: File(value.path));
           if (mounted) {
+            // Navigator.push(
+            //   context,
+            //   MaterialPageRoute(
+            //     builder: (context) => PreviewScreen(imgPath: img!),
+            //   ),
+            // );
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => PreviewScreen(imgPath: img!),
+                builder: (context) => DetailObjectScreen(image: img!),
               ),
             );
           }
@@ -231,10 +246,10 @@ class _CameraContentState extends State<CameraContent> {
                         await pickImageFromGallery();
                         (mounted) {
                           // context.read<ScreenBloc>().add(ScreenEventGoToPreviewScreen());
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => PreviewScreen()));
+                          // Navigator.push(
+                          //     context,
+                          //     MaterialPageRoute(
+                          //         builder: (context) => PreviewScreen()));
                         };
                       },
                       child: const CircleAvatar(
@@ -256,10 +271,7 @@ class _CameraContentState extends State<CameraContent> {
                   ),
                 ),
                 Expanded(
-                  child: Align(
-                    alignment: Alignment.center,
-                    child: Container()
-                  ),
+                  child: Align(alignment: Alignment.center, child: Container()),
                 ),
               ],
             ),

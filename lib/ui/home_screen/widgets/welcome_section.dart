@@ -20,7 +20,8 @@ class _WelcomeSectionState extends State<WelcomeSection> {
     final GoogleSignIn googleSignIn = GoogleSignIn();
     String? greeting;
     final GlobalKey<PopupMenuButtonState> popUpKey = GlobalKey();
-    String _selectedMenu = '';
+    // ignore: unused_local_variable
+    String selectedMenu = '';
     int dt = DateTime.now().hour;
     if (dt < 10) {
       greeting = "SELAMAT PAGI";
@@ -114,71 +115,83 @@ class _WelcomeSectionState extends State<WelcomeSection> {
                     Radius.circular(100.0),
                   ),
                 ),
-                child: const Center(
-                  child: Icon(
-                    Icons.account_circle,
-                    size: 50.0,
-                    color: Colors.white,
-                  ),
+                // child: (FirebaseAuth.instance.currentUser?.uid != null)
+                //     ? Center(
+                //         child: Text(
+                //         FirebaseAuth.instance.currentUser!.email![0].toUpperCase(),
+                //         style: const TextStyle(fontSize: 40.0, color: Colors.white),
+                //       ))
+                //     : const Center(
+                //         child: Icon(
+                //           Icons.account_circle,
+                //           size: 50.0,
+                //           color: Colors.white,
+                //         ),
+                //       ),
+                child: StreamBuilder<User?>(
+                  stream: FirebaseAuth.instance.authStateChanges(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const CircularProgressIndicator();
+                    } else if (snapshot.hasData) {
+                      return Center(
+                          child: Text(
+                        FirebaseAuth.instance.currentUser!.email![0]
+                            .toUpperCase(),
+                        style: const TextStyle(
+                            fontSize: 40.0,
+                            color: Colors.white,
+                            fontWeight: FontWeight.w700),
+                      ));
+                    } else {
+                      return const Center(
+                        child: Icon(
+                          Icons.account_circle,
+                          size: 50.0,
+                          color: Colors.white,
+                        ),
+                      );
+                    }
+                  },
                 ),
               ),
               iconSize: 50.0,
               key: popUpKey,
-              onSelected: (Menu item) {
+              onSelected: (Menu item) async {
                 setState(() {
-                  _selectedMenu = item.name;
-                  // Navigator.pop(context);
+                  selectedMenu = item.name;
                 });
+                if (selectedMenu == 'login') {
+                  context.read<AuthCubit>().signInWithGoogle(context).then(
+                        (value) => ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Berhasil Login'),
+                          ),
+                        ),
+                      );
+                } else {
+                  await googleSignIn.signOut();
+                  await FirebaseAuth.instance.signOut();
+                  (mounted) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Berhasil logout')),
+                    );
+                  };
+                }
               },
               itemBuilder: (BuildContext context) {
                 if (FirebaseAuth.instance.currentUser?.uid == null) {
                   return <PopupMenuEntry<Menu>>[
-                    PopupMenuItem<Menu>(
+                    const PopupMenuItem<Menu>(
                       value: Menu.login,
-                      child: GestureDetector(
-                        onTap: () async {
-                          context
-                              .read<AuthCubit>()
-                              .signInWithGoogle(context)
-                              .then(
-                                (value) =>
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    content: Text('Berhasil Login'),
-                                  ),
-                                ),
-                              );
-                        },
-                        child: const Center(
-                          child: Text(
-                            'Login',
-                            style: TextStyle(fontWeight: FontWeight.w700),
-                          ),
-                        ),
-                      ),
+                      child: Text('Login'),
                     ),
                   ];
                 } else {
                   return <PopupMenuEntry<Menu>>[
-                    PopupMenuItem<Menu>(
+                    const PopupMenuItem<Menu>(
                       value: Menu.logout,
-                      child: GestureDetector(
-                        onTap: () async {
-                          await googleSignIn.signOut();
-                          await FirebaseAuth.instance.signOut();
-                          (mounted) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(content: Text('Berhasil logout')),
-                            );
-                          };
-                        },
-                        child: const Center(
-                          child: Text(
-                            'LogOut',
-                            style: TextStyle(fontWeight: FontWeight.w700),
-                          ),
-                        ),
-                      ),
+                      child: Text('LogOut'),
                     ),
                   ];
                 }

@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:nutria/widgets/nutriai_button.dart';
 import '../widgets/widgets.dart';
+import '../widgets/search_bar.dart' as search;
 import 'package:nutria/blocs/blocs.dart';
 
 class ListScreen extends StatefulWidget {
@@ -65,7 +66,7 @@ class _ListScreenState extends State<ListScreen> {
                       ),
                     ),
                   ),
-                  SearchBar(
+                  search.SearchBar(
                     searchController: searchController,
                   ),
                   (searchController.text.isEmpty)

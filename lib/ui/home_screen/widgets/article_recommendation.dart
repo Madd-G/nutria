@@ -1,9 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:nutria/ui/article_screen/screens/article_list_screen.dart';
 import 'package:nutria/ui/article_screen/widgets/article_list_card.dart';
-
-import '../../detail_screen/screen/detail_screen.dart';
+import '../../../blocs/blocs.dart';
+import '../../screens.dart';
 
 class ArticleRecommendation extends StatelessWidget {
   const ArticleRecommendation({
@@ -33,12 +32,9 @@ class ArticleRecommendation extends StatelessWidget {
             ),
             GestureDetector(
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const ArticleListScreen(),
-                  ),
-                );
+                context
+                    .read<BottomNavBarBloc>()
+                    .add(EventGoToArticleScreen());
               },
               child: Text(
                 'See All',

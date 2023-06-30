@@ -2,12 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import '../../../blocs/blocs.dart';
 import '../widgets/widgets.dart';
+import 'dart:io';
 
-class DetailObjectScreen extends StatelessWidget {
-  const DetailObjectScreen({super.key, this.imagePath});
 
-  final String? imagePath;
+class DetailObjectScreen extends StatefulWidget {
+  const DetailObjectScreen({super.key, this.image});
 
+  final File? image;
+
+  @override
+  State<DetailObjectScreen> createState() => _DetailObjectScreenState();
+}
+
+class _DetailObjectScreenState extends State<DetailObjectScreen> {
+  @override
+  void initState() {
+    context.read<PredictionBloc>().add(GetPrediction(
+      imagePath: widget.image!.path,
+    ));
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<PredictionBloc, PredictionState>(
@@ -28,7 +42,7 @@ class DetailObjectScreen extends StatelessWidget {
             child: PredictionSuccessView(
               predictionSuccess: predictionState,
               predictionModel: predictionState.prediction!,
-              imagePath: imagePath,
+              imagePath: widget.image!.path,
             ),
           );
         } else if (predictionState is PredictionErrorState) {

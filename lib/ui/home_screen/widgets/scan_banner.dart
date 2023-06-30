@@ -34,11 +34,11 @@ class ScanBanner extends StatelessWidget {
                 const SizedBox(
                   width: 18.0,
                 ),
-                Expanded(
+                const Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: const [
+                    children: [
                       Expanded(
                         child: FittedBox(
                           fit: BoxFit.fitWidth,
