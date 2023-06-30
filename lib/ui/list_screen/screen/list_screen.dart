@@ -1,3 +1,4 @@
+import 'package:basic_utils/basic_utils.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:nutria/widgets/nutriai_button.dart';
@@ -20,7 +21,6 @@ class _ListScreenState extends State<ListScreen> {
   @override
   void initState() {
     super.initState();
-
     searchController.addListener(_updateText);
   }
 
@@ -39,6 +39,7 @@ class _ListScreenState extends State<ListScreen> {
   @override
   Widget build(BuildContext context) {
     final TabBloc tabBloc = context.read<TabBloc>();
+
     return NutriAIButton(
       mainWidget: DefaultTabController(
         initialIndex: (tabBloc.state is TabStateIsInFruitTab) ? 0 : 1,
@@ -54,7 +55,7 @@ class _ListScreenState extends State<ListScreen> {
                   const SafeArea(
                     child: Center(
                       child: Text(
-                        'Fruits and Vegetables',
+                        'Buah dan Sayuran',
                         style: TextStyle(
                           fontFamily: 'GT Maru',
                           color: Colors.white,
@@ -76,8 +77,8 @@ class _ListScreenState extends State<ListScreen> {
                             unselectedLabelColor: Colors.black,
                             labelColor: Theme.of(context).colorScheme.primary,
                             tabs: const [
-                              Tab(text: 'Fruit'),
-                              Tab(text: 'Vegetable'),
+                              Tab(text: 'Buah'),
+                              Tab(text: 'Sayuran'),
                             ],
                           ),
                         )
@@ -96,14 +97,16 @@ class _ListScreenState extends State<ListScreen> {
               : FutureBuilder<QuerySnapshot>(
                   future: FirebaseFirestore.instance
                       .collection('items')
-                      .where("name", isEqualTo: searchController.text)
+                      .where("name",
+                          isEqualTo:
+                              StringUtils.capitalize(searchController.text))
                       .get(),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return const Center(child: CircularProgressIndicator());
                     }
                     if (snapshot.data!.docs.isEmpty) {
-                      return const Center(child: Text("Not Found"));
+                      return const Center(child: Text("Data tidak ditemukan"));
                     }
                     if (snapshot.hasData) {
                       final DocumentSnapshot doc = snapshot.data!.docs[0];

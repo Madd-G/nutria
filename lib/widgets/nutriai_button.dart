@@ -22,7 +22,9 @@ class NutriAIButton extends StatelessWidget {
           tooltip: 'Hello, may I help you?',
           onPressed: () {
             if (FirebaseAuth.instance.currentUser?.uid == null) {
-              context.read<AuthCubit>().signInWithGoogle(context);
+              context.read<AuthCubit>().signInWithGoogle(context).then(
+                      (value) async => await Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => const ChatScreen())));
             } else {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => const ChatScreen()));
