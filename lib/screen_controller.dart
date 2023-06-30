@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:nutria/blocs/bottom_nav_bar_bloc/bottom_nav_bar_bloc.dart';
 import 'blocs/blocs.dart';
 import 'ui/screens.dart';
 

@@ -24,7 +24,8 @@ class ApiService {
   final Dio _dio = Dio();
 
   final String _baseUrl =
-      'https://alamsyahyolo-35iuseuykq-et.a.run.app/nutria/';
+      // 'https://alamsyahyolo-35iuseuykq-et.a.run.app/nutria/';
+      'https://nutria-pemw7i5uxa-et.a.run.app/nutria/';
 
   Future<List<Prediction>> uploadImage(String imgPath) async {
     FormData formData =
@@ -33,7 +34,7 @@ class ApiService {
     String responses = jsonEncode(response.data).toString();
     List<Prediction> result = modelFromJson(responses);
     result = result
-        .where((element) => double.parse(element.confidence) > 50)
+        .where((element) => double.parse(element.confidence) > 80)
         .toList();
     return result;
   }

@@ -38,15 +38,16 @@ class _DetailScreenState extends State<DetailScreen> {
       'Manfaat'
     ];
 
-    var toolbarHeight = 250.0;
+    var toolbarHeight = 320.0;
     return DefaultTabController(
       length: tabsList.length,
       child: NutriAIButton(
         mainWidget: Scaffold(
+          backgroundColor: Colors.white,
           appBar: AppBar(
             automaticallyImplyLeading: false,
             flexibleSpace: SizedBox(
-              height: 230.0,
+              height: 310.0,
               child: CachedNetworkImage(
                 imageUrl: widget.doc['item-image'],
                 fit: BoxFit.cover,

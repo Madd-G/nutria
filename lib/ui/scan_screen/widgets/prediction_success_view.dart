@@ -21,13 +21,13 @@ class PredictionSuccessView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var toolbarHeight = 250.0;
+    var toolbarHeight = 300.0;
     return NutriAIButton(
       mainWidget: Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
           flexibleSpace: SizedBox(
-            height: 230.0,
+            height: 290.0,
             child: Image(
               image: FileImage(File(imagePath!)),
               fit: BoxFit.cover,

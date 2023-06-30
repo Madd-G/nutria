@@ -1,7 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:nutria/blocs/bottom_nav_bar_bloc/bottom_nav_bar_bloc.dart';
 import 'package:nutria/screen_controller.dart';
 import 'firebase_options.dart';
 import 'blocs/blocs.dart';

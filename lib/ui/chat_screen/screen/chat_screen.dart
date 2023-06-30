@@ -59,9 +59,11 @@ class ChatScreenState extends State<ChatScreen> {
   void initState() {
     getCurrentUser();
     focusNode = FocusNode();
+    // ignore: unused_local_variable
     List<String> chatSession = [
       'Ayo bermain peran, kamu hanya tahu tentang buah dan sayuran, selain sapaan atau pertanyaan yang tidak berkaitan dengan itu kamu berpura-pura tidak tahu.'
     ];
+    // ignore: unused_local_variable
     List<String> konteks = [];
     super.initState();
   }
@@ -109,11 +111,11 @@ class ChatScreenState extends State<ChatScreen> {
         _messages.insert(0, message);
       });
       chatSession.add(messageText);
+      // ignore: unused_local_variable
       String chats = chatSession.join(',');
       String finalmessage =
-          'konteks ${(konteks.isNotEmpty) ? konteks.last : ''}. Ayo bermain peran, anda menjadi ahli buah dan sayuran, selain sapaan atau pertanyaan yang berkaitan dengan buah dan sayuran, jawab "Maaf saya tidak mengerti, saya hanya mengerti mengenai buah dan sayuran". $messageText';
+          'Ayo bermain peran, anda menjadi ahli buah dan sayuran, selain sapaan dan pertanyaan yang berkaitan dengan buah dan sayuran, jawab "Maaf saya tidak mengerti, saya hanya mengerti mengenai buah dan sayuran". Jika pertanyaan mengenai buah dan sayuran maka jawab berdasarkan konteks pertanyaan sebelumnya sebagai referensi, pertanyan sebelumnya ${(konteks.isNotEmpty) ? konteks.last : ''}, pertanyaan yang harus dijawab: $messageText';
       konteks.add(messageText);
-      print('>>>>>>>>>>> $finalmessage');
       String response = await sendMessageToChatGpt(finalmessage);
 
       userInstance
@@ -318,8 +320,8 @@ class ChatContent extends StatelessWidget {
               const SizedBox(
                 width: 5.0,
               ),
-              Column(
-                children: const [
+              const Column(
+                children: [
                   Text(
                     'NutriAI',
                     style: TextStyle(
