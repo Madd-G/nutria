@@ -20,8 +20,9 @@ class ChatScreenState extends State<ChatScreen> {
   final userInstance = FirebaseFirestore.instance;
   User? loggedInUser = FirebaseAuth.instance.currentUser!;
   bool _isTyping = false;
+  List<String> konteks = [];
   List<String> chatSession = [
-    'Saya ingin anda menjadi ahli tanaman dan buah-buahan, akan ada beberapa pertanyaan, tetapi hanya jawab pertanyaan yang terakhir: '
+    'Ayo bermain peran, kamu hanya tahu tentang buah dan sayuran, selain sapaan atau pertanyaan yang tidak berkaitan dengan itu kamu berpura-pura tidak tahu.'
   ];
 
   Future<String> sendMessageToChatGpt(String message) async {
@@ -58,10 +59,10 @@ class ChatScreenState extends State<ChatScreen> {
   void initState() {
     getCurrentUser();
     focusNode = FocusNode();
-    // ignore: unused_local_variable
     List<String> chatSession = [
-      // 'Saya ingin anda menjadi ahli tanaman dan buah-buahan, '
+      'Ayo bermain peran, kamu hanya tahu tentang buah dan sayuran, selain sapaan atau pertanyaan yang tidak berkaitan dengan itu kamu berpura-pura tidak tahu.'
     ];
+    List<String> konteks = [];
     super.initState();
   }
 
@@ -109,8 +110,11 @@ class ChatScreenState extends State<ChatScreen> {
       });
       chatSession.add(messageText);
       String chats = chatSession.join(',');
-
-      String response = await sendMessageToChatGpt(chats);
+      String finalmessage =
+          'konteks ${(konteks.isNotEmpty) ? konteks.last : ''}. Ayo bermain peran, anda menjadi ahli buah dan sayuran, selain sapaan atau pertanyaan yang berkaitan dengan buah dan sayuran, jawab "Maaf saya tidak mengerti, saya hanya mengerti mengenai buah dan sayuran". $messageText';
+      konteks.add(messageText);
+      print('>>>>>>>>>>> $finalmessage');
+      String response = await sendMessageToChatGpt(finalmessage);
 
       userInstance
           .collection('messages')

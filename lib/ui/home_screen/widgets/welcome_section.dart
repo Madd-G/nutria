@@ -1,23 +1,32 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import '../../../blocs/blocs.dart';
 
-class WelcomeSection extends StatelessWidget {
+enum Menu { login, logout }
+
+class WelcomeSection extends StatefulWidget {
   const WelcomeSection({super.key, required this.size});
 
   final Size size;
 
   @override
+  State<WelcomeSection> createState() => _WelcomeSectionState();
+}
+
+class _WelcomeSectionState extends State<WelcomeSection> {
+  @override
   Widget build(BuildContext context) {
     final GoogleSignIn googleSignIn = GoogleSignIn();
     String? greeting;
-
+    final GlobalKey<PopupMenuButtonState> popUpKey = GlobalKey();
+    String _selectedMenu = '';
     int dt = DateTime.now().hour;
     if (dt < 10) {
       greeting = "SELAMAT PAGI";
     } else if (dt < 16) {
       greeting = "SELAMAT SIANG";
-    } else if (dt > 19) {
+    } else if (dt < 19) {
       greeting = "SELAMAT SORE";
     } else {
       greeting = "SELAMAT MALAM";
@@ -91,27 +100,89 @@ class WelcomeSection extends StatelessWidget {
                     fontWeight: FontWeight.w500),
               ),
               SizedBox(
-                height: size.height * 0.005,
+                height: widget.size.height * 0.005,
               ),
             ],
           ),
-          Container(
-            height: 50.0,
-            width: 50.0,
-            decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.primary,
-              borderRadius: const BorderRadius.all(
-                Radius.circular(100.0),
-              ),
-            ),
-              child: const Center(
-                child: Icon(
-                  Icons.account_circle,
-                  size: 50.0,
-                  color: Colors.white,
+          PopupMenuButton<Menu>(
+              icon: Container(
+                height: 50.0,
+                width: 50.0,
+                decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.primary,
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(100.0),
+                  ),
+                ),
+                child: const Center(
+                  child: Icon(
+                    Icons.account_circle,
+                    size: 50.0,
+                    color: Colors.white,
+                  ),
                 ),
               ),
-          )
+              iconSize: 50.0,
+              key: popUpKey,
+              onSelected: (Menu item) {
+                setState(() {
+                  _selectedMenu = item.name;
+                  // Navigator.pop(context);
+                });
+              },
+              itemBuilder: (BuildContext context) {
+                if (FirebaseAuth.instance.currentUser?.uid == null) {
+                  return <PopupMenuEntry<Menu>>[
+                    PopupMenuItem<Menu>(
+                      value: Menu.login,
+                      child: GestureDetector(
+                        onTap: () async {
+                          context
+                              .read<AuthCubit>()
+                              .signInWithGoogle(context)
+                              .then(
+                                (value) =>
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text('Berhasil Login'),
+                                  ),
+                                ),
+                              );
+                        },
+                        child: const Center(
+                          child: Text(
+                            'Login',
+                            style: TextStyle(fontWeight: FontWeight.w700),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ];
+                } else {
+                  return <PopupMenuEntry<Menu>>[
+                    PopupMenuItem<Menu>(
+                      value: Menu.logout,
+                      child: GestureDetector(
+                        onTap: () async {
+                          await googleSignIn.signOut();
+                          await FirebaseAuth.instance.signOut();
+                          (mounted) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(content: Text('Berhasil logout')),
+                            );
+                          };
+                        },
+                        child: const Center(
+                          child: Text(
+                            'LogOut',
+                            style: TextStyle(fontWeight: FontWeight.w700),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ];
+                }
+              }),
         ],
       ),
     );

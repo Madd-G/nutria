@@ -258,14 +258,7 @@ class _CameraContentState extends State<CameraContent> {
                 Expanded(
                   child: Align(
                     alignment: Alignment.center,
-                    child: GestureDetector(
-                      onTap: () {},
-                      child: Icon(
-                        Icons.change_circle_rounded,
-                        size: 55,
-                        color: Theme.of(context).colorScheme.primary,
-                      ),
-                    ),
+                    child: Container()
                   ),
                 ),
               ],

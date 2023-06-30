@@ -16,8 +16,6 @@ class AuthCubit extends Cubit<AuthState> {
       accessToken: gAuth.accessToken,
       idToken: gAuth.idToken,
     );
-    return await FirebaseAuth.instance.signInWithCredential(credential).then(
-        (value) async => await Navigator.push(context,
-            MaterialPageRoute(builder: (context) => const ChatScreen())));
+    return await FirebaseAuth.instance.signInWithCredential(credential);
   }
 }

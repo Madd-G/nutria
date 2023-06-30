@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nutria/ui/scan_screen/screens/scan_screen.dart';
 
 class ScanBanner extends StatelessWidget {
   const ScanBanner({
@@ -12,7 +13,14 @@ class ScanBanner extends StatelessWidget {
     return ClipRRect(
       borderRadius: BorderRadius.circular(13.0),
       child: GestureDetector(
-        onTap: () {},
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const ScanScreen(),
+            ),
+          );
+        },
         child: Container(
           height: size.height * 0.10,
           width: double.infinity,
