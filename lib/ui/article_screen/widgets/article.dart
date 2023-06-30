@@ -1,0 +1,37 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+
+class Article extends StatelessWidget {
+  const Article({
+    super.key,
+    required this.doc,
+  });
+
+  final DocumentSnapshot<Object?> doc;
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: MediaQuery.removePadding(
+        context: context,
+        removeTop: true,
+        child: ListView.separated(
+          shrinkWrap: true,
+          separatorBuilder: (context, index) => const SizedBox(
+            height: 15.0,
+          ),
+          itemCount: doc['article'].length,
+          itemBuilder: (context, index) {
+            return Text(
+              doc['article'][index],
+              textAlign: TextAlign.justify,
+              style: const TextStyle(
+                fontSize: 16.0,
+              ),
+            );
+          },
+        ),
+      ),
+    );
+  }
+}
