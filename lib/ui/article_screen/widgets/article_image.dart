@@ -21,16 +21,16 @@ class ArticleImage extends StatelessWidget {
           width: size.width,
           child: CachedNetworkImage(
             imageUrl: doc['item-image'],
-            progressIndicatorBuilder: (_, url, download) {
-              if (download.progress != null) {
-                final percent = download.progress! * 100;
-                return Center(
-                    child: Text(
-                  'loading: ${percent.toStringAsFixed(0)}%', style: const TextStyle(color: Colors.grey),
-                ));
-              }
-              return const Text('');
-            },
+            // progressIndicatorBuilder: (_, url, download) {
+            //   if (download.progress != null) {
+            //     final percent = download.progress! * 100;
+            //     return Center(
+            //         child: Text(
+            //       'loading: ${percent.toStringAsFixed(0)}%', style: const TextStyle(color: Colors.grey),
+            //     ));
+            //   }
+            //   return const Text('');
+            // },
             fit: BoxFit.fill,
           ),
         ),

@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import '../../../blocs/blocs.dart';
+import '../../../responsive.dart';
 
 enum Menu { login, logout }
 
@@ -25,53 +26,12 @@ class _WelcomeSectionState extends State<WelcomeSection> {
     int dt = DateTime.now().hour;
     if (dt < 10) {
       greeting = "SELAMAT PAGI";
-    } else if (dt < 16) {
+    } else if (dt < 15) {
       greeting = "SELAMAT SIANG";
-    } else if (dt < 19) {
+    } else if (dt < 18) {
       greeting = "SELAMAT SORE";
     } else {
       greeting = "SELAMAT MALAM";
-    }
-
-    String? month;
-
-    switch (DateTime.now().month) {
-      case 1:
-        month = "January";
-        break;
-      case 2:
-        month = "Februari";
-        break;
-      case 3:
-        month = "Maret";
-        break;
-      case 4:
-        month = "April";
-        break;
-      case 5:
-        month = "Mei";
-        break;
-      case 6:
-        month = "Juni";
-        break;
-      case 7:
-        month = "Juli";
-        break;
-      case 8:
-        month = "Agustus";
-        break;
-      case 9:
-        month = "September";
-        break;
-      case 10:
-        month = "Oktober";
-        break;
-      case 11:
-        month = "November";
-        break;
-      case 12:
-        month = "Desember";
-        break;
     }
 
     return Padding(
@@ -80,122 +40,134 @@ class _WelcomeSectionState extends State<WelcomeSection> {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                greeting,
-                style: const TextStyle(
-                    color: Colors.black,
-                    fontSize: 30,
-                    fontWeight: FontWeight.w700),
-              ),
-              const SizedBox(
-                height: 5.0,
-              ),
-              Text(
-                'Hari ini ${DateTime.now().day} $month ${DateTime.now().year}',
-                style: const TextStyle(
-                    color: Colors.grey,
-                    fontSize: 15,
-                    fontWeight: FontWeight.w500),
-              ),
-              SizedBox(
-                height: widget.size.height * 0.005,
-              ),
-            ],
+          StreamBuilder<User?>(
+            stream: FirebaseAuth.instance.authStateChanges(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const CircularProgressIndicator();
+              } else if (snapshot.hasData) {
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      '$greeting 😀',
+                      style: TextStyle(
+                          color: Colors.grey,
+                          fontSize: (Responsive.isTablet(context)) ? 43 : 15,
+                          fontWeight: FontWeight.w900),
+                    ),
+                    Text(
+                      '${FirebaseAuth.instance.currentUser!.email?.split('@')[0]}',
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: (Responsive.isTablet(context)) ? 50 : 18,
+                          fontWeight: FontWeight.w500),
+                    ),
+                    SizedBox(
+                      height: (Responsive.isTablet(context))
+                          ? widget.size.height * 0.009
+                          : widget.size.height * 0.005,
+                    ),
+                  ],
+                );
+              } else {
+                return Text(
+                  greeting!,
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontSize: (Responsive.isTablet(context)) ? 53 : 20,
+                      fontWeight: FontWeight.w700),
+                );
+              }
+            },
           ),
           PopupMenuButton<Menu>(
-              icon: Container(
-                height: 50.0,
-                width: 50.0,
-                decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.primary,
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(100.0),
-                  ),
-                ),
-                // child: (FirebaseAuth.instance.currentUser?.uid != null)
-                //     ? Center(
-                //         child: Text(
-                //         FirebaseAuth.instance.currentUser!.email![0].toUpperCase(),
-                //         style: const TextStyle(fontSize: 40.0, color: Colors.white),
-                //       ))
-                //     : const Center(
-                //         child: Icon(
-                //           Icons.account_circle,
-                //           size: 50.0,
-                //           color: Colors.white,
-                //         ),
-                //       ),
-                child: StreamBuilder<User?>(
-                  stream: FirebaseAuth.instance.authStateChanges(),
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return const CircularProgressIndicator();
-                    } else if (snapshot.hasData) {
-                      return Center(
-                          child: Text(
-                        FirebaseAuth.instance.currentUser!.email![0]
-                            .toUpperCase(),
-                        style: const TextStyle(
-                            fontSize: 40.0,
-                            color: Colors.white,
-                            fontWeight: FontWeight.w700),
-                      ));
-                    } else {
-                      return const Center(
-                        child: Icon(
-                          Icons.account_circle,
-                          size: 50.0,
-                          color: Colors.white,
-                        ),
-                      );
-                    }
-                  },
+            icon: Container(
+              height: (Responsive.isTablet(context)) ? 65.0 : 50.0,
+              width: (Responsive.isTablet(context)) ? 65.0 : 50.0,
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.primary,
+                borderRadius: const BorderRadius.all(
+                  Radius.circular(100.0),
                 ),
               ),
-              iconSize: 50.0,
-              key: popUpKey,
-              onSelected: (Menu item) async {
-                setState(() {
-                  selectedMenu = item.name;
-                });
-                if (selectedMenu == 'login') {
-                  context.read<AuthCubit>().signInWithGoogle(context).then(
-                        (value) => ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('Berhasil Login'),
-                          ),
-                        ),
-                      );
-                } else {
-                  await googleSignIn.signOut();
-                  await FirebaseAuth.instance.signOut();
-                  (mounted) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Berhasil logout')),
+              child: StreamBuilder<User?>(
+                stream: FirebaseAuth.instance.authStateChanges(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const CircularProgressIndicator();
+                  } else if (snapshot.hasData) {
+                    return Center(
+                        child: Text(
+                      FirebaseAuth.instance.currentUser!.email![0]
+                          .toUpperCase(),
+                      style: TextStyle(
+                          fontSize: (Responsive.isTablet(context)) ? 65 : 30.0,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w700),
+                    ));
+                  } else {
+                    return Center(
+                      child: Icon(
+                        Icons.account_circle,
+                        size: (Responsive.isTablet(context)) ? 65 : 50.0,
+                        color: Colors.white,
+                      ),
                     );
-                  };
-                }
-              },
-              itemBuilder: (BuildContext context) {
-                if (FirebaseAuth.instance.currentUser?.uid == null) {
-                  return <PopupMenuEntry<Menu>>[
-                    const PopupMenuItem<Menu>(
-                      value: Menu.login,
-                      child: Text('Login'),
+                  }
+                },
+              ),
+            ),
+            iconSize: (Responsive.isTablet(context)) ? 65 : 50,
+            key: popUpKey,
+            onSelected: (Menu item) async {
+              setState(() {
+                selectedMenu = item.name;
+              });
+              if (selectedMenu == 'login') {
+                context.read<AuthCubit>().signInWithGoogle(context).then(
+                      (value) => ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Berhasil Login'),
+                        ),
+                      ),
+                    );
+              } else {
+                await googleSignIn.signOut();
+                await FirebaseAuth.instance.signOut();
+                (mounted) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Berhasil logout')),
+                  );
+                };
+              }
+            },
+            itemBuilder: (BuildContext context) {
+              if (FirebaseAuth.instance.currentUser?.uid == null) {
+                return <PopupMenuEntry<Menu>>[
+                  PopupMenuItem<Menu>(
+                    value: Menu.login,
+                    child: Text(
+                      'Login',
+                      style: TextStyle(
+                          fontSize: (Responsive.isTablet(context)) ? 30 : 10),
                     ),
-                  ];
-                } else {
-                  return <PopupMenuEntry<Menu>>[
-                    const PopupMenuItem<Menu>(
-                      value: Menu.logout,
-                      child: Text('LogOut'),
+                  ),
+                ];
+              } else {
+                return <PopupMenuEntry<Menu>>[
+                  PopupMenuItem<Menu>(
+                    value: Menu.logout,
+                    child: Text(
+                      'Logout',
+                      style: TextStyle(
+                          fontSize: (Responsive.isTablet(context)) ? 30 : 10),
                     ),
-                  ];
-                }
-              }),
+                  ),
+                ];
+              }
+            },
+          ),
         ],
       ),
     );

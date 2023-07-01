@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
+import '../../../responsive.dart';
+
 class ArticleTitle extends StatelessWidget {
   const ArticleTitle({
     super.key,
@@ -13,7 +15,7 @@ class ArticleTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       doc['title'],
-      style: const TextStyle(fontSize: 19.0, fontWeight: FontWeight.w700),
+      style: TextStyle(fontSize: (Responsive.isTablet(context))? 28.0 : 14.0, fontWeight: FontWeight.w700),
     );
   }
 }

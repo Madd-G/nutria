@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:nutria/ui/home_screen/widgets/widgets.dart';
 
+import '../../../responsive.dart';
 import '../../detail_screen/screen/detail_screen.dart';
 import 'article_recommendation.dart';
 
@@ -15,22 +16,22 @@ class RecommendationSection extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+          Text(
             'Rekomendasi',
             style: TextStyle(
-                fontSize: 20.0,
+                fontSize: (Responsive.isTablet(context)) ? 30 : 18,
                 fontWeight: FontWeight.w600,
                 color: Colors.black),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Align(
+              Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
                   'Rekomendasi hari ini',
                   style: TextStyle(
-                      fontSize: 12.0,
+                      fontSize: (Responsive.isTablet(context)) ? 18 : 13,
                       fontWeight: FontWeight.w600,
                       color: Colors.grey),
                 ),
@@ -56,7 +57,9 @@ class RecommendationSection extends StatelessWidget {
                 .snapshots(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return const Center(child: CircularProgressIndicator());
+                return SizedBox(
+                    height: (Responsive.isTablet(context)) ? 220 : 180,
+                    child: const Center(child: CircularProgressIndicator()));
               }
               if (snapshot.data!.docs.isEmpty) {
                 return const SizedBox(
@@ -66,7 +69,7 @@ class RecommendationSection extends StatelessWidget {
               if (snapshot.hasData) {
                 final List<DocumentSnapshot> documents = snapshot.data!.docs;
                 return SizedBox(
-                  height: 180,
+                  height: (Responsive.isTablet(context)) ? 220 : 180,
                   child: ListView.builder(
                     padding: const EdgeInsets.all(0.0),
                     reverse: false,

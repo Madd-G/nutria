@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:nutria/blocs/blocs.dart';
 import 'package:nutria/ui/list_screen/screen/list_screen.dart';
+import '../../../responsive.dart';
 
 class CategorySection extends StatelessWidget {
   const CategorySection({super.key});
@@ -12,11 +13,13 @@ class CategorySection extends StatelessWidget {
     final TabBloc tabBloc = context.read<TabBloc>();
     return Column(
       children: [
-        const Align(
+        Align(
           alignment: Alignment.centerLeft,
           child: Text(
             'Kategori',
-            style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600),
+            style: TextStyle(
+                fontSize: (Responsive.isTablet(context)) ? 30 : 18,
+                fontWeight: FontWeight.w700),
           ),
         ),
         SizedBox(
@@ -76,7 +79,7 @@ class CategoryBox extends StatelessWidget {
       onTap: onTap,
       child: SizedBox(
         width: size.width * 0.47,
-        height: size.height * 0.18,
+        height: Responsive.isTablet(context) ?  size.height * 0.22 :size.height * 0.2,
         child: Card(
           child: Padding(
             padding: const EdgeInsets.all(4.0),
@@ -84,22 +87,24 @@ class CategoryBox extends StatelessWidget {
               children: [
                 CachedNetworkImage(
                   imageUrl: imagePath,
-                  progressIndicatorBuilder: (_, url, download) {
-                    if (download.progress != null) {
-                      final percent = download.progress! * 100;
-                      return Center(
-                          child: Text(
-                        'loading: ${percent.toStringAsFixed(0)}%', style: const TextStyle(color: Colors.grey),
-                      ));
-                    }
-                    return const Text('');
-                  },
+                  // progressIndicatorBuilder: (_, url, download) {
+                  //   if (download.progress != null) {
+                  //     final percent = download.progress! * 100;
+                  //     return Center(
+                  //         child: Text(
+                  //       'loading: ${percent.toStringAsFixed(0)}%',
+                  //       style: const TextStyle(color: Colors.grey),
+                  //     ));
+                  //   }
+                  //   return const Text('');
+                  // },
                   fit: BoxFit.fill,
                 ),
                 Text(
                   label,
-                  style: const TextStyle(
-                      fontSize: 25.0, fontWeight: FontWeight.w500),
+                  style: TextStyle(
+                      fontSize: (Responsive.isTablet(context)) ? 30.0 : 16.0,
+                      fontWeight: FontWeight.w700),
                 )
               ],
             ),

@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:nutria/responsive.dart';
 
 class Article extends StatelessWidget {
   const Article({
@@ -25,8 +26,8 @@ class Article extends StatelessWidget {
             return Text(
               doc['article'][index],
               textAlign: TextAlign.justify,
-              style: const TextStyle(
-                fontSize: 16.0,
+              style: TextStyle(
+                fontSize: Responsive.isTablet(context) ?  22.0 : 12.0,
               ),
             );
           },

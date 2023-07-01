@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:nutria/blocs/blocs.dart';
+import 'package:nutria/responsive.dart';
 import 'package:nutria/widgets/nutriai_button.dart';
 import '../../../models/models.dart';
 import 'widgets.dart';
@@ -21,13 +22,13 @@ class PredictionSuccessView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var toolbarHeight = 300.0;
+    var toolbarHeight = (Responsive.isTablet(context)) ? 420.0 : 300.0;
     return NutriAIButton(
       mainWidget: Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
           flexibleSpace: SizedBox(
-            height: 290.0,
+            height: (Responsive.isTablet(context)) ? 420.0 : 300.0,
             child: Image(
               image: FileImage(File(imagePath!)),
               fit: BoxFit.cover,
@@ -64,7 +65,7 @@ class PredictionSuccessView extends StatelessWidget {
                         tabs: predictionSuccess.prediction!
                             .map(
                               (label) => Tab(
-                                height: 30.0,
+                                height: (Responsive.isTablet(context))  ? 40.0 : 30.0,
                                 child: Container(
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 16.0),
@@ -77,7 +78,7 @@ class PredictionSuccessView extends StatelessWidget {
                                           width: 1)),
                                   child: Align(
                                     alignment: Alignment.center,
-                                    child: Text(label.className),
+                                    child: Text(label.className, style: TextStyle(fontSize: (Responsive.isTablet(context))  ? 25.0 : 12.0, fontWeight: FontWeight.w700)),
                                   ),
                                 ),
                               ),
@@ -111,7 +112,7 @@ class PredictionSuccessView extends StatelessWidget {
                           );
                         }
                         if (snapshot.data!.docs.isEmpty) {
-                          return const Center(child: Text("Not Found"));
+                          return const Center(child: Text("Tidak ada buah/sayuran terdeteksi"));
                         }
                         if (snapshot.hasData) {
                           final DocumentSnapshot doc = snapshot.data!.docs[0];
