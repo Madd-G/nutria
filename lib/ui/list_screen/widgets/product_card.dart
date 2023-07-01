@@ -27,13 +27,13 @@ class ProductCard extends StatelessWidget {
                 child: Center(
                   child: CachedNetworkImage(
                     imageUrl: doc['item-image'],
-                    progressIndicatorBuilder: (_, url, download) {
-                      if (download.progress != null) {
-                        final percent = download.progress! * 100;
-                        return Text('$percent% done loading');
-                      }
-                      return const Text('');
-                    },
+                    // progressIndicatorBuilder: (_, url, download) {
+                    //   if (download.progress != null) {
+                    //     final percent = download.progress! * 100;
+                    //     return Text('$percent% done loading');
+                    //   }
+                    //   return const Text('');
+                    // },
                     fit: BoxFit.fill,
                   ),
                 ),

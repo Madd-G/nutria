@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:http/http.dart' as http;
 import '../../../models/models.dart';
+import '../../../responsive.dart';
 
 class ChatScreen extends StatefulWidget {
   const ChatScreen({super.key});
@@ -126,7 +127,8 @@ class ChatScreenState extends State<ChatScreen> {
         {
           'text': response,
           'sender': 'NutriAI',
-          'timestamp': FieldValue.serverTimestamp(),
+          // 'timestamp': FieldValue.serverTimestamp(),
+          'timestamp': DateTime.now(),
         },
       );
       _isTyping = false;
@@ -142,6 +144,46 @@ class ChatScreenState extends State<ChatScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        automaticallyImplyLeading: false,
+        elevation: 0.5,
+        bottom: PreferredSize(
+          preferredSize:
+              Size.fromHeight(Responsive.isTablet(context) ? 30.0 : 10.0),
+          child: Padding(
+            padding: EdgeInsets.all(Responsive.isTablet(context) ? 14.0 : 12.0),
+            child: Row(
+              children: [
+                Container(
+                  height: Responsive.isTablet(context) ? 45.0 : 30.0,
+                  width: Responsive.isTablet(context) ? 45.0 : 30.0,
+                  decoration: BoxDecoration(
+                      color: Theme.of(context).colorScheme.primary,
+                      borderRadius:
+                          const BorderRadius.all(Radius.circular(50.0))),
+                  child: Padding(
+                    padding: EdgeInsets.all(
+                        Responsive.isTablet(context) ? 8.0 : 4.0),
+                    child: Image.asset(
+                      'assets/images/AI.png',
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  width: 10.0,
+                ),
+                Text(
+                  'NutriAI BOT',
+                  style: TextStyle(
+                      fontSize: Responsive.isTablet(context) ? 25 : 14.0,
+                      fontWeight: FontWeight.w700),
+                )
+              ],
+            ),
+          ),
+        ),
+      ),
       body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -173,7 +215,10 @@ class ChatScreenState extends State<ChatScreen> {
                           const TextStyle(color: Colors.black, fontSize: 14.0),
                       decoration: InputDecoration(
                         hintText: "Hai, ada yang bisa saya bantu?",
-                        hintStyle: const TextStyle(color: Colors.grey),
+                        hintStyle: TextStyle(
+                            color: Colors.grey,
+                            fontSize:
+                                Responsive.isTablet(context) ? 12.0 : 10.0),
                         contentPadding: const EdgeInsets.only(
                             left: 15.0, right: 15.0, top: 10.0, bottom: 10.0),
                         border: OutlineInputBorder(
@@ -201,7 +246,8 @@ class ChatScreenState extends State<ChatScreen> {
                         {
                           'text': messageText,
                           'sender': loggedInUser?.email,
-                          'timestamp': FieldValue.serverTimestamp(),
+                          // 'timestamp': FieldValue.serverTimestamp(),
+                          'timestamp': DateTime.now(),
                         },
                       );
                       onSendMessage();
@@ -240,9 +286,9 @@ class MessageStream extends StatelessWidget {
           .snapshots(),
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
-          return const Center(
+          return Center(
             child: CircularProgressIndicator(
-              backgroundColor: Colors.blueAccent,
+              backgroundColor: Theme.of(context).colorScheme.primary,
             ),
           );
         }
@@ -266,11 +312,14 @@ class MessageStream extends StatelessWidget {
           messageWidgets.add(messageBubbles);
         }
         return Expanded(
-          child: ListView(
-            padding:
-                const EdgeInsets.symmetric(vertical: 20.0, horizontal: 10.0),
-            reverse: true,
-            children: messageWidgets,
+          child: Container(
+            color: const Color(0xFFF8F8F8),
+            child: ListView(
+              padding:
+                  const EdgeInsets.symmetric(vertical: 20.0, horizontal: 10.0),
+              reverse: true,
+              children: messageWidgets,
+            ),
           ),
         );
       },
@@ -296,60 +345,102 @@ class ChatContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(10.0),
-      child: Column(
+      child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            children: [
-              Container(
-                height: 20.0,
-                width: 20.0,
-                decoration: BoxDecoration(
-                    color: isMe
-                        ? Theme.of(context).colorScheme.primary
-                        : Colors.blue,
-                    borderRadius: BorderRadius.circular(25.0)),
-                child: Center(
-                  child: Text(
-                    isMe ? sender[0].toUpperCase() : 'N',
-                    style: const TextStyle(
-                        color: Colors.white, fontWeight: FontWeight.w700),
+          Flexible(
+            child: isMe
+                ? Padding(
+                    padding: const EdgeInsets.only(left: 40.0),
+                    child: Align(
+                      alignment: Alignment.centerRight,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(
+                              color: Theme.of(context).colorScheme.primary,
+                              borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(6.0),
+                                bottomLeft: Radius.circular(6.0),
+                                bottomRight: Radius.circular(6.0),
+                              ),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 8.0, horizontal: 12.0),
+                              child: Text(
+                                text,
+                                style: TextStyle(
+                                    fontSize: Responsive.isTablet(context)
+                                        ? 20.0
+                                        : 15.0,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w500),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 5.0),
+                            child: Text(
+                              '${(time!.toDate().hour > 12) ? time!.toDate().hour - 12 : time?.toDate().hour}: ${time?.toDate().minute} ${(time!.toDate().hour > 12) ? 'PM' : 'AM'}',
+                              style: TextStyle(
+                                  fontSize: Responsive.isTablet(context)
+                                      ? 15.0
+                                      : 10.0,
+                                  color: Colors.grey,
+                                  fontWeight: FontWeight.w500),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  )
+                : Padding(
+                    padding: const EdgeInsets.only(right: 40.0),
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            decoration: const BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.only(
+                                topRight: Radius.circular(6.0),
+                                bottomLeft: Radius.circular(6.0),
+                                bottomRight: Radius.circular(6.0),
+                              ),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                text,
+                                style: TextStyle(
+                                    fontSize: Responsive.isTablet(context)
+                                        ? 20.0
+                                        : 15.0,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w500),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 5.0),
+                            child: Text(
+                              '${(time!.toDate().hour > 12) ? time!.toDate().hour - 12 : time?.toDate().hour}: ${time?.toDate().minute} ${(time!.toDate().hour > 12) ? 'PM' : 'AM'}',
+                              style: TextStyle(
+                                  fontSize: Responsive.isTablet(context)
+                                      ? 15.0
+                                      : 10.0,
+                                  color: Colors.grey,
+                                  fontWeight: FontWeight.w500),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
                   ),
-                ),
-              ),
-              const SizedBox(
-                width: 5.0,
-              ),
-              const Column(
-                children: [
-                  Text(
-                    'NutriAI',
-                    style: TextStyle(
-                        fontSize: 14.0,
-                        color: Colors.grey,
-                        fontWeight: FontWeight.w500),
-                  ),
-                ],
-              ),
-            ],
-          ),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(
-                height: 20.0,
-                width: 25.0,
-              ),
-              Flexible(
-                child: SizedBox(
-                    child: Text(
-                  text,
-                  style: const TextStyle(
-                    fontSize: 15,
-                  ),
-                )),
-              ),
-            ],
           ),
         ],
       ),

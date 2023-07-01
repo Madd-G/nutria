@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:nutria/widgets/nutriai_button.dart';
+import '../../../responsive.dart';
 import '../widgets/widgets.dart';
 
 class ArticleListScreen extends StatelessWidget {
@@ -20,7 +21,7 @@ class ArticleListScreen extends StatelessWidget {
             child: Column(
               children: [
                 Container(
-                  height: MediaQuery.of(context).size.height * 0.2,
+                  height: (Responsive.isTablet(context)) ? MediaQuery.of(context).size.height * 0.15 : MediaQuery.of(context).size.height * 0.15,
                   color: Theme.of(context).colorScheme.primary,
                   child: Lottie.asset(
                     'assets/animation/articles.json',

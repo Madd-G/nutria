@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import '../../../blocs/blocs.dart';
+import '../../../responsive.dart';
 
 class ItemInfo extends StatelessWidget {
   const ItemInfo({
@@ -27,8 +28,9 @@ class ItemInfo extends StatelessWidget {
               children: [
                 Text(
                   doc['name'],
-                  style: const TextStyle(
-                      fontSize: 25.0, fontWeight: FontWeight.w900),
+                  style: TextStyle(
+                      fontSize: (Responsive.isTablet(context)) ? 40.0 : 23.0,
+                      fontWeight: FontWeight.w900),
                 ),
                 Container(
                   decoration: BoxDecoration(
@@ -41,8 +43,8 @@ class ItemInfo extends StatelessWidget {
                     child: Text(
                       doc['category'],
                       textAlign: TextAlign.justify,
-                      style: const TextStyle(
-                        fontSize: 17.0,
+                      style: TextStyle(
+                        fontSize: (Responsive.isTablet(context)) ? 30.0 : 17.0,
                         fontWeight: FontWeight.w700,
                       ),
                     ),
@@ -51,11 +53,13 @@ class ItemInfo extends StatelessWidget {
               ],
             ),
             SizedBox(
-              height: size.height * 0.025,
+              height: size.height * 0.02,
             ),
-            const Text(
+            Text(
               'Nutrition and mineral',
-              style: TextStyle(fontSize: 17.0, fontWeight: FontWeight.w600),
+              style: TextStyle(
+                  fontSize: (Responsive.isTablet(context)) ? 30.0 : 14.0,
+                  fontWeight: FontWeight.w600),
             ),
             SizedBox(
               height: size.height * 0.003,
@@ -72,10 +76,17 @@ class ItemInfo extends StatelessWidget {
                           context: context,
                           builder: (context) {
                             context.read<ChatGPTBloc>().add(GetResult(
-                                message: 'Pengertian dan manfaat mengkonsumsi $label'));
+                                message:
+                                    'Pengertian dan manfaat mengkonsumsi $label'));
                             return AlertDialog(
                               insetPadding: const EdgeInsets.all(8.0),
-                              title: Text(label),
+                              title: Text(
+                                label,
+                                style: TextStyle(
+                                    fontSize: (Responsive.isTablet(context))
+                                        ? 35.0
+                                        : 15.0),
+                              ),
                               content: BlocBuilder<ChatGPTBloc, ChatGPTState>(
                                 builder: (context, state) {
                                   if (state is ChatGPTIsSuccess) {
@@ -89,7 +100,13 @@ class ItemInfo extends StatelessWidget {
                                           displayFullTextOnTap: true,
                                           totalRepeatCount: 1,
                                           animatedTexts: [
-                                            TyperAnimatedText(state.result),
+                                            TyperAnimatedText(state.result,
+                                                textStyle: TextStyle(
+                                                    fontSize:
+                                                        (Responsive.isTablet(
+                                                                context))
+                                                            ? 30.0
+                                                            : 15.0)),
                                           ],
                                         ),
                                       ),
@@ -98,9 +115,11 @@ class ItemInfo extends StatelessWidget {
                                     return SizedBox(
                                       width: size.width * 0.8,
                                       height: size.height * 0.7,
-                                      child: const SpinKitThreeBounce(
+                                      child: SpinKitThreeBounce(
                                         color: Colors.black,
-                                        size: 18,
+                                        size: (Responsive.isTablet(context))
+                                            ? 25.0
+                                            : 18,
                                       ),
                                     );
                                   }
@@ -120,7 +139,11 @@ class ItemInfo extends StatelessWidget {
                           child: Center(
                               child: Text(
                             label,
-                            style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 11.0),
+                            style: TextStyle(
+                                fontWeight: FontWeight.w500,
+                                fontSize: (Responsive.isTablet(context))
+                                    ? 25.0
+                                    : 9.0),
                             softWrap: false,
                             textAlign: TextAlign.center,
                           )),
@@ -132,9 +155,11 @@ class ItemInfo extends StatelessWidget {
             SizedBox(
               height: size.height * 0.025,
             ),
-            const Text(
+            Text(
               'Description',
-              style: TextStyle(fontSize: 17.0, fontWeight: FontWeight.w600),
+              style: TextStyle(
+                  fontSize: (Responsive.isTablet(context)) ? 30.0 : 14.0,
+                  fontWeight: FontWeight.w600),
             ),
             const SizedBox(
               height: 3.0,
@@ -150,8 +175,8 @@ class ItemInfo extends StatelessWidget {
                 return Text(
                   doc['general-info'][index],
                   textAlign: TextAlign.justify,
-                  style: const TextStyle(
-                    fontSize: 13.0,
+                  style: TextStyle(
+                    fontSize: (Responsive.isTablet(context)) ? 25.0 : 11.0,
                   ),
                 );
               },
@@ -159,9 +184,11 @@ class ItemInfo extends StatelessWidget {
             SizedBox(
               height: size.height * 0.025,
             ),
-            const Text(
+            Text(
               'Benefits',
-              style: TextStyle(fontSize: 17.0, fontWeight: FontWeight.w600),
+              style: TextStyle(
+                  fontSize: (Responsive.isTablet(context)) ? 30.0 : 14.0,
+                  fontWeight: FontWeight.w600),
             ),
             SizedBox(
               height: size.height * 0.003,
@@ -177,8 +204,8 @@ class ItemInfo extends StatelessWidget {
                 return Text(
                   doc['benefits'][index],
                   textAlign: TextAlign.justify,
-                  style: const TextStyle(
-                    fontSize: 13.0,
+                  style: TextStyle(
+                    fontSize: (Responsive.isTablet(context)) ? 25.0 : 11.0,
                   ),
                 );
               },
