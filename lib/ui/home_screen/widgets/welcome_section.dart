@@ -53,15 +53,15 @@ class _WelcomeSectionState extends State<WelcomeSection> {
                       '$greeting 😀',
                       style: TextStyle(
                           color: Colors.grey,
-                          fontSize: (Responsive.isTablet(context)) ? 43 : 15,
+                          fontSize: (Responsive.isTablet(context)) ? 40 : 13,
                           fontWeight: FontWeight.w900),
                     ),
                     Text(
-                      '${FirebaseAuth.instance.currentUser!.email?.split('@')[0]}',
+                      '${FirebaseAuth.instance.currentUser!.email?.split('@')[0].toUpperCase()}',
                       style: TextStyle(
                           color: Colors.black,
                           fontSize: (Responsive.isTablet(context)) ? 50 : 18,
-                          fontWeight: FontWeight.w500),
+                          fontWeight: FontWeight.w700),
                     ),
                     SizedBox(
                       height: (Responsive.isTablet(context))

@@ -59,15 +59,15 @@ class ScreenController extends StatelessWidget {
                 tabs: const [
                   GButton(
                     icon: Icons.camera_alt,
-                    text: 'SCAN',
+                    text: 'PINDAI',
                   ),
                   GButton(
                     icon: Icons.home,
-                    text: 'HOME',
+                    text: 'BERANDA',
                   ),
                   GButton(
                     icon: Icons.article,
-                    text: 'Article',
+                    text: 'ARTIKEL',
                   ),
                 ],
               ),

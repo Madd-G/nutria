@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import '../../../blocs/blocs.dart';
+import '../../../responsive.dart';
 
 class NutrientInfo extends StatelessWidget {
   const NutrientInfo({
@@ -37,7 +38,7 @@ class NutrientInfo extends StatelessWidget {
                     // primary: true,
                     physics: const NeverScrollableScrollPhysics(),
                     childAspectRatio: 20 / 9,
-                    crossAxisCount: 4,
+                    crossAxisCount: (Responsive.isTablet(context)) ? 5 : 4,
                     children: doc['nutrients'].map<Widget>(
                       (label) {
                         return GestureDetector(
@@ -52,7 +53,14 @@ class NutrientInfo extends StatelessWidget {
                                       );
                                   return AlertDialog(
                                     insetPadding: const EdgeInsets.all(8.0),
-                                    title: Text(label, style: const TextStyle(fontSize: 20.0, fontWeight: FontWeight.w700),),
+                                    title: Text(
+                                      label,
+                                      style: TextStyle(
+                                          fontSize:
+                                              (Responsive.isTablet(context))
+                                                  ? 35.0
+                                                  : 15.0),
+                                    ),
                                     content:
                                         BlocBuilder<ChatGPTBloc, ChatGPTState>(
                                       builder: (context, state) {
@@ -68,7 +76,13 @@ class NutrientInfo extends StatelessWidget {
                                                 totalRepeatCount: 1,
                                                 animatedTexts: [
                                                   TyperAnimatedText(
-                                                      state.result, textStyle: const TextStyle(fontSize: 13.0)),
+                                                      state.result,
+                                                      textStyle: TextStyle(
+                                                          fontSize: (Responsive
+                                                                  .isTablet(
+                                                                      context))
+                                                              ? 30.0
+                                                              : 15.0)),
                                                 ],
                                               ),
                                             ),
@@ -103,7 +117,12 @@ class NutrientInfo extends StatelessWidget {
                                   child: Center(
                                     child: Text(
                                       label,
-                                      style: const TextStyle(fontSize: 11.0),
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w500,
+                                          fontSize:
+                                              (Responsive.isTablet(context))
+                                                  ? 22.0
+                                                  : 9.0),
                                       softWrap: false,
                                       textAlign: TextAlign.center,
                                     ),
@@ -132,8 +151,8 @@ class NutrientInfo extends StatelessWidget {
                   return Text(
                     doc['nutrients-info'][index],
                     textAlign: TextAlign.justify,
-                    style: const TextStyle(
-                      fontSize: 13.0,
+                    style: TextStyle(
+                      fontSize: (Responsive.isTablet(context)) ? 22.0 : 11.0,
                     ),
                   );
                 },

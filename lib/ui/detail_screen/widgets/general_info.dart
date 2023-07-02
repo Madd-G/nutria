@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
+import '../../../responsive.dart';
+
 class GeneralInfo extends StatelessWidget {
   const GeneralInfo({
     super.key,
@@ -23,8 +25,8 @@ class GeneralInfo extends StatelessWidget {
           return Text(
             doc['general-info'][index],
             textAlign: TextAlign.justify,
-            style: const TextStyle(
-              fontSize: 13.0,
+            style: TextStyle(
+              fontSize: (Responsive.isTablet(context)) ? 22.0 : 11.0,
             ),
           );
         },

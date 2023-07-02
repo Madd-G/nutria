@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nutria/responsive.dart';
 
 class SearchBar extends StatelessWidget {
   const SearchBar({super.key, required this.searchController});
@@ -8,7 +9,7 @@ class SearchBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height * 0.18,
+      // height: MediaQuery.of(context).size.height * 0.18,
       color: Theme.of(context).colorScheme.primary,
       child: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -24,12 +25,13 @@ class SearchBar extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  'Search',
-                  style: TextStyle(fontSize: 16.0),
+                if (Responsive.isTablet(context)) const SizedBox(height: 13.0,),
+                Text(
+                  'Cari Buah atau Sayuran',
+                  style: TextStyle(fontSize: Responsive.isTablet(context) ? 18.0 : 10.0),
                 ),
-                const SizedBox(
-                  height: 20.0,
+                SizedBox(
+                  height: Responsive.isTablet(context) ? 16.0 : 10.0,
                 ),
                 TextField(
                   controller: searchController,
