@@ -43,7 +43,7 @@ class ArticleListScreen extends StatelessWidget {
             }
             if (snapshot.data!.docs.isEmpty) {
               return const SizedBox(
-                child: Center(child: Text("Not found")),
+                child: Center(child: Text("Tidak ada data")),
               );
             }
             if (snapshot.hasData) {

@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:nutria/ui/list_screen/widgets/widgets.dart';
 
+import '../../../responsive.dart';
+
 class VegetableContent extends StatelessWidget {
   const VegetableContent({super.key});
 
@@ -27,7 +29,7 @@ class VegetableContent extends StatelessWidget {
           if (snapshot.data!.docs.isEmpty) {
             return const SizedBox(
               child: Center(
-                child: Text("Not found"),
+                child: Text("Tidak ada data"),
               ),
             );
           }
@@ -41,8 +43,8 @@ class VegetableContent extends StatelessWidget {
                   var doc = documents[index];
                   return ProductCard(doc: doc);
                 },
-                gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                  maxCrossAxisExtent: 200,
+                gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: (Responsive.isMobile(context)) ? 2 : 3,
                   childAspectRatio: 9 / 9,
                   crossAxisSpacing: 5,
                   mainAxisSpacing: 5,

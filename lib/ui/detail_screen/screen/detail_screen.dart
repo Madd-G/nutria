@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:nutria/responsive.dart';
 import 'package:nutria/widgets/nutriai_button.dart';
 import '../widgets/widgets.dart';
 
@@ -22,7 +23,6 @@ class _DetailScreenState extends State<DetailScreen> {
     super.initState();
   }
 
-
   @override
   Widget build(BuildContext context) {
     final List<Widget> tabBarViewList = [
@@ -38,7 +38,7 @@ class _DetailScreenState extends State<DetailScreen> {
       'Manfaat'
     ];
 
-    var toolbarHeight = 320.0;
+    double toolbarHeight = (Responsive.isTablet(context)) ? 410.0 : 320.0;
     return DefaultTabController(
       length: tabsList.length,
       child: NutriAIButton(
@@ -47,7 +47,7 @@ class _DetailScreenState extends State<DetailScreen> {
           appBar: AppBar(
             automaticallyImplyLeading: false,
             flexibleSpace: SizedBox(
-              height: 310.0,
+              height: (Responsive.isTablet(context)) ? 400 : 310.0,
               child: CachedNetworkImage(
                 imageUrl: widget.doc['item-image'],
                 fit: BoxFit.cover,
@@ -81,21 +81,27 @@ class _DetailScreenState extends State<DetailScreen> {
                     tabs: tabsList
                         .map<Widget>(
                           (tabName) => Tab(
-                            height: 30.0,
+                            height:
+                                (Responsive.isTablet(context)) ? 38.0 : 30.0,
                             child: Container(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 16.0),
                               decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(50),
-                                  border: Border.all(
-                                      color:
-                                          Theme.of(context).colorScheme.primary,
-                                      width: 1)),
+                                borderRadius: BorderRadius.circular(50),
+                                border: Border.all(
+                                    color:
+                                        Theme.of(context).colorScheme.primary,
+                                    width: 1),
+                              ),
                               child: Align(
                                 alignment: Alignment.center,
                                 child: Text(
                                   tabName,
-                                  style: const TextStyle(fontSize: 12.0),
+                                  style: TextStyle(
+                                      fontSize: (Responsive.isTablet(context))
+                                          ? 23.0
+                                          : 12.0,
+                                      fontWeight: FontWeight.w700),
                                 ),
                               ),
                             ),

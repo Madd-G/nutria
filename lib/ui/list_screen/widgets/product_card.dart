@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import '../../../responsive.dart';
 import '../../detail_screen/screen/detail_screen.dart';
 
 class ProductCard extends StatelessWidget {
@@ -45,7 +46,7 @@ class ProductCard extends StatelessWidget {
             child: Text(
               doc['name'],
               style:
-                  const TextStyle(fontSize: 20.0, fontWeight: FontWeight.w700),
+              TextStyle(fontSize: Responsive.isTablet(context) ? 20.0 : 12, fontWeight: FontWeight.w700),
             ),
           ),
         ],

@@ -2,6 +2,7 @@ import 'package:basic_utils/basic_utils.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:nutria/widgets/nutriai_button.dart';
+import '../../../responsive.dart';
 import '../widgets/widgets.dart';
 import '../widgets/search_bar.dart' as search;
 import 'package:nutria/blocs/blocs.dart';
@@ -50,10 +51,15 @@ class _ListScreenState extends State<ListScreen> {
             elevation: 0,
             automaticallyImplyLeading: false,
             bottom: PreferredSize(
-              preferredSize: const Size.fromHeight(200.0),
+              preferredSize:
+                  Size.fromHeight((Responsive.isTablet(context)) ? 250 : 170.0),
               child: Column(
                 children: [
-                  const SafeArea(
+                  // if (Responsive.isTablet(context))
+                  //   const SizedBox(
+                  //     height: 15.0,
+                  //   ),
+                  SafeArea(
                     child: Center(
                       child: Text(
                         'Buah dan Sayuran',
@@ -61,7 +67,7 @@ class _ListScreenState extends State<ListScreen> {
                           fontFamily: 'GT Maru',
                           color: Colors.white,
                           fontWeight: FontWeight.w700,
-                          fontSize: 23,
+                          fontSize: Responsive.isTablet(context) ? 30 : 15,
                         ),
                       ),
                     ),
@@ -77,9 +83,23 @@ class _ListScreenState extends State<ListScreen> {
                                 Theme.of(context).colorScheme.primary,
                             unselectedLabelColor: Colors.black,
                             labelColor: Theme.of(context).colorScheme.primary,
-                            tabs: const [
-                              Tab(text: 'Buah'),
-                              Tab(text: 'Sayuran'),
+                            tabs: [
+                              Tab(
+                                child: Text('Buah',
+                                    style: TextStyle(
+                                        fontSize: (Responsive.isTablet(context))
+                                            ? 25
+                                            : 14,
+                                        fontWeight: FontWeight.w500)),
+                              ),
+                              Tab(
+                                child: Text('Sayuran',
+                                    style: TextStyle(
+                                        fontSize: (Responsive.isTablet(context))
+                                            ? 25
+                                            : 14,
+                                        fontWeight: FontWeight.w500)),
+                              ),
                             ],
                           ),
                         )

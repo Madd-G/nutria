@@ -56,7 +56,7 @@ class ItemInfo extends StatelessWidget {
               height: size.height * 0.02,
             ),
             Text(
-              'Nutrition and mineral',
+              'Nutrisi dan mineral',
               style: TextStyle(
                   fontSize: (Responsive.isTablet(context)) ? 30.0 : 14.0,
                   fontWeight: FontWeight.w600),
@@ -77,7 +77,7 @@ class ItemInfo extends StatelessWidget {
                           builder: (context) {
                             context.read<ChatGPTBloc>().add(GetResult(
                                 message:
-                                    'Pengertian dan manfaat mengkonsumsi $label'));
+                                    'Pengertian dan manfaat mengkonsumsi makanan yang mengandung $label'));
                             return AlertDialog(
                               insetPadding: const EdgeInsets.all(8.0),
                               title: Text(
@@ -156,7 +156,7 @@ class ItemInfo extends StatelessWidget {
               height: size.height * 0.025,
             ),
             Text(
-              'Description',
+              'Deskripsi',
               style: TextStyle(
                   fontSize: (Responsive.isTablet(context)) ? 30.0 : 14.0,
                   fontWeight: FontWeight.w600),
@@ -185,7 +185,7 @@ class ItemInfo extends StatelessWidget {
               height: size.height * 0.025,
             ),
             Text(
-              'Benefits',
+              'Manfaat mengkonsumsi ${doc['name']}',
               style: TextStyle(
                   fontSize: (Responsive.isTablet(context)) ? 30.0 : 14.0,
                   fontWeight: FontWeight.w600),
