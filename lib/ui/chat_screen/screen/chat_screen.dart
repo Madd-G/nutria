@@ -1,11 +1,10 @@
-import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:http/http.dart' as http;
 import '../../../models/models.dart';
 import '../../../responsive.dart';
+import '../../../services/gpt_service.dart';
 
 class ChatScreen extends StatefulWidget {
   const ChatScreen({super.key});
@@ -26,35 +25,10 @@ class ChatScreenState extends State<ChatScreen> {
     'Ayo bermain peran, kamu hanya tahu tentang buah dan sayuran, selain sapaan atau pertanyaan yang tidak berkaitan dengan itu kamu berpura-pura tidak tahu.'
   ];
 
-  Future<String> sendMessageToChatGpt(String message) async {
-    Uri uri = Uri.parse("https://api.openai.com/v1/chat/completions");
-
-    Map<String, dynamic> body = {
-      "model": "gpt-3.5-turbo",
-      "messages": [
-        {"role": "user", "content": message}
-      ],
-    };
-
-    final response = await http.post(
-      uri,
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization":
-            "Bearer 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",
-      },
-      body: json.encode(body),
-    );
-
-    Map<String, dynamic> parsedResponse = json.decode(response.body);
-
-    String reply = parsedResponse['choices'][0]['message']['content'];
-    return reply;
-  }
-
   final _auth = FirebaseAuth.instance;
   late String messageText;
   final messageTextController = TextEditingController();
+  GPTService gptService = GPTService();
 
   @override
   void initState() {
@@ -117,7 +91,7 @@ class ChatScreenState extends State<ChatScreen> {
       String finalmessage =
           'Ayo bermain peran, anda menjadi ahli buah dan sayuran, selain sapaan dan pertanyaan yang berkaitan dengan buah dan sayuran, jawab "Maaf saya tidak mengerti, saya hanya mengerti mengenai buah dan sayuran". Jika pertanyaan mengenai buah dan sayuran maka jawab berdasarkan konteks pertanyaan sebelumnya sebagai referensi, pertanyan sebelumnya ${(konteks.isNotEmpty) ? konteks.last : ''}, pertanyaan yang harus dijawab: $messageText';
       konteks.add(messageText);
-      String response = await sendMessageToChatGpt(finalmessage);
+      String response = await gptService.sendMessageToChatGpt(finalmessage);
 
       userInstance
           .collection('messages')
@@ -385,9 +359,8 @@ class ChatContent extends StatelessWidget {
                             child: Text(
                               '${(time!.toDate().hour > 12) ? time!.toDate().hour - 12 : time?.toDate().hour}: ${time?.toDate().minute} ${(time!.toDate().hour > 12) ? 'PM' : 'AM'}',
                               style: TextStyle(
-                                  fontSize: Responsive.isTablet(context)
-                                      ? 15.0
-                                      : 10.0,
+                                  fontSize:
+                                      Responsive.isTablet(context) ? 12.0 : 8.0,
                                   color: Colors.grey,
                                   fontWeight: FontWeight.w500),
                             ),
@@ -430,9 +403,8 @@ class ChatContent extends StatelessWidget {
                             child: Text(
                               '${(time!.toDate().hour > 12) ? time!.toDate().hour - 12 : time?.toDate().hour}: ${time?.toDate().minute} ${(time!.toDate().hour > 12) ? 'PM' : 'AM'}',
                               style: TextStyle(
-                                  fontSize: Responsive.isTablet(context)
-                                      ? 15.0
-                                      : 10.0,
+                                  fontSize:
+                                      Responsive.isTablet(context) ? 12.0 : 8.0,
                                   color: Colors.grey,
                                   fontWeight: FontWeight.w500),
                             ),

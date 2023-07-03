@@ -60,7 +60,7 @@ class _WelcomeSectionState extends State<WelcomeSection> {
                       '${FirebaseAuth.instance.currentUser!.email?.split('@')[0].toUpperCase()}',
                       style: TextStyle(
                           color: Colors.black,
-                          fontSize: (Responsive.isTablet(context)) ? 50 : 18,
+                          fontSize: (Responsive.isTablet(context)) ? 50 : 15,
                           fontWeight: FontWeight.w700),
                     ),
                     SizedBox(

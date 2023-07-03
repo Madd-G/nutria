@@ -51,7 +51,8 @@ class _DetailObjectScreenState extends State<DetailObjectScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text('Oops, an error occurred'),
+                  // const Text('Oops, an error occurred'),
+                  Text(predictionState.errorMessage),
                   ElevatedButton(
                       onPressed: () => Navigator.pop(context),
                       child: const Text('BACK'))

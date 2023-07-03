@@ -1,27 +1,15 @@
 import 'dart:convert';
 
-class PredictionModel {
-  List<Prediction>? data;
+import 'package:equatable/equatable.dart';
 
-  PredictionModel({this.data});
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    if (this.data != null) {
-      data['data'] = this.data!.map((v) => v.toJson()).toList();
-    }
-    return data;
-  }
-}
-
-class Prediction {
-  String classLabel;
-  String className;
+class Prediction extends Equatable {
+  final String classLabel;
+  final String className;
 
   // List<dynamic> bbox;
-  String confidence;
+  final String confidence;
 
-  Prediction({
+  const Prediction({
     required this.classLabel,
     required this.className,
     // required this.bbox,
@@ -42,6 +30,9 @@ class Prediction {
         // "bbox": bbox,
         "confidence": confidence,
       };
+
+  @override
+  List<Object?> get props => [classLabel, className, confidence];
 }
 
 List<Prediction> modelFromJson(String str) {

@@ -10,15 +10,14 @@ part 'prediction_state.dart';
 
 class PredictionBloc extends Bloc<PredictionEvent, PredictionState> {
   PredictionBloc() : super(PredictionInitial()) {
-    ApiService apiService = ApiService();
 
-    var seen = <String>{};
     on<GetPrediction>((event, emit) async {
-      Future<List<Prediction>> getPrediction(String imgPath) async {
+      Future<List<Prediction>> getPrediction(
+          String imgPath, Dio dioClient) async {
         try {
-          List<Prediction> prediction = await apiService.uploadImage(imgPath);
-          List<Prediction> uniqueList =
-              prediction.where((obj) => seen.add(obj.className)).toList();
+          var seen = <String>{};
+          List<Prediction> prediction = await ApiService.uploadImage(imgPath);
+          List<Prediction> uniqueList = prediction.where((obj) => seen.add(obj.className)).toList();
 
           return uniqueList;
         } on DioException catch (_) {
@@ -28,7 +27,7 @@ class PredictionBloc extends Bloc<PredictionEvent, PredictionState> {
 
       try {
         emit(PredictionLoadingState());
-        List<Prediction> result = await getPrediction(event.imagePath);
+        List<Prediction> result = await getPrediction(event.imagePath, Dio());
         emit(PredictionSuccessState(prediction: result));
       } catch (e) {
         emit(PredictionErrorState(e, e.toString()));

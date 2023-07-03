@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:nutria/responsive.dart';
 import 'blocs/blocs.dart';
 import 'ui/screens.dart';
 
@@ -17,6 +18,7 @@ class ScreenController extends StatelessWidget {
                   ? const ArticleListScreen()
                   : const HomeScreen(),
           bottomNavigationBar: Container(
+            height: Responsive.isTablet(context) ? 60.0 : 55.0 ,
             decoration: BoxDecoration(
               color: Colors.white,
               boxShadow: [
@@ -34,9 +36,8 @@ class ScreenController extends StatelessWidget {
                 hoverColor: Colors.grey[100]!,
                 gap: 8,
                 activeColor: Colors.black,
-                iconSize: 24,
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                iconSize: Responsive.isTablet(context) ? 24 : 26,
+                padding: Responsive.isTablet(context) ?  const EdgeInsets.symmetric(horizontal: 20, vertical: 12) : const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
                 duration: const Duration(milliseconds: 400),
                 tabBackgroundColor: Theme.of(context).colorScheme.primary,
                 color: Colors.black,

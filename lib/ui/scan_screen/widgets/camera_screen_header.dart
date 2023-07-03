@@ -8,11 +8,11 @@ class CameraScreenHeader extends StatelessWidget {
     return const SafeArea(
       child:  Center(
         child: Text(
-          "Scan your thing",
+          "Nutria",
           style: TextStyle(
             fontFamily: 'GT Maru',
             color: Colors.white,
-            fontSize: 21,
+            fontSize: 12,
           ),
         ),
       ),

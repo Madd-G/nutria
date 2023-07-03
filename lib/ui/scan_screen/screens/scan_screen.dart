@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../responsive.dart';
 import '../widgets/widgets.dart';
 
 class ScanScreen extends StatelessWidget {
@@ -6,12 +7,14 @@ class ScanScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       backgroundColor: Colors.black,
       body: Column(
         children: [
-          Flexible(flex: 1, child: CameraScreenHeader()),
-          Expanded(flex: 9, child: CameraContent()),
+          const Flexible(flex: 1, child: CameraScreenHeader()),
+          // const Flexible(flex: 1, child: SizedBox()),
+          Expanded(flex: Responsive.isTablet(context)? 20 :  9, child: const CameraContent()),
+          // Expanded(child: const CameraContent()),
         ],
       ),
     );

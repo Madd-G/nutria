@@ -1,10 +1,12 @@
 import 'dart:io';
 import 'package:camera/camera.dart';
-import 'package:flutter/foundation.dart';
+
+// import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:nutria/responsive.dart';
 import '../../screens.dart';
 
 class CameraContent extends StatefulWidget {
@@ -39,16 +41,16 @@ class _CameraContentState extends State<CameraContent> {
             (value) {},
           );
         } else {
-          if (kDebugMode) {
-            print('No camera available');
-          }
+          // if (kDebugMode) {
+          //   print('No camera available');
+          // }
         }
       },
     ).catchError(
       (e) {
-        if (kDebugMode) {
-          print('Error : ${e.code}');
-        }
+        // if (kDebugMode) {
+        //   print('Error : ${e.code}');
+        // }
       },
     );
   }
@@ -72,17 +74,17 @@ class _CameraContentState extends State<CameraContent> {
     );
 
     if (cameraController!.value.hasError) {
-      if (kDebugMode) {
-        print('Camera Error ${cameraController?.value.errorDescription}');
-      }
+      // if (kDebugMode) {
+      //   print('Camera Error ${cameraController?.value.errorDescription}');
+      // }
     }
 
     try {
       await cameraController?.initialize();
     } catch (e) {
-      if (kDebugMode) {
-        print(e);
-      }
+      // if (kDebugMode) {
+      //   print(e);
+      // }
     }
 
     if (mounted) {
@@ -94,10 +96,8 @@ class _CameraContentState extends State<CameraContent> {
 
   Widget cameraPreview() {
     if (cameraController == null || !cameraController!.value.isInitialized) {
-      return const Text(
-        'Loading',
-        style: TextStyle(
-            color: Colors.white, fontSize: 20.0, fontWeight: FontWeight.bold),
+      return const Center(
+        child: CircularProgressIndicator(),
       );
     }
     return AspectRatio(
@@ -165,9 +165,9 @@ class _CameraContentState extends State<CameraContent> {
         },
       );
     } catch (e) {
-      if (kDebugMode) {
-        print(e);
-      }
+      // if (kDebugMode) {
+      //   print(e);
+      // }
     }
   }
 
@@ -230,7 +230,7 @@ class _CameraContentState extends State<CameraContent> {
         Align(
           alignment: Alignment.bottomCenter,
           child: Container(
-            height: 120,
+            height: Responsive.isTablet(context) ? 120 : 120,
             width: double.infinity,
             padding: const EdgeInsets.all(15),
             margin: const EdgeInsets.only(bottom: 20),
