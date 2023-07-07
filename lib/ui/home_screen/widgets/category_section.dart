@@ -79,26 +79,34 @@ class CategoryBox extends StatelessWidget {
       onTap: onTap,
       child: SizedBox(
         width: size.width * 0.47,
-        height: Responsive.isTablet(context) ?  size.height * 0.22 :size.height * 0.2,
+        height: Responsive.isTablet(context)
+            ? size.height * 0.25
+            : size.height * 0.22,
         child: Card(
           child: Padding(
             padding: const EdgeInsets.all(4.0),
             child: Column(
               children: [
-                CachedNetworkImage(
-                  imageUrl: imagePath,
-                  // progressIndicatorBuilder: (_, url, download) {
-                  //   if (download.progress != null) {
-                  //     final percent = download.progress! * 100;
-                  //     return Center(
-                  //         child: Text(
-                  //       'loading: ${percent.toStringAsFixed(0)}%',
-                  //       style: const TextStyle(color: Colors.grey),
-                  //     ));
-                  //   }
-                  //   return const Text('');
-                  // },
-                  fit: BoxFit.fill,
+                SizedBox(
+                  height: Responsive.isTablet(context)
+                      ? size.height * 0.2
+                      : size.height * 0.16,
+                  width: size.width * 0.45,
+                  child: CachedNetworkImage(
+                    imageUrl: imagePath,
+                    // progressIndicatorBuilder: (_, url, download) {
+                    //   if (download.progress != null) {
+                    //     final percent = download.progress! * 100;
+                    //     return Center(
+                    //         child: Text(
+                    //       'loading: ${percent.toStringAsFixed(0)}%',
+                    //       style: const TextStyle(color: Colors.grey),
+                    //     ));
+                    //   }
+                    //   return const Text('');
+                    // },
+                    fit: BoxFit.fill,
+                  ),
                 ),
                 Text(
                   label,

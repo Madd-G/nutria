@@ -38,7 +38,7 @@ class _DetailScreenState extends State<DetailScreen> {
       'Manfaat'
     ];
 
-    double toolbarHeight = (Responsive.isTablet(context)) ? 410.0 : 320.0;
+    double toolbarHeight = (Responsive.isTablet(context)) ? 500.0 : 320.0;
     return DefaultTabController(
       length: tabsList.length,
       child: NutriAIButton(
@@ -47,7 +47,7 @@ class _DetailScreenState extends State<DetailScreen> {
           appBar: AppBar(
             automaticallyImplyLeading: false,
             flexibleSpace: SizedBox(
-              height: (Responsive.isTablet(context)) ? 400 : 310.0,
+              height: (Responsive.isTablet(context)) ? 500 : 320.0,
               child: CachedNetworkImage(
                 imageUrl: widget.doc['item-image'],
                 fit: BoxFit.cover,

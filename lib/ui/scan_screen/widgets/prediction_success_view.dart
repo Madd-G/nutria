@@ -22,6 +22,7 @@ class PredictionSuccessView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     var toolbarHeight = (Responsive.isTablet(context)) ? 420.0 : 300.0;
     return NutriAIButton(
       mainWidget: Scaffold(
@@ -29,9 +30,28 @@ class PredictionSuccessView extends StatelessWidget {
           automaticallyImplyLeading: false,
           flexibleSpace: SizedBox(
             height: (Responsive.isTablet(context)) ? 420.0 : 300.0,
-            child: Image(
-              image: FileImage(File(imagePath!)),
-              fit: BoxFit.cover,
+            child: GestureDetector(
+              onTap: () {
+                showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                        insetPadding: const EdgeInsets.all(8.0),
+                        content: SizedBox(
+                          height: size.height * 0.5,
+                          width: size.width * 0.9,
+                          child: Image(
+                            image: FileImage(File(imagePath!)),
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      );
+                    });
+              },
+              child: Image(
+                image: FileImage(File(imagePath!)),
+                fit: BoxFit.cover,
+              ),
             ),
           ),
           toolbarHeight: toolbarHeight,
@@ -65,7 +85,9 @@ class PredictionSuccessView extends StatelessWidget {
                         tabs: predictionSuccess.prediction!
                             .map(
                               (label) => Tab(
-                                height: (Responsive.isTablet(context))  ? 40.0 : 30.0,
+                                height: (Responsive.isTablet(context))
+                                    ? 40.0
+                                    : 30.0,
                                 child: Container(
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 16.0),
@@ -78,7 +100,13 @@ class PredictionSuccessView extends StatelessWidget {
                                           width: 1)),
                                   child: Align(
                                     alignment: Alignment.center,
-                                    child: Text(label.className, style: TextStyle(fontSize: (Responsive.isTablet(context))  ? 25.0 : 12.0, fontWeight: FontWeight.w700)),
+                                    child: Text(label.className,
+                                        style: TextStyle(
+                                            fontSize:
+                                                (Responsive.isTablet(context))
+                                                    ? 25.0
+                                                    : 12.0,
+                                            fontWeight: FontWeight.w700)),
                                   ),
                                 ),
                               ),
@@ -112,7 +140,8 @@ class PredictionSuccessView extends StatelessWidget {
                           );
                         }
                         if (snapshot.data!.docs.isEmpty) {
-                          return const Center(child: Text("Tidak ada buah/sayuran terdeteksi"));
+                          return const Center(
+                              child: Text("Tidak ada buah/sayuran terdeteksi"));
                         }
                         if (snapshot.hasData) {
                           final DocumentSnapshot doc = snapshot.data!.docs[0];

@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import '../../../widgets/nutriai_button.dart';
 import '../widgets/widgets.dart';
@@ -7,6 +9,21 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // // ScrollBehavior can be copied and adjusted.
+    // final ScrollController controller = ScrollController();
+    // ScrollConfiguration(
+    //   behavior: ScrollConfiguration.of(context).copyWith(dragDevices: {
+    //     PointerDeviceKind.touch,
+    //     PointerDeviceKind.mouse,
+    //   }),
+    //   child: ListView.builder(
+    //       controller: controller,
+    //       itemBuilder: (BuildContext context, int index) {
+    //         return Text('Item $index');
+    //       }
+    //   ),
+    // );
+
     Size size = MediaQuery.of(context).size;
     return NutriAIButton(
       screenHeight: MediaQuery.of(context).size.height * 0.95,

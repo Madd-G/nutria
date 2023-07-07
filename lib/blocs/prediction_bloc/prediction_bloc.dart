@@ -12,10 +12,10 @@ class PredictionBloc extends Bloc<PredictionEvent, PredictionState> {
   PredictionBloc() : super(PredictionInitial()) {
     ApiService apiService = ApiService();
 
-    var seen = <String>{};
     on<GetPrediction>((event, emit) async {
       Future<List<Prediction>> getPrediction(String imgPath) async {
         try {
+          var seen = <String>{};
           List<Prediction> prediction = await apiService.uploadImage(imgPath);
           List<Prediction> uniqueList =
               prediction.where((obj) => seen.add(obj.className)).toList();
