@@ -118,7 +118,9 @@ class PredictionSuccessView extends StatelessWidget {
           ),
         ),
         body: (predictionSuccess.prediction!.isEmpty)
-            ? const Center(child: Text('Tidak ada buah/sayuran terdeteksi'))
+            ? const Center(
+                child: Text('Tidak ada buah/sayuran terdeteksi'),
+              )
             : TabBarView(
                 children: predictionSuccess.prediction!.map(
                   (e) {

@@ -48,6 +48,42 @@
           ]
         }
       }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:210550974337:android:2706805612dcbb328cea80",
+        "android_client_info": {
+          "package_name": "com.nutria.nutria"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "210550974337-ms3ilcb5619v3mdpj02evcgh11q48j9k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDsq-1KxFVXLiG3yljkVThTwY3avgCzRDw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "210550974337-b2nchv3klt2adpelhd52qemkumqmvusg.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "210550974337-29fv56b6kt327hnj71b1n956le6rakq0.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.logresUploadFirebase"
+              }
+            }
+          ]
+        }
+      }
     }
   ],
   "configuration_version": "1"

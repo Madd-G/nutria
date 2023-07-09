@@ -51,7 +51,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyDsq-1KxFVXLiG3yljkVThTwY3avgCzRDw',
-    appId: '1:210550974337:android:1fbfd9b76ced11578cea80',
+    appId: '1:210550974337:android:2706805612dcbb328cea80',
     messagingSenderId: '210550974337',
     projectId: 'nutria-29b7b',
     storageBucket: 'nutria-29b7b.appspot.com',
@@ -59,12 +59,12 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyAZcdmJcoUXiY0tM7mQRQN3I9UnWn-onTQ',
-    appId: '1:210550974337:ios:6d80cc391991d7618cea80',
+    appId: '1:210550974337:ios:9f685861fc4779b48cea80',
     messagingSenderId: '210550974337',
     projectId: 'nutria-29b7b',
     storageBucket: 'nutria-29b7b.appspot.com',
-    iosClientId:
-        '210550974337-68l7dobh86q17rjo5b254scb3tbs60g5.apps.googleusercontent.com',
-    iosBundleId: 'com.example.nutria',
+    androidClientId: '210550974337-t1p1iea2e3jq36r6sae43lvo9a8hd5vj.apps.googleusercontent.com',
+    iosClientId: '210550974337-hiauedne37nm5ahglua8u9rqcqa50b5q.apps.googleusercontent.com',
+    iosBundleId: 'com.alamsyah.nutria',
   );
 }

@@ -40,11 +40,11 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
-	<string>Dengan mengijinkan akses, anda dapat mengambil gambar dari kamera</string>
+	<string>Access to the camera allows you to take photos to scan fruits and vegetables</string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>Ijinkan aplikasi menggunakan mikrofon anda</string>
+	<string>Allow microphone access to record audio when you scan fruits and vegetables</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Dengan membuka akses, anda dapat mengupload gambar dari gallery</string>
+	<string>Allow photo access to scan photos from your gallery</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UISceneConfigurations</key>
