@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:nutria/widgets/nutriai_button.dart';
+import 'package:nutria/widgets/global_widgets.dart';
 import '../../../responsive.dart';
 import '../widgets/widgets.dart';
 

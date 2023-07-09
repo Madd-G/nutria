@@ -1,7 +1,5 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import '../../../widgets/nutriai_button.dart';
+import '../../../widgets/global_widgets.dart';
 import '../widgets/widgets.dart';
 
 class HomeScreen extends StatelessWidget {

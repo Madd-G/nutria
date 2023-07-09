@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:nutria/blocs/blocs.dart';
 import 'package:nutria/responsive.dart';
-import 'package:nutria/widgets/nutriai_button.dart';
+import 'package:nutria/widgets/global_widgets.dart';
 import '../../../models/models.dart';
 import 'widgets.dart';
 

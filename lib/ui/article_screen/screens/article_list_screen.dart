@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:nutria/widgets/nutriai_button.dart';
+import 'package:nutria/widgets/global_widgets.dart';
 import '../../../responsive.dart';
 import '../widgets/widgets.dart';
 
@@ -19,7 +19,7 @@ class ArticleListScreen extends StatelessWidget {
           bottom: PreferredSize(
             preferredSize: Size.fromHeight((Responsive.isTablet(context))
                 ? size.height * 0.15
-                : size.height * 0.1),
+                : size.height * 0.12),
             child: Column(
               children: [
                 Container(

@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:nutria/responsive.dart';
-import 'package:nutria/widgets/nutriai_button.dart';
+import 'package:nutria/widgets/global_widgets.dart';
 import '../widgets/widgets.dart';
 
 class DetailScreen extends StatefulWidget {
@@ -47,7 +47,7 @@ class _DetailScreenState extends State<DetailScreen> {
           appBar: AppBar(
             automaticallyImplyLeading: false,
             flexibleSpace: SizedBox(
-              height: (Responsive.isTablet(context)) ? 500 : 320.0,
+              height: (Responsive.isTablet(context)) ? 510 : 330.0,
               child: CachedNetworkImage(
                 imageUrl: widget.doc['item-image'],
                 fit: BoxFit.cover,
