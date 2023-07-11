@@ -14,33 +14,52 @@ class ArticleImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Stack(
       children: [
-        SizedBox(
-          height: size.height * 0.32,
-          width: size.width,
-          child: CachedNetworkImage(
-            imageUrl: doc['item-image'],
-            // progressIndicatorBuilder: (_, url, download) {
-            //   if (download.progress != null) {
-            //     final percent = download.progress! * 100;
-            //     return Center(
-            //         child: Text(
-            //       'loading: ${percent.toStringAsFixed(0)}%', style: const TextStyle(color: Colors.grey),
-            //     ));
-            //   }
-            //   return const Text('');
-            // },
-            fit: BoxFit.fill,
-          ),
+        Column(
+          children: [
+            SizedBox(
+              height: size.height * 0.32,
+              width: size.width,
+              child: CachedNetworkImage(
+                imageUrl: doc['item-image'],
+                // progressIndicatorBuilder: (_, url, download) {
+                //   if (download.progress != null) {
+                //     final percent = download.progress! * 100;
+                //     return Center(
+                //         child: Text(
+                //       'loading: ${percent.toStringAsFixed(0)}%', style: const TextStyle(color: Colors.grey),
+                //     ));
+                //   }
+                //   return const Text('');
+                // },
+                fit: BoxFit.fill,
+              ),
+            ),
+            const SizedBox(
+              height: 10.0,
+            ),
+          ],
         ),
-        const SizedBox(
-          height: 5.0,
-        ),
-        Center(
-          child: Text(
-            '${doc['picture-description']}',
-            style: const TextStyle(color: Colors.grey),
+        Positioned(
+          top: 50,
+          left: 20,
+          child: GestureDetector(
+            onTap: () {
+              Navigator.pop(context);
+            },
+            child: Container(
+              height: 35.0,
+              width: 35.0,
+              decoration: BoxDecoration(
+                  color: Colors.white.withOpacity(0.6),
+                  // border: Border.all(color: Colors.black),
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(100.0),
+                  )),
+              child:
+                  const Center(child: Icon(Icons.arrow_back_ios_new_outlined)),
+            ),
           ),
         ),
       ],

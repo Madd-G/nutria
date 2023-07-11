@@ -22,13 +22,14 @@ class NutrientInfo extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            if (Responsive.isTablet(context)) const SizedBox(height: 12.0,),
             Text(
               'Daftar informasi gizi umum untuk ${doc['name']}',
               style:
-                  const TextStyle(fontSize: 12.0, fontWeight: FontWeight.w600),
+              TextStyle(fontSize: Responsive.isTablet(context)? 17.0 : 12.0, fontWeight: FontWeight.w600),
             ),
             const SizedBox(
-              height: 5.0,
+              height: 8.0,
             ),
             Wrap(
               children: [
@@ -53,13 +54,28 @@ class NutrientInfo extends StatelessWidget {
                                       );
                                   return AlertDialog(
                                     insetPadding: const EdgeInsets.all(8.0),
-                                    title: Text(
-                                      label,
-                                      style: TextStyle(
-                                          fontSize:
-                                              (Responsive.isTablet(context))
-                                                  ? 35.0
-                                                  : 15.0),
+                                    title: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        GestureDetector(
+                                            onTap: () {
+                                              Navigator.pop(context);
+                                            },
+                                            child: const Icon(Icons.close)),
+                                        Text(
+                                          label,
+                                          style: TextStyle(
+                                              fontSize:
+                                                  (Responsive.isTablet(context))
+                                                      ? 35.0
+                                                      : 20.0,
+                                              fontWeight: FontWeight.w500),
+                                        ),
+                                        const SizedBox(
+                                          width: 50.0,
+                                        ),
+                                      ],
                                     ),
                                     content:
                                         BlocBuilder<ChatGPTBloc, ChatGPTState>(

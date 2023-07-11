@@ -32,30 +32,84 @@ class NutriAIButton extends StatelessWidget {
                     builder: (dialogContext) {
                       return AlertDialog(
                         insetPadding: const EdgeInsets.all(8.0),
-                        title: const Text('Login'),
+                        title: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const SizedBox(),
+                            const Text('Selamat Datang'),
+                            GestureDetector(
+                                onTap: () {
+                                  Navigator.pop(context);
+                                },
+                                child: const Icon(Icons.close)),
+                          ],
+                        ),
                         content: SizedBox(
-                          width: 300.0,
-                          height: 80.0,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          width: 350.0,
+                          height: 150.0,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
+                              const Text('Silahkan masuk dengan akun anda'),
+                              const SizedBox(
+                                height: 10.0,
+                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  context
+                                      .read<AuthCubit>()
+                                      .signInWithApple(context)
+                                      .then((value) => Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const ChatScreen())));
+                                  Navigator.pop(dialogContext);
+                                },
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(5.0),
+                                    border: Border.all(color: Colors.grey),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.fromLTRB(
+                                        25.0, 8.0, 25.0, 8.0),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Image.asset(
+                                          'assets/images/apple-logo.png',
+                                          width: 25.0,
+                                          height: 25.0,
+                                        ),
+                                        const SizedBox(width: 10.0),
+                                        const Text(
+                                          'Sign in with Apple',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 20.0),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 7.0,
+                              ),
                               GestureDetector(
                                 onTap: () {
                                   context
                                       .read<AuthCubit>()
                                       .signInWithGoogle(context)
-                                      .then(
-                                        (value) => Navigator.push(
+                                      .then((value) => Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                            builder: (context) =>
-                                                const ChatScreen(),
-                                          ),
-                                        ),
-                                      );
+                                              builder: (context) =>
+                                                  const ChatScreen())));
                                   // (mounted) {
                                   Navigator.pop(dialogContext);
-
                                   // };
                                 },
                                 child: Container(
@@ -67,59 +121,20 @@ class NutriAIButton extends StatelessWidget {
                                     padding: const EdgeInsets.fromLTRB(
                                         25.0, 8.0, 25.0, 8.0),
                                     child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: [
                                         Image.asset(
                                           'assets/images/google.png',
-                                          width: 30.0,
-                                          height: 30.0,
+                                          width: 27.0,
+                                          height: 27.0,
                                         ),
-                                        const SizedBox(width: 10.0),
+                                        const SizedBox(width: 7.0),
                                         const Text(
-                                          'Google',
+                                          'Sign in with Google',
                                           style: TextStyle(
-                                              fontWeight: FontWeight.w700),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              GestureDetector(
-                                onTap: () {
-                                  context
-                                      .read<AuthCubit>()
-                                      .signInWithApple(context)
-                                      .then(
-                                        (value) => Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                const ChatScreen(),
-                                          ),
-                                        ),
-                                      );
-                                  Navigator.pop(dialogContext);
-                                },
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(5.0),
-                                    border: Border.all(color: Colors.grey),
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.fromLTRB(
-                                        25.0, 8.0, 25.0, 8.0),
-                                    child: Row(
-                                      children: [
-                                        Image.asset(
-                                          'assets/images/apple-logo.png',
-                                          width: 30.0,
-                                          height: 30.0,
-                                        ),
-                                        const SizedBox(width: 10.0),
-                                        const Text(
-                                          'Apple',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.w700),
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 20.0),
                                         )
                                       ],
                                     ),
