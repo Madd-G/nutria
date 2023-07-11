@@ -1,49 +1,40 @@
 part of 'auth_cubit.dart';
 
 @immutable
-abstract class AuthState {}
+abstract class AuthState {
+  final AuthError? authError;
+
+  const AuthState({
+    this.authError,
+  });
+}
 
 @immutable
-class AuthInitial extends AuthState {}
+class AuthInitial extends AuthState {
+  const AuthInitial({super.authError});
+}
 
 @immutable
-class AuthLoading extends AuthState {}
+class AuthLoading extends AuthState {
+  const AuthLoading({super.authError});
+}
 
 @immutable
 class AuthSuccess extends AuthState {
-  // final String msg;
-  //
-  // AuthSuccess(this.msg);
+  const AuthSuccess({super.authError});
 }
 
 @immutable
 class AuthFailure extends AuthState {
-  // final String msg;
-  //
-  // AuthFailure(this.msg);
+  const AuthFailure({super.authError});
 }
 
-// part of 'auth_bloc.dart';
-//
-// @immutable
-// abstract class AuthState {}
-//
-// @immutable
-// class AuthInitial extends AuthState {}
-//
-// @immutable
-// class AuthLoading extends AuthState {}
-//
-// @immutable
-// class AuthSuccess extends AuthState {
-//   // final String msg;
-//   //
-//   // AuthSuccess(this.msg);
-// }
-//
-// @immutable
-// class AuthFailed extends AuthState {
-//   // final String msg;
-//   //
-//   // AuthFailure(this.msg);
-// }
+@immutable
+class AuthStateIsInRegistrationView extends AuthState {
+  const AuthStateIsInRegistrationView({super.authError});
+}
+
+@immutable
+class AuthStateIsInLoginView extends AuthState {
+  const AuthStateIsInLoginView({super.authError});
+}

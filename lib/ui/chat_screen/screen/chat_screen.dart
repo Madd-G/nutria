@@ -8,7 +8,9 @@ import '../../../models/models.dart';
 import '../../../responsive.dart';
 
 class ChatScreen extends StatefulWidget {
-  const ChatScreen({super.key});
+  const ChatScreen({super.key, this.modalContext});
+
+  final BuildContext? modalContext;
 
   @override
   ChatScreenState createState() => ChatScreenState();
@@ -150,35 +152,27 @@ class ChatScreenState extends State<ChatScreen> {
         elevation: 0.5,
         bottom: PreferredSize(
           preferredSize:
-              Size.fromHeight(Responsive.isTablet(context) ? 30.0 : 10.0),
+              Size.fromHeight(Responsive.isTablet(context) ? 45.0 : 25.0),
           child: Padding(
             padding: EdgeInsets.all(Responsive.isTablet(context) ? 14.0 : 12.0),
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Container(
-                  height: Responsive.isTablet(context) ? 45.0 : 30.0,
-                  width: Responsive.isTablet(context) ? 45.0 : 30.0,
-                  decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.primary,
-                      borderRadius:
-                          const BorderRadius.all(Radius.circular(50.0))),
-                  child: Padding(
-                    padding: EdgeInsets.all(
-                        Responsive.isTablet(context) ? 8.0 : 4.0),
-                    child: Image.asset(
-                      'assets/images/AI.png',
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  width: 10.0,
+                IconButton(
+                  icon: const Icon(Icons.arrow_back_ios_new_outlined),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
                 ),
                 Text(
                   'NutriAI BOT',
                   style: TextStyle(
-                      fontSize: Responsive.isTablet(context) ? 25 : 14.0,
+                      fontSize: Responsive.isTablet(context) ? 25 : 18.0,
                       fontWeight: FontWeight.w700),
-                )
+                ),
+                const SizedBox(
+                  width: 45.0,
+                ),
               ],
             ),
           ),
@@ -218,7 +212,7 @@ class ChatScreenState extends State<ChatScreen> {
                         hintStyle: TextStyle(
                             color: Colors.grey,
                             fontSize:
-                                Responsive.isTablet(context) ? 12.0 : 10.0),
+                                Responsive.isTablet(context) ? 12.0 : 12.0),
                         contentPadding: const EdgeInsets.only(
                             left: 15.0, right: 15.0, top: 10.0, bottom: 10.0),
                         border: OutlineInputBorder(

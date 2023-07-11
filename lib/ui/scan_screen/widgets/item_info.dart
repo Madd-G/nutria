@@ -73,60 +73,75 @@ class ItemInfo extends StatelessWidget {
                   return GestureDetector(
                     onTap: () async {
                       showDialog(
-                          context: context,
-                          builder: (context) {
-                            context.read<ChatGPTBloc>().add(GetResult(
-                                message:
-                                    'Pengertian dan manfaat mengkonsumsi makanan yang mengandung $label'));
-                            return AlertDialog(
-                              insetPadding: const EdgeInsets.all(8.0),
-                              title: Text(
-                                label,
-                                style: TextStyle(
-                                    fontSize: (Responsive.isTablet(context))
-                                        ? 35.0
-                                        : 15.0),
-                              ),
-                              content: BlocBuilder<ChatGPTBloc, ChatGPTState>(
-                                builder: (context, state) {
-                                  if (state is ChatGPTIsSuccess) {
-                                    return SizedBox(
-                                      width: size.width * 0.8,
-                                      height: size.height * 0.7,
-                                      child: SingleChildScrollView(
-                                        child: AnimatedTextKit(
-                                          isRepeatingAnimation: true,
-                                          repeatForever: false,
-                                          displayFullTextOnTap: true,
-                                          totalRepeatCount: 1,
-                                          animatedTexts: [
-                                            TyperAnimatedText(state.result,
-                                                textStyle: TextStyle(
-                                                    fontSize:
-                                                        (Responsive.isTablet(
-                                                                context))
-                                                            ? 30.0
-                                                            : 15.0)),
-                                          ],
-                                        ),
+                        context: context,
+                        builder: (context) {
+                          context.read<ChatGPTBloc>().add(GetResult(
+                              message:
+                                  'Pengertian dan manfaat mengkonsumsi makanan yang mengandung $label'));
+                          return AlertDialog(
+                            insetPadding: const EdgeInsets.all(8.0),
+                            title: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                GestureDetector(
+                                    onTap: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: const Icon(Icons.close)),
+                                Text(
+                                  label,
+                                  style: TextStyle(
+                                      fontSize: (Responsive.isTablet(context))
+                                          ? 35.0
+                                          : 20.0,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                                const SizedBox(
+                                  width: 50.0,
+                                ),
+                              ],
+                            ),
+                            content: BlocBuilder<ChatGPTBloc, ChatGPTState>(
+                              builder: (context, state) {
+                                if (state is ChatGPTIsSuccess) {
+                                  return SizedBox(
+                                    width: size.width * 0.8,
+                                    height: size.height * 0.7,
+                                    child: SingleChildScrollView(
+                                      child: AnimatedTextKit(
+                                        isRepeatingAnimation: true,
+                                        repeatForever: false,
+                                        displayFullTextOnTap: true,
+                                        totalRepeatCount: 1,
+                                        animatedTexts: [
+                                          TyperAnimatedText(state.result,
+                                              textStyle: TextStyle(
+                                                  fontSize:
+                                                      (Responsive.isTablet(
+                                                              context))
+                                                          ? 30.0
+                                                          : 15.0)),
+                                        ],
                                       ),
-                                    );
-                                  } else {
-                                    return SizedBox(
-                                      width: size.width * 0.8,
-                                      height: size.height * 0.7,
-                                      child: SpinKitThreeBounce(
-                                        color: Colors.black,
-                                        size: (Responsive.isTablet(context))
-                                            ? 25.0
-                                            : 18,
-                                      ),
-                                    );
-                                  }
-                                },
-                              ),
-                            );
-                          });
+                                    ),
+                                  );
+                                } else {
+                                  return SizedBox(
+                                    width: size.width * 0.8,
+                                    height: size.height * 0.7,
+                                    child: SpinKitThreeBounce(
+                                      color: Colors.black,
+                                      size: (Responsive.isTablet(context))
+                                          ? 25.0
+                                          : 18,
+                                    ),
+                                  );
+                                }
+                              },
+                            ),
+                          );
+                        },
+                      );
                     },
                     child: Container(
                         decoration: BoxDecoration(

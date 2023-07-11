@@ -28,31 +28,80 @@ class PredictionSuccessView extends StatelessWidget {
       mainWidget: Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          flexibleSpace: SizedBox(
-            height: (Responsive.isTablet(context)) ? 420.0 : 300.0,
-            child: GestureDetector(
-              onTap: () {
-                showDialog(
-                    context: context,
-                    builder: (context) {
-                      return AlertDialog(
-                        insetPadding: const EdgeInsets.all(8.0),
-                        content: SizedBox(
-                          height: size.height * 0.5,
-                          width: size.width * 0.9,
-                          child: Image(
-                            image: FileImage(File(imagePath!)),
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      );
-                    });
-              },
-              child: Image(
-                image: FileImage(File(imagePath!)),
-                fit: BoxFit.cover,
+          flexibleSpace: Stack(
+            children: [
+              SizedBox(
+                width: size.width,
+                height: (Responsive.isTablet(context)) ? 435.0 : 310.0,
+                child: GestureDetector(
+                  onTap: () {
+                    showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            insetPadding: const EdgeInsets.all(8.0),
+                            content: Stack(
+                              children: [
+                                SizedBox(
+                                  height: size.height * 0.5,
+                                  width: size.width * 0.9,
+                                  child: Image(
+                                    image: FileImage(File(imagePath!)),
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                                Positioned(
+                                  top: 22,
+                                  left: 20,
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: Container(
+                                      height: 35.0,
+                                      width: 35.0,
+                                      decoration: BoxDecoration(
+                                        color: Colors.white.withOpacity(0.6),
+                                        borderRadius: const BorderRadius.all(
+                                          Radius.circular(100.0),
+                                        ),
+                                      ),
+                                      child: const Center(
+                                          child: Icon(Icons.close)),
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                          );
+                        });
+                  },
+                  child: Image(
+                    image: FileImage(File(imagePath!)),
+                    fit: BoxFit.cover,
+                  ),
+                ),
               ),
-            ),
+              Positioned(
+                top: 55,
+                left: 15,
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                  child: Container(
+                    height: 35.0,
+                    width: 35.0,
+                    decoration: BoxDecoration(
+                        color: Colors.white.withOpacity(0.6),
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(100.0),
+                        )),
+                    child: const Center(child: Icon(Icons.close)),
+                  ),
+                ),
+              )
+            ],
           ),
           toolbarHeight: toolbarHeight,
           elevation: 0.0,

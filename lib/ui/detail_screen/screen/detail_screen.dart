@@ -46,12 +46,42 @@ class _DetailScreenState extends State<DetailScreen> {
           backgroundColor: Colors.white,
           appBar: AppBar(
             automaticallyImplyLeading: false,
-            flexibleSpace: SizedBox(
-              height: (Responsive.isTablet(context)) ? 510 : 330.0,
-              child: CachedNetworkImage(
-                imageUrl: widget.doc['item-image'],
-                fit: BoxFit.cover,
-              ),
+            flexibleSpace: Stack(
+              children: [
+                SizedBox(
+                  height: (Responsive.isTablet(context)) ? 510 : 330.0,
+                  width: MediaQuery.of(context).size.width,
+                  child: CachedNetworkImage(
+                    imageUrl: widget.doc['item-image'],
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                Positioned(
+                  top: 50,
+                  left: 20,
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    child: Container(
+                      height: 35.0,
+                      width: 35.0,
+                      decoration: BoxDecoration(
+                          color: Colors.white.withOpacity(0.6),
+                          border:
+                              Border.all(color: Colors.black.withOpacity(0.5)),
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(100.0),
+                          )),
+                      child: Center(
+                          child: Icon(
+                        Icons.arrow_back_ios_new_outlined,
+                        color: Colors.black.withOpacity(0.5),
+                      )),
+                    ),
+                  ),
+                ),
+              ],
             ),
             toolbarHeight: toolbarHeight,
             elevation: 0.0,

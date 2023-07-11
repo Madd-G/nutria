@@ -1,15 +1,59 @@
-import 'dart:convert';
-import 'dart:math';
 import 'package:bloc/bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
+import '../../utils/auth/auth_error.dart';
+
 part 'auth_state.dart';
 
+part 'auth_event.dart';
+
 class AuthCubit extends Cubit<AuthState> {
-  AuthCubit() : super(AuthInitial());
+  AuthCubit() : super(const AuthInitial());
+
+  goToRegistrationView() {
+    emit(const AuthStateIsInRegistrationView());
+  }
+
+  goToLoginView() {
+    emit(const AuthStateIsInLoginView());
+  }
+
+  Future signInWithEmail(email, password) async {
+    try {
+      final userCredential =
+          await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+    } on FirebaseAuthException catch (e) {
+      emit(
+        AuthFailure(
+          authError: AuthError.from(e),
+        ),
+      );
+    }
+  }
+
+  Future registerWithEmail(email, password) async {
+    try {
+      // final userCredential =
+      //     await FirebaseAuth.instance.WithEmailAndPassword(
+      //   email: email,
+      //   password: password,
+      // );
+      final userCredential = await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(email: email, password: password);
+    } on FirebaseAuthException catch (e) {
+      emit(
+        AuthFailure(
+          authError: AuthError.from(e),
+        ),
+      );
+    }
+  }
 
   Future<UserCredential> signInWithGoogle(context) async {
     final GoogleSignInAccount? gUser = await GoogleSignIn().signIn();
@@ -21,15 +65,8 @@ class AuthCubit extends Cubit<AuthState> {
     return await FirebaseAuth.instance.signInWithCredential(credential);
   }
 
-  // String sha256ofString(String input) {
-  //   final bytes = utf8.encode(input);
-  //   final digest = sha256.convert(bytes);
-  //   return digest.toString();
-  // }
-
   Future signInWithApple(context) async {
     final rawNonce = generateNonce();
-    // final nonce = sha256ofString(rawNonce);
     final appleCredential = await SignInWithApple.getAppleIDCredential(
       scopes: [
         AppleIDAuthorizationScopes.email,

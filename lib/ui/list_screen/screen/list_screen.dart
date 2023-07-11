@@ -61,13 +61,35 @@ class _ListScreenState extends State<ListScreen> {
                   //   ),
                   SafeArea(
                     child: Center(
-                      child: Text(
-                        'Buah dan Sayuran',
-                        style: TextStyle(
-                          fontFamily: 'GT Maru',
-                          color: Colors.white,
-                          fontWeight: FontWeight.w700,
-                          fontSize: Responsive.isTablet(context) ? 30 : 15,
+                      child: Padding(
+                        padding:
+                            const EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 0.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.pop(context);
+                              },
+                              child: const Icon(
+                                Icons.arrow_back_ios_new_outlined,
+                                color: Colors.white,
+                              ),
+                            ),
+                            Text(
+                              'Buah dan Sayuran',
+                              style: TextStyle(
+                                fontFamily: 'GT Maru',
+                                color: Colors.white,
+                                fontWeight: FontWeight.w700,
+                                fontSize:
+                                    Responsive.isTablet(context) ? 30 : 20,
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 40.0,
+                            ),
+                          ],
                         ),
                       ),
                     ),

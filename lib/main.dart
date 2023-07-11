@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:nutria/screen_controller.dart';
+import 'package:nutria/utils/dialogs/show_auth_error.dart';
 import 'firebase_options.dart';
 import 'blocs/blocs.dart';
 
@@ -51,7 +52,18 @@ class MyApp extends StatelessWidget {
             primary: const Color(0xff58D7B7),
           ),
         ),
-        home: const ScreenController(),
+        home: BlocListener<AuthCubit, AuthState>(
+          listener: (context, state) {
+            final authError = state.authError;
+            if (authError != null) {
+              showAuthError(
+                authError: authError,
+                context: context,
+              );
+            }
+          },
+          child: const ScreenController(),
+        ),
       ),
     );
   }

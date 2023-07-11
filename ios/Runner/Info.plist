@@ -40,11 +40,11 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
-	<string>Access to the camera allows you to take photos to scan fruits and vegetables</string>
+	<string>Allowing access to the camera lets you scan fruits and vegetables. Photos will not be saved or shared anywhere.</string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>Allow microphone access to record audio when you scan fruits and vegetables</string>
+	<string>Allow microphone access to record audio when you scan fruits and vegetables. Recording will not be saved or shared anywhere.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Allow photo access to scan photos from your gallery</string>
+	<string>Allowing access to the gallery lets you scan fruits and vegetables from images in the gallery. Photos will not be saved or shared anywhere.</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UISceneConfigurations</key>

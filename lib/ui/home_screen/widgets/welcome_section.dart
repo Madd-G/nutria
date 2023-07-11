@@ -1,6 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../blocs/auth_bloc/auth_cubit.dart';
 import '../../../responsive.dart';
+import '../../../widgets/logout_dialog.dart';
 import 'widgets.dart';
 
 enum Menu { login, logout }
@@ -108,9 +111,21 @@ class _WelcomeSectionState extends State<WelcomeSection> {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const CircularProgressIndicator();
               } else if (snapshot.hasData) {
+                print('hasData');
                 return const LogoutDialog();
+                // return const LoginDialog();
               } else {
-                // belum login
+                // return const LoginDialog();
+                // BlocBuilder<AuthCubit, AuthState>(
+                //   builder: (context, state) {
+                //     print('Auth Cubit state $state');
+                //     if (state is AuthStateIsInRegistrationView) {
+                //       return const RegisterDialog();
+                //     } else {
+                //       return const LoginDialog();
+                //     }
+                //   },
+                // );
                 return const LoginDialog();
               }
             },
@@ -120,5 +135,3 @@ class _WelcomeSectionState extends State<WelcomeSection> {
     );
   }
 }
-
-
