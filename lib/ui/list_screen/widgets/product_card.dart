@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../../../responsive.dart';
 import '../../detail_screen/screen/detail_screen.dart';
 
@@ -20,6 +21,7 @@ class ProductCard extends StatelessWidget {
         children: [
           Expanded(
             child: Card(
+              color: Colors.white,
               child: GestureDetector(
                 onTap: () => Navigator.push(
                     context,
@@ -27,7 +29,7 @@ class ProductCard extends StatelessWidget {
                         builder: (context) => DetailScreen(doc: doc))),
                 child: Center(
                   child: CachedNetworkImage(
-                    imageUrl: doc['item-image'],
+                    imageUrl: doc['en'.tr]['item-image'],
                     // progressIndicatorBuilder: (_, url, download) {
                     //   if (download.progress != null) {
                     //     final percent = download.progress! * 100;
@@ -44,7 +46,7 @@ class ProductCard extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
-              doc['name'],
+              doc['en'.tr]['name'],
               style:
               TextStyle(fontSize: Responsive.isTablet(context) ? 20.0 : 12, fontWeight: FontWeight.w700),
             ),

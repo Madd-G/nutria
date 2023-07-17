@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:nutria/widgets/global_widgets.dart';
 import '../../../responsive.dart';
 import '../widgets/widgets.dart';
+import 'package:get/get.dart';
 
 class ArticleScreen extends StatefulWidget {
   const ArticleScreen({Key? key, required this.doc}) : super(key: key);
@@ -19,7 +20,7 @@ class _ArticleScreenState extends State<ArticleScreen> {
     FirebaseFirestore.instance
         .collection('article')
         .doc(widget.doc.id)
-        .update({'viewed': widget.doc['viewed'] + 1});
+        .update({'${'en'.tr}.viewed': widget.doc['en'.tr]['viewed'] + 1});
     super.initState();
   }
 
@@ -60,11 +61,11 @@ class _ArticleScreenState extends State<ArticleScreen> {
                           ArticleTitle(doc: widget.doc),
                           SizedBox(
                             height:
-                                (Responsive.isDesktop(context)) ? 15.0 : 10.0,
+                                (Responsive.isDesktop(context)) ? 17.0 : 13.0,
                           ),
                           ArticleAuthor(doc: widget.doc),
                           const SizedBox(
-                            height: 20.0,
+                            height: 24.0,
                           ),
                           Article(doc: widget.doc)
                         ],

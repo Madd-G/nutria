@@ -3,6 +3,7 @@ import 'package:camera/camera.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../screens.dart';
@@ -40,7 +41,7 @@ class _CameraContentState extends State<CameraContent> {
           );
         } else {
           if (kDebugMode) {
-            print('No camera available');
+            print('No camera available'.tr);
           }
         }
       },

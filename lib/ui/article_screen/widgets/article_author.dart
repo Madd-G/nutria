@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:nutria/responsive.dart';
 
 class ArticleAuthor extends StatelessWidget {
@@ -18,10 +19,10 @@ class ArticleAuthor extends StatelessWidget {
         ClipRRect(
           borderRadius: BorderRadius.circular(50.0),
           child: SizedBox(
-            width: (Responsive.isTablet(context)) ? 48.0 : 30.0,
-            height: (Responsive.isTablet(context)) ? 48.0 : 30.0,
+            width: (Responsive.isTablet(context)) ? 48.0 : 35.0,
+            height: (Responsive.isTablet(context)) ? 48.0 : 35.0,
             child: CachedNetworkImage(
-              imageUrl: doc['profile-image'],
+              imageUrl: doc['en'.tr]['profile-image'],
               // progressIndicatorBuilder: (_, url, download) {
               //   if (download.progress != null) {
               //     final percent = download.progress! * 100;
@@ -44,15 +45,15 @@ class ArticleAuthor extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              '${doc['author']}',
+              '${doc['en'.tr]['author']}',
               style: TextStyle(
-                  color: Colors.black,
-                  fontSize: (Responsive.isTablet(context)) ? 20.0 : 10.0,
+                  // color: Colors.black,
+                  fontSize: (Responsive.isTablet(context)) ? 20.0 : 13.0,
                   fontWeight: FontWeight.w700),
             ),
             Text(
-              '${doc['date']}',
-              style: TextStyle(color: Colors.grey, fontSize: (Responsive.isTablet(context)) ? 18.0 : 8.0),
+              '${doc['en'.tr]['date']}',
+              style: TextStyle(color: Colors.grey, fontSize: (Responsive.isTablet(context)) ? 18.0 : 11.0),
             ),
           ],
         ),

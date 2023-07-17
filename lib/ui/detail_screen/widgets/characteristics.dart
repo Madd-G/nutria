@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../responsive.dart';
 
@@ -18,15 +19,15 @@ class Characteristics extends StatelessWidget {
       child: ListView.separated(
         shrinkWrap: true,
         separatorBuilder: (context, index) => const SizedBox(
-          height: 15.0,
+          height: 10.0,
         ),
-        itemCount: doc['characteristics'].length,
+        itemCount: doc['en'.tr]['characteristics'].length,
         itemBuilder: (context, index) {
           return Text(
-            doc['characteristics'][index],
+            doc['en'.tr]['characteristics'][index],
             textAlign: TextAlign.justify,
             style:  TextStyle(
-              fontSize: (Responsive.isTablet(context)) ? 22.0 : 11.0,
+              fontSize: (Responsive.isTablet(context)) ? 22.0 : 13.0,
             ),
           );
         },

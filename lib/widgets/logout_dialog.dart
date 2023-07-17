@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import '../../../responsive.dart';
 
@@ -16,7 +17,7 @@ class LogoutDialog extends StatelessWidget {
           builder: (context) {
             return AlertDialog(
               insetPadding: const EdgeInsets.all(8.0),
-              title: const Text('Logout'),
+              title: Text('Logout'.tr),
               content: SizedBox(
                 width: 300.0,
                 height: 80.0,
@@ -29,8 +30,8 @@ class LogoutDialog extends StatelessWidget {
                         await FirebaseAuth.instance.signOut().then(
                               (value) =>
                               ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text('Berhasil logout'),
+                                SnackBar(
+                                  content: Text('Logout Successfully'.tr),
                                 ),
                               ),
                         );
@@ -42,13 +43,13 @@ class LogoutDialog extends StatelessWidget {
                           borderRadius: BorderRadius.circular(5.0),
                           border: Border.all(color: Colors.grey),
                         ),
-                        child: const Padding(
-                          padding: EdgeInsets.fromLTRB(25.0, 8.0, 25.0, 8.0),
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(25.0, 8.0, 25.0, 8.0),
                           child: Row(
                             children: [
                               Text(
-                                '  YA  ',
-                                style: TextStyle(fontWeight: FontWeight.w700),
+                                '  ${'YES'.tr}  ',
+                                style: const TextStyle(fontWeight: FontWeight.w700),
                               ),
                             ],
                           ),
@@ -64,13 +65,13 @@ class LogoutDialog extends StatelessWidget {
                           borderRadius: BorderRadius.circular(5.0),
                           border: Border.all(color: Colors.grey),
                         ),
-                        child: const Padding(
-                          padding: EdgeInsets.fromLTRB(25.0, 8.0, 25.0, 8.0),
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(25.0, 8.0, 25.0, 8.0),
                           child: Row(
                             children: [
                               Text(
-                                'TIDAK',
-                                style: TextStyle(fontWeight: FontWeight.w700),
+                                '  ${'NO'.tr}  '.tr,
+                                style: const TextStyle(fontWeight: FontWeight.w700),
                               ),
                             ],
                           ),

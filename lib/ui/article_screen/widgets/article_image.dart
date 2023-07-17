@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class ArticleImage extends StatelessWidget {
   const ArticleImage({
@@ -22,7 +23,7 @@ class ArticleImage extends StatelessWidget {
               height: size.height * 0.32,
               width: size.width,
               child: CachedNetworkImage(
-                imageUrl: doc['item-image'],
+                imageUrl: doc['en'.tr]['item-image'],
                 // progressIndicatorBuilder: (_, url, download) {
                 //   if (download.progress != null) {
                 //     final percent = download.progress! * 100;
@@ -52,13 +53,18 @@ class ArticleImage extends StatelessWidget {
               height: 35.0,
               width: 35.0,
               decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.6),
-                  // border: Border.all(color: Colors.black),
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(100.0),
-                  )),
-              child:
-                  const Center(child: Icon(Icons.arrow_back_ios_new_outlined)),
+                color: Colors.white.withOpacity(0.6),
+                // border: Border.all(color: Colors.black),
+                borderRadius: const BorderRadius.all(
+                  Radius.circular(100.0),
+                ),
+              ),
+              child: const Center(
+                child: Icon(
+                  Icons.arrow_back_ios_new_outlined,
+                  // color: Theme.of(context).colorScheme.secondary,
+                ),
+              ),
             ),
           ),
         ),

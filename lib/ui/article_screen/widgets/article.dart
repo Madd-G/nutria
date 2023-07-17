@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:nutria/responsive.dart';
 
 class Article extends StatelessWidget {
@@ -21,10 +22,10 @@ class Article extends StatelessWidget {
           separatorBuilder: (context, index) => const SizedBox(
             height: 15.0,
           ),
-          itemCount: doc['article'].length,
+          itemCount: doc['en'.tr]['article'].length,
           itemBuilder: (context, index) {
             return Text(
-              doc['article'][index],
+              doc['en'.tr]['article'][index],
               textAlign: TextAlign.justify,
               style: TextStyle(
                 fontSize: Responsive.isTablet(context) ?  22.0 : 12.0,

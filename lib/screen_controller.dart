@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'blocs/blocs.dart';
 import 'ui/screens.dart';
 
 class ScreenController extends StatelessWidget {
   const ScreenController({super.key});
-
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<BottomNavBarBloc, BottomNavBarState>(
@@ -18,7 +18,7 @@ class ScreenController extends StatelessWidget {
                   : const HomeScreen(),
           bottomNavigationBar: Container(
             decoration: BoxDecoration(
-              color: Colors.white,
+              // color: Colors.white,
               boxShadow: [
                 BoxShadow(
                   blurRadius: 20,
@@ -30,16 +30,16 @@ class ScreenController extends StatelessWidget {
               padding:
                   const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8),
               child: GNav(
-                rippleColor: Colors.grey[300]!,
-                hoverColor: Colors.grey[100]!,
+                // rippleColor: Colors.grey[300]!,
+                // hoverColor: Colors.grey[100]!,
                 gap: 8,
-                activeColor: Colors.black,
+                // activeColor: Colors.black,
                 iconSize: 24,
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                 duration: const Duration(milliseconds: 400),
                 tabBackgroundColor: Theme.of(context).colorScheme.primary,
-                color: Colors.black,
+                // color: Colors.black,
                 selectedIndex: state.index,
                 onTabChange: (index) {
                   if (index == 0) {
@@ -56,18 +56,18 @@ class ScreenController extends StatelessWidget {
                         .add(EventGoToArticleScreen());
                   }
                 },
-                tabs: const [
+                tabs: [
                   GButton(
                     icon: Icons.camera_alt,
-                    text: 'PINDAI',
+                    text: 'SCAN'.tr,
                   ),
                   GButton(
                     icon: Icons.home,
-                    text: 'BERANDA',
+                    text: 'HOME'.tr,
                   ),
                   GButton(
                     icon: Icons.article,
-                    text: 'ARTIKEL',
+                    text: 'ARTICLE'.tr,
                   ),
                 ],
               ),

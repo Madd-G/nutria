@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../../../blocs/blocs.dart';
 import '../../../responsive.dart';
 
@@ -20,7 +21,7 @@ class LoginDialog extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   const SizedBox(),
-                  const Text('Selamat Datang'),
+                  Text('Welcome'.tr),
                   GestureDetector(
                       onTap: () {
                         Navigator.pop(context);
@@ -34,7 +35,7 @@ class LoginDialog extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text('Silahkan masuk dengan akun anda'),
+                    Text('Please login with your account'.tr),
                     const SizedBox(
                       height: 10.0,
                     ),
@@ -43,8 +44,8 @@ class LoginDialog extends StatelessWidget {
                         context.read<AuthCubit>().signInWithApple(context).then(
                               (value) =>
                                   ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text('Berhasil Login'),
+                                SnackBar(
+                                  content: Text('Login Successfully'.tr),
                                 ),
                               ),
                             );
@@ -67,9 +68,9 @@ class LoginDialog extends StatelessWidget {
                                 height: 25.0,
                               ),
                               const SizedBox(width: 10.0),
-                              const Text(
-                                'Sign in with Apple',
-                                style: TextStyle(
+                              Text(
+                                'Sign in with Apple'.tr,
+                                style: const TextStyle(
                                     fontWeight: FontWeight.w500,
                                     fontSize: 20.0),
                               ),
@@ -89,8 +90,8 @@ class LoginDialog extends StatelessWidget {
                             .then(
                               (value) =>
                                   ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text('Berhasil Login'),
+                                 SnackBar(
+                                  content: Text('Login Successfully'.tr),
                                 ),
                               ),
                             );
@@ -115,9 +116,9 @@ class LoginDialog extends StatelessWidget {
                                 height: 27.0,
                               ),
                               const SizedBox(width: 7.0),
-                              const Text(
-                                'Sign in with Google',
-                                style: TextStyle(
+                              Text(
+                                'Sign in with Google'.tr,
+                                style: const TextStyle(
                                     fontWeight: FontWeight.w500,
                                     fontSize: 20.0),
                               )

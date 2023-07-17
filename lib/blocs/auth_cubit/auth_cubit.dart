@@ -1,5 +1,3 @@
-import 'dart:convert';
-import 'dart:math';
 import 'package:bloc/bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -20,12 +18,6 @@ class AuthCubit extends Cubit<AuthState> {
     );
     return await FirebaseAuth.instance.signInWithCredential(credential);
   }
-
-  // String sha256ofString(String input) {
-  //   final bytes = utf8.encode(input);
-  //   final digest = sha256.convert(bytes);
-  //   return digest.toString();
-  // }
 
   Future signInWithApple(context) async {
     final rawNonce = generateNonce();

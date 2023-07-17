@@ -3,23 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>210550974337-68l7dobh86q17rjo5b254scb3tbs60g5.apps.googleusercontent.com</string>
+	<string>296377663659-029kls8bk5hcnjdk2tqn5ssjici3r5nk.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.210550974337-68l7dobh86q17rjo5b254scb3tbs60g5</string>
-	<key>ANDROID_CLIENT_ID</key>
-	<string>210550974337-t1p1iea2e3jq36r6sae43lvo9a8hd5vj.apps.googleusercontent.com</string>
+	<string>com.googleusercontent.apps.296377663659-029kls8bk5hcnjdk2tqn5ssjici3r5nk</string>
 	<key>API_KEY</key>
-	<string>AIzaSyAZcdmJcoUXiY0tM7mQRQN3I9UnWn-onTQ</string>
+	<string>AIzaSyBlloOZuTgoyF2Yt0PO7t7mkYS3FVjqG2Y</string>
 	<key>GCM_SENDER_ID</key>
-	<string>210550974337</string>
+	<string>296377663659</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.example.nutria</string>
+	<string>com.alamsyah.nutria</string>
 	<key>PROJECT_ID</key>
-	<string>nutria-29b7b</string>
+	<string>nutria-f8872</string>
 	<key>STORAGE_BUCKET</key>
-	<string>nutria-29b7b.appspot.com</string>
+	<string>nutria-f8872.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -31,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:210550974337:ios:6d80cc391991d7618cea80</string>
+	<string>1:296377663659:ios:7cbb7abf8031a4e061b7ee</string>
 </dict>
 </plist>

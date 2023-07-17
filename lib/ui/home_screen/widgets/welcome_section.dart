@@ -1,12 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import '../../../responsive.dart';
 import 'widgets.dart';
 
 enum Menu { login, logout }
 
 class WelcomeSection extends StatefulWidget {
-  const WelcomeSection({super.key, required this.size});
+  WelcomeSection({super.key, required this.size});
 
   final Size size;
 
@@ -17,58 +19,55 @@ class WelcomeSection extends StatefulWidget {
 class _WelcomeSectionState extends State<WelcomeSection> {
   @override
   Widget build(BuildContext context) {
-    String? greeting;
     // ignore: unused_local_variable
-    String selectedMenu = '';
+    String? greeting;
     int dt = DateTime.now().hour;
-    if (dt < 10) {
-      greeting = "SELAMAT PAGI";
-    } else if (dt < 15) {
-      greeting = "SELAMAT SIANG";
-    } else if (dt < 18) {
-      greeting = "SELAMAT SORE";
+    if (dt < 12) {
+      greeting = "GOOD MORNING".tr;
+    } else if (dt >= 12 && dt < 18) {
+      greeting = "GOOD AFTERNOON,".tr;
     } else {
-      greeting = "SELAMAT MALAM";
+      greeting = "GOOD EVENING".tr;
     }
 
     String? month;
 
     switch (DateTime.now().month) {
       case 1:
-        month = "January";
+        month = "January".tr;
         break;
       case 2:
-        month = "Februari";
+        month = "February".tr;
         break;
       case 3:
-        month = "Maret";
+        month = "March".tr;
         break;
       case 4:
-        month = "April";
+        month = "April".tr;
         break;
       case 5:
-        month = "Mei";
+        month = "May".tr;
         break;
       case 6:
-        month = "Juni";
+        month = "June".tr;
         break;
       case 7:
-        month = "Juli";
+        month = "July".tr;
         break;
       case 8:
-        month = "Agustus";
+        month = "August".tr;
         break;
       case 9:
-        month = "September";
+        month = "September".tr;
         break;
       case 10:
-        month = "Oktober";
+        month = "October".tr;
         break;
       case 11:
-        month = "November";
+        month = "November".tr;
         break;
       case 12:
-        month = "Desember";
+        month = "December".tr;
         break;
     }
 
@@ -82,16 +81,16 @@ class _WelcomeSectionState extends State<WelcomeSection> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                '$greeting 😀',
+                greeting,
                 style: TextStyle(
-                    color: Colors.grey,
+                    // color: Colors.grey,
                     fontSize: (Responsive.isTablet(context)) ? 35 : 22,
                     fontWeight: FontWeight.w900),
               ),
               Text(
-                'Hari ini ${DateTime.now().day} $month ${DateTime.now().year}',
+                '${DateFormat('EEEE').format(DateTime.now()).tr}, ${DateTime.now().day} $month ${DateTime.now().year}',
                 style: TextStyle(
-                    color: Colors.black,
+                    // color: Colors.black,
                     fontSize: (Responsive.isTablet(context)) ? 25 : 16,
                     fontWeight: FontWeight.w700),
               ),
@@ -120,5 +119,3 @@ class _WelcomeSectionState extends State<WelcomeSection> {
     );
   }
 }
-
-

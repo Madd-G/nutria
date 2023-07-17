@@ -5,3 +5,5 @@ export 'welcome_section.dart';
 export 'recommendation_card.dart';
 export 'login_dialog.dart';
 export 'logout_dialog.dart';
+export 'change_language_widget.dart';
+export 'theme_button.dart';

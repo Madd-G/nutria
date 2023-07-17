@@ -1,6 +1,7 @@
 import 'package:basic_utils/basic_utils.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:nutria/widgets/global_widgets.dart';
 import '../../../responsive.dart';
 import '../widgets/widgets.dart';
@@ -77,7 +78,7 @@ class _ListScreenState extends State<ListScreen> {
                               ),
                             ),
                             Text(
-                              'Buah dan Sayuran',
+                              'Fruits and Vegetables'.tr,
                               style: TextStyle(
                                 fontFamily: 'GT Maru',
                                 color: Colors.white,
@@ -99,15 +100,18 @@ class _ListScreenState extends State<ListScreen> {
                   ),
                   (searchController.text.isEmpty)
                       ? Material(
-                          color: Colors.white,
+                          // color: Colors.white,
                           child: TabBar(
                             indicatorColor:
-                                Theme.of(context).colorScheme.primary,
-                            unselectedLabelColor: Colors.black,
-                            labelColor: Theme.of(context).colorScheme.primary,
+                                Theme.of(context).colorScheme.onPrimary,
+                            // labelColor: (isDarkMode)
+                            //     ? Colors.white
+                            //     : Colors.black,
+                            // unselectedLabelColor: Colors.black,
+                            labelColor: Theme.of(context).colorScheme.onPrimary,
                             tabs: [
                               Tab(
-                                child: Text('Buah',
+                                child: Text('Fruit'.tr,
                                     style: TextStyle(
                                         fontSize: (Responsive.isTablet(context))
                                             ? 25
@@ -115,7 +119,7 @@ class _ListScreenState extends State<ListScreen> {
                                         fontWeight: FontWeight.w500)),
                               ),
                               Tab(
-                                child: Text('Sayuran',
+                                child: Text('Vegetable'.tr,
                                     style: TextStyle(
                                         fontSize: (Responsive.isTablet(context))
                                             ? 25
@@ -140,7 +144,7 @@ class _ListScreenState extends State<ListScreen> {
               : FutureBuilder<QuerySnapshot>(
                   future: FirebaseFirestore.instance
                       .collection('items')
-                      .where("name",
+                      .where("${'en'.tr}.name",
                           isEqualTo:
                               StringUtils.capitalize(searchController.text))
                       .get(),
@@ -149,7 +153,7 @@ class _ListScreenState extends State<ListScreen> {
                       return const Center(child: CircularProgressIndicator());
                     }
                     if (snapshot.data!.docs.isEmpty) {
-                      return const Center(child: Text("Data tidak ditemukan"));
+                      return Center(child: Text("Data not found".tr));
                     }
                     if (snapshot.hasData) {
                       final DocumentSnapshot doc = snapshot.data!.docs[0];
@@ -159,7 +163,6 @@ class _ListScreenState extends State<ListScreen> {
                     }
                   },
                 ),
-          // floatingActionButton: const NutriAIButton(),
         ),
       ),
     );

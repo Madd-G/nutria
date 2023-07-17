@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../responsive.dart';
 
@@ -25,7 +26,7 @@ class RecommendationCard extends StatelessWidget {
               height: (Responsive.isTablet(context)) ? 180 : 140.0,
               width: (Responsive.isTablet(context)) ? 230 : 200.0,
               child: CachedNetworkImage(
-                imageUrl: doc['item-image'],
+                imageUrl: doc['en'.tr]['item-image'],
                 progressIndicatorBuilder: (_, url, download) {
                   if (download.progress != null) {
                     // final percent = download.progress! * 100;
@@ -41,10 +42,12 @@ class RecommendationCard extends StatelessWidget {
               ),
             ),
           ),
+          const SizedBox(
+            height: 4.0,
+          ),
           Text(
-            '${doc['name']}',
+            '${doc['en'.tr]['name']}',
             style: TextStyle(
-              color: Colors.black,
               fontSize: (Responsive.isTablet(context)) ? 23 : 13.0,
               fontWeight: FontWeight.w600,
               letterSpacing: 1.2,

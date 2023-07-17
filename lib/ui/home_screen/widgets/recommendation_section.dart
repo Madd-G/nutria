@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:nutria/ui/home_screen/widgets/widgets.dart';
 
 import '../../../responsive.dart';
@@ -20,11 +21,12 @@ class RecommendationSection extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Rekomendasi',
+                'Recommendation'.tr,
                 style: TextStyle(
-                    fontSize: (Responsive.isTablet(context)) ? 30 : 18,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.black),
+                  fontSize: (Responsive.isTablet(context)) ? 30 : 18,
+                  fontWeight: FontWeight.w600,
+                  // color: Colors.black,
+                ),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -32,11 +34,12 @@ class RecommendationSection extends StatelessWidget {
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      'Rekomendasi hari ini',
+                      'Today\'s recommendation'.tr,
                       style: TextStyle(
-                          fontSize: (Responsive.isTablet(context)) ? 18 : 13,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.grey),
+                        fontSize: (Responsive.isTablet(context)) ? 18 : 13,
+                        fontWeight: FontWeight.w600,
+                        // color: Colors.grey,
+                      ),
                     ),
                   ),
                   GestureDetector(
@@ -59,7 +62,7 @@ class RecommendationSection extends StatelessWidget {
         StreamBuilder<QuerySnapshot>(
           stream: FirebaseFirestore.instance
               .collection('items')
-              .orderBy('viewed', descending: true)
+              .orderBy('${'en'.tr}.viewed', descending: true)
               .snapshots(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
@@ -68,8 +71,10 @@ class RecommendationSection extends StatelessWidget {
                   child: const Center(child: CircularProgressIndicator()));
             }
             if (snapshot.data!.docs.isEmpty) {
-              return const SizedBox(
-                child: Center(child: Text("Not found")),
+              return SizedBox(
+                child: Center(
+                  child: Text("There is no data".tr),
+                ),
               );
             }
             if (snapshot.hasData) {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import '../../../blocs/blocs.dart';
 import '../widgets/widgets.dart';
@@ -51,10 +52,10 @@ class _DetailObjectScreenState extends State<DetailObjectScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text('Oops, an error occurred'),
+                  Text('Oops, an error occurred'.tr),
                   ElevatedButton(
                       onPressed: () => Navigator.pop(context),
-                      child: const Text('BACK'))
+                      child: Text('BACK'.tr))
                 ],
               ),
             ),

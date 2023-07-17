@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../../../blocs/blocs.dart';
-import '../../../responsive.dart';
 import '../ui/chat_screen/screen/chat_screen.dart';
 
 class LoginDialog extends StatelessWidget {
@@ -18,7 +18,7 @@ class LoginDialog extends StatelessWidget {
           builder: (dialogContext) {
             return AlertDialog(
               insetPadding: const EdgeInsets.all(8.0),
-              title: const Text('Login'),
+              title: Text('Login'.tr),
               content: SizedBox(
                 width: 300.0,
                 height: 80.0,
@@ -33,8 +33,8 @@ class LoginDialog extends StatelessWidget {
                             .then(
                               (value) =>
                                   ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text('Berhasil Login'),
+                                SnackBar(
+                                  content: Text('Login Successfully'.tr),
                                 ),
                               ),
                             );
@@ -72,8 +72,8 @@ class LoginDialog extends StatelessWidget {
                         context.read<AuthCubit>().signInWithApple(context).then(
                               (value) =>
                                   ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text('Berhasil Login'),
+                                SnackBar(
+                                  content: Text('Login Successfully'.tr),
                                 ),
                               ),
                             );
@@ -114,7 +114,7 @@ class LoginDialog extends StatelessWidget {
       child: FloatingActionButton(
         foregroundColor: Colors.white,
         backgroundColor: Theme.of(context).colorScheme.primary,
-        tooltip: 'Hello, may I help you?',
+        tooltip: 'Hello, I\'m NutriAI Bot'.tr,
         onPressed: () {
           if (FirebaseAuth.instance.currentUser?.uid == null) {
             context.read<AuthCubit>().signInWithGoogle(context).then(

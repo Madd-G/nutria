@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:nutria/ui/list_screen/widgets/widgets.dart';
 
@@ -14,7 +15,7 @@ class VegetableContent extends StatelessWidget {
       child: FutureBuilder<QuerySnapshot>(
         future: FirebaseFirestore.instance
             .collection('items')
-            .where("category", isEqualTo: "Sayuran")
+            .where("${'en'.tr}.category", isEqualTo: "Vegetable".tr)
             .get(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -27,9 +28,9 @@ class VegetableContent extends StatelessWidget {
             );
           }
           if (snapshot.data!.docs.isEmpty) {
-            return const SizedBox(
+            return SizedBox(
               child: Center(
-                child: Text("Tidak ada data"),
+                child: Text("Data not found".tr),
               ),
             );
           }

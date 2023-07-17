@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:nutria/blocs/blocs.dart';
 import 'package:nutria/ui/list_screen/screen/list_screen.dart';
 import '../../../responsive.dart';
@@ -16,7 +17,7 @@ class CategorySection extends StatelessWidget {
         Align(
           alignment: Alignment.centerLeft,
           child: Text(
-            'Kategori',
+            'Category'.tr,
             style: TextStyle(
                 fontSize: (Responsive.isTablet(context)) ? 30 : 18,
                 fontWeight: FontWeight.w700),
@@ -31,7 +32,7 @@ class CategorySection extends StatelessWidget {
             CategoryBox(
               imagePath:
                   'https://firebasestorage.googleapis.com/v0/b/nutria-29b7b.appspot.com/o/app_image%2Fapp%2Ffruit.png?alt=media&token=84c6e087-b405-4b0b-96da-dde2831954f3',
-              label: 'BUAH',
+              label: 'FRUIT'.tr,
               onTap: () {
                 Navigator.push(
                     context,
@@ -44,7 +45,7 @@ class CategorySection extends StatelessWidget {
             CategoryBox(
               imagePath:
                   'https://firebasestorage.googleapis.com/v0/b/nutria-29b7b.appspot.com/o/app_image%2Fapp%2Fvegetable.png?alt=media&token=594f15d7-46f9-4128-8c46-2a35d3f65d2c',
-              label: 'SAYURAN',
+              label: 'VEGETABLE'.tr,
               onTap: () {
                 Navigator.push(
                     context,
@@ -81,16 +82,18 @@ class CategoryBox extends StatelessWidget {
         width: size.width * 0.47,
         height: Responsive.isTablet(context)
             ? size.height * 0.25
-            : size.height * 0.22,
+            : size.height * 0.2,
         child: Card(
+          color: Colors.white,
           child: Padding(
             padding: const EdgeInsets.all(4.0),
             child: Column(
               children: [
-                SizedBox(
+                Container(
+                  color: Colors.white,
                   height: Responsive.isTablet(context)
                       ? size.height * 0.2
-                      : size.height * 0.16,
+                      : size.height * 0.15,
                   width: size.width * 0.45,
                   child: CachedNetworkImage(
                     imageUrl: imagePath,
@@ -112,7 +115,7 @@ class CategoryBox extends StatelessWidget {
                   label,
                   style: TextStyle(
                       fontSize: (Responsive.isTablet(context)) ? 30.0 : 16.0,
-                      fontWeight: FontWeight.w700),
+                      fontWeight: FontWeight.w700, color: Colors.black),
                 )
               ],
             ),

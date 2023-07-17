@@ -60,6 +60,9 @@ dependencies:
   cached_network_image: ^3.2.3
   basic_utils:
   sign_in_with_apple: ^5.0.0
+  get: ^4.6.5
+  intl:
+  shared_preferences: ^2.2.0
 
 flutter_icons:
   android: true
@@ -111,6 +114,10 @@ flutter:
     - family: GT Maru
       fonts:
         - asset: assets/fonts/GT-Maru-Mono.ttf
+
+    - family: Poppins
+      fonts:
+        - asset: assets/fonts/Poppins-Regular.ttf
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

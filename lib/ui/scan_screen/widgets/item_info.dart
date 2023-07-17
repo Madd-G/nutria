@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:get/get.dart';
 import '../../../blocs/blocs.dart';
 import '../../../responsive.dart';
 
@@ -27,7 +28,7 @@ class ItemInfo extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  doc['name'],
+                  doc['en'.tr]['name'],
                   style: TextStyle(
                       fontSize: (Responsive.isTablet(context)) ? 40.0 : 23.0,
                       fontWeight: FontWeight.w900),
@@ -41,7 +42,7 @@ class ItemInfo extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(
                         vertical: 6.0, horizontal: 25.0),
                     child: Text(
-                      doc['category'],
+                      doc['en'.tr]['category'],
                       textAlign: TextAlign.justify,
                       style: TextStyle(
                         fontSize: (Responsive.isTablet(context)) ? 30.0 : 17.0,
@@ -56,7 +57,7 @@ class ItemInfo extends StatelessWidget {
               height: size.height * 0.02,
             ),
             Text(
-              'Nutrisi dan mineral',
+              'Nutrients and minerals'.tr,
               style: TextStyle(
                   fontSize: (Responsive.isTablet(context)) ? 30.0 : 14.0,
                   fontWeight: FontWeight.w600),
@@ -68,7 +69,7 @@ class ItemInfo extends StatelessWidget {
               crossAxisCount: 4,
               mainAxisSpacing: 10.0,
               crossAxisSpacing: 10.0,
-              children: doc['nutrients'].map<Widget>(
+              children: doc['en'.tr]['nutrients'].map<Widget>(
                 (label) {
                   return GestureDetector(
                     onTap: () async {
@@ -77,17 +78,18 @@ class ItemInfo extends StatelessWidget {
                         builder: (context) {
                           context.read<ChatGPTBloc>().add(GetResult(
                               message:
-                                  'Pengertian dan manfaat mengkonsumsi makanan yang mengandung $label'));
+                                  '${'Definition and benefits of consuming foods that contain'.tr} $label'));
                           return AlertDialog(
                             insetPadding: const EdgeInsets.all(8.0),
                             title: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 GestureDetector(
-                                    onTap: () {
-                                      Navigator.pop(context);
-                                    },
-                                    child: const Icon(Icons.close)),
+                                  onTap: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: const Icon(Icons.close),
+                                ),
                                 Text(
                                   label,
                                   style: TextStyle(
@@ -171,7 +173,7 @@ class ItemInfo extends StatelessWidget {
               height: size.height * 0.025,
             ),
             Text(
-              'Deskripsi',
+              'Description'.tr,
               style: TextStyle(
                   fontSize: (Responsive.isTablet(context)) ? 30.0 : 14.0,
                   fontWeight: FontWeight.w600),
@@ -183,24 +185,21 @@ class ItemInfo extends StatelessWidget {
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               separatorBuilder: (context, index) => const SizedBox(
-                height: 15.0,
+                height: 10.0,
               ),
-              itemCount: doc['general-info'].length,
+              itemCount: doc['en'.tr]['general-info'].length,
               itemBuilder: (context, index) {
                 return Text(
-                  doc['general-info'][index],
+                  doc['en'.tr]['general-info'][index],
                   textAlign: TextAlign.justify,
                   style: TextStyle(
-                    fontSize: (Responsive.isTablet(context)) ? 25.0 : 11.0,
+                    fontSize: (Responsive.isTablet(context)) ? 22.0 : 13.0,
                   ),
                 );
               },
             ),
-            SizedBox(
-              height: size.height * 0.025,
-            ),
             Text(
-              'Manfaat mengkonsumsi ${doc['name']}',
+              '${'Benefits of consuming'.tr} ${doc['en'.tr]['name']}',
               style: TextStyle(
                   fontSize: (Responsive.isTablet(context)) ? 30.0 : 14.0,
                   fontWeight: FontWeight.w600),
@@ -212,15 +211,15 @@ class ItemInfo extends StatelessWidget {
               physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
               separatorBuilder: (context, index) => const SizedBox(
-                height: 15.0,
+                height: 10.0,
               ),
-              itemCount: doc['benefits'].length,
+              itemCount: doc['en'.tr]['benefits'].length,
               itemBuilder: (context, index) {
                 return Text(
-                  doc['benefits'][index],
+                  doc['en'.tr]['benefits'][index],
                   textAlign: TextAlign.justify,
                   style: TextStyle(
-                    fontSize: (Responsive.isTablet(context)) ? 25.0 : 11.0,
+                    fontSize: (Responsive.isTablet(context)) ? 22.0 : 13.0,
                   ),
                 );
               },

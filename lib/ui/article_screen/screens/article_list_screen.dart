@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:nutria/widgets/global_widgets.dart';
 import '../../../responsive.dart';
@@ -46,8 +47,8 @@ class ArticleListScreen extends StatelessWidget {
               return const Center(child: CircularProgressIndicator());
             }
             if (snapshot.data!.docs.isEmpty) {
-              return const SizedBox(
-                child: Center(child: Text("Tidak ada data")),
+              return SizedBox(
+                child: Center(child: Text("There is no data".tr)),
               );
             }
             if (snapshot.hasData) {

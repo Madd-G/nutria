@@ -1,10 +1,12 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:nutria/blocs/blocs.dart';
 import 'package:nutria/responsive.dart';
 import 'package:nutria/widgets/global_widgets.dart';
+import '../../../utils/controller/language_controller.dart';
 import '../../../models/models.dart';
 import 'widgets.dart';
 
@@ -22,6 +24,7 @@ class PredictionSuccessView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(LanguageController());
     Size size = MediaQuery.of(context).size;
     var toolbarHeight = (Responsive.isTablet(context)) ? 420.0 : 300.0;
     return NutriAIButton(
@@ -83,8 +86,8 @@ class PredictionSuccessView extends StatelessWidget {
                 ),
               ),
               Positioned(
-                top: 55,
-                left: 15,
+                top: 40,
+                left: 12,
                 child: GestureDetector(
                   onTap: () {
                     Navigator.pop(context);
@@ -93,11 +96,13 @@ class PredictionSuccessView extends StatelessWidget {
                     height: 35.0,
                     width: 35.0,
                     decoration: BoxDecoration(
-                        color: Colors.white.withOpacity(0.6),
-                        borderRadius: const BorderRadius.all(
-                          Radius.circular(100.0),
-                        )),
-                    child: const Center(child: Icon(Icons.close)),
+                      color: Colors.white.withOpacity(0.6),
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(100.0),
+                      ),
+                    ),
+                    child: const Center(
+                        child: Icon(Icons.arrow_back_ios_new_outlined)),
                   ),
                 ),
               )
@@ -112,8 +117,9 @@ class PredictionSuccessView extends StatelessWidget {
               child: Container(
                 width: MediaQuery.of(context).size.width,
                 decoration: const BoxDecoration(
-                  color: Colors.white,
+                  // color: Colors.white,
                   border: Border(
+                    top: BorderSide(color: Colors.black, width: 1),
                     bottom: BorderSide(color: Colors.black, width: 1),
                   ),
                 ),
@@ -123,14 +129,14 @@ class PredictionSuccessView extends StatelessWidget {
                         isScrollable: true,
                         padding: const EdgeInsets.symmetric(vertical: 8.0),
                         labelPadding: const EdgeInsets.symmetric(horizontal: 5),
-                        unselectedLabelColor:
-                            Theme.of(context).colorScheme.primary,
+                        // unselectedLabelColor: Theme.of(context).colorScheme.primary,
                         indicatorSize: TabBarIndicatorSize.label,
-                        indicator: BoxDecoration(
-                            borderRadius: BorderRadius.circular(50),
-                            color: Theme.of(context).colorScheme.primary),
-                        indicatorColor: Theme.of(context).colorScheme.primary,
-                        labelColor: Colors.black,
+                        // indicator: BoxDecoration(
+                        //     borderRadius: BorderRadius.circular(50),
+                        //     color: Theme.of(context).colorScheme.primary),
+                        // indicatorColor: Theme.of(context).colorScheme.primary,
+                        indicatorColor: Colors.white,
+                        // labelColor: Colors.black,
                         tabs: predictionSuccess.prediction!
                             .map(
                               (label) => Tab(
@@ -149,13 +155,17 @@ class PredictionSuccessView extends StatelessWidget {
                                           width: 1)),
                                   child: Align(
                                     alignment: Alignment.center,
-                                    child: Text(label.className,
-                                        style: TextStyle(
-                                            fontSize:
-                                                (Responsive.isTablet(context))
-                                                    ? 25.0
-                                                    : 12.0,
-                                            fontWeight: FontWeight.w700)),
+                                    child: Text(
+                                      (controller.selectedLanguage == 'English')
+                                          ? label.className.tr
+                                          : label.className,
+                                      style: TextStyle(
+                                          fontSize:
+                                              (Responsive.isTablet(context))
+                                                  ? 25.0
+                                                  : 12.0,
+                                          fontWeight: FontWeight.w700),
+                                    ),
                                   ),
                                 ),
                               ),
@@ -167,8 +177,8 @@ class PredictionSuccessView extends StatelessWidget {
           ),
         ),
         body: (predictionSuccess.prediction!.isEmpty)
-            ? const Center(
-                child: Text('Tidak ada buah/sayuran terdeteksi'),
+            ? Center(
+                child: Text('No fruits/vegetables detected'.tr),
               )
             : TabBarView(
                 children: predictionSuccess.prediction!.map(
@@ -176,7 +186,7 @@ class PredictionSuccessView extends StatelessWidget {
                     return FutureBuilder<QuerySnapshot>(
                       future: FirebaseFirestore.instance
                           .collection('items')
-                          .where("name", isEqualTo: e.className)
+                          .where("ind.name", isEqualTo: e.className)
                           .get(),
                       builder: (context, snapshot) {
                         if (snapshot.connectionState ==
@@ -191,15 +201,17 @@ class PredictionSuccessView extends StatelessWidget {
                           );
                         }
                         if (snapshot.data!.docs.isEmpty) {
-                          return const Center(
-                              child: Text("Tidak ada buah/sayuran terdeteksi"));
+                          return Center(
+                              child: Text("No fruits/vegetables detected".tr));
                         }
                         if (snapshot.hasData) {
                           final DocumentSnapshot doc = snapshot.data!.docs[0];
                           FirebaseFirestore.instance
                               .collection('items')
                               .doc(doc.id)
-                              .update({'viewed': doc['viewed'] + 1});
+                              .update({
+                            '${'en'.tr}.viewed': doc['en'.tr]['viewed'] + 1
+                          });
                           return ItemInfo(doc: doc);
                         } else {
                           return const SizedBox();

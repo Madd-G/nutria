@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:nutria/ui/scan_screen/screens/scan_screen.dart';
 
 class ScanBanner extends StatelessWidget {
@@ -34,7 +35,7 @@ class ScanBanner extends StatelessWidget {
                 const SizedBox(
                   width: 18.0,
                 ),
-                const Expanded(
+                Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -43,10 +44,10 @@ class ScanBanner extends StatelessWidget {
                         child: FittedBox(
                           fit: BoxFit.fitWidth,
                           child: Text(
-                            'PINDAI SEKARANG UNTUK',
-                            style: TextStyle(
+                            'SCAN NOW TO DETECT'.tr,
+                            style: const TextStyle(
                               fontWeight: FontWeight.w700,
-                              color: Colors.white,
+                              // color: Colors.grey,
                             ),
                           ),
                         ),
@@ -55,10 +56,10 @@ class ScanBanner extends StatelessWidget {
                         child: FittedBox(
                           fit: BoxFit.fitWidth,
                           child: Text(
-                            'MENDETEKSI BUAH DAN SAYURAN',
-                            style: TextStyle(
+                            'FRUITS AND VEGETABLES'.tr,
+                            style: const TextStyle(
                               fontWeight: FontWeight.w700,
-                              color: Colors.white,
+                              // color: Colors.white,
                             ),
                           ),
                         ),

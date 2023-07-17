@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import '../../../models/models.dart';
 import '../../../responsive.dart';
@@ -25,7 +26,8 @@ class ChatScreenState extends State<ChatScreen> {
   bool _isTyping = false;
   List<String> konteks = [];
   List<String> chatSession = [
-    'Ayo bermain peran, kamu hanya tahu tentang buah dan sayuran, selain sapaan atau pertanyaan yang tidak berkaitan dengan itu kamu berpura-pura tidak tahu.'
+    'Let\'s role-play, you only know about fruits and vegetables, other than greetings or unrelated questions about fruits or vegetables, you pretend not to know.'
+        .tr
   ];
 
   Future<String> sendMessageToChatGpt(String message) async {
@@ -64,7 +66,8 @@ class ChatScreenState extends State<ChatScreen> {
     focusNode = FocusNode();
     // ignore: unused_local_variable
     List<String> chatSession = [
-      'Ayo bermain peran, kamu hanya tahu tentang buah dan sayuran, selain sapaan atau pertanyaan yang tidak berkaitan dengan itu kamu berpura-pura tidak tahu.'
+      'Let\'s role-play, you only know about fruits and vegetables, other than greetings or unrelated questions about fruits or vegetables, you pretend not to know.'
+          .tr
     ];
     // ignore: unused_local_variable
     List<String> konteks = [];
@@ -85,9 +88,9 @@ class ChatScreenState extends State<ChatScreen> {
   void onSendMessage() async {
     if (_isTyping) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
+        SnackBar(
           content: Text(
-            "You cant send multiple messages at a time",
+            "You can't send multiple messages at a time".tr,
           ),
           backgroundColor: Colors.red,
         ),
@@ -96,9 +99,9 @@ class ChatScreenState extends State<ChatScreen> {
     }
     if (_textEditingController.text.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
+        SnackBar(
           content: Text(
-            "Please type a message",
+            "Please ask any questions about fruits or vegetables".tr,
           ),
           backgroundColor: Colors.red,
         ),
@@ -117,7 +120,7 @@ class ChatScreenState extends State<ChatScreen> {
       // ignore: unused_local_variable
       String chats = chatSession.join(',');
       String finalmessage =
-          'Ayo bermain peran, anda menjadi ahli buah dan sayuran, selain sapaan dan pertanyaan yang berkaitan dengan buah dan sayuran, jawab "Maaf saya tidak mengerti, saya hanya mengerti mengenai buah dan sayuran". Jika pertanyaan mengenai buah dan sayuran maka jawab berdasarkan konteks pertanyaan sebelumnya sebagai referensi, pertanyan sebelumnya ${(konteks.isNotEmpty) ? konteks.last : ''}, pertanyaan yang harus dijawab: $messageText';
+          '${'Let\'s role play, you become a fruit and vegetable expert, in addition to greetings and questions related to fruits and vegetables, answer "Sorry I don\'t understand, I only understand about fruits and vegetables". If the question is about fruits and vegetables, answer based on the context of the previous question as a reference.'.tr} ${(konteks.isNotEmpty) ? konteks.last : ''}, ${'questions to be answered'.tr}: $messageText';
       konteks.add(messageText);
       String response = await sendMessageToChatGpt(finalmessage);
 
@@ -147,7 +150,7 @@ class ChatScreenState extends State<ChatScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: Theme.of(context).colorScheme.primary,
         automaticallyImplyLeading: false,
         elevation: 0.5,
         bottom: PreferredSize(
@@ -178,21 +181,22 @@ class ChatScreenState extends State<ChatScreen> {
           ),
         ),
       ),
-      body: SafeArea(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            const MessageStream(),
-            if (_isTyping) ...[
-              const SpinKitThreeBounce(
-                color: Colors.black,
-                size: 18,
-              ),
-            ],
-            Padding(
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          const MessageStream(),
+          if (_isTyping) ...[
+            SpinKitThreeBounce(
+              // color: Colors.black,
+              size: 18,
+            ),
+          ],
+          Container(
+            color: Theme.of(context).colorScheme.primary,
+            child: Padding(
               padding: const EdgeInsets.only(
-                  left: 15.0, top: 10.0, right: 10.0, bottom: 10.0),
+                  left: 15.0, top: 10.0, right: 10.0, bottom: 50.0),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
@@ -201,16 +205,17 @@ class ChatScreenState extends State<ChatScreen> {
                       controller: _textEditingController,
                       keyboardType: TextInputType.multiline,
                       showCursor: true,
-                      cursorColor: Colors.black,
+                      // cursorColor: Colors.black,
                       minLines: 1,
                       maxLines: 10,
                       focusNode: focusNode,
-                      style:
-                          const TextStyle(color: Colors.black, fontSize: 14.0),
+                      style: const TextStyle(
+                          // color: Colors.black,
+                          fontSize: 14.0),
                       decoration: InputDecoration(
-                        hintText: "Hai, ada yang bisa saya bantu?",
+                        hintText: "ask about fruits or vegetables".tr,
                         hintStyle: TextStyle(
-                            color: Colors.grey,
+                            // color: Colors.grey,
                             fontSize:
                                 Responsive.isTablet(context) ? 15.0 : 12.0),
                         contentPadding: const EdgeInsets.only(
@@ -223,7 +228,7 @@ class ChatScreenState extends State<ChatScreen> {
                           borderRadius: BorderRadius.circular(15.0),
                         ),
                         filled: true,
-                        fillColor: const Color(0xFFF6F6F6),
+                        // fillColor: const Color(0xFFF6F6F6),
                       ),
                       onChanged: (value) {
                         messageText = value;
@@ -248,14 +253,14 @@ class ChatScreenState extends State<ChatScreen> {
                     },
                     icon: const Icon(
                       Icons.send,
-                      color: Colors.black,
+                      // color: Colors.grey,
                     ),
                   ),
                 ],
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -280,10 +285,10 @@ class MessageStream extends StatelessWidget {
           .snapshots(),
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
-          return Center(
+          return const Center(
             child: CircularProgressIndicator(
-              backgroundColor: Theme.of(context).colorScheme.primary,
-            ),
+                // backgroundColor: Theme.of(context).colorScheme.primary,
+                ),
           );
         }
         final messages = snapshot.data?.docs;
@@ -306,14 +311,11 @@ class MessageStream extends StatelessWidget {
           messageWidgets.add(messageBubbles);
         }
         return Expanded(
-          child: Container(
-            color: const Color(0xFFF8F8F8),
-            child: ListView(
-              padding:
-                  const EdgeInsets.symmetric(vertical: 20.0, horizontal: 10.0),
-              reverse: true,
-              children: messageWidgets,
-            ),
+          child: ListView(
+            padding:
+                const EdgeInsets.symmetric(vertical: 20.0, horizontal: 10.0),
+            reverse: true,
+            children: messageWidgets,
           ),
         );
       },
@@ -398,9 +400,11 @@ class ChatContent extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Container(
-                            decoration: const BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.only(
+                            decoration: BoxDecoration(
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .onSecondaryContainer,
+                              borderRadius: const BorderRadius.only(
                                 topRight: Radius.circular(6.0),
                                 bottomLeft: Radius.circular(6.0),
                                 bottomRight: Radius.circular(6.0),

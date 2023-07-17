@@ -1,11 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:floating_draggable_widget/floating_draggable_widget.dart';
 import 'package:flutter/material.dart';
-
+import 'package:get/get.dart';
 import '../blocs/blocs.dart';
 import '../ui/chat_screen/screen/chat_screen.dart';
-import '../ui/home_screen/widgets/login_dialog.dart';
-import '../ui/home_screen/widgets/logout_dialog.dart';
 
 class NutriAIButton extends StatelessWidget {
   const NutriAIButton({super.key, required this.mainWidget, this.screenHeight});
@@ -24,7 +22,7 @@ class NutriAIButton extends StatelessWidget {
             return FloatingActionButton(
               foregroundColor: Colors.white,
               backgroundColor: Theme.of(context).colorScheme.primary,
-              tooltip: 'Hello, may I help you?',
+              tooltip: 'Hello, I\'m NutriAI Bot'.tr,
               onPressed: () {
                 if (FirebaseAuth.instance.currentUser?.uid == null) {
                   showDialog(
@@ -36,7 +34,7 @@ class NutriAIButton extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             const SizedBox(),
-                            const Text('Selamat Datang'),
+                            Text('Welcome'.tr),
                             GestureDetector(
                                 onTap: () {
                                   Navigator.pop(context);
@@ -50,7 +48,7 @@ class NutriAIButton extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const Text('Silahkan masuk dengan akun anda'),
+                              Text('Please login with your account'.tr),
                               const SizedBox(
                                 height: 10.0,
                               ),
@@ -84,9 +82,9 @@ class NutriAIButton extends StatelessWidget {
                                           height: 25.0,
                                         ),
                                         const SizedBox(width: 10.0),
-                                        const Text(
-                                          'Sign in with Apple',
-                                          style: TextStyle(
+                                        Text(
+                                          'Sign in with Apple'.tr,
+                                          style: const TextStyle(
                                               fontWeight: FontWeight.w500,
                                               fontSize: 20.0),
                                         ),
@@ -130,9 +128,9 @@ class NutriAIButton extends StatelessWidget {
                                           height: 27.0,
                                         ),
                                         const SizedBox(width: 7.0),
-                                        const Text(
-                                          'Sign in with Google',
-                                          style: TextStyle(
+                                        Text(
+                                          'Sign in with Google'.tr,
+                                          style: const TextStyle(
                                               fontWeight: FontWeight.w500,
                                               fontSize: 20.0),
                                         )
@@ -167,27 +165,3 @@ class NutriAIButton extends StatelessWidget {
     );
   }
 }
-
-// FloatingActionButton(
-// foregroundColor: Colors.white,
-// backgroundColor: Theme.of(context).colorScheme.primary,
-// tooltip: 'Hello, may I help you?',
-// onPressed: () {
-// if (FirebaseAuth.instance.currentUser?.uid == null) {
-// context.read<AuthCubit>().signInWithGoogle(context).then(
-// (value) async => await Navigator.push(
-// context,
-// MaterialPageRoute(
-// builder: (context) => const ChatScreen())));
-// } else {
-// Navigator.push(context,
-// MaterialPageRoute(builder: (context) => const ChatScreen()));
-// }
-// },
-// child: Padding(
-// padding: const EdgeInsets.all(8.0),
-// child: Image.asset(
-// 'assets/images/AI.png',
-// ),
-// ),
-// ),
