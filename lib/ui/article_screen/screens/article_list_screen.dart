@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:nutria/widgets/nutriai_button.dart';
+import 'package:nutria/widgets/global_widgets.dart';
+import '../../../l10n/flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../responsive.dart';
 import '../widgets/widgets.dart';
 
@@ -10,6 +11,7 @@ class ArticleListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AppLocalizations l10n = AppLocalizations.of(context)!;
     Size size = MediaQuery.of(context).size;
     return NutriAIButton(
       screenHeight: MediaQuery.of(context).size.height * 0.95,
@@ -17,11 +19,15 @@ class ArticleListScreen extends StatelessWidget {
         appBar: AppBar(
           automaticallyImplyLeading: false,
           bottom: PreferredSize(
-            preferredSize: Size.fromHeight(size.height * 0.15),
+            preferredSize: Size.fromHeight((Responsive.isTablet(context))
+                ? size.height * 0.15
+                : size.height * 0.12),
             child: Column(
               children: [
                 Container(
-                  height: (Responsive.isTablet(context)) ? MediaQuery.of(context).size.height * 0.15 : MediaQuery.of(context).size.height * 0.15,
+                  height: (Responsive.isTablet(context))
+                      ? MediaQuery.of(context).size.height * 0.15
+                      : MediaQuery.of(context).size.height * 0.15,
                   color: Theme.of(context).colorScheme.primary,
                   child: Lottie.asset(
                     'assets/animation/articles.json',
@@ -42,8 +48,8 @@ class ArticleListScreen extends StatelessWidget {
               return const Center(child: CircularProgressIndicator());
             }
             if (snapshot.data!.docs.isEmpty) {
-              return const SizedBox(
-                child: Center(child: Text("Tidak ada data")),
+              return SizedBox(
+                child: Center(child: Text(l10n.thereIsNoData)),
               );
             }
             if (snapshot.hasData) {

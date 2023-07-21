@@ -1,7 +1,8 @@
 import 'package:basic_utils/basic_utils.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:nutria/widgets/nutriai_button.dart';
+import 'package:nutria/widgets/global_widgets.dart';
+import '../../../l10n/flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../responsive.dart';
 import '../widgets/widgets.dart';
 import '../widgets/search_bar.dart' as search;
@@ -41,7 +42,7 @@ class _ListScreenState extends State<ListScreen> {
   @override
   Widget build(BuildContext context) {
     final TabBloc tabBloc = context.read<TabBloc>();
-
+    final AppLocalizations l10n = AppLocalizations.of(context)!;
     return NutriAIButton(
       mainWidget: DefaultTabController(
         initialIndex: (tabBloc.state is TabStateIsInFruitTab) ? 0 : 1,
@@ -61,42 +62,68 @@ class _ListScreenState extends State<ListScreen> {
                   //   ),
                   SafeArea(
                     child: Center(
-                      child: Text(
-                        'Buah dan Sayuran',
-                        style: TextStyle(
-                          fontFamily: 'GT Maru',
-                          color: Colors.white,
-                          fontWeight: FontWeight.w700,
-                          fontSize: Responsive.isTablet(context) ? 30 : 15,
+                      child: Padding(
+                        padding:
+                            const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.pop(context);
+                              },
+                              child: const Icon(
+                                Icons.arrow_back_ios_new_outlined,
+                                color: Colors.white,
+                              ),
+                            ),
+                            Text(
+                              l10n.fruitVegetable,
+                              style: TextStyle(
+                                fontFamily: 'GT Maru',
+                                color: Colors.white,
+                                fontWeight: FontWeight.w700,
+                                fontSize:
+                                    Responsive.isTablet(context) ? 30 : 20,
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 40.0,
+                            ),
+                          ],
                         ),
                       ),
                     ),
                   ),
                   search.SearchBar(
                     searchController: searchController,
+                    l10n: l10n,
                   ),
                   (searchController.text.isEmpty)
                       ? Material(
-                          color: Colors.white,
+                          // color: Colors.white,
                           child: TabBar(
                             indicatorColor:
-                                Theme.of(context).colorScheme.primary,
-                            unselectedLabelColor: Colors.black,
-                            labelColor: Theme.of(context).colorScheme.primary,
+                                Theme.of(context).colorScheme.onPrimary,
+                            // labelColor: (isDarkMode)
+                            //     ? Colors.white
+                            //     : Colors.black,
+                            // unselectedLabelColor: Colors.black,
+                            labelColor: Theme.of(context).colorScheme.onPrimary,
                             tabs: [
                               Tab(
-                                child: Text('Buah',
+                                child: Text(l10n.fruit,
                                     style: TextStyle(
                                         fontSize: (Responsive.isTablet(context))
-                                            ? 25
+                                            ? 20
                                             : 14,
                                         fontWeight: FontWeight.w500)),
                               ),
                               Tab(
-                                child: Text('Sayuran',
+                                child: Text(l10n.vegetable,
                                     style: TextStyle(
                                         fontSize: (Responsive.isTablet(context))
-                                            ? 25
+                                            ? 20
                                             : 14,
                                         fontWeight: FontWeight.w500)),
                               ),
@@ -109,16 +136,16 @@ class _ListScreenState extends State<ListScreen> {
             ),
           ),
           body: (searchController.text.isEmpty)
-              ? const TabBarView(
+              ? TabBarView(
                   children: [
-                    FruitContent(),
-                    VegetableContent(),
+                    FruitContent(l10n: l10n),
+                    VegetableContent(l10n: l10n),
                   ],
                 )
               : FutureBuilder<QuerySnapshot>(
                   future: FirebaseFirestore.instance
                       .collection('items')
-                      .where("name",
+                      .where("${l10n.lang}.name",
                           isEqualTo:
                               StringUtils.capitalize(searchController.text))
                       .get(),
@@ -127,17 +154,25 @@ class _ListScreenState extends State<ListScreen> {
                       return const Center(child: CircularProgressIndicator());
                     }
                     if (snapshot.data!.docs.isEmpty) {
-                      return const Center(child: Text("Data tidak ditemukan"));
+                      return Center(
+                          child: Text(
+                        l10n.dataNotFound,
+                        textAlign: TextAlign.center,
+                      ));
                     }
                     if (snapshot.hasData) {
                       final DocumentSnapshot doc = snapshot.data!.docs[0];
-                      return ProductCard(doc: doc);
+                      return Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: SizedBox(
+                            height: 200.0,
+                            child: ProductCard(doc: doc, l10n: l10n)),
+                      );
                     } else {
                       return const SizedBox();
                     }
                   },
                 ),
-          // floatingActionButton: const NutriAIButton(),
         ),
       ),
     );

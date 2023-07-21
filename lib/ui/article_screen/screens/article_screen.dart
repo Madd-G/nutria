@@ -1,13 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:nutria/widgets/nutriai_button.dart';
+import 'package:nutria/widgets/global_widgets.dart';
+import '../../../l10n/flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../responsive.dart';
 import '../widgets/widgets.dart';
 
 class ArticleScreen extends StatefulWidget {
-  const ArticleScreen({Key? key, required this.doc}) : super(key: key);
-
+  const ArticleScreen({Key? key, required this.doc, required this.l10n}) : super(key: key);
   final DocumentSnapshot doc;
+  final AppLocalizations l10n;
 
   @override
   State<ArticleScreen> createState() => _ArticleScreenState();
@@ -19,7 +20,7 @@ class _ArticleScreenState extends State<ArticleScreen> {
     FirebaseFirestore.instance
         .collection('article')
         .doc(widget.doc.id)
-        .update({'viewed': widget.doc['viewed'] + 1});
+        .update({'${widget.l10n.lang}.viewed': widget.doc[widget.l10n.lang]['viewed'] + 1});
     super.initState();
   }
 
@@ -50,7 +51,7 @@ class _ArticleScreenState extends State<ArticleScreen> {
                           topLeft: Radius.circular(10.0)),
                     ),
                     child: Padding(
-                      padding: const EdgeInsets.fromLTRB(15.0, 15.0, 15.0, 0.0),
+                      padding: const EdgeInsets.fromLTRB(16.0, 15.0, 16.0, 0.0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -60,11 +61,11 @@ class _ArticleScreenState extends State<ArticleScreen> {
                           ArticleTitle(doc: widget.doc),
                           SizedBox(
                             height:
-                                (Responsive.isDesktop(context)) ? 15.0 : 10.0,
+                                (Responsive.isDesktop(context)) ? 17.0 : 13.0,
                           ),
                           ArticleAuthor(doc: widget.doc),
                           const SizedBox(
-                            height: 20.0,
+                            height: 24.0,
                           ),
                           Article(doc: widget.doc)
                         ],

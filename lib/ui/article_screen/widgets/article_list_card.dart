@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import '../../../l10n/flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../responsive.dart';
 import '../../screens.dart';
 
@@ -14,15 +15,21 @@ class ArticleListCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AppLocalizations l10n = AppLocalizations.of(context)!;
     final Size size = MediaQuery.of(context).size;
     return SizedBox(
-      height: (Responsive.isTablet(context)) ? size.width * 0.24 : size.width * 0.35,
+      height: (Responsive.isTablet(context))
+          ? size.width * 0.24
+          : size.width * 0.35,
       child: GestureDetector(
         onTap: () {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => ArticleScreen(doc: doc),
+              builder: (context) => ArticleScreen(
+                doc: doc,
+                l10n: l10n,
+              ),
             ),
           );
         },
@@ -35,7 +42,7 @@ class ArticleListCard extends StatelessWidget {
                 width: size.width * 0.4,
                 height: size.width * 0.35,
                 child: CachedNetworkImage(
-                  imageUrl: doc['item-image'],
+                  imageUrl: doc[l10n.lang]['item-image'],
                   // progressIndicatorBuilder: (_, url, download) {
                   //   if (download.progress != null) {
                   //     final percent = download.progress! * 100;
@@ -65,22 +72,24 @@ class ArticleListCard extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Health',
+                            l10n.health,
                             style: TextStyle(
                                 fontSize:
-                                    (Responsive.isTablet(context)) ? 18 : 8,
+                                    (Responsive.isTablet(context)) ? 18 : 10,
                                 color: Colors.grey),
                           ),
-                          SizedBox(height: (Responsive.isTablet(context)) ? 5 : 0,),
+                          SizedBox(
+                            height: (Responsive.isTablet(context)) ? 5 : 0,
+                          ),
                           SizedBox(
                             child: Text(
-                              doc['title'],
+                              doc[l10n.lang]['title'],
                               maxLines: 3,
                               overflow: TextOverflow.clip,
                               style: TextStyle(
                                   fontSize: (Responsive.isTablet(context))
                                       ? 25
-                                      : 11.0,
+                                      : 15.0,
                                   fontWeight: FontWeight.w700),
                             ),
                           ),
@@ -89,7 +98,7 @@ class ArticleListCard extends StatelessWidget {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                           SizedBox(
+                          SizedBox(
                             height: (Responsive.isTablet(context)) ? 10 : 10.0,
                           ),
                           Row(
@@ -97,10 +106,14 @@ class ArticleListCard extends StatelessWidget {
                               ClipRRect(
                                 borderRadius: BorderRadius.circular(16.0),
                                 child: SizedBox(
-                                  width: 20.0,
-                                  height: 20.0,
+                                  width: (Responsive.isTablet(context))
+                                      ? 23.0
+                                      : 23.0,
+                                  height: (Responsive.isTablet(context))
+                                      ? 23.0
+                                      : 23.0,
                                   child: CachedNetworkImage(
-                                    imageUrl: doc['profile-image'],
+                                    imageUrl: doc[l10n.lang]['profile-image'],
                                     // progressIndicatorBuilder:
                                     //     (_, url, download) {
                                     //   if (download.progress != null) {
@@ -119,13 +132,19 @@ class ArticleListCard extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                              const SizedBox(
-                                width: 10.0,
+                              SizedBox(
+                                width:
+                                    Responsive.isTablet(context) ? 10.0 : 8.0,
                               ),
                               Text(
-                                '${doc["author"]} • ${doc['date']}',
+                                '${doc[l10n.lang]["author"]} • ${doc[l10n.lang]['date']}',
                                 style: TextStyle(
-                                    fontSize: (Responsive.isTablet(context)) ? 18 : 7.0, color: Colors.grey),
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: (Responsive.isTablet(context))
+                                      ? 18
+                                      : 11.0,
+                                  // color: Colors.grey,
+                                ),
                               ),
                             ],
                           ),
