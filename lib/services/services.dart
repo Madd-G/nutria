@@ -23,9 +23,8 @@ class ApiService {
 
   final Dio _dio = Dio();
 
-  final String _baseUrl =
-      // 'https://alamsyahyolo-35iuseuykq-et.a.run.app/nutria/';
-      'https://nutria-pemw7i5uxa-et.a.run.app/nutria/';
+  // final String _baseUrl = 'https://nutria-pemw7i5uxa-et.a.run.app/nutria/';
+  final String _baseUrl = 'https://nutria-it6ihfa5za-et.a.run.app/nutria/';
 
   Future<List<Prediction>> uploadImage(String imgPath) async {
     FormData formData =

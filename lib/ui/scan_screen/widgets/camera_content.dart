@@ -5,11 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:nutria/l10n/flutter_gen/gen_l10n/app_localizations.dart';
 import '../../screens.dart';
 
 class CameraContent extends StatefulWidget {
-  const CameraContent({Key? key}) : super(key: key);
+  const CameraContent({Key? key, required this.l10n}) : super(key: key);
 
+  final AppLocalizations l10n;
   @override
   State<CameraContent> createState() => _CameraContentState();
 }
@@ -40,7 +42,7 @@ class _CameraContentState extends State<CameraContent> {
           );
         } else {
           if (kDebugMode) {
-            print('No camera available');
+            print(widget.l10n.noCameraAvailable);
           }
         }
       },

@@ -7,12 +7,11 @@ part 'bottom_nav_bar_state.dart';
 
 class BottomNavBarBloc extends Bloc<BottomNavBarEvent, BottomNavBarState> {
   BottomNavBarBloc() : super(const StateIsInInitial()) {
-    on<EventGoToScanScreen>((event, emit) {
-      emit(const StateIsInScanScreen(0));
-    });
-
     on<EventGoToHomeScreen>((event, emit) {
-      emit(const StateIsInHomeScreen(1));
+      emit(const StateIsInHomeScreen(0));
+    });
+    on<EventGoToScanScreen>((event, emit) {
+      emit(const StateIsInScanScreen(1));
     });
     on<EventGoToArticleScreen>((event, emit) {
       emit(const StateIsInArticleScreen(2));

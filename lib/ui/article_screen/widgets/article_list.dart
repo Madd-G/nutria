@@ -10,7 +10,7 @@ class ArticleList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 2.0, top: 8.0, right: 2.0),
+      padding: const EdgeInsets.only(left: 8.0, top: 8.0, right: 8.0),
       child: ListView.builder(
         itemCount: docs.length,
         itemBuilder: (context, index) {

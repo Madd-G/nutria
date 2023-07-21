@@ -1,25 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:nutria/ui/scan_screen/screens/scan_screen.dart';
+import '../../../blocs/blocs.dart';
+import '../../../l10n/flutter_gen/gen_l10n/app_localizations.dart';
 
 class ScanBanner extends StatelessWidget {
-  const ScanBanner({
-    super.key,
-  });
+  const ScanBanner({super.key, required this.l10n});
+
+  final AppLocalizations l10n;
 
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-
     return ClipRRect(
       borderRadius: BorderRadius.circular(13.0),
       child: GestureDetector(
         onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const ScanScreen(),
-            ),
-          );
+          context.read<BottomNavBarBloc>().add(EventGoToScanScreen());
         },
         child: Container(
           height: size.height * 0.10,
@@ -34,7 +29,7 @@ class ScanBanner extends StatelessWidget {
                 const SizedBox(
                   width: 18.0,
                 ),
-                const Expanded(
+                Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -43,10 +38,10 @@ class ScanBanner extends StatelessWidget {
                         child: FittedBox(
                           fit: BoxFit.fitWidth,
                           child: Text(
-                            'PINDAI SEKARANG UNTUK',
-                            style: TextStyle(
+                            l10n.scanNow,
+                            style: const TextStyle(
                               fontWeight: FontWeight.w700,
-                              color: Colors.white,
+                              // color: Colors.grey,
                             ),
                           ),
                         ),
@@ -55,10 +50,10 @@ class ScanBanner extends StatelessWidget {
                         child: FittedBox(
                           fit: BoxFit.fitWidth,
                           child: Text(
-                            'MENDETEKSI BUAH DAN SAYURAN',
-                            style: TextStyle(
+                            l10n.fruitVegetableUpper,
+                            style: const TextStyle(
                               fontWeight: FontWeight.w700,
-                              color: Colors.white,
+                              // color: Colors.white,
                             ),
                           ),
                         ),

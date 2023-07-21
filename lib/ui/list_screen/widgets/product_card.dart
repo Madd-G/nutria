@@ -1,15 +1,19 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import '../../../l10n/flutter_gen/gen_l10n/app_localizations.dart';
+import '../../../responsive.dart';
 import '../../detail_screen/screen/detail_screen.dart';
 
 class ProductCard extends StatelessWidget {
-  final DocumentSnapshot doc;
-
   const ProductCard({
     super.key,
     required this.doc,
+    required this.l10n,
   });
+
+  final DocumentSnapshot doc;
+  final AppLocalizations l10n;
 
   @override
   Widget build(BuildContext context) {
@@ -18,34 +22,37 @@ class ProductCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(
-            child: Card(
-              child: GestureDetector(
-                onTap: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => DetailScreen(doc: doc))),
-                child: Center(
-                  child: CachedNetworkImage(
-                    imageUrl: doc['item-image'],
-                    progressIndicatorBuilder: (_, url, download) {
-                      if (download.progress != null) {
-                        final percent = download.progress! * 100;
-                        return Text('$percent% done loading');
-                      }
-                      return const Text('');
-                    },
-                    fit: BoxFit.fill,
-                  ),
+            child: GestureDetector(
+              onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => DetailScreen(
+                            doc: doc,
+                            l10n: l10n,
+                          ))),
+              child: Center(
+                child: CachedNetworkImage(
+                  // imageUrl: doc[l10n.lang]['item-image'],
+                  imageUrl: doc[l10n.lang]['image-tr'],
+                  // progressIndicatorBuilder: (_, url, download) {
+                  //   if (download.progress != null) {
+                  //     final percent = download.progress! * 100;
+                  //     return Text('$percent% done loading');
+                  //   }
+                  //   return const Text('');
+                  // },
+                  fit: BoxFit.fill,
                 ),
               ),
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 12.0),
             child: Text(
-              doc['name'],
-              style:
-                  const TextStyle(fontSize: 20.0, fontWeight: FontWeight.w700),
+              doc[l10n.lang]['name'],
+              style: TextStyle(
+                  fontSize: Responsive.isTablet(context) ? 20.0 : 15,
+                  fontWeight: FontWeight.w700),
             ),
           ),
         ],

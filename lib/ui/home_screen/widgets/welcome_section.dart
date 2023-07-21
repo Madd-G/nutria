@@ -1,76 +1,92 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-import '../../../blocs/blocs.dart';
+import 'package:intl/intl.dart';
+import '../../../l10n/flutter_gen/gen_l10n/app_localizations.dart';
+import '../../../responsive.dart';
+import '../../../utils/dialogs/dialogs.dart';
 
-enum Menu { login, logout }
-
-class WelcomeSection extends StatefulWidget {
-  const WelcomeSection({super.key, required this.size});
+class WelcomeSection extends StatelessWidget {
+  const WelcomeSection({super.key, required this.size, required this.l10n});
 
   final Size size;
+  final AppLocalizations l10n;
 
-  @override
-  State<WelcomeSection> createState() => _WelcomeSectionState();
-}
-
-class _WelcomeSectionState extends State<WelcomeSection> {
   @override
   Widget build(BuildContext context) {
-    final GoogleSignIn googleSignIn = GoogleSignIn();
     String? greeting;
-    final GlobalKey<PopupMenuButtonState> popUpKey = GlobalKey();
-    // ignore: unused_local_variable
-    String selectedMenu = '';
     int dt = DateTime.now().hour;
-    if (dt < 10) {
-      greeting = "SELAMAT PAGI";
-    } else if (dt < 16) {
-      greeting = "SELAMAT SIANG";
-    } else if (dt < 19) {
-      greeting = "SELAMAT SORE";
+    if (dt < 12) {
+      greeting = l10n.goodMorning;
+    } else if (dt >= 12 && dt < 18) {
+      greeting = l10n.goodAfternoon;
     } else {
-      greeting = "SELAMAT MALAM";
+      greeting = l10n.goodEvening;
     }
 
     String? month;
 
     switch (DateTime.now().month) {
       case 1:
-        month = "January";
+        month = l10n.january;
         break;
       case 2:
-        month = "Februari";
+        month = l10n.february;
         break;
       case 3:
-        month = "Maret";
+        month = l10n.march;
         break;
       case 4:
-        month = "April";
+        month = l10n.april;
         break;
       case 5:
-        month = "Mei";
+        month = l10n.may;
         break;
       case 6:
-        month = "Juni";
+        month = l10n.june;
         break;
       case 7:
-        month = "Juli";
+        month = l10n.july;
         break;
       case 8:
-        month = "Agustus";
+        month = l10n.august;
         break;
       case 9:
-        month = "September";
+        month = l10n.september;
         break;
       case 10:
-        month = "Oktober";
+        month = l10n.october;
         break;
       case 11:
-        month = "November";
+        month = l10n.november;
         break;
       case 12:
-        month = "Desember";
+        month = l10n.december;
+        break;
+    }
+
+    String? dayOfWeek;
+
+    switch (DateFormat('EEEE').format(DateTime.now())) {
+      case 'Monday':
+        dayOfWeek = l10n.monday;
+        break;
+      case 'Tuesday':
+        dayOfWeek = l10n.tuesday;
+        break;
+      case 'Wednesday':
+        dayOfWeek = l10n.wednesday;
+        break;
+      case 'Thursday':
+        dayOfWeek = l10n.thursday;
+        break;
+      case 'Friday':
+        dayOfWeek = l10n.friday;
+        break;
+      case 'Saturday':
+        dayOfWeek = l10n.saturday;
+        break;
+      case 'Sunday':
+        dayOfWeek = l10n.sunday;
         break;
     }
 
@@ -85,117 +101,42 @@ class _WelcomeSectionState extends State<WelcomeSection> {
             children: [
               Text(
                 greeting,
-                style: const TextStyle(
-                    color: Colors.black,
-                    fontSize: 30,
+                style: TextStyle(
+                    // color: Colors.grey,
+                    fontSize: (Responsive.isTablet(context)) ? 35 : 22,
+                    fontWeight: FontWeight.w900),
+              ),
+              Text(
+                '$dayOfWeek, ${DateTime.now().day} $month ${DateTime.now().year}',
+                style: TextStyle(
+                    // color: Colors.black,
+                    fontSize: (Responsive.isTablet(context)) ? 25 : 16,
                     fontWeight: FontWeight.w700),
               ),
               const SizedBox(
-                height: 5.0,
-              ),
-              Text(
-                'Hari ini ${DateTime.now().day} $month ${DateTime.now().year}',
-                style: const TextStyle(
-                    color: Colors.grey,
-                    fontSize: 15,
-                    fontWeight: FontWeight.w500),
+                height: 15.0,
               ),
               SizedBox(
-                height: widget.size.height * 0.005,
+                height: (Responsive.isTablet(context))
+                    ? size.height * 0.009
+                    : size.height * 0.005,
               ),
             ],
           ),
-          PopupMenuButton<Menu>(
-              icon: Container(
-                height: 50.0,
-                width: 50.0,
-                decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.primary,
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(100.0),
-                  ),
-                ),
-                // child: (FirebaseAuth.instance.currentUser?.uid != null)
-                //     ? Center(
-                //         child: Text(
-                //         FirebaseAuth.instance.currentUser!.email![0].toUpperCase(),
-                //         style: const TextStyle(fontSize: 40.0, color: Colors.white),
-                //       ))
-                //     : const Center(
-                //         child: Icon(
-                //           Icons.account_circle,
-                //           size: 50.0,
-                //           color: Colors.white,
-                //         ),
-                //       ),
-                child: StreamBuilder<User?>(
-                  stream: FirebaseAuth.instance.authStateChanges(),
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return const CircularProgressIndicator();
-                    } else if (snapshot.hasData) {
-                      return Center(
-                          child: Text(
-                        FirebaseAuth.instance.currentUser!.email![0]
-                            .toUpperCase(),
-                        style: const TextStyle(
-                            fontSize: 40.0,
-                            color: Colors.white,
-                            fontWeight: FontWeight.w700),
-                      ));
-                    } else {
-                      return const Center(
-                        child: Icon(
-                          Icons.account_circle,
-                          size: 50.0,
-                          color: Colors.white,
-                        ),
-                      );
-                    }
-                  },
-                ),
-              ),
-              iconSize: 50.0,
-              key: popUpKey,
-              onSelected: (Menu item) async {
-                setState(() {
-                  selectedMenu = item.name;
-                });
-                if (selectedMenu == 'login') {
-                  context.read<AuthCubit>().signInWithGoogle(context).then(
-                        (value) => ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('Berhasil Login'),
-                          ),
-                        ),
-                      );
-                } else {
-                  await googleSignIn.signOut();
-                  await FirebaseAuth.instance.signOut();
-                  (mounted) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Berhasil logout')),
+          StreamBuilder<User?>(
+            stream: FirebaseAuth.instance.authStateChanges(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const CircularProgressIndicator();
+              } else if (snapshot.hasData) {
+                return const LogoutDialog();
+              } else {
+                return const LoginDialog(
+                    // l10n: widget.l10n,
                     );
-                  };
-                }
-              },
-              itemBuilder: (BuildContext context) {
-                if (FirebaseAuth.instance.currentUser?.uid == null) {
-                  return <PopupMenuEntry<Menu>>[
-                    const PopupMenuItem<Menu>(
-                      value: Menu.login,
-                      child: Text('Login'),
-                    ),
-                  ];
-                } else {
-                  return <PopupMenuEntry<Menu>>[
-                    const PopupMenuItem<Menu>(
-                      value: Menu.logout,
-                      child: Text('LogOut'),
-                    ),
-                  ];
-                }
-              }),
+              }
+            },
+          ),
         ],
       ),
     );

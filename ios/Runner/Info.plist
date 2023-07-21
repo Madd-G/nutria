@@ -19,7 +19,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>$(FLUTTER_BUILD_NAME)</string>
+	<string>1.1.0</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
@@ -29,20 +29,27 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.googleusercontent.apps.210550974337-68l7dobh86q17rjo5b254scb3tbs60g5</string>
+				<string>com.googleusercontent.apps.296377663659-029kls8bk5hcnjdk2tqn5ssjici3r5nk</string>
 			</array>
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>$(FLUTTER_BUILD_NUMBER)</string>
+	<string>5</string>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
-	<string>Dengan mengijinkan akses, anda dapat mengambil gambar dari kamera</string>
+	<string>Allowing access to the camera lets you scan fruits and vegetables. Photos will not be saved or shared anywhere.</string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>Ijinkan aplikasi menggunakan mikrofon anda</string>
+	<string>Allow microphone access to record audio when you scan fruits and vegetables. Recording will not be saved or shared anywhere.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Dengan membuka akses, anda dapat mengupload gambar dari gallery</string>
+	<string>Allowing access to the gallery lets you scan fruits and vegetables from images in the gallery. Photos will not be saved or shared anywhere.</string>
+	<key>UIApplicationSceneManifest</key>
+	<dict>
+		<key>UISceneConfigurations</key>
+		<dict/>
+	</dict>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>
