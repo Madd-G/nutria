@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:nutria/widgets/global_widgets.dart';
+import '../../../l10n/flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../responsive.dart';
 import '../widgets/widgets.dart';
 
@@ -11,6 +11,7 @@ class ArticleListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AppLocalizations l10n = AppLocalizations.of(context)!;
     Size size = MediaQuery.of(context).size;
     return NutriAIButton(
       screenHeight: MediaQuery.of(context).size.height * 0.95,
@@ -48,7 +49,7 @@ class ArticleListScreen extends StatelessWidget {
             }
             if (snapshot.data!.docs.isEmpty) {
               return SizedBox(
-                child: Center(child: Text("There is no data".tr)),
+                child: Center(child: Text(l10n.thereIsNoData)),
               );
             }
             if (snapshot.hasData) {

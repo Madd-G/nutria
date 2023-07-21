@@ -2,15 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:nutria/blocs/blocs.dart';
 import '../../../theme.dart';
 
-class ThemeButton extends StatefulWidget {
+class ThemeButton extends StatelessWidget {
   const ThemeButton({Key? key}) : super(key: key);
 
-  @override
-  State<ThemeButton> createState() => _ThemeButtonState();
-}
-
-class _ThemeButtonState extends State<ThemeButton> {
-  bool themeMode = true;
+  final bool themeMode = true;
 
   @override
   Widget build(BuildContext context) {

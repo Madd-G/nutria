@@ -19,12 +19,15 @@ class AppTheme {
 
   static final ThemeData darkTheme = ThemeData.dark().copyWith(
       colorScheme: ColorScheme.fromSwatch().copyWith(
-          background: const Color(0xff1F212F),
+          // background: const Color(0xff1F212F),
+          background: Colors.black,
           primary: const Color(0xff1F212F),
-          secondary: const Color(0xff131525),
+          // primary: const Color(0xff1E1E1E),
+          // secondary: const Color(0xff131525),
+          secondary: const Color(0xff1E1E1E),
           onPrimary: Colors.white,
           onSecondary: Colors.grey,
           onPrimaryContainer: Colors.white,
-          onSecondaryContainer: Colors.white30),
+          onSecondaryContainer: Colors.white54),
       textTheme: const TextTheme(labelMedium: TextStyle(color: Colors.white)));
 }

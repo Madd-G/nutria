@@ -1,30 +1,27 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
-import 'package:nutria/blocs/blocs.dart';
+import 'package:nutria/l10n/flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:nutria/responsive.dart';
 import 'package:nutria/widgets/global_widgets.dart';
-import '../../../utils/controller/language_controller.dart';
 import '../../../models/models.dart';
 import 'widgets.dart';
 
 class PredictionSuccessView extends StatelessWidget {
   const PredictionSuccessView({
     super.key,
-    required this.predictionSuccess,
     required this.predictionModel,
     required this.imagePath,
+    required this.l10n,
   });
 
-  final PredictionSuccessState predictionSuccess;
   final List<Prediction> predictionModel;
   final String? imagePath;
+  final AppLocalizations l10n;
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(LanguageController());
     Size size = MediaQuery.of(context).size;
     var toolbarHeight = (Responsive.isTablet(context)) ? 420.0 : 300.0;
     return NutriAIButton(
@@ -70,7 +67,8 @@ class PredictionSuccessView extends StatelessWidget {
                                         ),
                                       ),
                                       child: const Center(
-                                          child: Icon(Icons.close)),
+                                        child: Icon(Icons.close),
+                                      ),
                                     ),
                                   ),
                                 )
@@ -116,19 +114,21 @@ class PredictionSuccessView extends StatelessWidget {
               alignment: Alignment.centerLeft,
               child: Container(
                 width: MediaQuery.of(context).size.width,
-                decoration: const BoxDecoration(
-                  // color: Colors.white,
-                  border: Border(
+                decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.primary,
+                  border: const Border(
                     top: BorderSide(color: Colors.black, width: 1),
                     bottom: BorderSide(color: Colors.black, width: 1),
                   ),
                 ),
-                child: (predictionSuccess.prediction!.isEmpty)
+                child: (predictionModel.isEmpty)
                     ? const SizedBox.shrink()
                     : TabBar(
                         isScrollable: true,
-                        padding: const EdgeInsets.symmetric(vertical: 8.0),
-                        labelPadding: const EdgeInsets.symmetric(horizontal: 5),
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 8.0, horizontal: 2.0),
+                        labelPadding:
+                            const EdgeInsets.symmetric(horizontal: 10),
                         // unselectedLabelColor: Theme.of(context).colorScheme.primary,
                         indicatorSize: TabBarIndicatorSize.label,
                         // indicator: BoxDecoration(
@@ -137,56 +137,90 @@ class PredictionSuccessView extends StatelessWidget {
                         // indicatorColor: Theme.of(context).colorScheme.primary,
                         indicatorColor: Colors.white,
                         // labelColor: Colors.black,
-                        tabs: predictionSuccess.prediction!
-                            .map(
-                              (label) => Tab(
-                                height: (Responsive.isTablet(context))
-                                    ? 40.0
-                                    : 30.0,
-                                child: Container(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 16.0),
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(50),
-                                      border: Border.all(
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .primary,
-                                          width: 1)),
+                        tabs: predictionModel.map((item) {
+                          return FutureBuilder<QuerySnapshot>(
+                            future: FirebaseFirestore.instance
+                                .collection('items')
+                                .where("ind.name", isEqualTo: item.className)
+                                .get(),
+                            builder: (context, snapshot) {
+                              if (snapshot.connectionState ==
+                                  ConnectionState.waiting) {
+                                return const SizedBox.shrink();
+                              }
+                              if (snapshot.data!.docs.isEmpty) {
+                                return Text(l10n.noFruitVegetable);
+                              }
+                              if (snapshot.hasData) {
+                                final DocumentSnapshot doc =
+                                    snapshot.data!.docs[0];
+                                FirebaseFirestore.instance
+                                    .collection('items')
+                                    .doc(doc.id);
+                                return Tab(
+                                  height: (Responsive.isTablet(context))
+                                      ? 40.0
+                                      : 25.0,
                                   child: Align(
                                     alignment: Alignment.center,
                                     child: Text(
-                                      (controller.selectedLanguage == 'English')
-                                          ? label.className.tr
-                                          : label.className,
+                                      doc[l10n.lang]['name'],
                                       style: TextStyle(
                                           fontSize:
                                               (Responsive.isTablet(context))
                                                   ? 25.0
-                                                  : 12.0,
+                                                  : 15.0,
                                           fontWeight: FontWeight.w700),
                                     ),
                                   ),
-                                ),
-                              ),
-                            )
-                            .toList(),
+                                );
+                                // return ItemInfo(
+                                //   doc: doc,
+                                //   l10n: l10n,
+                                // );
+                              } else {
+                                return const SizedBox();
+                              }
+                            },
+                          );
+                        }
+                            //     Tab(
+                            //   height: (Responsive.isTablet(context))
+                            //       ? 40.0
+                            //       : 25.0,
+                            //   child: Align(
+                            //     alignment: Alignment.center,
+                            //     child: Text(
+                            //       // (controller.selectedLanguage == 'English')
+                            //       //     ? label.className.tr
+                            //       //     :
+                            //       label.className,
+                            //       style: TextStyle(
+                            //           fontSize:
+                            //               (Responsive.isTablet(context))
+                            //                   ? 25.0
+                            //                   : 15.0,
+                            //           fontWeight: FontWeight.w700),
+                            //     ),
+                            //   ),
+                            // ),
+                            ).toList(),
                       ),
               ),
             ),
           ),
         ),
-        body: (predictionSuccess.prediction!.isEmpty)
+        body: (predictionModel.isEmpty)
             ? Center(
-                child: Text('No fruits/vegetables detected'.tr),
+                child: Text(l10n.noFruitVegetable),
               )
             : TabBarView(
-                children: predictionSuccess.prediction!.map(
-                  (e) {
+                children: predictionModel.map(
+                  (item) {
                     return FutureBuilder<QuerySnapshot>(
                       future: FirebaseFirestore.instance
                           .collection('items')
-                          .where("ind.name", isEqualTo: e.className)
+                          .where("ind.name", isEqualTo: item.className)
                           .get(),
                       builder: (context, snapshot) {
                         if (snapshot.connectionState ==
@@ -201,8 +235,7 @@ class PredictionSuccessView extends StatelessWidget {
                           );
                         }
                         if (snapshot.data!.docs.isEmpty) {
-                          return Center(
-                              child: Text("No fruits/vegetables detected".tr));
+                          return Center(child: Text(l10n.noFruitVegetable));
                         }
                         if (snapshot.hasData) {
                           final DocumentSnapshot doc = snapshot.data!.docs[0];
@@ -210,9 +243,12 @@ class PredictionSuccessView extends StatelessWidget {
                               .collection('items')
                               .doc(doc.id)
                               .update({
-                            '${'en'.tr}.viewed': doc['en'.tr]['viewed'] + 1
+                            '${l10n.lang}.viewed': doc[l10n.lang]['viewed'] + 1
                           });
-                          return ItemInfo(doc: doc);
+                          return ItemInfo(
+                            doc: doc,
+                            l10n: l10n,
+                          );
                         } else {
                           return const SizedBox();
                         }

@@ -4,10 +4,10 @@ part of 'bottom_nav_bar_bloc.dart';
 abstract class BottomNavBarEvent {}
 
 @immutable
-class EventGoToScanScreen extends BottomNavBarEvent {}
+class EventGoToHomeScreen extends BottomNavBarEvent {}
 
 @immutable
-class EventGoToHomeScreen extends BottomNavBarEvent {}
+class EventGoToScanScreen extends BottomNavBarEvent {}
 
 @immutable
 class EventGoToArticleScreen extends BottomNavBarEvent {}

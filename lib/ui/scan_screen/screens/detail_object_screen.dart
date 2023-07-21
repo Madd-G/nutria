@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import '../../../blocs/blocs.dart';
+import '../../../l10n/flutter_gen/gen_l10n/app_localizations.dart';
 import '../widgets/widgets.dart';
 import 'dart:io';
-
 
 class DetailObjectScreen extends StatefulWidget {
   const DetailObjectScreen({super.key, this.image});
@@ -18,13 +17,18 @@ class DetailObjectScreen extends StatefulWidget {
 class _DetailObjectScreenState extends State<DetailObjectScreen> {
   @override
   void initState() {
-    context.read<PredictionBloc>().add(GetPrediction(
-      imagePath: widget.image!.path,
-    ));
+    context.read<PredictionBloc>().add(
+          GetPrediction(
+            imagePath: widget.image!.path,
+          ),
+        );
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
+    final AppLocalizations l10n = AppLocalizations.of(context)!;
+
     return BlocBuilder<PredictionBloc, PredictionState>(
       builder: (context, predictionState) {
         if (predictionState is PredictionLoadingState) {
@@ -41,9 +45,9 @@ class _DetailObjectScreenState extends State<DetailObjectScreen> {
                 ? 1
                 : predictionState.prediction!.length,
             child: PredictionSuccessView(
-              predictionSuccess: predictionState,
               predictionModel: predictionState.prediction!,
               imagePath: widget.image!.path,
+              l10n: l10n,
             ),
           );
         } else if (predictionState is PredictionErrorState) {
@@ -52,10 +56,10 @@ class _DetailObjectScreenState extends State<DetailObjectScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text('Oops, an error occurred'.tr),
+                  Text(l10n.errorOccurred),
                   ElevatedButton(
                       onPressed: () => Navigator.pop(context),
-                      child: Text('BACK'.tr))
+                      child: Text(l10n.back))
                 ],
               ),
             ),

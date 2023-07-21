@@ -3,15 +3,16 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:nutria/l10n/flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../models/models.dart';
 import '../../../responsive.dart';
 
 class ChatScreen extends StatefulWidget {
-  const ChatScreen({super.key, this.modalContext});
+  const ChatScreen({super.key, this.modalContext, required this.l10n});
 
   final BuildContext? modalContext;
+  final AppLocalizations l10n;
 
   @override
   ChatScreenState createState() => ChatScreenState();
@@ -26,8 +27,7 @@ class ChatScreenState extends State<ChatScreen> {
   bool _isTyping = false;
   List<String> konteks = [];
   List<String> chatSession = [
-    'Let\'s role-play, you only know about fruits and vegetables, other than greetings or unrelated questions about fruits or vegetables, you pretend not to know.'
-        .tr
+    'Ayo bermain peran, kamu hanya tahu tentang buah dan sayuran, selain sapaan atau pertanyaan yang tidak berkaitan dengan itu kamu berpura-pura tidak tahu.'
   ];
 
   Future<String> sendMessageToChatGpt(String message) async {
@@ -66,8 +66,7 @@ class ChatScreenState extends State<ChatScreen> {
     focusNode = FocusNode();
     // ignore: unused_local_variable
     List<String> chatSession = [
-      'Let\'s role-play, you only know about fruits and vegetables, other than greetings or unrelated questions about fruits or vegetables, you pretend not to know.'
-          .tr
+      'Ayo bermain peran, kamu hanya tahu tentang buah dan sayuran, selain sapaan atau pertanyaan yang tidak berkaitan dengan itu kamu berpura-pura tidak tahu.'
     ];
     // ignore: unused_local_variable
     List<String> konteks = [];
@@ -90,7 +89,7 @@ class ChatScreenState extends State<ChatScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(
-            "You can't send multiple messages at a time".tr,
+            widget.l10n.cantSendMultipleMessage,
           ),
           backgroundColor: Colors.red,
         ),
@@ -101,7 +100,7 @@ class ChatScreenState extends State<ChatScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(
-            "Please ask any questions about fruits or vegetables".tr,
+            widget.l10n.askQuestion,
           ),
           backgroundColor: Colors.red,
         ),
@@ -120,7 +119,7 @@ class ChatScreenState extends State<ChatScreen> {
       // ignore: unused_local_variable
       String chats = chatSession.join(',');
       String finalmessage =
-          '${'Let\'s role play, you become a fruit and vegetable expert, in addition to greetings and questions related to fruits and vegetables, answer "Sorry I don\'t understand, I only understand about fruits and vegetables". If the question is about fruits and vegetables, answer based on the context of the previous question as a reference.'.tr} ${(konteks.isNotEmpty) ? konteks.last : ''}, ${'questions to be answered'.tr}: $messageText';
+          'Ayo bermain peran, anda menjadi ahli buah dan sayuran, selain sapaan dan pertanyaan yang berkaitan dengan buah dan sayuran, jawab "Maaf saya tidak mengerti, saya hanya mengerti mengenai buah dan sayuran". Jika pertanyaan mengenai buah dan sayuran maka jawab berdasarkan konteks pertanyaan sebelumnya sebagai referensi, pertanyan sebelumnya ${(konteks.isNotEmpty) ? konteks.last : ''}, pertanyaan yang harus dijawab: $messageText';
       konteks.add(messageText);
       String response = await sendMessageToChatGpt(finalmessage);
 
@@ -173,30 +172,27 @@ class ChatScreenState extends State<ChatScreen> {
                       fontSize: Responsive.isTablet(context) ? 25 : 18.0,
                       fontWeight: FontWeight.w700),
                 ),
-                const SizedBox(
-                  width: 45.0,
-                ),
+                const Icon(null),
               ],
             ),
           ),
         ),
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          const MessageStream(),
-          if (_isTyping) ...[
-            SpinKitThreeBounce(
-              // color: Colors.black,
-              size: 18,
-            ),
-          ],
-          Container(
-            color: Theme.of(context).colorScheme.primary,
-            child: Padding(
+      body: SafeArea(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            const MessageStream(),
+            if (_isTyping) ...[
+              const SpinKitThreeBounce(
+                color: Colors.black,
+                size: 18,
+              ),
+            ],
+            Padding(
               padding: const EdgeInsets.only(
-                  left: 15.0, top: 10.0, right: 10.0, bottom: 50.0),
+                  left: 15.0, top: 10.0, right: 10.0, bottom: 10.0),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
@@ -205,17 +201,18 @@ class ChatScreenState extends State<ChatScreen> {
                       controller: _textEditingController,
                       keyboardType: TextInputType.multiline,
                       showCursor: true,
-                      // cursorColor: Colors.black,
+                      cursorColor: Theme.of(context).colorScheme.primary,
                       minLines: 1,
                       maxLines: 10,
                       focusNode: focusNode,
                       style: const TextStyle(
-                          // color: Colors.black,
-                          fontSize: 14.0),
+                        // color: Colors.black,
+                        fontSize: 14.0,
+                      ),
                       decoration: InputDecoration(
-                        hintText: "ask about fruits or vegetables".tr,
+                        hintText: widget.l10n.askAboutFruitsVegetable,
                         hintStyle: TextStyle(
-                            // color: Colors.grey,
+                            color: Colors.grey,
                             fontSize:
                                 Responsive.isTablet(context) ? 15.0 : 12.0),
                         contentPadding: const EdgeInsets.only(
@@ -253,14 +250,14 @@ class ChatScreenState extends State<ChatScreen> {
                     },
                     icon: const Icon(
                       Icons.send,
-                      // color: Colors.grey,
+                      color: Colors.grey,
                     ),
                   ),
                 ],
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -285,10 +282,10 @@ class MessageStream extends StatelessWidget {
           .snapshots(),
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
-          return const Center(
+          return Center(
             child: CircularProgressIndicator(
-                // backgroundColor: Theme.of(context).colorScheme.primary,
-                ),
+              backgroundColor: Theme.of(context).colorScheme.primary,
+            ),
           );
         }
         final messages = snapshot.data?.docs;
@@ -371,7 +368,7 @@ class ChatContent extends StatelessWidget {
                                     fontSize: Responsive.isTablet(context)
                                         ? 20.0
                                         : 15.0,
-                                    color: Colors.white,
+                                    // color: Colors.white,
                                     fontWeight: FontWeight.w500),
                               ),
                             ),
@@ -400,11 +397,9 @@ class ChatContent extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Container(
-                            decoration: BoxDecoration(
-                              color: Theme.of(context)
-                                  .colorScheme
-                                  .onSecondaryContainer,
-                              borderRadius: const BorderRadius.only(
+                            decoration: const BoxDecoration(
+                              color: Colors.white54,
+                              borderRadius: BorderRadius.only(
                                 topRight: Radius.circular(6.0),
                                 bottomLeft: Radius.circular(6.0),
                                 bottomRight: Radius.circular(6.0),

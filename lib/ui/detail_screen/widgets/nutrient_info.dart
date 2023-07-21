@@ -2,17 +2,18 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:get/get.dart';
+import 'package:nutria/l10n/flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../blocs/blocs.dart';
 import '../../../responsive.dart';
 
 class NutrientInfo extends StatelessWidget {
   const NutrientInfo({
     super.key,
-    required this.doc,
+    required this.doc, required this.l10n,
   });
 
   final DocumentSnapshot doc;
+  final AppLocalizations l10n;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +29,7 @@ class NutrientInfo extends StatelessWidget {
                 height: 12.0,
               ),
             Text(
-              '${'List of general nutrition information for'.tr} ${doc['en'.tr]['name']}',
+              '${l10n.generalInformation} ${doc[l10n.lang]['name']}',
               style: TextStyle(
                   fontSize: Responsive.isTablet(context) ? 17.0 : 15.0,
                   fontWeight: FontWeight.w600),
@@ -45,7 +46,7 @@ class NutrientInfo extends StatelessWidget {
                     physics: const NeverScrollableScrollPhysics(),
                     childAspectRatio: 20 / 9,
                     crossAxisCount: (Responsive.isTablet(context)) ? 5 : 4,
-                    children: doc['en'.tr]['nutrients'].map<Widget>(
+                    children: doc[l10n.lang]['nutrients'].map<Widget>(
                       (label) {
                         return GestureDetector(
                           onTap: () async {
@@ -55,7 +56,7 @@ class NutrientInfo extends StatelessWidget {
                                 context.read<ChatGPTBloc>().add(
                                       GetResult(
                                           message:
-                                              '${'Definition and benefits of consuming foods that contain'.tr} $label'),
+                                              '${l10n.definitionAndBenefits} $label'),
                                     );
                                 return AlertDialog(
                                   insetPadding: const EdgeInsets.all(8.0),
@@ -165,10 +166,10 @@ class NutrientInfo extends StatelessWidget {
                 separatorBuilder: (context, index) => const SizedBox(
                   height: 10.0,
                 ),
-                itemCount: doc['en'.tr]['nutrients-info'].length,
+                itemCount: doc[l10n.lang]['nutrients-info'].length,
                 itemBuilder: (context, index) {
                   return Text(
-                    doc['en'.tr]['nutrients-info'][index],
+                    doc[l10n.lang]['nutrients-info'][index],
                     textAlign: TextAlign.justify,
                     style: TextStyle(
                       fontSize: (Responsive.isTablet(context)) ? 22.0 : 13.0,

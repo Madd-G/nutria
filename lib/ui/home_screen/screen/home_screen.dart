@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import '../../../l10n/flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../widgets/global_widgets.dart';
 import '../widgets/widgets.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
-
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +23,8 @@ class HomeScreen extends StatelessWidget {
     //   ),
     // );
     Size size = MediaQuery.of(context).size;
+    AppLocalizations l10n = AppLocalizations.of(context)!;
+
     return NutriAIButton(
       screenHeight: MediaQuery.of(context).size.height * 0.95,
       mainWidget: LayoutBuilder(
@@ -38,23 +40,24 @@ class HomeScreen extends StatelessWidget {
                     ),
                     WelcomeSection(
                       size: size,
+                      l10n: l10n,
                     ),
                     SizedBox(
                       height: size.height * 0.01,
                     ),
                     Padding(
-                      padding: const EdgeInsets.all(10.0),
+                      padding: const EdgeInsets.all(8.0),
                       child: Column(
                         children: [
-                          const ScanBanner(),
+                          ScanBanner(l10n: l10n),
                           SizedBox(
                             height: size.height * 0.02,
                           ),
-                          const CategorySection(),
+                          CategorySection(l10n: l10n),
                         ],
                       ),
                     ),
-                    const RecommendationSection(),
+                    RecommendationSection(l10n: l10n),
                     // const RecommendationSection(),
                   ],
                 ),

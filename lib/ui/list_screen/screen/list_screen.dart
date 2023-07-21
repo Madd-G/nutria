@@ -1,8 +1,8 @@
 import 'package:basic_utils/basic_utils.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:nutria/widgets/global_widgets.dart';
+import '../../../l10n/flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../responsive.dart';
 import '../widgets/widgets.dart';
 import '../widgets/search_bar.dart' as search;
@@ -42,7 +42,7 @@ class _ListScreenState extends State<ListScreen> {
   @override
   Widget build(BuildContext context) {
     final TabBloc tabBloc = context.read<TabBloc>();
-
+    final AppLocalizations l10n = AppLocalizations.of(context)!;
     return NutriAIButton(
       mainWidget: DefaultTabController(
         initialIndex: (tabBloc.state is TabStateIsInFruitTab) ? 0 : 1,
@@ -64,7 +64,7 @@ class _ListScreenState extends State<ListScreen> {
                     child: Center(
                       child: Padding(
                         padding:
-                            const EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 0.0),
+                            const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -78,7 +78,7 @@ class _ListScreenState extends State<ListScreen> {
                               ),
                             ),
                             Text(
-                              'Fruits and Vegetables'.tr,
+                              l10n.fruitVegetable,
                               style: TextStyle(
                                 fontFamily: 'GT Maru',
                                 color: Colors.white,
@@ -97,6 +97,7 @@ class _ListScreenState extends State<ListScreen> {
                   ),
                   search.SearchBar(
                     searchController: searchController,
+                    l10n: l10n,
                   ),
                   (searchController.text.isEmpty)
                       ? Material(
@@ -111,18 +112,18 @@ class _ListScreenState extends State<ListScreen> {
                             labelColor: Theme.of(context).colorScheme.onPrimary,
                             tabs: [
                               Tab(
-                                child: Text('Fruit'.tr,
+                                child: Text(l10n.fruit,
                                     style: TextStyle(
                                         fontSize: (Responsive.isTablet(context))
-                                            ? 25
+                                            ? 20
                                             : 14,
                                         fontWeight: FontWeight.w500)),
                               ),
                               Tab(
-                                child: Text('Vegetable'.tr,
+                                child: Text(l10n.vegetable,
                                     style: TextStyle(
                                         fontSize: (Responsive.isTablet(context))
-                                            ? 25
+                                            ? 20
                                             : 14,
                                         fontWeight: FontWeight.w500)),
                               ),
@@ -135,16 +136,16 @@ class _ListScreenState extends State<ListScreen> {
             ),
           ),
           body: (searchController.text.isEmpty)
-              ? const TabBarView(
+              ? TabBarView(
                   children: [
-                    FruitContent(),
-                    VegetableContent(),
+                    FruitContent(l10n: l10n),
+                    VegetableContent(l10n: l10n),
                   ],
                 )
               : FutureBuilder<QuerySnapshot>(
                   future: FirebaseFirestore.instance
                       .collection('items')
-                      .where("${'en'.tr}.name",
+                      .where("${l10n.lang}.name",
                           isEqualTo:
                               StringUtils.capitalize(searchController.text))
                       .get(),
@@ -153,11 +154,20 @@ class _ListScreenState extends State<ListScreen> {
                       return const Center(child: CircularProgressIndicator());
                     }
                     if (snapshot.data!.docs.isEmpty) {
-                      return Center(child: Text("Data not found".tr));
+                      return Center(
+                          child: Text(
+                        l10n.dataNotFound,
+                        textAlign: TextAlign.center,
+                      ));
                     }
                     if (snapshot.hasData) {
                       final DocumentSnapshot doc = snapshot.data!.docs[0];
-                      return ProductCard(doc: doc);
+                      return Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: SizedBox(
+                            height: 200.0,
+                            child: ProductCard(doc: doc, l10n: l10n)),
+                      );
                     } else {
                       return const SizedBox();
                     }

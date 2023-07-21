@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:get/get.dart';
+import 'package:nutria/l10n/flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../blocs/blocs.dart';
 import '../../../responsive.dart';
 
@@ -11,9 +11,11 @@ class ItemInfo extends StatelessWidget {
   const ItemInfo({
     super.key,
     required this.doc,
+    required this.l10n,
   });
 
   final DocumentSnapshot doc;
+  final AppLocalizations l10n;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +30,7 @@ class ItemInfo extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  doc['en'.tr]['name'],
+                  doc[l10n.lang]['name'],
                   style: TextStyle(
                       fontSize: (Responsive.isTablet(context)) ? 40.0 : 23.0,
                       fontWeight: FontWeight.w900),
@@ -42,7 +44,7 @@ class ItemInfo extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(
                         vertical: 6.0, horizontal: 25.0),
                     child: Text(
-                      doc['en'.tr]['category'],
+                      doc[l10n.lang]['category'],
                       textAlign: TextAlign.justify,
                       style: TextStyle(
                         fontSize: (Responsive.isTablet(context)) ? 30.0 : 17.0,
@@ -54,10 +56,12 @@ class ItemInfo extends StatelessWidget {
               ],
             ),
             SizedBox(
-              height: size.height * 0.02,
+              height: Responsive.isTablet(context)
+                  ? size.height * 0.02
+                  : size.height * 0.008,
             ),
             Text(
-              'Nutrients and minerals'.tr,
+              l10n.nutrientsAndMinerals,
               style: TextStyle(
                   fontSize: (Responsive.isTablet(context)) ? 30.0 : 14.0,
                   fontWeight: FontWeight.w600),
@@ -67,9 +71,9 @@ class ItemInfo extends StatelessWidget {
             ),
             StaggeredGrid.count(
               crossAxisCount: 4,
-              mainAxisSpacing: 10.0,
-              crossAxisSpacing: 10.0,
-              children: doc['en'.tr]['nutrients'].map<Widget>(
+              mainAxisSpacing: 4.0,
+              crossAxisSpacing: 2.5,
+              children: doc[l10n.lang]['nutrients'].map<Widget>(
                 (label) {
                   return GestureDetector(
                     onTap: () async {
@@ -77,8 +81,7 @@ class ItemInfo extends StatelessWidget {
                         context: context,
                         builder: (context) {
                           context.read<ChatGPTBloc>().add(GetResult(
-                              message:
-                                  '${'Definition and benefits of consuming foods that contain'.tr} $label'));
+                              message: '${l10n.definitionAndBenefits} $label'));
                           return AlertDialog(
                             insetPadding: const EdgeInsets.all(8.0),
                             title: Row(
@@ -152,7 +155,7 @@ class ItemInfo extends StatelessWidget {
                                 const BorderRadius.all(Radius.circular(5.0))),
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
-                              vertical: 6.0, horizontal: 2.0),
+                              vertical: 8.0, horizontal: 1.0),
                           child: Center(
                               child: Text(
                             label,
@@ -160,7 +163,7 @@ class ItemInfo extends StatelessWidget {
                                 fontWeight: FontWeight.w500,
                                 fontSize: (Responsive.isTablet(context))
                                     ? 25.0
-                                    : 9.0),
+                                    : 12.0),
                             softWrap: false,
                             textAlign: TextAlign.center,
                           )),
@@ -170,10 +173,12 @@ class ItemInfo extends StatelessWidget {
               ).toList(),
             ),
             SizedBox(
-              height: size.height * 0.025,
+              height: Responsive.isTablet(context)
+                  ? size.height * 0.025
+                  : size.height * 0.018,
             ),
             Text(
-              'Description'.tr,
+              l10n.description,
               style: TextStyle(
                   fontSize: (Responsive.isTablet(context)) ? 30.0 : 14.0,
                   fontWeight: FontWeight.w600),
@@ -187,10 +192,10 @@ class ItemInfo extends StatelessWidget {
               separatorBuilder: (context, index) => const SizedBox(
                 height: 10.0,
               ),
-              itemCount: doc['en'.tr]['general-info'].length,
+              itemCount: doc[l10n.lang]['general-info'].length,
               itemBuilder: (context, index) {
                 return Text(
-                  doc['en'.tr]['general-info'][index],
+                  doc[l10n.lang]['general-info'][index],
                   textAlign: TextAlign.justify,
                   style: TextStyle(
                     fontSize: (Responsive.isTablet(context)) ? 22.0 : 13.0,
@@ -198,8 +203,13 @@ class ItemInfo extends StatelessWidget {
                 );
               },
             ),
+            SizedBox(
+              height: Responsive.isTablet(context)
+                  ? size.height * 0.025
+                  : size.height * 0.015,
+            ),
             Text(
-              '${'Benefits of consuming'.tr} ${doc['en'.tr]['name']}',
+              '${l10n.benefitsConsuming} ${doc[l10n.lang]['name']}',
               style: TextStyle(
                   fontSize: (Responsive.isTablet(context)) ? 30.0 : 14.0,
                   fontWeight: FontWeight.w600),
@@ -213,10 +223,10 @@ class ItemInfo extends StatelessWidget {
               separatorBuilder: (context, index) => const SizedBox(
                 height: 10.0,
               ),
-              itemCount: doc['en'.tr]['benefits'].length,
+              itemCount: doc[l10n.lang]['benefits'].length,
               itemBuilder: (context, index) {
                 return Text(
-                  doc['en'.tr]['benefits'][index],
+                  doc[l10n.lang]['benefits'][index],
                   textAlign: TextAlign.justify,
                   style: TextStyle(
                     fontSize: (Responsive.isTablet(context)) ? 22.0 : 13.0,

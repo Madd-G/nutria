@@ -10,17 +10,17 @@ abstract class BottomNavBarState {
 @immutable
 class StateIsInInitial extends BottomNavBarState {
   @override
-  const StateIsInInitial() : super(index: 1);
-}
-
-@immutable
-class StateIsInScanScreen extends BottomNavBarState {
-  const StateIsInScanScreen(int idx) : super(index: 0);
+  const StateIsInInitial() : super(index: 0);
 }
 
 @immutable
 class StateIsInHomeScreen extends BottomNavBarState {
-  const StateIsInHomeScreen(int idx) : super(index: 1);
+  const StateIsInHomeScreen(int idx) : super(index: 0);
+}
+
+@immutable
+class StateIsInScanScreen extends BottomNavBarState {
+  const StateIsInScanScreen(int idx) : super(index: 1);
 }
 
 @immutable

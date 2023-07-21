@@ -19,7 +19,6 @@ class PredictionBloc extends Bloc<PredictionEvent, PredictionState> {
           List<Prediction> prediction = await apiService.uploadImage(imgPath);
           List<Prediction> uniqueList =
               prediction.where((obj) => seen.add(obj.className)).toList();
-
           return uniqueList;
         } on DioException catch (_) {
           rethrow;

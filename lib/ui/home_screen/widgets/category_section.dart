@@ -1,12 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:nutria/blocs/blocs.dart';
+import 'package:nutria/l10n/flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:nutria/ui/list_screen/screen/list_screen.dart';
 import '../../../responsive.dart';
 
 class CategorySection extends StatelessWidget {
-  const CategorySection({super.key});
+  const CategorySection({super.key, required this.l10n});
+
+  final AppLocalizations l10n;
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +19,7 @@ class CategorySection extends StatelessWidget {
         Align(
           alignment: Alignment.centerLeft,
           child: Text(
-            'Category'.tr,
+            l10n.category,
             style: TextStyle(
                 fontSize: (Responsive.isTablet(context)) ? 30 : 18,
                 fontWeight: FontWeight.w700),
@@ -31,8 +33,8 @@ class CategorySection extends StatelessWidget {
           children: [
             CategoryBox(
               imagePath:
-                  'https://firebasestorage.googleapis.com/v0/b/nutria-29b7b.appspot.com/o/app_image%2Fapp%2Ffruit.png?alt=media&token=84c6e087-b405-4b0b-96da-dde2831954f3',
-              label: 'FRUIT'.tr,
+                  'https://firebasestorage.googleapis.com/v0/b/nutria-29b7b.appspot.com/o/app_image%2Fapp%2Ffruit-removebg-preview.png?alt=media&token=0e70555b-24af-41c8-aa44-1af8ce0dece1',
+              label: l10n.fruitUpper,
               onTap: () {
                 Navigator.push(
                     context,
@@ -44,8 +46,8 @@ class CategorySection extends StatelessWidget {
             ),
             CategoryBox(
               imagePath:
-                  'https://firebasestorage.googleapis.com/v0/b/nutria-29b7b.appspot.com/o/app_image%2Fapp%2Fvegetable.png?alt=media&token=594f15d7-46f9-4128-8c46-2a35d3f65d2c',
-              label: 'VEGETABLE'.tr,
+                  'https://firebasestorage.googleapis.com/v0/b/nutria-29b7b.appspot.com/o/app_image%2Fapp%2Fvegetable-removebg-preview.png?alt=media&token=f0741824-0653-4aa7-a825-d15f0027af5f',
+              label: l10n.vegetableUpper,
               onTap: () {
                 Navigator.push(
                     context,
@@ -79,46 +81,49 @@ class CategoryBox extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: SizedBox(
-        width: size.width * 0.47,
+        width: size.width * 0.48,
         height: Responsive.isTablet(context)
-            ? size.height * 0.25
-            : size.height * 0.2,
+            ? 271.0
+            : size.height * 0.18,
         child: Card(
-          color: Colors.white,
-          child: Padding(
-            padding: const EdgeInsets.all(4.0),
-            child: Column(
-              children: [
-                Container(
-                  color: Colors.white,
-                  height: Responsive.isTablet(context)
-                      ? size.height * 0.2
-                      : size.height * 0.15,
-                  width: size.width * 0.45,
-                  child: CachedNetworkImage(
-                    imageUrl: imagePath,
-                    // progressIndicatorBuilder: (_, url, download) {
-                    //   if (download.progress != null) {
-                    //     final percent = download.progress! * 100;
-                    //     return Center(
-                    //         child: Text(
-                    //       'loading: ${percent.toStringAsFixed(0)}%',
-                    //       style: const TextStyle(color: Colors.grey),
-                    //     ));
-                    //   }
-                    //   return const Text('');
-                    // },
-                    fit: BoxFit.fill,
-                  ),
+          // color: Colors.white,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              SizedBox(
+                // color: Colors.white,
+                // height: Responsive.isTablet(context)
+                //     ? size.height * 0.2
+                //     : size.height * 0.15,
+                // width: size.width * 0.45,
+                child: CachedNetworkImage(
+                  imageUrl: imagePath,
+                  // progressIndicatorBuilder: (_, url, download) {
+                  //   if (download.progress != null) {
+                  //     final percent = download.progress! * 100;
+                  //     return Center(
+                  //         child: Text(
+                  //       'loading: ${percent.toStringAsFixed(0)}%',
+                  //       style: const TextStyle(color: Colors.grey),
+                  //     ));
+                  //   }
+                  //   return const Text('');
+                  // },
+                  fit: BoxFit.fill,
                 ),
-                Text(
+              ),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 5.0),
+                child: Text(
                   label,
                   style: TextStyle(
-                      fontSize: (Responsive.isTablet(context)) ? 30.0 : 16.0,
-                      fontWeight: FontWeight.w700, color: Colors.black),
-                )
-              ],
-            ),
+                    fontSize: (Responsive.isTablet(context)) ? 30.0 : 16.0,
+                    fontWeight: FontWeight.w700,
+                    // color: Colors.black,
+                  ),
+                ),
+              )
+            ],
           ),
         ),
       ),

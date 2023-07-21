@@ -1,19 +1,16 @@
+import 'dart:ui';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:nutria/screen_controller.dart';
 import 'package:nutria/theme.dart';
-import 'package:nutria/utils/controller/language_controller.dart';
-import 'package:path_provider/path_provider.dart';
-import 'dictionary.dart';
+import 'package:nutria/utils/custom_scroll/custom_scroll.dart';
+import 'package:nutria/utils/utils.dart';
 import 'firebase_options.dart';
 import 'blocs/blocs.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:hydrated_bloc/hydrated_bloc.dart';
-import 'package:get/get.dart';
-
-// Apple provider
-// https://nutria-f8872.firebaseapp.com/__/auth/handler
+import 'l10n/flutter_gen/gen_l10n/app_localizations.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,19 +20,6 @@ void main() async {
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
   ]);
-  // final storage = await HydratedStorage.build(
-  //   storageDirectory: kIsWeb
-  //       ? HydratedStorage.webStorageDirectory
-  //       : await getApplicationDocumentsDirectory(),
-  // );
-
-  // HydratedBlocOverrides.runZoned(
-  //       () => runApp(MyApp()),
-  //   storage: storage,
-  //   blocObserver: AppBlocObserver(),
-  // );
-  HydratedBloc.storage = await HydratedStorage.build(
-      storageDirectory: await getTemporaryDirectory());
 
   runApp(MyApp());
 }
@@ -50,8 +34,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final languageController = Get.put(LanguageController());
-    final cont = languageController.locale;
     return MultiBlocProvider(
       providers: [
         osThemeIsLight
@@ -84,17 +66,48 @@ class MyApp extends StatelessWidget {
           lazy: true,
           create: (context) => ChatGPTBloc(),
         ),
+        BlocProvider(
+          lazy: true,
+          create: (context) => NetworkBloc()..add(NetworkObserve()),
+        ),
+        BlocProvider(
+          lazy: true,
+          create: (context) => LanguageBloc()..add(GetLanguage()),
+        ),
       ],
-      child: Builder(builder: (context) {
-        return GetMaterialApp(
-          debugShowCheckedModeBanner: false,
-          theme: context.watch<ThemeCubit>().state,
-          translations: Dictionary(),
-          locale: languageController.locale,
-          fallbackLocale: const Locale('en_US', 'EN_US'),
-          home: const ScreenController(),
-        );
-      }),
+      child: Builder(
+        builder: (context) {
+          return BlocBuilder<LanguageBloc, LanguageState>(
+            builder: (languageContext, state) {
+              return MaterialApp(
+                  scrollBehavior: MyCustomScrollBehavior(),
+                  debugShowCheckedModeBanner: false,
+                  theme: context.watch<ThemeCubit>().state,
+                  locale: state.selectedLanguage.value,
+                  supportedLocales: AppLocalizations.supportedLocales,
+                  localizationsDelegates:
+                      AppLocalizations.localizationsDelegates,
+                  home: BlocListener<NetworkBloc, NetworkState>(
+                    listener: (context, state) {
+                      print('<<<<<<<<<<< $state >>>>>>>>>>>');
+                      if (state is NetworkFailure) {
+                        AppLocalizations l10n = AppLocalizations.of(context)!;
+                        showNetworkAlert(
+                          context: context,
+                          title: l10n.noInternetTitle,
+                          content: l10n.noInternetAlert,
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                        );
+                      }
+                    },
+                    child: const ScreenController(),
+                  ));
+            },
+          );
+        },
+      ),
     );
   }
 }

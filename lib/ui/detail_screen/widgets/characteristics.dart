@@ -1,16 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-
+import '../../../l10n/flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../responsive.dart';
 
 class Characteristics extends StatelessWidget {
   const Characteristics({
     super.key,
-    required this.doc,
+    required this.doc, required this.l10n,
   });
 
   final DocumentSnapshot doc;
+  final AppLocalizations l10n;
 
   @override
   Widget build(BuildContext context) {
@@ -21,10 +21,10 @@ class Characteristics extends StatelessWidget {
         separatorBuilder: (context, index) => const SizedBox(
           height: 10.0,
         ),
-        itemCount: doc['en'.tr]['characteristics'].length,
+        itemCount: doc[l10n.lang]['characteristics'].length,
         itemBuilder: (context, index) {
           return Text(
-            doc['en'.tr]['characteristics'][index],
+            doc[l10n.lang]['characteristics'][index],
             textAlign: TextAlign.justify,
             style:  TextStyle(
               fontSize: (Responsive.isTablet(context)) ? 22.0 : 13.0,

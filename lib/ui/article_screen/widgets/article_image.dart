@@ -1,7 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+
+import '../../../l10n/flutter_gen/gen_l10n/app_localizations.dart';
 
 class ArticleImage extends StatelessWidget {
   const ArticleImage({
@@ -15,6 +16,8 @@ class ArticleImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AppLocalizations l10n = AppLocalizations.of(context)!;
+
     return Stack(
       children: [
         Column(
@@ -23,7 +26,7 @@ class ArticleImage extends StatelessWidget {
               height: size.height * 0.32,
               width: size.width,
               child: CachedNetworkImage(
-                imageUrl: doc['en'.tr]['item-image'],
+                imageUrl: doc[l10n.lang]['item-image'],
                 // progressIndicatorBuilder: (_, url, download) {
                 //   if (download.progress != null) {
                 //     final percent = download.progress! * 100;

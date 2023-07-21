@@ -1,21 +1,27 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:nutria/l10n/flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../responsive.dart';
-import 'widgets.dart';
+import '../../ui/home_screen/widgets/widgets.dart';
 
 class LogoutDialog extends StatelessWidget {
   const LogoutDialog({super.key});
 
   @override
   Widget build(BuildContext context) {
-    double bottomSheetHeight = 330.0;
+    double bottomSheetHeight = 340.0;
     final GoogleSignIn googleSignIn = GoogleSignIn();
     return GestureDetector(
       onTap: () {
         showModalBottomSheet(
           context: context,
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20.0),
+              topRight: Radius.circular(20.0),
+            ),
+          ),
           builder: (context) {
             return SizedBox(
               height: bottomSheetHeight,
@@ -44,9 +50,10 @@ class LogoutDialog extends StatelessWidget {
                                 FirebaseAuth.instance.currentUser!.email![0]
                                     .toUpperCase(),
                                 style: TextStyle(
+                                    color: Colors.grey[200],
                                     fontSize: (Responsive.isTablet(context))
                                         ? 35
-                                        : 40.0,
+                                        : 30.0,
                                     // color: Colors.white,
                                     fontWeight: FontWeight.w700),
                               ),
@@ -66,33 +73,42 @@ class LogoutDialog extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(
-                      height: 20.0,
+                      height: 35.0,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          'Change Language'.tr,
+                          AppLocalizations.of(context)!.changeLanguage,
                           style: TextStyle(
                               fontWeight: FontWeight.w500,
                               fontSize:
                                   Responsive.isTablet(context) ? 20.0 : 18.0),
                         ),
                         GestureDetector(
-                            onTap: () {
-                              showModalBottomSheet(
-                                  barrierColor: Colors.transparent,
-                                  context: context,
-                                  builder: (context) {
-                                    return SizedBox(
-                                        height: bottomSheetHeight,
-                                        child: const ChangeLanguageWidget());
-                                  });
-                            },
-                            child: const Icon(
-                              Icons.arrow_forward_ios,
-                              size: 20.0,
-                            )),
+                          onTap: () {
+                            showModalBottomSheet(
+                              barrierColor: Colors.transparent,
+                              context: context,
+                              shape: const RoundedRectangleBorder(
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(20.0),
+                                  topRight: Radius.circular(20.0),
+                                ),
+                              ),
+                              builder: (context) {
+                                return SizedBox(
+                                  height: bottomSheetHeight,
+                                  child: const LanguageBottomSheet(),
+                                );
+                              },
+                            );
+                          },
+                          child: const Icon(
+                            Icons.arrow_forward_ios,
+                            size: 20.0,
+                          ),
+                        ),
                       ],
                     ),
                     const SizedBox(
@@ -102,7 +118,7 @@ class LogoutDialog extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          'Theme'.tr,
+                          AppLocalizations.of(context)!.theme,
                           style: TextStyle(
                               fontWeight: FontWeight.w500,
                               fontSize:
@@ -121,7 +137,8 @@ class LogoutDialog extends StatelessWidget {
                               (value) =>
                                   ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
-                                  content: Text('Logout Successfully'.tr),
+                                  content: Text(AppLocalizations.of(context)!
+                                      .logoutSuccessfully),
                                 ),
                               ),
                             );
@@ -129,7 +146,7 @@ class LogoutDialog extends StatelessWidget {
                         Navigator.pop(context);
                       },
                       child: Text(
-                        'Log Out'.tr,
+                        AppLocalizations.of(context)!.logOut,
                         style: TextStyle(
                             fontWeight: FontWeight.w500,
                             fontSize:
@@ -137,7 +154,7 @@ class LogoutDialog extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(
-                      height: 20.0,
+                      height: 25.0,
                     ),
                     GestureDetector(
                       onTap: () async {
@@ -145,8 +162,8 @@ class LogoutDialog extends StatelessWidget {
                               (value) =>
                                   ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
-                                  content:
-                                      Text('account deleted successfully'.tr),
+                                  content: Text(AppLocalizations.of(context)!
+                                      .deletedSuccessfully),
                                 ),
                               ),
                             );
@@ -154,7 +171,7 @@ class LogoutDialog extends StatelessWidget {
                         Navigator.pop(context);
                       },
                       child: Text(
-                        'Delete Account'.tr,
+                        AppLocalizations.of(context)!.deleteAccount,
                         style: TextStyle(
                             fontWeight: FontWeight.w500,
                             fontSize:
@@ -183,7 +200,7 @@ class LogoutDialog extends StatelessWidget {
             // FirebaseAuth.instance.currentUser!.displayName![0].toUpperCase(),
             FirebaseAuth.instance.currentUser!.email![0].toUpperCase(),
             style: TextStyle(
-                fontSize: (Responsive.isTablet(context)) ? 35 : 30.0,
+                fontSize: (Responsive.isTablet(context)) ? 35 : 25.0,
                 color: Colors.grey[200],
                 fontWeight: FontWeight.w700),
           ),
@@ -192,142 +209,3 @@ class LogoutDialog extends StatelessWidget {
     );
   }
 }
-
-// showDialog(
-//   context: context,
-//   builder: (context) {
-//     return AlertDialog(
-//       insetPadding: const EdgeInsets.fromLTRB(8.0, 8.0, 0.0, 8.0),
-//       title: Row(
-//         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//         children: [
-//           const SizedBox(
-//             width: 10.0,
-//           ),
-//           const Text(
-//             'Account',
-//             style: TextStyle(fontWeight: FontWeight.w700),
-//           ),
-//           GestureDetector(
-//             onTap: () {
-//               Navigator.pop(context);
-//             },
-//             child: const Icon(Icons.close),
-//           ),
-//         ],
-//       ),
-//       content: SizedBox(
-//         width: Responsive.isTablet(context) ? 530 : 350.0,
-//         height: Responsive.isTablet(context) ? 150.0 : 250.0,
-//         child: Column(
-//           crossAxisAlignment: CrossAxisAlignment.start,
-//           children: [
-//             Row(
-//               children: [
-//                 Container(
-//                   height: (Responsive.isTablet(context)) ? 50.0 : 32.0,
-//                   width: (Responsive.isTablet(context)) ? 50.0 : 32.0,
-//                   decoration: BoxDecoration(
-//                     color: Theme.of(context).colorScheme.primary,
-//                     borderRadius: const BorderRadius.all(
-//                       Radius.circular(100.0),
-//                     ),
-//                   ),
-//                   child: Center(
-//                     child: Text(
-//                       // FirebaseAuth.instance.currentUser!.displayName![0].toUpperCase(),
-//                       FirebaseAuth.instance.currentUser!.email![0]
-//                           .toUpperCase(),
-//                       style: TextStyle(
-//                           fontSize: (Responsive.isTablet(context))
-//                               ? 35
-//                               : 17.0,
-//                           color: Colors.white,
-//                           fontWeight: FontWeight.w700),
-//                     ),
-//                   ),
-//                 ),
-//                 const SizedBox(
-//                   width: 10.0,
-//                 ),
-//                 Text(
-//                   FirebaseAuth.instance.currentUser!.email!,
-//                   style: TextStyle(
-//                       fontSize:
-//                           Responsive.isTablet(context) ? 20.0 : 17.0),
-//                 )
-//               ],
-//             ),
-//             const SizedBox(
-//               height: 25.0,
-//             ),
-//             Row(
-//               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//               children: [
-//                 Text(
-//                   'Change language',
-//                   style: TextStyle(
-//                       fontWeight: FontWeight.w500,
-//                       fontSize:
-//                           Responsive.isTablet(context) ? 20.0 : 18.0),
-//                 ),
-//                 GestureDetector(
-//                     onTap: () {},
-//                     child: const Icon(Icons.arrow_forward_ios, size: 20.0,)),
-//               ],
-//             ),
-//             const SizedBox(
-//               height: 20.0,
-//             ),
-//             GestureDetector(
-//               onTap: () async {
-//                 await googleSignIn.signOut();
-//                 await FirebaseAuth.instance.signOut().then(
-//                       (value) =>
-//                           ScaffoldMessenger.of(context).showSnackBar(
-//                         const SnackBar(
-//                           content: Text('Berhasil logout'),
-//                         ),
-//                       ),
-//                     );
-//                 // ignore: use_build_context_synchronously
-//                 Navigator.pop(context);
-//               },
-//               child: Text(
-//                 'Log Out',
-//                 style: TextStyle(
-//                     fontWeight: FontWeight.w500,
-//                     fontSize:
-//                         Responsive.isTablet(context) ? 20.0 : 18.0),
-//               ),
-//             ),
-//             const SizedBox(
-//               height: 20.0,
-//             ),
-//             GestureDetector(
-//               onTap: () async {
-//                 await FirebaseAuth.instance.currentUser!.delete().then(
-//                       (value) =>
-//                           ScaffoldMessenger.of(context).showSnackBar(
-//                         const SnackBar(
-//                           content: Text('account deleted successfully'),
-//                         ),
-//                       ),
-//                     );
-//                 Navigator.pop(context);
-//               },
-//               child: Text(
-//                 'Delete Account',
-//                 style: TextStyle(
-//                     fontWeight: FontWeight.w500,
-//                     fontSize:
-//                         Responsive.isTablet(context) ? 20.0 : 18.0,
-//                     color: Colors.red),
-//               ),
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   },
-// );
