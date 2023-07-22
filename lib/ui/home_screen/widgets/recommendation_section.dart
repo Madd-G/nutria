@@ -29,7 +29,7 @@ class RecommendationSection extends StatelessWidget {
                     Text(
                       l10n.recommendation,
                       style: TextStyle(
-                        fontSize: (Responsive.isTablet(context)) ? 30 : 18,
+                        fontSize: (Responsive.isMobile(context)) ? 18.0 : 30.0,
                         fontWeight: FontWeight.w600,
                         // color: Colors.black,
                       ),
@@ -43,7 +43,7 @@ class RecommendationSection extends StatelessWidget {
                             l10n.todaysRecommendation,
                             style: TextStyle(
                               fontSize:
-                                  (Responsive.isTablet(context)) ? 18 : 13,
+                                  (Responsive.isMobile(context)) ? 13.0 : 18.0,
                               fontWeight: FontWeight.w600,
                               // color: Colors.grey,
                             ),
@@ -74,7 +74,7 @@ class RecommendationSection extends StatelessWidget {
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return SizedBox(
-                        height: (Responsive.isTablet(context)) ? 220 : 180,
+                        height: (Responsive.isMobile(context)) ? 180 : 220,
                         child:
                             const Center(child: CircularProgressIndicator()));
                   }
@@ -91,7 +91,7 @@ class RecommendationSection extends StatelessWidget {
                     final ScrollController controller = ScrollController();
 
                     return SizedBox(
-                      height: (Responsive.isTablet(context)) ? 215 : 180,
+                      height: (Responsive.isMobile(context)) ? 180 : 215,
                       child: ScrollConfiguration(
                         behavior: MyCustomScrollBehavior(),
                         child: ListView.builder(

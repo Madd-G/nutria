@@ -54,7 +54,7 @@ class _DetailScreenState extends State<DetailScreen> {
       l10n.benefits
     ];
 
-    double toolbarHeight = (Responsive.isTablet(context)) ? 500.0 : 320.0;
+    double toolbarHeight = (Responsive.isMobile(context)) ? 320.0 : 500.0;
     return DefaultTabController(
       length: tabsList.length,
       child: NutriAIButton(
@@ -66,7 +66,7 @@ class _DetailScreenState extends State<DetailScreen> {
               children: [
                 SizedBox(
                   // color: Colors.white,
-                  height: (Responsive.isTablet(context)) ? 510 : toolbarHeight,
+                  height: (Responsive.isMobile(context)) ? toolbarHeight : 510,
                   width: MediaQuery.of(context).size.width,
                   child: CachedNetworkImage(
                     // imageUrl: widget.doc[l10n.lang]['item-image'],
@@ -141,16 +141,16 @@ class _DetailScreenState extends State<DetailScreen> {
                         .map<Widget>(
                           (tabName) => Tab(
                             height:
-                                (Responsive.isTablet(context)) ? 38.0 : 30.0,
+                                (Responsive.isMobile(context)) ? 30.0 : 38.0,
                             child: Align(
                               alignment: Alignment.center,
                               child: Text(
                                 tabName,
                                 style: TextStyle(
                                     // color: Colors.red,
-                                    fontSize: (Responsive.isTablet(context))
-                                        ? 23.0
-                                        : 13.0,
+                                    fontSize: (Responsive.isMobile(context))
+                                        ? 13.0
+                                        : 23.0,
                                     fontWeight: FontWeight.w700),
                               ),
                             ),

@@ -37,7 +37,6 @@ class NutriAIButton extends StatelessWidget {
               if (FirebaseAuth.instance.currentUser?.uid == null) {
                 showModalBottomSheet(
                   context: context,
-                  barrierColor: Colors.transparent,
                   shape: const RoundedRectangleBorder(
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(20.0),
@@ -80,7 +79,7 @@ class NutriAIButton extends StatelessWidget {
               }
             },
             child: Padding(
-              padding: const EdgeInsets.all(10.0),
+              padding: EdgeInsets.all(Responsive.isMobile(context)? 10.0 : 15.0),
               child: Image.asset(
                 'assets/images/chatbot.png',
                 color: Theme.of(context).colorScheme.onSecondaryContainer,
@@ -89,8 +88,8 @@ class NutriAIButton extends StatelessWidget {
           );
         },
       ),
-      floatingWidgetWidth: 55,
-      floatingWidgetHeight: 55,
+      floatingWidgetWidth: Responsive.isMobile(context)? 55.0 : 70.0,
+      floatingWidgetHeight: Responsive.isMobile(context)? 55.0 : 70.0,
     );
   }
 }
@@ -127,7 +126,7 @@ class Login extends StatelessWidget {
                   AppLocalizations.of(context)!.changeLanguage,
                   style: TextStyle(
                     fontWeight: FontWeight.w500,
-                    fontSize: Responsive.isTablet(context) ? 20.0 : 18.0,
+                    fontSize: Responsive.isMobile(context) ? 18.0 : 20.0,
                   ),
                 ),
                 GestureDetector(
@@ -166,7 +165,7 @@ class Login extends StatelessWidget {
                   AppLocalizations.of(context)!.theme,
                   style: TextStyle(
                       fontWeight: FontWeight.w500,
-                      fontSize: Responsive.isTablet(context) ? 20.0 : 18.0),
+                      fontSize: Responsive.isMobile(context) ? 18.0 : 20.0),
                 ),
                 const ThemeButton(),
               ],

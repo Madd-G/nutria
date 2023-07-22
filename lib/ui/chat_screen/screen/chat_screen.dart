@@ -154,9 +154,9 @@ class ChatScreenState extends State<ChatScreen> {
         elevation: 0.5,
         bottom: PreferredSize(
           preferredSize:
-              Size.fromHeight(Responsive.isTablet(context) ? 45.0 : 25.0),
+              Size.fromHeight(Responsive.isMobile(context) ? 25.0 : 45.0),
           child: Padding(
-            padding: EdgeInsets.all(Responsive.isTablet(context) ? 14.0 : 12.0),
+            padding: EdgeInsets.all(Responsive.isMobile(context) ? 12.0 : 14.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -169,7 +169,7 @@ class ChatScreenState extends State<ChatScreen> {
                 Text(
                   'NutriAI BOT',
                   style: TextStyle(
-                      fontSize: Responsive.isTablet(context) ? 25 : 18.0,
+                      fontSize: Responsive.isMobile(context) ? 18 : 25.0,
                       fontWeight: FontWeight.w700),
                 ),
                 const Icon(null),
@@ -214,7 +214,7 @@ class ChatScreenState extends State<ChatScreen> {
                         hintStyle: TextStyle(
                             color: Colors.grey,
                             fontSize:
-                                Responsive.isTablet(context) ? 15.0 : 12.0),
+                                Responsive.isMobile(context) ? 12.0 : 15.0),
                         contentPadding: const EdgeInsets.only(
                             left: 15.0, right: 15.0, top: 10.0, bottom: 10.0),
                         border: OutlineInputBorder(
@@ -344,7 +344,7 @@ class ChatContent extends StatelessWidget {
           Flexible(
             child: isMe
                 ? Padding(
-                    padding: const EdgeInsets.only(left: 40.0),
+                    padding: const EdgeInsets.only(left: 20.0),
                     child: Align(
                       alignment: Alignment.centerRight,
                       child: Column(
@@ -365,9 +365,9 @@ class ChatContent extends StatelessWidget {
                               child: Text(
                                 text,
                                 style: TextStyle(
-                                    fontSize: Responsive.isTablet(context)
-                                        ? 20.0
-                                        : 15.0,
+                                    fontSize: Responsive.isMobile(context)
+                                        ? 15.0
+                                        : 20.0,
                                     // color: Colors.white,
                                     fontWeight: FontWeight.w500),
                               ),
@@ -378,9 +378,9 @@ class ChatContent extends StatelessWidget {
                             child: Text(
                               '${(time!.toDate().hour > 12) ? time!.toDate().hour - 12 : time?.toDate().hour}: ${time?.toDate().minute} ${(time!.toDate().hour > 12) ? 'PM' : 'AM'}',
                               style: TextStyle(
-                                  fontSize: Responsive.isTablet(context)
-                                      ? 15.0
-                                      : 10.0,
+                                  fontSize: Responsive.isMobile(context)
+                                      ? 10.0
+                                      : 15.0,
                                   color: Colors.grey,
                                   fontWeight: FontWeight.w500),
                             ),
@@ -390,7 +390,7 @@ class ChatContent extends StatelessWidget {
                     ),
                   )
                 : Padding(
-                    padding: const EdgeInsets.only(right: 40.0),
+                    padding: const EdgeInsets.only(right: 20.0),
                     child: Align(
                       alignment: Alignment.centerLeft,
                       child: Column(
@@ -410,9 +410,9 @@ class ChatContent extends StatelessWidget {
                               child: Text(
                                 text,
                                 style: TextStyle(
-                                    fontSize: Responsive.isTablet(context)
-                                        ? 20.0
-                                        : 15.0,
+                                    fontSize: Responsive.isMobile(context)
+                                        ? 15.0
+                                        : 20.0,
                                     color: Colors.black,
                                     fontWeight: FontWeight.w500),
                               ),
@@ -423,9 +423,9 @@ class ChatContent extends StatelessWidget {
                             child: Text(
                               '${(time!.toDate().hour > 12) ? time!.toDate().hour - 12 : time?.toDate().hour}: ${time?.toDate().minute} ${(time!.toDate().hour > 12) ? 'PM' : 'AM'}',
                               style: TextStyle(
-                                  fontSize: Responsive.isTablet(context)
-                                      ? 15.0
-                                      : 10.0,
+                                  fontSize: Responsive.isMobile(context)
+                                      ? 10.0
+                                      : 15.0,
                                   color: Colors.grey,
                                   fontWeight: FontWeight.w500),
                             ),

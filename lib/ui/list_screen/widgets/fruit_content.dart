@@ -37,7 +37,7 @@ class FruitContent extends StatelessWidget {
           if (snapshot.hasData) {
             final List<DocumentSnapshot> documents = snapshot.data!.docs;
             return Padding(
-              padding: EdgeInsets.all(Responsive.isTablet(context) ? 8.0 : 4.0),
+              padding: EdgeInsets.all(Responsive.isMobile(context) ? 4.0 : 8.0),
               child: GridView.builder(
                 itemCount: documents.length,
                 itemBuilder: (context, index) {

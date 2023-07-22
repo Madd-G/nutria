@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -80,30 +78,30 @@ class MyApp extends StatelessWidget {
           return BlocBuilder<LanguageBloc, LanguageState>(
             builder: (languageContext, state) {
               return MaterialApp(
-                  scrollBehavior: MyCustomScrollBehavior(),
-                  debugShowCheckedModeBanner: false,
-                  theme: context.watch<ThemeCubit>().state,
-                  locale: state.selectedLanguage.value,
-                  supportedLocales: AppLocalizations.supportedLocales,
-                  localizationsDelegates:
-                      AppLocalizations.localizationsDelegates,
-                  home: BlocListener<NetworkBloc, NetworkState>(
-                    listener: (context, state) {
-                      print('<<<<<<<<<<< $state >>>>>>>>>>>');
-                      if (state is NetworkFailure) {
-                        AppLocalizations l10n = AppLocalizations.of(context)!;
-                        showNetworkAlert(
-                          context: context,
-                          title: l10n.noInternetTitle,
-                          content: l10n.noInternetAlert,
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                        );
-                      }
-                    },
-                    child: const ScreenController(),
-                  ));
+                scrollBehavior: MyCustomScrollBehavior(),
+                debugShowCheckedModeBanner: false,
+                theme: context.watch<ThemeCubit>().state,
+                locale: state.selectedLanguage.value,
+                supportedLocales: AppLocalizations.supportedLocales,
+                localizationsDelegates: AppLocalizations.localizationsDelegates,
+                home: BlocListener<NetworkBloc, NetworkState>(
+                  listener: (context, state) {
+                    print('<<<<<<<<<<< $state >>>>>>>>>>>');
+                    if (state is NetworkFailure) {
+                      AppLocalizations l10n = AppLocalizations.of(context)!;
+                      showNetworkAlert(
+                        context: context,
+                        title: l10n.noInternetTitle,
+                        content: l10n.noInternetAlert,
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                      );
+                    }
+                  },
+                  child: const ScreenController(),
+                ),
+              );
             },
           );
         },

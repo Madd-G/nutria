@@ -21,7 +21,7 @@ class CategorySection extends StatelessWidget {
           child: Text(
             l10n.category,
             style: TextStyle(
-                fontSize: (Responsive.isTablet(context)) ? 30 : 18,
+                fontSize: (Responsive.isMobile(context)) ? 18 : 30,
                 fontWeight: FontWeight.w700),
           ),
         ),
@@ -82,34 +82,37 @@ class CategoryBox extends StatelessWidget {
       onTap: onTap,
       child: SizedBox(
         width: size.width * 0.48,
-        height: Responsive.isTablet(context)
-            ? 271.0
-            : size.height * 0.18,
+        height: Responsive.isMobile(context)
+            ? size.height * 0.18
+            : size.height * 0.24,
         child: Card(
           // color: Colors.white,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              SizedBox(
-                // color: Colors.white,
-                // height: Responsive.isTablet(context)
-                //     ? size.height * 0.2
-                //     : size.height * 0.15,
-                // width: size.width * 0.45,
-                child: CachedNetworkImage(
-                  imageUrl: imagePath,
-                  // progressIndicatorBuilder: (_, url, download) {
-                  //   if (download.progress != null) {
-                  //     final percent = download.progress! * 100;
-                  //     return Center(
-                  //         child: Text(
-                  //       'loading: ${percent.toStringAsFixed(0)}%',
-                  //       style: const TextStyle(color: Colors.grey),
-                  //     ));
-                  //   }
-                  //   return const Text('');
-                  // },
-                  fit: BoxFit.fill,
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: SizedBox(
+                  // color: Colors.white,
+                  // height: Responsive.isTablet(context)
+                  //     ? size.height * 0.2
+                  //     : size.height * 0.15,
+                  // width: size.width * 0.45,
+                  child: CachedNetworkImage(
+                    imageUrl: imagePath,
+                    // progressIndicatorBuilder: (_, url, download) {
+                    //   if (download.progress != null) {
+                    //     final percent = download.progress! * 100;
+                    //     return Center(
+                    //         child: Text(
+                    //       'loading: ${percent.toStringAsFixed(0)}%',
+                    //       style: const TextStyle(color: Colors.grey),
+                    //     ));
+                    //   }
+                    //   return const Text('');
+                    // },
+                    fit: BoxFit.fill,
+                  ),
                 ),
               ),
               Padding(
@@ -117,7 +120,7 @@ class CategoryBox extends StatelessWidget {
                 child: Text(
                   label,
                   style: TextStyle(
-                    fontSize: (Responsive.isTablet(context)) ? 30.0 : 16.0,
+                    fontSize: (Responsive.isMobile(context)) ? 16.0 : 30.0,
                     fontWeight: FontWeight.w700,
                     // color: Colors.black,
                   ),

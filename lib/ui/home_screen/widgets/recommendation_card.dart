@@ -26,8 +26,8 @@ class RecommendationCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(10.0),
             child: Card(
               child: SizedBox(
-                height: (Responsive.isTablet(context)) ? 165.0 : 140.0,
-                width: (Responsive.isTablet(context)) ? 230.0 : 200.0,
+                height: (Responsive.isMobile(context)) ? 125.0 : 170.0,
+                width: (Responsive.isMobile(context)) ? 170.0 : 230.0,
                 child: CachedNetworkImage(
                   // imageUrl: doc[l10n.lang]['item-image'],
                   imageUrl: doc[l10n.lang]['image-tr'],
@@ -35,10 +35,11 @@ class RecommendationCard extends StatelessWidget {
                     if (download.progress != null) {
                       // final percent = download.progress! * 100;
                       return const Center(
-                          child: Text(
-                        // 'loading: ${percent.toStringAsFixed(0)}%', style: const TextStyle(color: Colors.grey),
-                        '',
-                      ));
+                        child: Text(
+                          // 'loading: ${percent.toStringAsFixed(0)}%', style: const TextStyle(color: Colors.grey),
+                          '',
+                        ),
+                      );
                     }
                     return const Text('');
                   },
@@ -53,7 +54,7 @@ class RecommendationCard extends StatelessWidget {
           Text(
             '${doc[l10n.lang]['name']}',
             style: TextStyle(
-              fontSize: (Responsive.isTablet(context)) ? 18 : 13.0,
+              fontSize: (Responsive.isMobile(context)) ? 13.0 : 18.0,
               fontWeight: FontWeight.w600,
               letterSpacing: 1.2,
             ),

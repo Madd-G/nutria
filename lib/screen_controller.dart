@@ -24,7 +24,6 @@ class ScreenController extends StatelessWidget {
           bottomNavigationBar: SafeArea(
             child: Container(
               decoration: BoxDecoration(
-                // color: Theme.of(context).colorScheme.onSecondaryContainer,
                 boxShadow: [
                   BoxShadow(
                     blurRadius: 20,
@@ -33,21 +32,16 @@ class ScreenController extends StatelessWidget {
                 ],
               ),
               child: Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: 15.0,
-                    vertical: Responsive.isTablet(context) ? 8 : 8),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8),
                 child: GNav(
-                  // rippleColor: Colors.grey[300]!,
-                  // hoverColor: Colors.grey[100]!,
                   gap: 8,
-                  // activeColor: Colors.black,
                   iconSize: 24,
                   padding: EdgeInsets.symmetric(
                       horizontal: 20,
-                      vertical: Responsive.isTablet(context) ? 12.0 : 9.0),
+                      vertical: Responsive.isMobile(context) ? 9.0 : 12.0),
                   duration: const Duration(milliseconds: 400),
                   tabBackgroundColor: Theme.of(context).colorScheme.primary,
-                  // color: Colors.black,
                   selectedIndex: state.index,
                   onTabChange: (index) {
                     if (index == 0) {
@@ -67,17 +61,17 @@ class ScreenController extends StatelessWidget {
                   tabs: [
                     GButton(
                       icon: Icons.home,
-                      iconSize: Responsive.isTablet(context) ? 30.0 : 25.0,
+                      iconSize: Responsive.isMobile(context) ? 25.0 : 30.0,
                       text: l10n.home,
                     ),
                     GButton(
                       icon: Ionicons.scan_sharp,
-                      iconSize: Responsive.isTablet(context) ? 30.0 : 25.0,
+                      iconSize: Responsive.isMobile(context) ? 25.0 : 30.0,
                       text: l10n.scan,
                     ),
                     GButton(
                       icon: Icons.article,
-                      iconSize: Responsive.isTablet(context) ? 30.0 : 25.0,
+                      iconSize: Responsive.isMobile(context) ? 25.0 : 30.0,
                       text: l10n.article,
                     ),
                   ],

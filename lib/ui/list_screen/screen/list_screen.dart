@@ -53,7 +53,7 @@ class _ListScreenState extends State<ListScreen> {
             automaticallyImplyLeading: false,
             bottom: PreferredSize(
               preferredSize:
-                  Size.fromHeight((Responsive.isTablet(context)) ? 250 : 170.0),
+                  Size.fromHeight((Responsive.isMobile(context)) ? 170 : 250.0),
               child: Column(
                 children: [
                   // if (Responsive.isTablet(context))
@@ -84,7 +84,7 @@ class _ListScreenState extends State<ListScreen> {
                                 color: Colors.white,
                                 fontWeight: FontWeight.w700,
                                 fontSize:
-                                    Responsive.isTablet(context) ? 30 : 20,
+                                    Responsive.isMobile(context) ? 20 : 30,
                               ),
                             ),
                             const SizedBox(
@@ -114,17 +114,17 @@ class _ListScreenState extends State<ListScreen> {
                               Tab(
                                 child: Text(l10n.fruit,
                                     style: TextStyle(
-                                        fontSize: (Responsive.isTablet(context))
-                                            ? 20
-                                            : 14,
+                                        fontSize: (Responsive.isMobile(context))
+                                            ? 14
+                                            : 20,
                                         fontWeight: FontWeight.w500)),
                               ),
                               Tab(
                                 child: Text(l10n.vegetable,
                                     style: TextStyle(
-                                        fontSize: (Responsive.isTablet(context))
-                                            ? 20
-                                            : 14,
+                                        fontSize: (Responsive.isMobile(context))
+                                            ? 14
+                                            : 20,
                                         fontWeight: FontWeight.w500)),
                               ),
                             ],

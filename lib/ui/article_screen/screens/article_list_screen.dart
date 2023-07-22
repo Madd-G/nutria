@@ -19,15 +19,13 @@ class ArticleListScreen extends StatelessWidget {
         appBar: AppBar(
           automaticallyImplyLeading: false,
           bottom: PreferredSize(
-            preferredSize: Size.fromHeight((Responsive.isTablet(context))
-                ? size.height * 0.15
-                : size.height * 0.12),
+            preferredSize: Size.fromHeight((Responsive.isMobile(context))
+                ? size.height * 0.12
+                : size.height * 0.15),
             child: Column(
               children: [
                 Container(
-                  height: (Responsive.isTablet(context))
-                      ? MediaQuery.of(context).size.height * 0.15
-                      : MediaQuery.of(context).size.height * 0.15,
+                  height: MediaQuery.of(context).size.height * 0.15,
                   color: Theme.of(context).colorScheme.primary,
                   child: Lottie.asset(
                     'assets/animation/articles.json',
