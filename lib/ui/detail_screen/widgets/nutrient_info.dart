@@ -31,7 +31,7 @@ class NutrientInfo extends StatelessWidget {
             Text(
               '${l10n.generalInformation} ${doc[l10n.lang]['name']}',
               style: TextStyle(
-                  fontSize: Responsive.isTablet(context) ? 17.0 : 15.0,
+                  fontSize: Responsive.isMobile(context) ? 15.0 : 17.0,
                   fontWeight: FontWeight.w600),
             ),
             const SizedBox(
@@ -45,7 +45,7 @@ class NutrientInfo extends StatelessWidget {
                     // primary: true,
                     physics: const NeverScrollableScrollPhysics(),
                     childAspectRatio: 20 / 9,
-                    crossAxisCount: (Responsive.isTablet(context)) ? 5 : 4,
+                    crossAxisCount: (Responsive.isMobile(context)) ? 4 : 5,
                     children: doc[l10n.lang]['nutrients'].map<Widget>(
                       (label) {
                         return GestureDetector(
@@ -73,9 +73,9 @@ class NutrientInfo extends StatelessWidget {
                                         label,
                                         style: TextStyle(
                                             fontSize:
-                                                (Responsive.isTablet(context))
-                                                    ? 35.0
-                                                    : 20.0,
+                                                (Responsive.isMobile(context))
+                                                    ? 20.0
+                                                    : 35.0,
                                             fontWeight: FontWeight.w500),
                                       ),
                                       const SizedBox(
@@ -101,10 +101,10 @@ class NutrientInfo extends StatelessWidget {
                                                   state.result,
                                                   textStyle: TextStyle(
                                                       fontSize:
-                                                          (Responsive.isTablet(
+                                                          (Responsive.isMobile(
                                                                   context))
-                                                              ? 30.0
-                                                              : 15.0),
+                                                              ? 15.0
+                                                              : 30.0),
                                                 ),
                                               ],
                                             ),
@@ -143,9 +143,9 @@ class NutrientInfo extends StatelessWidget {
                                       style: TextStyle(
                                           fontWeight: FontWeight.w500,
                                           fontSize:
-                                              (Responsive.isTablet(context))
-                                                  ? 22.0
-                                                  : 11.0),
+                                              (Responsive.isMobile(context))
+                                                  ? 11.0
+                                                  : 22.0),
                                       softWrap: false,
                                       textAlign: TextAlign.center,
                                     ),
@@ -172,7 +172,7 @@ class NutrientInfo extends StatelessWidget {
                     doc[l10n.lang]['nutrients-info'][index],
                     textAlign: TextAlign.justify,
                     style: TextStyle(
-                      fontSize: (Responsive.isTablet(context)) ? 22.0 : 13.0,
+                      fontSize: (Responsive.isMobile(context)) ? 13.0 : 22.0,
                     ),
                   );
                 },

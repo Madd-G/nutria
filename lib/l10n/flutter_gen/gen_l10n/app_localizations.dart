@@ -261,6 +261,18 @@ abstract class AppLocalizations {
   /// **'Log Out'**
   String get logOut;
 
+  /// No description provided for @confirmLogout.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to log out?'**
+  String get confirmLogout;
+
+  /// No description provided for @confirmDeleteAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete your account? By deleting your account all your chats will be deleted.'**
+  String get confirmDeleteAccount;
+
   /// No description provided for @deletedSuccessfully.
   ///
   /// In en, this message translates to:

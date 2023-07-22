@@ -32,12 +32,12 @@ class SearchBar extends StatelessWidget {
               Text(
                 l10n.searchFruitsVegetables,
                 style: TextStyle(
-                  fontSize: Responsive.isTablet(context) ? 18.0 : 13.0,
+                  fontSize: Responsive.isMobile(context) ? 13.0 : 18.0,
                   color: Colors.black,
                 ),
               ),
               SizedBox(
-                height: Responsive.isTablet(context) ? 16.0 : 10.0,
+                height: Responsive.isMobile(context) ? 10.0 : 16.0,
               ),
               TextField(
                 controller: searchController,

@@ -7,7 +7,8 @@ Future<T?> showGenericDialog<T>({
   required BuildContext context,
   required String title,
   required String content,
-  required VoidCallback onPressed,
+  required List<Widget> actions,
+  // required VoidCallback onPressed,
 }) {
   return showDialog<T>(
     context: context,
@@ -16,21 +17,13 @@ Future<T?> showGenericDialog<T>({
       return AlertDialog(
         title: Text(
           title,
-          style: TextStyle(fontSize: Responsive.isTablet(context) ? 24 : 20.0),
+          style: TextStyle(fontSize: Responsive.isMobile(context) ? 20.0 : 24.0),
         ),
         content: Text(
           content,
           style: const TextStyle(fontSize: 18.0),
         ),
-        actions: [
-          TextButton(
-            onPressed: onPressed,
-            child: const Text(
-              'OK',
-              style: TextStyle(fontSize: 18.0),
-            ),
-          ),
-        ],
+        actions: actions,
       );
     },
   );

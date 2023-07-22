@@ -103,23 +103,23 @@ class WelcomeSection extends StatelessWidget {
                 greeting,
                 style: TextStyle(
                     // color: Colors.grey,
-                    fontSize: (Responsive.isTablet(context)) ? 35 : 22,
+                    fontSize: (Responsive.isMobile(context)) ? 22.0 : 35.0,
                     fontWeight: FontWeight.w900),
               ),
               Text(
                 '$dayOfWeek, ${DateTime.now().day} $month ${DateTime.now().year}',
                 style: TextStyle(
                     // color: Colors.black,
-                    fontSize: (Responsive.isTablet(context)) ? 25 : 16,
+                    fontSize: (Responsive.isMobile(context)) ? 16.0 : 25.0,
                     fontWeight: FontWeight.w700),
               ),
               const SizedBox(
                 height: 15.0,
               ),
               SizedBox(
-                height: (Responsive.isTablet(context))
-                    ? size.height * 0.009
-                    : size.height * 0.005,
+                height: (Responsive.isMobile(context))
+                    ? size.height * 0.005
+                    : size.height * 0.009,
               ),
             ],
           ),

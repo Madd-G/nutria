@@ -1,9 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:nutria/l10n/flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../responsive.dart';
 import '../../ui/home_screen/widgets/widgets.dart';
+import 'dialogs.dart';
 
 class LogoutDialog extends StatelessWidget {
   const LogoutDialog({super.key});
@@ -11,7 +11,6 @@ class LogoutDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double bottomSheetHeight = 340.0;
-    final GoogleSignIn googleSignIn = GoogleSignIn();
     return GestureDetector(
       onTap: () {
         showModalBottomSheet(
@@ -35,9 +34,8 @@ class LogoutDialog extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Container(
-                            height:
-                                (Responsive.isTablet(context)) ? 50.0 : 50.0,
-                            width: (Responsive.isTablet(context)) ? 50.0 : 50.0,
+                            height: 50.0,
+                            width: 50.0,
                             decoration: BoxDecoration(
                               color: Theme.of(context).colorScheme.primary,
                               borderRadius: const BorderRadius.all(
@@ -51,9 +49,9 @@ class LogoutDialog extends StatelessWidget {
                                     .toUpperCase(),
                                 style: TextStyle(
                                     color: Colors.grey[200],
-                                    fontSize: (Responsive.isTablet(context))
-                                        ? 35
-                                        : 30.0,
+                                    fontSize: (Responsive.isMobile(context))
+                                        ? 30.0
+                                        : 35.0,
                                     // color: Colors.white,
                                     fontWeight: FontWeight.w700),
                               ),
@@ -67,7 +65,7 @@ class LogoutDialog extends StatelessWidget {
                             overflow: TextOverflow.fade,
                             style: TextStyle(
                                 fontSize:
-                                    Responsive.isTablet(context) ? 20.0 : 18.0),
+                                    Responsive.isMobile(context) ? 18.0 : 20.0),
                           )
                         ],
                       ),
@@ -83,7 +81,7 @@ class LogoutDialog extends StatelessWidget {
                           style: TextStyle(
                               fontWeight: FontWeight.w500,
                               fontSize:
-                                  Responsive.isTablet(context) ? 20.0 : 18.0),
+                                  Responsive.isMobile(context) ? 18.0 : 20.0),
                         ),
                         GestureDetector(
                           onTap: () {
@@ -122,7 +120,7 @@ class LogoutDialog extends StatelessWidget {
                           style: TextStyle(
                               fontWeight: FontWeight.w500,
                               fontSize:
-                                  Responsive.isTablet(context) ? 20.0 : 18.0),
+                                  Responsive.isMobile(context) ? 18.0 : 20.0),
                         ),
                         const ThemeButton(),
                       ],
@@ -132,25 +130,18 @@ class LogoutDialog extends StatelessWidget {
                     ),
                     GestureDetector(
                       onTap: () async {
-                        await googleSignIn.signOut();
-                        await FirebaseAuth.instance.signOut().then(
-                              (value) =>
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  content: Text(AppLocalizations.of(context)!
-                                      .logoutSuccessfully),
-                                ),
-                              ),
-                            );
-                        // ignore: use_build_context_synchronously
-                        Navigator.pop(context);
+                        showLogoutAlert(
+                          context: context,
+                          title: AppLocalizations.of(context)!.logOut,
+                          content: AppLocalizations.of(context)!.confirmLogout,
+                        );
                       },
                       child: Text(
                         AppLocalizations.of(context)!.logOut,
                         style: TextStyle(
                             fontWeight: FontWeight.w500,
                             fontSize:
-                                Responsive.isTablet(context) ? 20.0 : 18.0),
+                                Responsive.isMobile(context) ? 18.0 : 20.0),
                       ),
                     ),
                     const SizedBox(
@@ -158,24 +149,18 @@ class LogoutDialog extends StatelessWidget {
                     ),
                     GestureDetector(
                       onTap: () async {
-                        await FirebaseAuth.instance.currentUser!.delete().then(
-                              (value) =>
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  content: Text(AppLocalizations.of(context)!
-                                      .deletedSuccessfully),
-                                ),
-                              ),
-                            );
-                        // ignore: use_build_context_synchronously
-                        Navigator.pop(context);
+                        showDeleteAccountAlert(
+                          context: context,
+                          title: AppLocalizations.of(context)!.deleteAccount,
+                          content: AppLocalizations.of(context)!.confirmDeleteAccount,
+                        );
                       },
                       child: Text(
                         AppLocalizations.of(context)!.deleteAccount,
                         style: TextStyle(
                             fontWeight: FontWeight.w500,
                             fontSize:
-                                Responsive.isTablet(context) ? 20.0 : 18.0,
+                                Responsive.isMobile(context) ? 18.0 : 20.0,
                             color: Colors.red),
                       ),
                     ),
@@ -187,8 +172,8 @@ class LogoutDialog extends StatelessWidget {
         );
       },
       child: Container(
-        height: (Responsive.isTablet(context)) ? 65.0 : 45.0,
-        width: (Responsive.isTablet(context)) ? 65.0 : 45.0,
+        height: (Responsive.isMobile(context)) ? 45.0 : 65.0,
+        width: (Responsive.isMobile(context)) ? 45.0 : 65.0,
         decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.primary,
           borderRadius: const BorderRadius.all(
@@ -200,7 +185,7 @@ class LogoutDialog extends StatelessWidget {
             // FirebaseAuth.instance.currentUser!.displayName![0].toUpperCase(),
             FirebaseAuth.instance.currentUser!.email![0].toUpperCase(),
             style: TextStyle(
-                fontSize: (Responsive.isTablet(context)) ? 35 : 25.0,
+                fontSize: (Responsive.isMobile(context)) ? 25 : 35.0,
                 color: Colors.grey[200],
                 fontWeight: FontWeight.w700),
           ),

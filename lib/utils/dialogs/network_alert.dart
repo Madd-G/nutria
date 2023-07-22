@@ -1,5 +1,4 @@
-import 'dart:ui';
-import 'package:flutter/material.dart' show BuildContext;
+import 'package:flutter/material.dart';
 import 'package:nutria/utils/utils.dart';
 
 Future<void> showNetworkAlert({
@@ -12,6 +11,15 @@ Future<void> showNetworkAlert({
     context: context,
     title: title,
     content: content,
-    onPressed: onPressed,
+    actions: [
+      TextButton(
+        onPressed: onPressed,
+        child: const Text(
+          'OK',
+          style: TextStyle(fontSize: 18.0),
+        ),
+      ),
+    ],
+    // onPressed: onPressed,
   );
 }

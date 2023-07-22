@@ -89,6 +89,12 @@ class AppLocalizationsId extends AppLocalizations {
   String get logOut => 'Keluar';
 
   @override
+  String get confirmLogout => 'Apakah anda yakin ingin keluar';
+
+  @override
+  String get confirmDeleteAccount => 'Apakah anda yakin ingin menghapus akun anda? Dengan menghapus akun seluruh chat anda akan terhapus.';
+
+  @override
   String get deletedSuccessfully => 'Berhasil menghapus akun';
 
   @override

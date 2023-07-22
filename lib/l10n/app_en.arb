@@ -27,6 +27,8 @@
     "loginWithGoogle" : "Sign in with Google",
     "logoutSuccessfully" : "Logout Successfully",
     "logOut" : "Log Out",
+    "confirmLogout" : "Are you sure you want to log out?",
+    "confirmDeleteAccount" : "Are you sure you want to delete your account? By deleting your account all your chats will be deleted.",
     "deletedSuccessfully" : "account deleted successfully",
     "deleteAccount" : "Delete Account",
     "recommendation" : "Recommendation",
