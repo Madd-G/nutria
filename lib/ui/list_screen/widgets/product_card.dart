@@ -51,7 +51,7 @@ class ProductCard extends StatelessWidget {
             child: Text(
               doc[l10n.lang]['name'],
               style: TextStyle(
-                  fontSize: Responsive.isTablet(context) ? 20.0 : 15,
+                  fontSize: Responsive.isMobile(context) ? 15.0 : 20,
                   fontWeight: FontWeight.w700),
             ),
           ),

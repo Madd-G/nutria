@@ -22,7 +22,7 @@ class ArticleRecommendation extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // SizedBox(
-          //   height: (Responsive.isTablet(context)) ? 20 : .0,
+          //   height: (Responsive.isMobile(context)) ? 0 : 20,
           // ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -32,7 +32,7 @@ class ArticleRecommendation extends StatelessWidget {
                 child: Text(
                   l10n.todaysArticle,
                   style: TextStyle(
-                    fontSize: (Responsive.isTablet(context)) ? 18 : 13,
+                    fontSize: (Responsive.isMobile(context)) ? 13 : 18,
                     fontWeight: FontWeight.w600,
                     // color: Colors.grey,
                   ),
@@ -48,7 +48,7 @@ class ArticleRecommendation extends StatelessWidget {
                 child: Text(
                   l10n.seeAll,
                   style: TextStyle(
-                    fontSize: (Responsive.isTablet(context)) ? 18 : 13.0,
+                    fontSize: (Responsive.isMobile(context)) ? 13.0 : 18.0,
                     fontWeight: FontWeight.w600,
                     letterSpacing: 1.0,
                   ),

@@ -89,6 +89,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get logOut => 'Log Out';
 
   @override
+  String get confirmLogout => 'Are you sure you want to log out?';
+
+  @override
+  String get confirmDeleteAccount => 'Are you sure you want to delete your account? By deleting your account all your chats will be deleted.';
+
+  @override
   String get deletedSuccessfully => 'account deleted successfully';
 
   @override

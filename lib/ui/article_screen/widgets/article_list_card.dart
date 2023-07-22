@@ -18,9 +18,9 @@ class ArticleListCard extends StatelessWidget {
     AppLocalizations l10n = AppLocalizations.of(context)!;
     final Size size = MediaQuery.of(context).size;
     return SizedBox(
-      height: (Responsive.isTablet(context))
-          ? size.width * 0.24
-          : size.width * 0.35,
+      height: (Responsive.isMobile(context))
+          ? size.width * 0.35
+          : size.width * 0.30,
       child: GestureDetector(
         onTap: () {
           Navigator.push(
@@ -75,11 +75,11 @@ class ArticleListCard extends StatelessWidget {
                             l10n.health,
                             style: TextStyle(
                                 fontSize:
-                                    (Responsive.isTablet(context)) ? 18 : 10,
+                                    (Responsive.isMobile(context)) ? 10 : 18,
                                 color: Colors.grey),
                           ),
                           SizedBox(
-                            height: (Responsive.isTablet(context)) ? 5 : 0,
+                            height: (Responsive.isMobile(context)) ? 0 : 5,
                           ),
                           SizedBox(
                             child: Text(
@@ -87,9 +87,9 @@ class ArticleListCard extends StatelessWidget {
                               maxLines: 3,
                               overflow: TextOverflow.clip,
                               style: TextStyle(
-                                  fontSize: (Responsive.isTablet(context))
-                                      ? 25
-                                      : 15.0,
+                                  fontSize: (Responsive.isMobile(context))
+                                      ? 15.0
+                                      : 25.0,
                                   fontWeight: FontWeight.w700),
                             ),
                           ),
@@ -98,20 +98,16 @@ class ArticleListCard extends StatelessWidget {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          SizedBox(
-                            height: (Responsive.isTablet(context)) ? 10 : 10.0,
+                          const SizedBox(
+                            height: 10.0,
                           ),
                           Row(
                             children: [
                               ClipRRect(
                                 borderRadius: BorderRadius.circular(16.0),
                                 child: SizedBox(
-                                  width: (Responsive.isTablet(context))
-                                      ? 23.0
-                                      : 23.0,
-                                  height: (Responsive.isTablet(context))
-                                      ? 23.0
-                                      : 23.0,
+                                  width: 23.0,
+                                  height: 23.0,
                                   child: CachedNetworkImage(
                                     imageUrl: doc[l10n.lang]['profile-image'],
                                     // progressIndicatorBuilder:
@@ -134,15 +130,15 @@ class ArticleListCard extends StatelessWidget {
                               ),
                               SizedBox(
                                 width:
-                                    Responsive.isTablet(context) ? 10.0 : 8.0,
+                                    Responsive.isMobile(context) ? 8.0 : 10.0,
                               ),
                               Text(
                                 '${doc[l10n.lang]["author"]} • ${doc[l10n.lang]['date']}',
                                 style: TextStyle(
                                   fontWeight: FontWeight.w500,
-                                  fontSize: (Responsive.isTablet(context))
-                                      ? 18
-                                      : 11.0,
+                                  fontSize: (Responsive.isMobile(context))
+                                      ? 11.0
+                                      : 18.0,
                                   // color: Colors.grey,
                                 ),
                               ),

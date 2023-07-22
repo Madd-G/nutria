@@ -23,7 +23,7 @@ class PredictionSuccessView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    var toolbarHeight = (Responsive.isTablet(context)) ? 420.0 : 300.0;
+    var toolbarHeight = (Responsive.isMobile(context)) ? 300.0 : 420.0;
     return NutriAIButton(
       mainWidget: Scaffold(
         appBar: AppBar(
@@ -32,7 +32,7 @@ class PredictionSuccessView extends StatelessWidget {
             children: [
               SizedBox(
                 width: size.width,
-                height: (Responsive.isTablet(context)) ? 435.0 : 310.0,
+                height: (Responsive.isMobile(context)) ? 310.0 : 435.0,
                 child: GestureDetector(
                   onTap: () {
                     showDialog(
@@ -158,18 +158,18 @@ class PredictionSuccessView extends StatelessWidget {
                                     .collection('items')
                                     .doc(doc.id);
                                 return Tab(
-                                  height: (Responsive.isTablet(context))
-                                      ? 40.0
-                                      : 25.0,
+                                  height: (Responsive.isMobile(context))
+                                      ? 25.0
+                                      : 40.0,
                                   child: Align(
                                     alignment: Alignment.center,
                                     child: Text(
                                       doc[l10n.lang]['name'],
                                       style: TextStyle(
                                           fontSize:
-                                              (Responsive.isTablet(context))
-                                                  ? 25.0
-                                                  : 15.0,
+                                              (Responsive.isMobile(context))
+                                                  ? 15.0
+                                                  : 25.0,
                                           fontWeight: FontWeight.w700),
                                     ),
                                   ),
@@ -185,9 +185,9 @@ class PredictionSuccessView extends StatelessWidget {
                           );
                         }
                             //     Tab(
-                            //   height: (Responsive.isTablet(context))
-                            //       ? 40.0
-                            //       : 25.0,
+                            //   height: (Responsive.isMobile(context))
+                            //       ? 25.0
+                            //       : 40.0,
                             //   child: Align(
                             //     alignment: Alignment.center,
                             //     child: Text(
@@ -197,9 +197,9 @@ class PredictionSuccessView extends StatelessWidget {
                             //       label.className,
                             //       style: TextStyle(
                             //           fontSize:
-                            //               (Responsive.isTablet(context))
-                            //                   ? 25.0
-                            //                   : 15.0,
+                            //               (Responsive.isMobile(context))
+                            //                   ? 15.0
+                            //                   : 25.0,
                             //           fontWeight: FontWeight.w700),
                             //     ),
                             //   ),

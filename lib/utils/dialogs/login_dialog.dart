@@ -36,7 +36,7 @@ class LoginDialog extends StatelessWidget {
                     //     'Settings',
                     //     style: TextStyle(
                     //         fontSize:
-                    //             Responsive.isTablet(context) ? 25.0 : 23.0),
+                    //             Responsive.isMobile(context) ? 23.0 : 25.0),
                     //   ),
                     // ),
                     Row(
@@ -47,7 +47,7 @@ class LoginDialog extends StatelessWidget {
                           style: TextStyle(
                             fontWeight: FontWeight.w500,
                             fontSize:
-                                Responsive.isTablet(context) ? 20.0 : 18.0,
+                                Responsive.isMobile(context) ? 18.0 : 20.0,
                           ),
                         ),
                         GestureDetector(
@@ -240,8 +240,8 @@ class LoginDialog extends StatelessWidget {
         );
       },
       child: Container(
-        height: (Responsive.isTablet(context)) ? 65.0 : 45.0,
-        width: (Responsive.isTablet(context)) ? 65.0 : 45.0,
+        height: (Responsive.isMobile(context)) ? 45.0 : 65.0,
+        width: (Responsive.isMobile(context)) ? 45.0 : 65.0,
         decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.primary,
           borderRadius: const BorderRadius.all(
@@ -250,7 +250,7 @@ class LoginDialog extends StatelessWidget {
         ),
         child: Icon(
           Icons.account_circle,
-          size: (Responsive.isTablet(context)) ? 65 : 45.0,
+          size: (Responsive.isMobile(context)) ? 45 : 65.0,
           color: Colors.white,
         ),
       ),
