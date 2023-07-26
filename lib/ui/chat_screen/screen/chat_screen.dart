@@ -45,7 +45,7 @@ class ChatScreenState extends State<ChatScreen> {
       headers: {
         "Content-Type": "application/json",
         "Authorization":
-            "Bearer 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",
+        "Bearer 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",
       },
       body: json.encode(body),
     );
@@ -109,7 +109,7 @@ class ChatScreenState extends State<ChatScreen> {
     } else {
       _isTyping = true;
       ChatModel message =
-          ChatModel(text: _textEditingController.text, isMe: true);
+      ChatModel(text: _textEditingController.text, isMe: true);
       _textEditingController.clear();
 
       setState(() {
@@ -154,7 +154,7 @@ class ChatScreenState extends State<ChatScreen> {
         elevation: 0.5,
         bottom: PreferredSize(
           preferredSize:
-              Size.fromHeight(Responsive.isMobile(context) ? 25.0 : 45.0),
+          Size.fromHeight(Responsive.isMobile(context) ? 25.0 : 45.0),
           child: Padding(
             padding: EdgeInsets.all(Responsive.isMobile(context) ? 12.0 : 14.0),
             child: Row(
@@ -214,7 +214,7 @@ class ChatScreenState extends State<ChatScreen> {
                         hintStyle: TextStyle(
                             color: Colors.grey,
                             fontSize:
-                                Responsive.isMobile(context) ? 12.0 : 15.0),
+                            Responsive.isMobile(context) ? 12.0 : 15.0),
                         contentPadding: const EdgeInsets.only(
                             left: 15.0, right: 15.0, top: 10.0, bottom: 10.0),
                         border: OutlineInputBorder(
@@ -310,7 +310,7 @@ class MessageStream extends StatelessWidget {
         return Expanded(
           child: ListView(
             padding:
-                const EdgeInsets.symmetric(vertical: 20.0, horizontal: 10.0),
+            const EdgeInsets.symmetric(vertical: 20.0, horizontal: 10.0),
             reverse: true,
             children: messageWidgets,
           ),
@@ -344,96 +344,96 @@ class ChatContent extends StatelessWidget {
           Flexible(
             child: isMe
                 ? Padding(
-                    padding: const EdgeInsets.only(left: 20.0),
-                    child: Align(
-                      alignment: Alignment.centerRight,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          Container(
-                            decoration: BoxDecoration(
-                              color: Theme.of(context).colorScheme.primary,
-                              borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(6.0),
-                                bottomLeft: Radius.circular(6.0),
-                                bottomRight: Radius.circular(6.0),
-                              ),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 8.0, horizontal: 12.0),
-                              child: Text(
-                                text,
-                                style: TextStyle(
-                                    fontSize: Responsive.isMobile(context)
-                                        ? 15.0
-                                        : 20.0,
-                                    // color: Colors.white,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 5.0),
-                            child: Text(
-                              '${(time!.toDate().hour > 12) ? time!.toDate().hour - 12 : time?.toDate().hour}: ${time?.toDate().minute} ${(time!.toDate().hour > 12) ? 'PM' : 'AM'}',
-                              style: TextStyle(
-                                  fontSize: Responsive.isMobile(context)
-                                      ? 10.0
-                                      : 15.0,
-                                  color: Colors.grey,
-                                  fontWeight: FontWeight.w500),
-                            ),
-                          )
-                        ],
+              padding: const EdgeInsets.only(left: 20.0),
+              child: Align(
+                alignment: Alignment.centerRight,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).colorScheme.primary,
+                        borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(6.0),
+                          bottomLeft: Radius.circular(6.0),
+                          bottomRight: Radius.circular(6.0),
+                        ),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 8.0, horizontal: 12.0),
+                        child: Text(
+                          text,
+                          style: TextStyle(
+                              fontSize: Responsive.isMobile(context)
+                                  ? 15.0
+                                  : 20.0,
+                              // color: Colors.white,
+                              fontWeight: FontWeight.w500),
+                        ),
                       ),
                     ),
-                  )
+                    Padding(
+                      padding: const EdgeInsets.only(top: 5.0),
+                      child: Text(
+                        '${(time!.toDate().hour > 12) ? time!.toDate().hour - 12 : time?.toDate().hour}: ${time?.toDate().minute} ${(time!.toDate().hour > 12) ? 'PM' : 'AM'}',
+                        style: TextStyle(
+                            fontSize: Responsive.isMobile(context)
+                                ? 10.0
+                                : 15.0,
+                            color: Colors.grey,
+                            fontWeight: FontWeight.w500),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            )
                 : Padding(
-                    padding: const EdgeInsets.only(right: 20.0),
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            decoration: const BoxDecoration(
-                              color: Colors.white54,
-                              borderRadius: BorderRadius.only(
-                                topRight: Radius.circular(6.0),
-                                bottomLeft: Radius.circular(6.0),
-                                bottomRight: Radius.circular(6.0),
-                              ),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                text,
-                                style: TextStyle(
-                                    fontSize: Responsive.isMobile(context)
-                                        ? 15.0
-                                        : 20.0,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 5.0),
-                            child: Text(
-                              '${(time!.toDate().hour > 12) ? time!.toDate().hour - 12 : time?.toDate().hour}: ${time?.toDate().minute} ${(time!.toDate().hour > 12) ? 'PM' : 'AM'}',
-                              style: TextStyle(
-                                  fontSize: Responsive.isMobile(context)
-                                      ? 10.0
-                                      : 15.0,
-                                  color: Colors.grey,
-                                  fontWeight: FontWeight.w500),
-                            ),
-                          )
-                        ],
+              padding: const EdgeInsets.only(right: 20.0),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      decoration: const BoxDecoration(
+                        color: Colors.white54,
+                        borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(6.0),
+                          bottomLeft: Radius.circular(6.0),
+                          bottomRight: Radius.circular(6.0),
+                        ),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          text,
+                          style: TextStyle(
+                              fontSize: Responsive.isMobile(context)
+                                  ? 15.0
+                                  : 20.0,
+                              color: Colors.black,
+                              fontWeight: FontWeight.w500),
+                        ),
                       ),
                     ),
-                  ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 5.0),
+                      child: Text(
+                        '${(time!.toDate().hour > 12) ? time!.toDate().hour - 12 : time?.toDate().hour}: ${time?.toDate().minute} ${(time!.toDate().hour > 12) ? 'PM' : 'AM'}',
+                        style: TextStyle(
+                            fontSize: Responsive.isMobile(context)
+                                ? 10.0
+                                : 15.0,
+                            color: Colors.grey,
+                            fontWeight: FontWeight.w500),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ),
           ),
         ],
       ),
