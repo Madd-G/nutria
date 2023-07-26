@@ -30,6 +30,7 @@ class NutriAIButton extends StatelessWidget {
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
           return FloatingActionButton(
+            key: const Key('fab-key'),
             foregroundColor: Colors.white,
             backgroundColor: Theme.of(context).colorScheme.primary,
             tooltip: l10n.nutriAIGreeting,
@@ -124,6 +125,7 @@ class Login extends StatelessWidget {
               children: [
                 Text(
                   AppLocalizations.of(context)!.changeLanguage,
+
                   style: TextStyle(
                     fontWeight: FontWeight.w500,
                     fontSize: Responsive.isMobile(context) ? 18.0 : 20.0,

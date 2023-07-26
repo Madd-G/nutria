@@ -154,9 +154,6 @@ class PredictionSuccessView extends StatelessWidget {
                               if (snapshot.hasData) {
                                 final DocumentSnapshot doc =
                                     snapshot.data!.docs[0];
-                                FirebaseFirestore.instance
-                                    .collection('items')
-                                    .doc(doc.id);
                                 return Tab(
                                   height: (Responsive.isMobile(context))
                                       ? 25.0

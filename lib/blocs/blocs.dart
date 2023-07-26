@@ -8,3 +8,4 @@ export 'bottom_nav_bar_bloc/bottom_nav_bar_bloc.dart';
 export 'theme_cubit/theme_cubit.dart';
 export 'language_bloc/language_bloc.dart';
 export 'network_bloc/network_bloc.dart';
+export 'theme_cubit/theme_cubit.dart';

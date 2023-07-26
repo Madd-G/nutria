@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:http/http.dart' as http;
 import 'package:nutria/l10n/flutter_gen/gen_l10n/app_localizations.dart';
@@ -45,7 +46,7 @@ class ChatScreenState extends State<ChatScreen> {
       headers: {
         "Content-Type": "application/json",
         "Authorization":
-            "Bearer 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",
+            "Bearer ${dotenv.env['API_KEY']}",
       },
       body: json.encode(body),
     );

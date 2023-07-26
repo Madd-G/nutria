@@ -11,7 +11,7 @@ class LoginDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double bottomSheetHeight =
-        (Platform.isIOS || Platform.isMacOS) ? 300.0 : 210.0;
+        (Platform.isIOS || Platform.isMacOS) ? 300.0 : 220.0;
     return GestureDetector(
       onTap: () {
         showModalBottomSheet(

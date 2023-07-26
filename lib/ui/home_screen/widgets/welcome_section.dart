@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import '../../../blocs/theme_cubit/theme_cubit.dart';
 import '../../../l10n/flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../responsive.dart';
 import '../../../utils/dialogs/dialogs.dart';
@@ -101,8 +103,13 @@ class WelcomeSection extends StatelessWidget {
             children: [
               Text(
                 greeting,
+                key: const Key('widget_test'),
                 style: TextStyle(
-                    // color: Colors.grey,
+                    // Colors only for widget test
+                    color: (context.watch<ThemeCubit>().state.brightness ==
+                            Brightness.dark)
+                        ? Colors.white
+                        : Colors.black,
                     fontSize: (Responsive.isMobile(context)) ? 22.0 : 35.0,
                     fontWeight: FontWeight.w900),
               ),

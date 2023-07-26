@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:nutria/screen_controller.dart';
 import 'package:nutria/theme.dart';
 import 'package:nutria/utils/custom_scroll/custom_scroll.dart';
@@ -18,7 +19,7 @@ void main() async {
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
   ]);
-
+  await dotenv.load(fileName: ".env");
   runApp(MyApp());
 }
 
@@ -86,7 +87,6 @@ class MyApp extends StatelessWidget {
                 localizationsDelegates: AppLocalizations.localizationsDelegates,
                 home: BlocListener<NetworkBloc, NetworkState>(
                   listener: (context, state) {
-                    print('<<<<<<<<<<< $state >>>>>>>>>>>');
                     if (state is NetworkFailure) {
                       AppLocalizations l10n = AppLocalizations.of(context)!;
                       showNetworkAlert(

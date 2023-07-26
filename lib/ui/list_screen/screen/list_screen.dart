@@ -113,6 +113,7 @@ class _ListScreenState extends State<ListScreen> {
                             tabs: [
                               Tab(
                                 child: Text(l10n.fruit,
+                                    key: const Key('dark theme test'),
                                     style: TextStyle(
                                         fontSize: (Responsive.isMobile(context))
                                             ? 14

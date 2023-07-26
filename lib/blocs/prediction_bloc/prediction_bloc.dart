@@ -10,13 +10,11 @@ part 'prediction_state.dart';
 
 class PredictionBloc extends Bloc<PredictionEvent, PredictionState> {
   PredictionBloc() : super(PredictionInitial()) {
-    ApiService apiService = ApiService();
-
     on<GetPrediction>((event, emit) async {
       Future<List<Prediction>> getPrediction(String imgPath) async {
         try {
           var seen = <String>{};
-          List<Prediction> prediction = await apiService.uploadImage(imgPath);
+          List<Prediction> prediction = await ApiService.uploadImage(imgPath);
           List<Prediction> uniqueList =
               prediction.where((obj) => seen.add(obj.className)).toList();
           return uniqueList;
