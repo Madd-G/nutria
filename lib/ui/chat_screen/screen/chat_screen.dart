@@ -20,131 +20,133 @@ class ChatScreen extends StatefulWidget {
 }
 
 class ChatScreenState extends State<ChatScreen> {
-  final List<ChatModel> _messages = [];
-  late FocusNode focusNode;
+  // final List<ChatModel> _messages = [];
+  // late FocusNode focusNode;
   final TextEditingController _textEditingController = TextEditingController();
-  final userInstance = FirebaseFirestore.instance;
-  User? loggedInUser = FirebaseAuth.instance.currentUser!;
+
+  // final userInstance = FirebaseFirestore.instance;
+  // User? loggedInUser = FirebaseAuth.instance.currentUser!;
   bool _isTyping = false;
-  List<String> konteks = [];
-  List<String> chatSession = [
-    'Ayo bermain peran, kamu hanya tahu tentang buah dan sayuran, selain sapaan atau pertanyaan yang tidak berkaitan dengan itu kamu berpura-pura tidak tahu.'
-  ];
 
-  Future<String> sendMessageToChatGpt(String message) async {
-    Uri uri = Uri.parse("https://api.openai.com/v1/chat/completions");
-
-    Map<String, dynamic> body = {
-      "model": "gpt-3.5-turbo",
-      "messages": [
-        {"role": "user", "content": message}
-      ],
-    };
-
-    final response = await http.post(
-      uri,
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization":
-            "Bearer ${dotenv.env['API_KEY']}",
-      },
-      body: json.encode(body),
-    );
-
-    Map<String, dynamic> parsedResponse = json.decode(response.body);
-
-    String reply = parsedResponse['choices'][0]['message']['content'];
-    return reply;
-  }
-
-  final _auth = FirebaseAuth.instance;
-  late String messageText;
-  final messageTextController = TextEditingController();
-
-  @override
-  void initState() {
-    getCurrentUser();
-    focusNode = FocusNode();
-    // ignore: unused_local_variable
-    List<String> chatSession = [
-      'Ayo bermain peran, kamu hanya tahu tentang buah dan sayuran, selain sapaan atau pertanyaan yang tidak berkaitan dengan itu kamu berpura-pura tidak tahu.'
-    ];
-    // ignore: unused_local_variable
-    List<String> konteks = [];
-    super.initState();
-  }
-
-  void getCurrentUser() {
-    try {
-      final user = _auth.currentUser;
-      if (user != null) {
-        loggedInUser = user;
-      }
-    } catch (e) {
-      rethrow;
-    }
-  }
-
-  void onSendMessage() async {
-    if (_isTyping) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            widget.l10n.cantSendMultipleMessage,
-          ),
-          backgroundColor: Colors.red,
-        ),
-      );
-      return;
-    }
-    if (_textEditingController.text.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            widget.l10n.askQuestion,
-          ),
-          backgroundColor: Colors.red,
-        ),
-      );
-      return;
-    } else {
-      _isTyping = true;
-      ChatModel message =
-          ChatModel(text: _textEditingController.text, isMe: true);
-      _textEditingController.clear();
-
-      setState(() {
-        _messages.insert(0, message);
-      });
-      chatSession.add(messageText);
-      // ignore: unused_local_variable
-      String chats = chatSession.join(',');
-      String finalmessage =
-          'Ayo bermain peran, anda menjadi ahli buah dan sayuran, selain sapaan dan pertanyaan yang berkaitan dengan buah dan sayuran, jawab "Maaf saya tidak mengerti, saya hanya mengerti mengenai buah dan sayuran". Jika pertanyaan mengenai buah dan sayuran maka jawab berdasarkan konteks pertanyaan sebelumnya sebagai referensi, pertanyan sebelumnya ${(konteks.isNotEmpty) ? konteks.last : ''}, pertanyaan yang harus dijawab: $messageText';
-      konteks.add(messageText);
-      String response = await sendMessageToChatGpt(finalmessage);
-
-      userInstance
-          .collection('messages')
-          .doc(loggedInUser!.uid)
-          .collection('messageList')
-          .add(
-        {
-          'text': response,
-          'sender': 'NutriAI',
-          // 'timestamp': FieldValue.serverTimestamp(),
-          'timestamp': DateTime.now(),
-        },
-      );
-      _isTyping = false;
-      ChatModel chatGpt = ChatModel(text: response, isMe: false);
-
-      setState(() {
-        _messages.insert(0, chatGpt);
-      });
-      _textEditingController.clear();
-    }
-  }
+  // List<String> konteks = [];
+  // List<String> chatSession = [
+  //   'Ayo bermain peran, kamu hanya tahu tentang buah dan sayuran, selain sapaan atau pertanyaan yang tidak berkaitan dengan itu kamu berpura-pura tidak tahu.'
+  // ];
+  //
+  // Future<String> sendMessageToChatGpt(String message) async {
+  //   Uri uri = Uri.parse("https://api.openai.com/v1/chat/completions");
+  //
+  //   Map<String, dynamic> body = {
+  //     "model": "gpt-3.5-turbo",
+  //     "messages": [
+  //       {"role": "user", "content": message}
+  //     ],
+  //   };
+  //
+  //   final response = await http.post(
+  //     uri,
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       "Authorization":
+  //           "Bearer ${dotenv.env['API_KEY']}",
+  //     },
+  //     body: json.encode(body),
+  //   );
+  //
+  //   Map<String, dynamic> parsedResponse = json.decode(response.body);
+  //
+  //   String reply = parsedResponse['choices'][0]['message']['content'];
+  //   return reply;
+  // }
+  //
+  // final _auth = FirebaseAuth.instance;
+  // late String messageText;
+  // final messageTextController = TextEditingController();
+  //
+  // @override
+  // void initState() {
+  //   getCurrentUser();
+  //   focusNode = FocusNode();
+  //   // ignore: unused_local_variable
+  //   List<String> chatSession = [
+  //     'Ayo bermain peran, kamu hanya tahu tentang buah dan sayuran, selain sapaan atau pertanyaan yang tidak berkaitan dengan itu kamu berpura-pura tidak tahu.'
+  //   ];
+  //   // ignore: unused_local_variable
+  //   List<String> konteks = [];
+  //   super.initState();
+  // }
+  //
+  // void getCurrentUser() {
+  //   try {
+  //     final user = _auth.currentUser;
+  //     if (user != null) {
+  //       loggedInUser = user;
+  //     }
+  //   } catch (e) {
+  //     rethrow;
+  //   }
+  // }
+  //
+  // void onSendMessage() async {
+  //   if (_isTyping) {
+  //     ScaffoldMessenger.of(context).showSnackBar(
+  //       SnackBar(
+  //         content: Text(
+  //           widget.l10n.cantSendMultipleMessage,
+  //         ),
+  //         backgroundColor: Colors.red,
+  //       ),
+  //     );
+  //     return;
+  //   }
+  //   if (_textEditingController.text.isEmpty) {
+  //     ScaffoldMessenger.of(context).showSnackBar(
+  //       SnackBar(
+  //         content: Text(
+  //           widget.l10n.askQuestion,
+  //         ),
+  //         backgroundColor: Colors.red,
+  //       ),
+  //     );
+  //     return;
+  //   } else {
+  //     _isTyping = true;
+  //     ChatModel message =
+  //         ChatModel(text: _textEditingController.text, isMe: true);
+  //     _textEditingController.clear();
+  //
+  //     setState(() {
+  //       _messages.insert(0, message);
+  //     });
+  //     chatSession.add(messageText);
+  //     // ignore: unused_local_variable
+  //     String chats = chatSession.join(',');
+  //     String finalmessage =
+  //         'Ayo bermain peran, anda menjadi ahli buah dan sayuran, selain sapaan dan pertanyaan yang berkaitan dengan buah dan sayuran, jawab "Maaf saya tidak mengerti, saya hanya mengerti mengenai buah dan sayuran". Jika pertanyaan mengenai buah dan sayuran maka jawab berdasarkan konteks pertanyaan sebelumnya sebagai referensi, pertanyan sebelumnya ${(konteks.isNotEmpty) ? konteks.last : ''}, pertanyaan yang harus dijawab: $messageText';
+  //     konteks.add(messageText);
+  //     String response = await sendMessageToChatGpt(finalmessage);
+  //
+  //     userInstance
+  //         .collection('messages')
+  //         .doc(loggedInUser!.uid)
+  //         .collection('messageList')
+  //         .add(
+  //       {
+  //         'text': response,
+  //         'sender': 'NutriAI',
+  //         // 'timestamp': FieldValue.serverTimestamp(),
+  //         'timestamp': DateTime.now(),
+  //       },
+  //     );
+  //     _isTyping = false;
+  //     ChatModel chatGpt = ChatModel(text: response, isMe: false);
+  //
+  //     setState(() {
+  //       _messages.insert(0, chatGpt);
+  //     });
+  //     _textEditingController.clear();
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -184,7 +186,10 @@ class ChatScreenState extends State<ChatScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            const MessageStream(),
+            // const MessageStream(),
+            const Expanded(
+              child: SizedBox(),
+            ),
             if (_isTyping) ...[
               const SpinKitThreeBounce(
                 color: Colors.black,
@@ -205,7 +210,7 @@ class ChatScreenState extends State<ChatScreen> {
                       cursorColor: Theme.of(context).colorScheme.primary,
                       minLines: 1,
                       maxLines: 10,
-                      focusNode: focusNode,
+                      // focusNode: focusNode,
                       style: const TextStyle(
                         // color: Colors.black,
                         fontSize: 14.0,
@@ -229,25 +234,25 @@ class ChatScreenState extends State<ChatScreen> {
                         // fillColor: const Color(0xFFF6F6F6),
                       ),
                       onChanged: (value) {
-                        messageText = value;
+                        // messageText = value;
                       },
                     ),
                   ),
                   IconButton(
                     onPressed: () {
-                      userInstance
-                          .collection('messages')
-                          .doc(loggedInUser!.uid)
-                          .collection('messageList')
-                          .add(
-                        {
-                          'text': messageText,
-                          'sender': loggedInUser?.email,
-                          // 'timestamp': FieldValue.serverTimestamp(),
-                          'timestamp': DateTime.now(),
-                        },
-                      );
-                      onSendMessage();
+                      // userInstance
+                      //     .collection('messages')
+                      //     .doc(loggedInUser!.uid)
+                      //     .collection('messageList')
+                      //     .add(
+                      //   {
+                      //     'text': messageText,
+                      //     'sender': loggedInUser?.email,
+                      //     // 'timestamp': FieldValue.serverTimestamp(),
+                      //     'timestamp': DateTime.now(),
+                      //   },
+                      // );
+                      // onSendMessage();
                     },
                     icon: const Icon(
                       Icons.send,

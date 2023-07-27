@@ -60,6 +60,7 @@ class ScreenController extends StatelessWidget {
                   },
                   tabs: [
                     GButton(
+                      key: const Key('home_tab'),
                       icon: Icons.home,
                       iconSize: Responsive.isMobile(context) ? 25.0 : 30.0,
                       text: l10n.home,
@@ -70,6 +71,7 @@ class ScreenController extends StatelessWidget {
                       text: l10n.scan,
                     ),
                     GButton(
+                      key: const Key('article_tab'),
                       icon: Icons.article,
                       iconSize: Responsive.isMobile(context) ? 25.0 : 30.0,
                       text: l10n.article,

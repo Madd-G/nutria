@@ -5,7 +5,6 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:nutria/screen_controller.dart';
 import 'package:nutria/theme.dart';
 import 'package:nutria/utils/custom_scroll/custom_scroll.dart';
-import 'package:nutria/utils/utils.dart';
 import 'firebase_options.dart';
 import 'blocs/blocs.dart';
 import 'package:flutter/scheduler.dart';
@@ -35,16 +34,19 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        osThemeIsLight
-            ? BlocProvider(
-                create: (context) =>
-                    ThemeCubit(initialTheme: AppTheme.lightTheme),
-              )
-            : BlocProvider(
-                create: (context) => ThemeCubit(
-                  initialTheme: AppTheme.darkTheme,
-                ),
-              ),
+        // osThemeIsLight
+        //     ? BlocProvider(
+        //         create: (context) =>
+        //             ThemeCubit(initialTheme: AppTheme.lightTheme),
+        //       )
+        //     : BlocProvider(
+        //         create: (context) => ThemeCubit(
+        //           initialTheme: AppTheme.darkTheme,
+        //         ),
+        //       ),
+        BlocProvider(
+          create: (context) => ThemeCubit(initialTheme: AppTheme.darkTheme),
+        ),
         BlocProvider(
           lazy: true,
           create: (context) => PredictionBloc(),
@@ -79,29 +81,15 @@ class MyApp extends StatelessWidget {
           return BlocBuilder<LanguageBloc, LanguageState>(
             builder: (languageContext, state) {
               return MaterialApp(
-                scrollBehavior: MyCustomScrollBehavior(),
-                debugShowCheckedModeBanner: false,
-                theme: context.watch<ThemeCubit>().state,
-                locale: state.selectedLanguage.value,
-                supportedLocales: AppLocalizations.supportedLocales,
-                localizationsDelegates: AppLocalizations.localizationsDelegates,
-                home: BlocListener<NetworkBloc, NetworkState>(
-                  listener: (context, state) {
-                    if (state is NetworkFailure) {
-                      AppLocalizations l10n = AppLocalizations.of(context)!;
-                      showNetworkAlert(
-                        context: context,
-                        title: l10n.noInternetTitle,
-                        content: l10n.noInternetAlert,
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                      );
-                    }
-                  },
-                  child: const ScreenController(),
-                ),
-              );
+                  scrollBehavior: MyCustomScrollBehavior(),
+                  debugShowCheckedModeBanner: false,
+                  // theme: ThemeData.light(),
+                  theme: context.watch<ThemeCubit>().state,
+                  locale: state.selectedLanguage.value,
+                  supportedLocales: AppLocalizations.supportedLocales,
+                  localizationsDelegates:
+                      AppLocalizations.localizationsDelegates,
+                  home: const ScreenController());
             },
           );
         },

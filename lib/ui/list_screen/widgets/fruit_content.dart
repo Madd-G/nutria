@@ -23,9 +23,12 @@ class FruitContent extends StatelessWidget {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(
               child: SizedBox(
-                width: MediaQuery.of(context).size.width * 0.17,
-                height: MediaQuery.of(context).size.width * 0.17,
-                child: Lottie.asset('assets/animation/loading.json'),
+                width: MediaQuery.of(context).size.width * 0.1,
+                height: MediaQuery.of(context).size.width * 0.1,
+                // child: Lottie.asset('assets/animation/loading.json'),
+                child: const CircularProgressIndicator(
+                  key: Key('progress-indicator'),
+                ),
               ),
             );
           }
@@ -39,6 +42,7 @@ class FruitContent extends StatelessWidget {
             return Padding(
               padding: EdgeInsets.all(Responsive.isMobile(context) ? 4.0 : 8.0),
               child: GridView.builder(
+                key: const Key('fruit-grid'),
                 itemCount: documents.length,
                 itemBuilder: (context, index) {
                   var doc = documents[index];

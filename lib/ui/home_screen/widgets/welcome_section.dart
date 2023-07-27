@@ -104,13 +104,11 @@ class WelcomeSection extends StatelessWidget {
               Text(
                 greeting,
                 key: const Key('widget_test'),
-                style: TextStyle(
-                    // Colors only for widget test
-                    color: (context.watch<ThemeCubit>().state.brightness ==
-                            Brightness.dark)
-                        ? Colors.white
-                        : Colors.black,
-                    fontSize: (Responsive.isMobile(context)) ? 22.0 : 35.0,
+                style: const TextStyle(
+                //     color: Theme.of(context).brightness == Brightness.dark
+                //         ? Colors.white
+                //         : Colors.black,
+                //     fontSize: (Responsive.isMobile(context)) ? 22.0 : 35.0,
                     fontWeight: FontWeight.w900),
               ),
               Text(
@@ -139,6 +137,7 @@ class WelcomeSection extends StatelessWidget {
                 return const LogoutDialog();
               } else {
                 return const LoginDialog(
+                  key: Key('login-dialog'),
                     // l10n: widget.l10n,
                     );
               }

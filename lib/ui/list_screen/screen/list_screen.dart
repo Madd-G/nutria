@@ -113,7 +113,8 @@ class _ListScreenState extends State<ListScreen> {
                             tabs: [
                               Tab(
                                 child: Text(l10n.fruit,
-                                    key: const Key('dark theme test'),
+                                    // key: const Key('dark theme test'),
+                                    key: const Key('fruit_tab'),
                                     style: TextStyle(
                                         fontSize: (Responsive.isMobile(context))
                                             ? 14
@@ -122,6 +123,7 @@ class _ListScreenState extends State<ListScreen> {
                               ),
                               Tab(
                                 child: Text(l10n.vegetable,
+                                    key: const Key('vegetable_tab'),
                                     style: TextStyle(
                                         fontSize: (Responsive.isMobile(context))
                                             ? 14

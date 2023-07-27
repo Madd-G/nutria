@@ -29,6 +29,7 @@ class ArticleListScreen extends StatelessWidget {
                   color: Theme.of(context).colorScheme.primary,
                   child: Lottie.asset(
                     'assets/animation/articles.json',
+                    repeat: false,
                   ),
                 ),
                 Container(

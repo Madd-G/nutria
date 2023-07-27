@@ -32,6 +32,7 @@ class CategorySection extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             CategoryBox(
+              key: const Key('fruit_category'),
               imagePath:
                   'https://firebasestorage.googleapis.com/v0/b/nutria-29b7b.appspot.com/o/app_image%2Fapp%2Ffruit-removebg-preview.png?alt=media&token=0e70555b-24af-41c8-aa44-1af8ce0dece1',
               label: l10n.fruitUpper,

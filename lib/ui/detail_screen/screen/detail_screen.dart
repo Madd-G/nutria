@@ -146,6 +146,7 @@ class _DetailScreenState extends State<DetailScreen> {
                               alignment: Alignment.center,
                               child: Text(
                                 tabName,
+                                key: Key(tabName),
                                 style: TextStyle(
                                     // color: Colors.red,
                                     fontSize: (Responsive.isMobile(context))

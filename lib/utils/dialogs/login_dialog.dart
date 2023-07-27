@@ -25,6 +25,7 @@ class LoginDialog extends StatelessWidget {
           ),
           builder: (context) {
             return SizedBox(
+              key: const Key('bottom-sheet'),
               height: bottomSheetHeight,
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(15.0, 25.0, 15.0, 8.0),
@@ -51,6 +52,7 @@ class LoginDialog extends StatelessWidget {
                           ),
                         ),
                         GestureDetector(
+                          key: const Key('change-language'),
                           onTap: () {
                             showModalBottomSheet(
                               barrierColor: Colors.transparent,
@@ -64,7 +66,8 @@ class LoginDialog extends StatelessWidget {
                               builder: (dialogContext) {
                                 return SizedBox(
                                   height: bottomSheetHeight,
-                                  child: const LanguageBottomSheet(),
+                                  child: const LanguageBottomSheet(
+                                  ),
                                 );
                               },
                             );
@@ -89,7 +92,9 @@ class LoginDialog extends StatelessWidget {
                               fontSize:
                                   Responsive.isMobile(context) ? 18.0 : 20.0),
                         ),
-                        const ThemeButton(),
+                        const ThemeButton(
+                          key: Key('change-theme'),
+                        ),
                       ],
                     ),
                     const SizedBox(
