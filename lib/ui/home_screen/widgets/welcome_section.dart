@@ -1,25 +1,26 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import '../../../blocs/theme_cubit/theme_cubit.dart';
 import '../../../l10n/flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../responsive.dart';
 import '../../../utils/dialogs/dialogs.dart';
 
 class WelcomeSection extends StatelessWidget {
-  const WelcomeSection({super.key, required this.size, required this.l10n});
+  WelcomeSection(
+      {super.key, required this.size, required this.l10n, this.fakeHour});
 
   final Size size;
   final AppLocalizations l10n;
+  int? fakeHour;
 
   @override
   Widget build(BuildContext context) {
     String? greeting;
     int dt = DateTime.now().hour;
-    if (dt < 12) {
+    int s = 13;
+    if (s! < 12) {
       greeting = l10n.goodMorning;
-    } else if (dt >= 12 && dt < 18) {
+    } else if (s! >= 12 && s! < 18) {
       greeting = l10n.goodAfternoon;
     } else {
       greeting = l10n.goodEvening;
@@ -103,16 +104,17 @@ class WelcomeSection extends StatelessWidget {
             children: [
               Text(
                 greeting,
-                key: const Key('widget_test'),
-                style: const TextStyle(
-                //     color: Theme.of(context).brightness == Brightness.dark
-                //         ? Colors.white
-                //         : Colors.black,
-                //     fontSize: (Responsive.isMobile(context)) ? 22.0 : 35.0,
+                key: const Key('greeting_text'),
+                style: TextStyle(
+                    // color: Theme.of(context).brightness == Brightness.dark
+                    //     ? Colors.white
+                    //     : Colors.black,
+                    fontSize: (Responsive.isMobile(context)) ? 22.0 : 35.0,
                     fontWeight: FontWeight.w900),
               ),
               Text(
-                '$dayOfWeek, ${DateTime.now().day} $month ${DateTime.now().year}',
+                // '$dayOfWeek, ${DateTime.now().day} $month ${DateTime.now().year}',
+                'Kamis, 27 Juli 2023',
                 style: TextStyle(
                     // color: Colors.black,
                     fontSize: (Responsive.isMobile(context)) ? 16.0 : 25.0,
@@ -128,21 +130,23 @@ class WelcomeSection extends StatelessWidget {
               ),
             ],
           ),
-          StreamBuilder<User?>(
-            stream: FirebaseAuth.instance.authStateChanges(),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return const CircularProgressIndicator();
-              } else if (snapshot.hasData) {
-                return const LogoutDialog();
-              } else {
-                return const LoginDialog(
-                  key: Key('login-dialog'),
-                    // l10n: widget.l10n,
-                    );
-              }
-            },
-          ),
+          // StreamBuilder<User?>(
+          //   stream: FirebaseAuth.instance.authStateChanges(),
+          //   builder: (context, snapshot) {
+          //     if (snapshot.connectionState == ConnectionState.waiting) {
+          //       return const CircularProgressIndicator();
+          //     } else if (snapshot.hasData) {
+          //       return const LogoutDialog(
+          //         key: Key('logout-dialog'),
+          //       );
+          //     } else {
+          //       return const LoginDialog(
+          //         key: Key('login-dialog'),
+          //         // l10n: widget.l10n,
+          //       );
+          //     }
+          //   },
+          // ),
         ],
       ),
     );

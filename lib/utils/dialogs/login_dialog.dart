@@ -196,6 +196,9 @@ class LoginDialog extends StatelessWidget {
                                 },
                                 child: Container(
                                   decoration: BoxDecoration(
+                                    color: Theme.of(context).brightness == Brightness.dark
+                                        ? Colors.white
+                                        : Colors.black,
                                     borderRadius: BorderRadius.circular(5.0),
                                     border: Border.all(color: Colors.grey),
                                   ),

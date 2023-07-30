@@ -58,12 +58,15 @@ void main() async {
     await tester.enterText(textField, 'Hallo');
     await tester.pumpAndSettle(const Duration(seconds: 3));
 
+    expect(find.text('Hallo'), findsOneWidget);
     expect(sendIcon, findsOneWidget);
 
     await tester.tap(sendIcon);
     await tester.pumpAndSettle(const Duration(seconds: 3));
 
-    expect(find.text('Hallo'), findsOneWidget);
+    final enteredText =
+        (tester.widget(find.byType(TextField)) as TextField).controller!.text;
+    expect(enteredText, equals('Hallo'));
 
     await Future.delayed(const Duration(seconds: 3));
 

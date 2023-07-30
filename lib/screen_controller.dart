@@ -7,7 +7,9 @@ import 'l10n/flutter_gen/gen_l10n/app_localizations.dart';
 import 'ui/screens.dart';
 
 class ScreenController extends StatelessWidget {
-  const ScreenController({super.key});
+  ScreenController({super.key, this.fakeHour});
+
+  int? fakeHour;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +22,7 @@ class ScreenController extends StatelessWidget {
               ? const ScanScreen()
               : (state is StateIsInArticleScreen)
                   ? const ArticleListScreen()
-                  : const HomeScreen(),
+                  : HomeScreen(fakeHour: fakeHour,),
           bottomNavigationBar: SafeArea(
             child: Container(
               decoration: BoxDecoration(
@@ -66,6 +68,7 @@ class ScreenController extends StatelessWidget {
                       text: l10n.home,
                     ),
                     GButton(
+                      key: const Key('scan_tab'),
                       icon: Ionicons.scan_sharp,
                       iconSize: Responsive.isMobile(context) ? 25.0 : 30.0,
                       text: l10n.scan,

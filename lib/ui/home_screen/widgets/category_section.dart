@@ -87,6 +87,10 @@ class CategoryBox extends StatelessWidget {
             ? size.height * 0.18
             : size.height * 0.24,
         child: Card(
+          color: Theme.of(context).brightness == Brightness.dark
+              ? Colors.white
+              : const Color(0xFF424242),
+          key: const Key('category-card'),
           // color: Colors.white,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

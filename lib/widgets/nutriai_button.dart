@@ -26,13 +26,14 @@ class NutriAIButton extends StatelessWidget {
             key: const Key('fab-key'),
             foregroundColor: Colors.white,
             backgroundColor: Theme.of(context).colorScheme.primary,
+            // backgroundColor: Colors.red,
             tooltip: l10n.nutriAIGreeting,
             onPressed: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) => ChatScreen(l10n: l10n),
-                  // builder: (context) => const MockChatScreen(),
+                  // builder: (context) => const ChatScreen(),
                 ),
               );
             },

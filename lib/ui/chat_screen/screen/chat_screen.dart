@@ -204,6 +204,7 @@ class ChatScreenState extends State<ChatScreen> {
                 children: <Widget>[
                   Expanded(
                     child: TextField(
+                      key: const Key('text-field'),
                       controller: _textEditingController,
                       keyboardType: TextInputType.multiline,
                       showCursor: true,

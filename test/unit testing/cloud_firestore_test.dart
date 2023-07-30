@@ -4,7 +4,6 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   late FakeFirebaseFirestore instance;
 
-  // Define the setUp function.
   setUp(() async {
     instance = FakeFirebaseFirestore();
     await instance.collection('article').add({
@@ -16,7 +15,6 @@ void main() {
   });
 
   test('Cek dokumen value', () async {
-    // Use the instance variable instead of creating a new instance.
     final docRef = instance.doc('article/8GcLwU769Bkb2N5gWf5v');
     await docRef.set({
       'author': 'Madd',
@@ -29,7 +27,6 @@ void main() {
   });
 
   test('Update dokumen value', () async {
-    // Use the instance variable instead of creating a new instance.
     final doc = instance.collection('article').doc('uid');
     await doc.set({
       'author': 'Madd',

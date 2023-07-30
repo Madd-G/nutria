@@ -26,7 +26,6 @@ void main() {
 
   tearDown(
     () {
-      // ignore: deprecated_member_use
       SignInWithApple.channel.setMockMethodCallHandler(null);
     },
   );
@@ -34,7 +33,6 @@ void main() {
   test(
     'Melakukan otorisasi menggunakan Apple ID',
     () async {
-      // ignore: deprecated_member_use
       SignInWithApple.channel.setMockMethodCallHandler(
         (methodCall) async {
           if (methodCall.method == 'performAuthorizationRequest') {

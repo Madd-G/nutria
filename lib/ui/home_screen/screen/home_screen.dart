@@ -4,8 +4,9 @@ import '../../../widgets/global_widgets.dart';
 import '../widgets/widgets.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  HomeScreen({Key? key, this.fakeHour}) : super(key: key);
 
+  int? fakeHour;
   @override
   Widget build(BuildContext context) {
     // // ScrollBehavior can be copied and adjusted.
@@ -38,10 +39,11 @@ class HomeScreen extends StatelessWidget {
                     SizedBox(
                       height: size.height * 0.04,
                     ),
-                    WelcomeSection(
-                      size: size,
-                      l10n: l10n,
-                    ),
+                    // WelcomeSection(
+                    //   size: size,
+                    //   l10n: l10n,
+                    //   fakeHour: fakeHour,
+                    // ),
                     SizedBox(
                       height: size.height * 0.01,
                     ),
@@ -69,3 +71,14 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
+
+// class HomeScreen extends StatelessWidget {
+//   HomeScreen({Key? key, this.fakeHour}) : super(key: key);
+//
+//   int? fakeHour;
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container();
+//   }
+// }

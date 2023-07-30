@@ -7,7 +7,7 @@ class MockChatGpt {
     if (shouldFail) {
       throw Exception('ChatGPT Error: Failed to generate response.');
     }
-    return "$message";
+    return message;
   }
 }
 

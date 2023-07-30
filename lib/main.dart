@@ -23,8 +23,10 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-  MyApp({super.key});
+  MyApp({super.key, this.themeData, this.fakeHour = 10});
 
+  ThemeData? themeData = ThemeData.dark();
+  int? fakeHour;
   final osThemeIsLight =
       // SchedulerBinding.instance.window.platformBrightness == Brightness.light;
       SchedulerBinding.instance.platformDispatcher.platformBrightness ==
@@ -83,13 +85,14 @@ class MyApp extends StatelessWidget {
               return MaterialApp(
                   scrollBehavior: MyCustomScrollBehavior(),
                   debugShowCheckedModeBanner: false,
-                  // theme: ThemeData.light(),
-                  theme: context.watch<ThemeCubit>().state,
-                  locale: state.selectedLanguage.value,
+                  theme: ThemeData.light(),
+                  // theme: context.watch<ThemeCubit>().state,
+                  // locale: state.selectedLanguage.value,
+                  locale: const Locale('id', 'ID'),
                   supportedLocales: AppLocalizations.supportedLocales,
                   localizationsDelegates:
                       AppLocalizations.localizationsDelegates,
-                  home: const ScreenController());
+                  home: ScreenController(fakeHour: fakeHour));
             },
           );
         },
