@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:nutria/responsive.dart';
 import 'package:nutria/widgets/global_widgets.dart';
+import 'package:shimmer/shimmer.dart';
 import '../../../l10n/flutter_gen/gen_l10n/app_localizations.dart';
 import '../widgets/widgets.dart';
 
@@ -72,6 +73,13 @@ class _DetailScreenState extends State<DetailScreen> {
                     // imageUrl: widget.doc[l10n.lang]['item-image'],
                     imageUrl: widget.doc[l10n.lang]['image-tr'],
                     fit: BoxFit.fitHeight,
+                    placeholder: (context, url) => Shimmer.fromColors(
+                      baseColor: Colors.grey[300]!,
+                      highlightColor: Colors.grey[100]!,
+                      child: Container(
+                        color: Colors.white,
+                      ),
+                    ),
                   ),
                 ),
                 Positioned(
@@ -149,7 +157,7 @@ class _DetailScreenState extends State<DetailScreen> {
                                 style: TextStyle(
                                     // color: Colors.red,
                                     fontSize: (Responsive.isMobile(context))
-                                        ? 13.0
+                                        ? 10.0
                                         : 23.0,
                                     fontWeight: FontWeight.w700),
                               ),

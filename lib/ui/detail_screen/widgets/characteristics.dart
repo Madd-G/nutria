@@ -27,7 +27,7 @@ class Characteristics extends StatelessWidget {
             doc[l10n.lang]['characteristics'][index],
             textAlign: TextAlign.justify,
             style:  TextStyle(
-              fontSize: (Responsive.isMobile(context)) ? 13.0 : 22.0,
+              fontSize: (Responsive.isMobile(context)) ? 11.0 : 22.0,
             ),
           );
         },

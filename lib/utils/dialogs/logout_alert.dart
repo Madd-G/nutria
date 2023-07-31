@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:nutria/responsive.dart';
 import 'package:nutria/utils/utils.dart';
 import '../../l10n/flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -21,6 +22,16 @@ Future<void> showLogoutAlert({
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             GestureDetector(
+              onTap: () {
+                Navigator.pop(context);
+              },
+              child: Text(
+                AppLocalizations.of(context)!.no,
+                style: TextStyle(
+                    fontSize: Responsive.isMobile(context) ? 12.0 : 18.0),
+              ),
+            ),
+            GestureDetector(
               onTap: () async {
                 final GoogleSignIn googleSignIn = GoogleSignIn();
                 await googleSignIn.signOut();
@@ -38,18 +49,11 @@ Future<void> showLogoutAlert({
               },
               child: Text(
                 AppLocalizations.of(context)!.yes,
-                style: const TextStyle(fontSize: 18.0),
+                style: TextStyle(
+                  fontSize: Responsive.isMobile(context) ? 12.0 : 18.0,
+                ),
               ),
             ),
-            GestureDetector(
-              onTap: () {
-                Navigator.pop(context);
-              },
-              child: Text(
-                AppLocalizations.of(context)!.no,
-                style: const TextStyle(fontSize: 18.0),
-              ),
-            )
           ],
         ),
       ),

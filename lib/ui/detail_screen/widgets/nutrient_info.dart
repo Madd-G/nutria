@@ -9,7 +9,8 @@ import '../../../responsive.dart';
 class NutrientInfo extends StatelessWidget {
   const NutrientInfo({
     super.key,
-    required this.doc, required this.l10n,
+    required this.doc,
+    required this.l10n,
   });
 
   final DocumentSnapshot doc;
@@ -31,8 +32,8 @@ class NutrientInfo extends StatelessWidget {
             Text(
               '${l10n.generalInformation} ${doc[l10n.lang]['name']}',
               style: TextStyle(
-                  fontSize: Responsive.isMobile(context) ? 15.0 : 17.0,
-                  fontWeight: FontWeight.w600),
+                  fontSize: Responsive.isMobile(context) ? 12.0 : 20.0,
+                  fontWeight: FontWeight.w500),
             ),
             const SizedBox(
               height: 7.0,
@@ -130,27 +131,27 @@ class NutrientInfo extends StatelessWidget {
                             padding:
                                 const EdgeInsets.fromLTRB(1.0, 3.0, 1.0, 2.0),
                             child: Container(
-                                decoration: BoxDecoration(
-                                    color: Theme.of(context).colorScheme.primary,
-                                    borderRadius: const BorderRadius.all(
-                                        Radius.circular(3.0))),
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 6.0, horizontal: 2.0),
-                                  child: Center(
-                                    child: Text(
-                                      label,
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.w500,
-                                          fontSize:
-                                              (Responsive.isMobile(context))
-                                                  ? 11.0
-                                                  : 22.0),
-                                      softWrap: false,
-                                      textAlign: TextAlign.center,
-                                    ),
+                              decoration: BoxDecoration(
+                                  color: Theme.of(context).colorScheme.primary,
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(3.0))),
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 6.0, horizontal: 2.0),
+                                child: Center(
+                                  child: Text(
+                                    label,
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: (Responsive.isMobile(context))
+                                            ? 10.0
+                                            : 22.0),
+                                    softWrap: false,
+                                    textAlign: TextAlign.center,
                                   ),
-                                )),
+                                ),
+                              ),
+                            ),
                           ),
                         );
                       },
@@ -172,7 +173,7 @@ class NutrientInfo extends StatelessWidget {
                     doc[l10n.lang]['nutrients-info'][index],
                     textAlign: TextAlign.justify,
                     style: TextStyle(
-                      fontSize: (Responsive.isMobile(context)) ? 13.0 : 22.0,
+                      fontSize: (Responsive.isMobile(context)) ? 11.0 : 22.0,
                     ),
                   );
                 },

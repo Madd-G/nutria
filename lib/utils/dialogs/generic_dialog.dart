@@ -17,11 +17,11 @@ Future<T?> showGenericDialog<T>({
       return AlertDialog(
         title: Text(
           title,
-          style: TextStyle(fontSize: Responsive.isMobile(context) ? 20.0 : 24.0),
+          style: TextStyle(fontSize: Responsive.isMobile(context) ? 16.0 : 26.0),
         ),
         content: Text(
           content,
-          style: const TextStyle(fontSize: 18.0),
+          style: TextStyle(fontSize: Responsive.isMobile(context) ? 14.0 : 22.0),
         ),
         actions: actions,
       );

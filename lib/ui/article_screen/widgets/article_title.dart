@@ -17,7 +17,7 @@ class ArticleTitle extends StatelessWidget {
     return Text(
       doc[l10n.lang]['title'],
       style: TextStyle(
-          fontSize: (Responsive.isMobile(context)) ? 18.0 : 28.0,
+          fontSize: (Responsive.isMobile(context)) ? 14.0 : 28.0,
           fontWeight: FontWeight.w700),
     );
   }

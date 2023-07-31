@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:nutria/blocs/blocs.dart';
 import 'package:nutria/l10n/flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:nutria/ui/list_screen/screen/list_screen.dart';
+import 'package:shimmer/shimmer.dart';
 import '../../../responsive.dart';
 
 class CategorySection extends StatelessWidget {
@@ -21,7 +22,7 @@ class CategorySection extends StatelessWidget {
           child: Text(
             l10n.category,
             style: TextStyle(
-                fontSize: (Responsive.isMobile(context)) ? 18 : 30,
+                fontSize: (Responsive.isMobile(context)) ? 14 : 30,
                 fontWeight: FontWeight.w700),
           ),
         ),
@@ -91,7 +92,7 @@ class CategoryBox extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(4.0),
                 child: SizedBox(
                   // color: Colors.white,
                   // height: Responsive.isTablet(context)
@@ -100,18 +101,14 @@ class CategoryBox extends StatelessWidget {
                   // width: size.width * 0.45,
                   child: CachedNetworkImage(
                     imageUrl: imagePath,
-                    // progressIndicatorBuilder: (_, url, download) {
-                    //   if (download.progress != null) {
-                    //     final percent = download.progress! * 100;
-                    //     return Center(
-                    //         child: Text(
-                    //       'loading: ${percent.toStringAsFixed(0)}%',
-                    //       style: const TextStyle(color: Colors.grey),
-                    //     ));
-                    //   }
-                    //   return const Text('');
-                    // },
                     fit: BoxFit.fill,
+                    placeholder: (context, url) => Shimmer.fromColors(
+                      baseColor: Colors.grey[300]!,
+                      highlightColor: Colors.grey[100]!,
+                      child: Container(
+                        color: Colors.white,
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -120,7 +117,7 @@ class CategoryBox extends StatelessWidget {
                 child: Text(
                   label,
                   style: TextStyle(
-                    fontSize: (Responsive.isMobile(context)) ? 16.0 : 30.0,
+                    fontSize: (Responsive.isMobile(context)) ? 12.0 : 30.0,
                     fontWeight: FontWeight.w700,
                     // color: Colors.black,
                   ),

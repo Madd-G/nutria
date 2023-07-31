@@ -22,14 +22,18 @@ class RecommendationSection extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: const EdgeInsets.fromLTRB(10.0, 12.0, 10.0, 5.0),
+                padding: EdgeInsets.fromLTRB(
+                    10.0,
+                    Responsive.isMobile(context) ? 6.0 : 12.0,
+                    10.0,
+                    Responsive.isMobile(context) ? 0.0 : 5.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       l10n.recommendation,
                       style: TextStyle(
-                        fontSize: (Responsive.isMobile(context)) ? 18.0 : 30.0,
+                        fontSize: (Responsive.isMobile(context)) ? 12.0 : 30.0,
                         fontWeight: FontWeight.w600,
                         // color: Colors.black,
                       ),
@@ -43,7 +47,7 @@ class RecommendationSection extends StatelessWidget {
                             l10n.todaysRecommendation,
                             style: TextStyle(
                               fontSize:
-                                  (Responsive.isMobile(context)) ? 13.0 : 18.0,
+                                  (Responsive.isMobile(context)) ? 10.0 : 18.0,
                               fontWeight: FontWeight.w600,
                               // color: Colors.grey,
                             ),

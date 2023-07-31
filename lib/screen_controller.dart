@@ -61,18 +61,27 @@ class ScreenController extends StatelessWidget {
                   tabs: [
                     GButton(
                       icon: Icons.home,
-                      iconSize: Responsive.isMobile(context) ? 25.0 : 30.0,
+                      iconSize: Responsive.isMobile(context) ? 20.0 : 30.0,
                       text: l10n.home,
+                      textStyle: TextStyle(
+                          fontSize: Responsive.isMobile(context) ? 12.0 : 17.0,
+                          fontWeight: FontWeight.w500),
                     ),
                     GButton(
                       icon: Ionicons.scan_sharp,
-                      iconSize: Responsive.isMobile(context) ? 25.0 : 30.0,
+                      iconSize: Responsive.isMobile(context) ? 20.0 : 30.0,
                       text: l10n.scan,
+                      textStyle: TextStyle(
+                          fontSize: Responsive.isMobile(context) ? 12.0 : 17.0,
+                          fontWeight: FontWeight.w500),
                     ),
                     GButton(
                       icon: Icons.article,
-                      iconSize: Responsive.isMobile(context) ? 25.0 : 30.0,
+                      iconSize: Responsive.isMobile(context) ? 20.0 : 30.0,
                       text: l10n.article,
+                      textStyle: TextStyle(
+                          fontSize: Responsive.isMobile(context) ? 12.0 : 17.0,
+                          fontWeight: FontWeight.w500),
                     ),
                   ],
                 ),

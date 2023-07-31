@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:nutria/l10n/flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../../../responsive.dart';
 
@@ -31,19 +32,14 @@ class RecommendationCard extends StatelessWidget {
                 child: CachedNetworkImage(
                   // imageUrl: doc[l10n.lang]['item-image'],
                   imageUrl: doc[l10n.lang]['image-tr'],
-                  progressIndicatorBuilder: (_, url, download) {
-                    if (download.progress != null) {
-                      // final percent = download.progress! * 100;
-                      return const Center(
-                        child: Text(
-                          // 'loading: ${percent.toStringAsFixed(0)}%', style: const TextStyle(color: Colors.grey),
-                          '',
-                        ),
-                      );
-                    }
-                    return const Text('');
-                  },
                   fit: BoxFit.fill,
+                  placeholder: (context, url) => Shimmer.fromColors(
+                    baseColor: Colors.grey[300]!,
+                    highlightColor: Colors.grey[100]!,
+                    child: Container(
+                      color: Colors.white,
+                    ),
+                  ),
                 ),
               ),
             ),
@@ -51,12 +47,15 @@ class RecommendationCard extends StatelessWidget {
           const SizedBox(
             height: 4.0,
           ),
-          Text(
-            '${doc[l10n.lang]['name']}',
-            style: TextStyle(
-              fontSize: (Responsive.isMobile(context)) ? 13.0 : 18.0,
-              fontWeight: FontWeight.w600,
-              letterSpacing: 1.2,
+          Padding(
+            padding: const EdgeInsets.only(left: 4.0),
+            child: Text(
+              '${doc[l10n.lang]['name']}',
+              style: TextStyle(
+                fontSize: (Responsive.isMobile(context)) ? 10.0 : 18.0,
+                fontWeight: FontWeight.w600,
+                letterSpacing: 1.2,
+              ),
             ),
           ),
         ],

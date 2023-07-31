@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../../../l10n/flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -27,17 +28,14 @@ class ArticleImage extends StatelessWidget {
               width: size.width,
               child: CachedNetworkImage(
                 imageUrl: doc[l10n.lang]['item-image'],
-                // progressIndicatorBuilder: (_, url, download) {
-                //   if (download.progress != null) {
-                //     final percent = download.progress! * 100;
-                //     return Center(
-                //         child: Text(
-                //       'loading: ${percent.toStringAsFixed(0)}%', style: const TextStyle(color: Colors.grey),
-                //     ));
-                //   }
-                //   return const Text('');
-                // },
                 fit: BoxFit.fill,
+                placeholder: (context, url) => Shimmer.fromColors(
+                  baseColor: Colors.grey[300]!,
+                  highlightColor: Colors.grey[100]!,
+                  child: Container(
+                    color: Colors.white,
+                  ),
+                ),
               ),
             ),
             const SizedBox(

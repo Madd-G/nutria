@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:dio/dio.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:nutria/models/models.dart';
 
 class ApiService {
@@ -23,13 +24,10 @@ class ApiService {
 
   final Dio _dio = Dio();
 
-  // final String _baseUrl = 'https://nutria-pemw7i5uxa-et.a.run.app/nutria/';
-  final String _baseUrl = 'https://nutria-it6ihfa5za-et.a.run.app/nutria/';
-
-  Future<List<Prediction>> uploadImage(String imgPath) async {
+  Future<List<Prediction>> uploadImage(String imgPath, String baseUrl) async {
     FormData formData =
         FormData.fromMap({"file": await MultipartFile.fromFile(imgPath)});
-    Response response = await _dio.post('${_baseUrl}detect', data: formData);
+    Response response = await _dio.post('$baseUrl/detect', data: formData);
     String responses = jsonEncode(response.data).toString();
     List<Prediction> result = modelFromJson(responses);
     result = result

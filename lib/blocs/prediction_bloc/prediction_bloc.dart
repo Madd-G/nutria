@@ -13,10 +13,10 @@ class PredictionBloc extends Bloc<PredictionEvent, PredictionState> {
     ApiService apiService = ApiService();
 
     on<GetPrediction>((event, emit) async {
-      Future<List<Prediction>> getPrediction(String imgPath) async {
+      Future<List<Prediction>> getPrediction(String imgPath, baseUrl) async {
         try {
           var seen = <String>{};
-          List<Prediction> prediction = await apiService.uploadImage(imgPath);
+          List<Prediction> prediction = await apiService.uploadImage(imgPath, baseUrl);
           List<Prediction> uniqueList =
               prediction.where((obj) => seen.add(obj.className)).toList();
           return uniqueList;
@@ -27,7 +27,7 @@ class PredictionBloc extends Bloc<PredictionEvent, PredictionState> {
 
       try {
         emit(PredictionLoadingState());
-        List<Prediction> result = await getPrediction(event.imagePath);
+        List<Prediction> result = await getPrediction(event.imagePath, event.baseUrl);
         emit(PredictionSuccessState(prediction: result));
       } catch (e) {
         emit(PredictionErrorState(e, e.toString()));
