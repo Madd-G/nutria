@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:shimmer/shimmer.dart';
 import '../../../l10n/flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../responsive.dart';
 import '../../screens.dart';
@@ -43,18 +44,14 @@ class ArticleListCard extends StatelessWidget {
                 height: size.width * 0.35,
                 child: CachedNetworkImage(
                   imageUrl: doc[l10n.lang]['item-image'],
-                  // progressIndicatorBuilder: (_, url, download) {
-                  //   if (download.progress != null) {
-                  //     final percent = download.progress! * 100;
-                  //     return Center(
-                  //         child: Text(
-                  //       'loading: ${percent.toStringAsFixed(0)}%',
-                  //       style: const TextStyle(color: Colors.grey),
-                  //     ));
-                  //   }
-                  //   return const Text('');
-                  // },
                   fit: BoxFit.fill,
+                  placeholder: (context, url) => Shimmer.fromColors(
+                    baseColor: Colors.grey[300]!,
+                    highlightColor: Colors.grey[100]!,
+                    child: Container(
+                      color: Colors.white,
+                    ),
+                  ),
                 ),
               ),
               const SizedBox(
@@ -75,7 +72,7 @@ class ArticleListCard extends StatelessWidget {
                             l10n.health,
                             style: TextStyle(
                                 fontSize:
-                                    (Responsive.isMobile(context)) ? 10 : 18,
+                                    (Responsive.isMobile(context)) ? 8 : 18,
                                 color: Colors.grey),
                           ),
                           SizedBox(
@@ -88,7 +85,7 @@ class ArticleListCard extends StatelessWidget {
                               overflow: TextOverflow.clip,
                               style: TextStyle(
                                   fontSize: (Responsive.isMobile(context))
-                                      ? 15.0
+                                      ? 11.0
                                       : 25.0,
                                   fontWeight: FontWeight.w700),
                             ),
@@ -99,7 +96,7 @@ class ArticleListCard extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const SizedBox(
-                            height: 10.0,
+                            height: 7.0,
                           ),
                           Row(
                             children: [
@@ -110,34 +107,27 @@ class ArticleListCard extends StatelessWidget {
                                   height: 23.0,
                                   child: CachedNetworkImage(
                                     imageUrl: doc[l10n.lang]['profile-image'],
-                                    // progressIndicatorBuilder:
-                                    //     (_, url, download) {
-                                    //   if (download.progress != null) {
-                                    //     final percent =
-                                    //         download.progress! * 100;
-                                    //     return Center(
-                                    //         child: Text(
-                                    //       'loading: ${percent.toStringAsFixed(0)}%',
-                                    //       style: const TextStyle(
-                                    //           color: Colors.grey),
-                                    //     ));
-                                    //   }
-                                    //   return const Text('');
-                                    // },
                                     fit: BoxFit.fill,
+                                    placeholder: (context, url) => Shimmer.fromColors(
+                                      baseColor: Colors.grey[300]!,
+                                      highlightColor: Colors.grey[100]!,
+                                      child: Container(
+                                        color: Colors.white,
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ),
                               SizedBox(
                                 width:
-                                    Responsive.isMobile(context) ? 8.0 : 10.0,
+                                    Responsive.isMobile(context) ? 9.0 : 10.0,
                               ),
                               Text(
                                 '${doc[l10n.lang]["author"]} • ${doc[l10n.lang]['date']}',
                                 style: TextStyle(
                                   fontWeight: FontWeight.w500,
                                   fontSize: (Responsive.isMobile(context))
-                                      ? 11.0
+                                      ? 8.5
                                       : 18.0,
                                   // color: Colors.grey,
                                 ),

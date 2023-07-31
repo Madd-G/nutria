@@ -27,7 +27,7 @@
     "loginWithGoogle" : "Masuk dengan Google",
     "logoutSuccessfully" : "Berhasil keluar",
     "logOut" : "Keluar",
-    "confirmLogout" : "Apakah anda yakin ingin keluar",
+    "confirmLogout" : "Apakah anda yakin ingin keluar?",
     "confirmDeleteAccount" : "Apakah anda yakin ingin menghapus akun anda? Dengan menghapus akun seluruh chat anda akan terhapus.",
     "deletedSuccessfully" : "Berhasil menghapus akun",
     "deleteAccount" : "Hapus Akun",

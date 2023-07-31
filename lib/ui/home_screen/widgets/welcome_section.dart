@@ -103,14 +103,14 @@ class WelcomeSection extends StatelessWidget {
                 greeting,
                 style: TextStyle(
                     // color: Colors.grey,
-                    fontSize: (Responsive.isMobile(context)) ? 22.0 : 35.0,
+                    fontSize: (Responsive.isMobile(context)) ? 16.0 : 35.0,
                     fontWeight: FontWeight.w900),
               ),
               Text(
                 '$dayOfWeek, ${DateTime.now().day} $month ${DateTime.now().year}',
                 style: TextStyle(
                     // color: Colors.black,
-                    fontSize: (Responsive.isMobile(context)) ? 16.0 : 25.0,
+                    fontSize: (Responsive.isMobile(context)) ? 11.0 : 25.0,
                     fontWeight: FontWeight.w700),
               ),
               const SizedBox(

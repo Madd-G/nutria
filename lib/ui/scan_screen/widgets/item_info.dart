@@ -32,7 +32,7 @@ class ItemInfo extends StatelessWidget {
                 Text(
                   doc[l10n.lang]['name'],
                   style: TextStyle(
-                      fontSize: (Responsive.isMobile(context)) ? 23.0 : 40.0,
+                      fontSize: (Responsive.isMobile(context)) ? 20.0 : 40.0,
                       fontWeight: FontWeight.w900),
                 ),
                 Container(
@@ -47,7 +47,7 @@ class ItemInfo extends StatelessWidget {
                       doc[l10n.lang]['category'],
                       textAlign: TextAlign.justify,
                       style: TextStyle(
-                        fontSize: (Responsive.isMobile(context)) ? 17.0 : 30.0,
+                        fontSize: (Responsive.isMobile(context)) ? 15.0 : 30.0,
                         fontWeight: FontWeight.w700,
                       ),
                     ),
@@ -63,7 +63,7 @@ class ItemInfo extends StatelessWidget {
             Text(
               l10n.nutrientsAndMinerals,
               style: TextStyle(
-                  fontSize: (Responsive.isMobile(context)) ? 14.0 : 30.0,
+                  fontSize: (Responsive.isMobile(context)) ? 11.0 : 30.0,
                   fontWeight: FontWeight.w600),
             ),
             SizedBox(
@@ -97,7 +97,7 @@ class ItemInfo extends StatelessWidget {
                                   label,
                                   style: TextStyle(
                                       fontSize: (Responsive.isMobile(context))
-                                          ? 20.0
+                                          ? 15.0
                                           : 35.0,
                                       fontWeight: FontWeight.w500),
                                 ),
@@ -124,7 +124,7 @@ class ItemInfo extends StatelessWidget {
                                                   fontSize:
                                                       (Responsive.isMobile(
                                                               context))
-                                                          ? 15.0
+                                                          ? 12.0
                                                           : 30.0)),
                                         ],
                                       ),
@@ -162,7 +162,7 @@ class ItemInfo extends StatelessWidget {
                             style: TextStyle(
                                 fontWeight: FontWeight.w500,
                                 fontSize: (Responsive.isMobile(context))
-                                    ? 12.0
+                                    ? 11.0
                                     : 25.0),
                             softWrap: false,
                             textAlign: TextAlign.center,
@@ -180,7 +180,7 @@ class ItemInfo extends StatelessWidget {
             Text(
               l10n.description,
               style: TextStyle(
-                  fontSize: (Responsive.isMobile(context)) ? 14.0 : 30.0,
+                  fontSize: (Responsive.isMobile(context)) ? 13.0 : 30.0,
                   fontWeight: FontWeight.w600),
             ),
             const SizedBox(
@@ -198,7 +198,7 @@ class ItemInfo extends StatelessWidget {
                   doc[l10n.lang]['general-info'][index],
                   textAlign: TextAlign.justify,
                   style: TextStyle(
-                    fontSize: (Responsive.isMobile(context)) ? 13.0 : 22.0,
+                    fontSize: (Responsive.isMobile(context)) ? 11.0 : 22.0,
                   ),
                 );
               },
@@ -211,7 +211,7 @@ class ItemInfo extends StatelessWidget {
             Text(
               '${l10n.benefitsConsuming} ${doc[l10n.lang]['name']}',
               style: TextStyle(
-                  fontSize: (Responsive.isMobile(context)) ? 14.0 : 30.0,
+                  fontSize: (Responsive.isMobile(context)) ? 13.0 : 30.0,
                   fontWeight: FontWeight.w600),
             ),
             SizedBox(
@@ -229,7 +229,7 @@ class ItemInfo extends StatelessWidget {
                   doc[l10n.lang]['benefits'][index],
                   textAlign: TextAlign.justify,
                   style: TextStyle(
-                    fontSize: (Responsive.isMobile(context)) ? 13.0 : 22.0,
+                    fontSize: (Responsive.isMobile(context)) ? 11.0 : 22.0,
                   ),
                 );
               },

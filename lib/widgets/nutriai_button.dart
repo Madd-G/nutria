@@ -22,7 +22,7 @@ class NutriAIButton extends StatelessWidget {
   Widget build(BuildContext context) {
     AppLocalizations l10n = AppLocalizations.of(context)!;
     double bottomSheetHeight =
-        (Platform.isIOS || Platform.isMacOS) ? 250.0 : 210.0;
+        (Platform.isIOS || Platform.isMacOS) ? 300.0 : 260.0;
     return FloatingDraggableWidget(
       mainScreenWidget: mainWidget,
       screenHeight: screenHeight,
@@ -79,7 +79,8 @@ class NutriAIButton extends StatelessWidget {
               }
             },
             child: Padding(
-              padding: EdgeInsets.all(Responsive.isMobile(context)? 10.0 : 15.0),
+              padding:
+                  EdgeInsets.all(Responsive.isMobile(context) ? 10.0 : 15.0),
               child: Image.asset(
                 'assets/images/chatbot.png',
                 color: Theme.of(context).colorScheme.onSecondaryContainer,
@@ -88,8 +89,8 @@ class NutriAIButton extends StatelessWidget {
           );
         },
       ),
-      floatingWidgetWidth: Responsive.isMobile(context)? 55.0 : 70.0,
-      floatingWidgetHeight: Responsive.isMobile(context)? 55.0 : 70.0,
+      floatingWidgetWidth: Responsive.isMobile(context) ? 55.0 : 70.0,
+      floatingWidgetHeight: Responsive.isMobile(context) ? 55.0 : 70.0,
     );
   }
 }
@@ -126,7 +127,7 @@ class Login extends StatelessWidget {
                   AppLocalizations.of(context)!.changeLanguage,
                   style: TextStyle(
                     fontWeight: FontWeight.w500,
-                    fontSize: Responsive.isMobile(context) ? 18.0 : 20.0,
+                    fontSize: Responsive.isMobile(context) ? 14.0 : 20.0,
                   ),
                 ),
                 GestureDetector(
@@ -165,7 +166,7 @@ class Login extends StatelessWidget {
                   AppLocalizations.of(context)!.theme,
                   style: TextStyle(
                       fontWeight: FontWeight.w500,
-                      fontSize: Responsive.isMobile(context) ? 18.0 : 20.0),
+                      fontSize: Responsive.isMobile(context) ? 14.0 : 20.0),
                 ),
                 const ThemeButton(),
               ],
@@ -215,8 +216,10 @@ class Login extends StatelessWidget {
                                   : MediaQuery.of(context).size.width * 0.25),
                           Text(
                             AppLocalizations.of(context)!.loginWithGoogle,
-                            style: const TextStyle(
-                                fontWeight: FontWeight.w500, fontSize: 20.0),
+                            style: TextStyle(
+                                fontWeight: FontWeight.w500,
+                                fontSize:
+                                    Responsive.isMobile(context) ? 14 : 20.0),
                           )
                         ],
                       ),
@@ -270,9 +273,11 @@ class Login extends StatelessWidget {
                                             0.25),
                                 Text(
                                   AppLocalizations.of(context)!.loginWithApple,
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                       fontWeight: FontWeight.w500,
-                                      fontSize: 20.0),
+                                      fontSize: Responsive.isMobile(context)
+                                          ? 14
+                                          : 20.0),
                                 ),
                               ],
                             ),

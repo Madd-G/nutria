@@ -168,8 +168,8 @@ class PredictionSuccessView extends StatelessWidget {
                                       style: TextStyle(
                                           fontSize:
                                               (Responsive.isMobile(context))
-                                                  ? 15.0
-                                                  : 25.0,
+                                                  ? 10.0
+                                                  : 23.0,
                                           fontWeight: FontWeight.w700),
                                     ),
                                   ),
