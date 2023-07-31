@@ -30,7 +30,7 @@ class Article extends StatelessWidget {
               doc[l10n.lang]['article'][index],
               textAlign: TextAlign.justify,
               style: TextStyle(
-                fontSize: Responsive.isMobile(context) ?  12.0 : 22.0,
+                fontSize: Responsive.isMobile(context) ?  10.0 : 22.0,
               ),
             );
           },

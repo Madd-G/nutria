@@ -6,24 +6,28 @@ import '../widgets/widgets.dart';
 import 'dart:io';
 
 class DetailObjectScreen extends StatefulWidget {
-  const DetailObjectScreen({super.key, this.image});
+  const DetailObjectScreen({super.key, this.image, this.url});
 
   final File? image;
+  final String? url;
 
   @override
   State<DetailObjectScreen> createState() => _DetailObjectScreenState();
 }
 
 class _DetailObjectScreenState extends State<DetailObjectScreen> {
+
   @override
   void initState() {
     context.read<PredictionBloc>().add(
           GetPrediction(
             imagePath: widget.image!.path,
+            baseUrl: widget.url!,
           ),
         );
     super.initState();
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -56,10 +60,15 @@ class _DetailObjectScreenState extends State<DetailObjectScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(l10n.errorOccurred),
+                  Text(
+                    l10n.errorOccurred,
+                  ),
                   ElevatedButton(
                       onPressed: () => Navigator.pop(context),
-                      child: Text(l10n.back))
+                      child: Text(
+                        l10n.back,
+                        style: const TextStyle(color: Colors.white),
+                      ))
                 ],
               ),
             ),

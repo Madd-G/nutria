@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../blocs/language_bloc/language_bloc.dart';
 import '../../../l10n/flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../language.dart';
+import '../../../responsive.dart';
 
 class LanguageBottomSheet extends StatelessWidget {
   const LanguageBottomSheet({Key? key}) : super(key: key);
@@ -28,8 +29,9 @@ class LanguageBottomSheet extends StatelessWidget {
               ),
               Text(
                 AppLocalizations.of(context)!.changeLanguage,
-                style: const TextStyle(
-                    fontSize: 20.0, fontWeight: FontWeight.w700),
+                style: TextStyle(
+                    fontSize: Responsive.isMobile(context) ? 14.0 : 20.0,
+                    fontWeight: FontWeight.w700),
               ),
               const Icon(null)
             ],
@@ -58,7 +60,9 @@ class LanguageBottomSheet extends StatelessWidget {
                     ),
                     title: Text(
                       Language.values[index].text,
-                      style: const TextStyle(fontWeight: FontWeight.w500),
+                      style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontSize: Responsive.isMobile(context) ? 14.0 : 20.0),
                     ),
                     trailing: Language.values[index] == state.selectedLanguage
                         ? Icon(

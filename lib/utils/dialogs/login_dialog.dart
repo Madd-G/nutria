@@ -11,7 +11,7 @@ class LoginDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double bottomSheetHeight =
-        (Platform.isIOS || Platform.isMacOS) ? 300.0 : 210.0;
+        (Platform.isIOS || Platform.isMacOS) ? 300.0 : 260.0;
     return GestureDetector(
       onTap: () {
         showModalBottomSheet(
@@ -47,7 +47,7 @@ class LoginDialog extends StatelessWidget {
                           style: TextStyle(
                             fontWeight: FontWeight.w500,
                             fontSize:
-                                Responsive.isMobile(context) ? 18.0 : 20.0,
+                                Responsive.isMobile(context) ? 14.0 : 20.0,
                           ),
                         ),
                         GestureDetector(
@@ -87,7 +87,7 @@ class LoginDialog extends StatelessWidget {
                           style: TextStyle(
                               fontWeight: FontWeight.w500,
                               fontSize:
-                                  Responsive.isMobile(context) ? 18.0 : 20.0),
+                                  Responsive.isMobile(context) ? 14.0 : 20.0),
                         ),
                         const ThemeButton(),
                       ],
@@ -102,7 +102,7 @@ class LoginDialog extends StatelessWidget {
                           AppLocalizations.of(context)!.loginFirst,
                           style: TextStyle(
                               fontSize:
-                                  Responsive.isMobile(context) ? 18.0 : 20.0),
+                                  Responsive.isMobile(context) ? 14.0 : 20.0),
                         ),
                         const SizedBox(
                           height: 7.0,
@@ -151,9 +151,11 @@ class LoginDialog extends StatelessWidget {
                                   Text(
                                     AppLocalizations.of(context)!
                                         .loginWithGoogle,
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                         fontWeight: FontWeight.w500,
-                                        fontSize: 20.0),
+                                        fontSize: Responsive.isMobile(context)
+                                            ? 14
+                                            : 20.0),
                                   )
                                 ],
                               ),
@@ -218,9 +220,12 @@ class LoginDialog extends StatelessWidget {
                                         Text(
                                           AppLocalizations.of(context)!
                                               .loginWithApple,
-                                          style: const TextStyle(
+                                          style: TextStyle(
                                               fontWeight: FontWeight.w500,
-                                              fontSize: 20.0),
+                                              fontSize:
+                                                  Responsive.isMobile(context)
+                                                      ? 14.0
+                                                      : 20.0),
                                         ),
                                       ],
                                     ),

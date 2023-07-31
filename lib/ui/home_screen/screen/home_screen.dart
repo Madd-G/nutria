@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../l10n/flutter_gen/gen_l10n/app_localizations.dart';
+import '../../../responsive.dart';
 import '../../../widgets/global_widgets.dart';
 import '../widgets/widgets.dart';
 
@@ -8,20 +9,6 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // // ScrollBehavior can be copied and adjusted.
-    // final ScrollController controller = ScrollController();
-    // ScrollConfiguration(
-    //   behavior: ScrollConfiguration.of(context).copyWith(dragDevices: {
-    //     PointerDeviceKind.touch,
-    //     PointerDeviceKind.mouse,
-    //   }),
-    //   child: ListView.builder(
-    //       controller: controller,
-    //       itemBuilder: (BuildContext context, int index) {
-    //         return Text('Item $index');
-    //       }
-    //   ),
-    // );
     Size size = MediaQuery.of(context).size;
     AppLocalizations l10n = AppLocalizations.of(context)!;
 

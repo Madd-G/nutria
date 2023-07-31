@@ -10,7 +10,7 @@ class LogoutDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double bottomSheetHeight = 340.0;
+    double bottomSheetHeight = 350.0;
     return GestureDetector(
       onTap: () {
         showModalBottomSheet(
@@ -65,13 +65,13 @@ class LogoutDialog extends StatelessWidget {
                             overflow: TextOverflow.fade,
                             style: TextStyle(
                                 fontSize:
-                                    Responsive.isMobile(context) ? 18.0 : 20.0),
+                                    Responsive.isMobile(context) ? 14.0 : 20.0),
                           )
                         ],
                       ),
                     ),
-                    const SizedBox(
-                      height: 35.0,
+                    SizedBox(
+                      height: Responsive.isMobile(context) ? 25.0 : 35,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -81,7 +81,7 @@ class LogoutDialog extends StatelessWidget {
                           style: TextStyle(
                               fontWeight: FontWeight.w500,
                               fontSize:
-                                  Responsive.isMobile(context) ? 18.0 : 20.0),
+                                  Responsive.isMobile(context) ? 14.0 : 20.0),
                         ),
                         GestureDetector(
                           onTap: () {
@@ -109,8 +109,8 @@ class LogoutDialog extends StatelessWidget {
                         ),
                       ],
                     ),
-                    const SizedBox(
-                      height: 20.0,
+                    SizedBox(
+                      height: Responsive.isMobile(context) ? 10.0 : 20.0,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -120,13 +120,13 @@ class LogoutDialog extends StatelessWidget {
                           style: TextStyle(
                               fontWeight: FontWeight.w500,
                               fontSize:
-                                  Responsive.isMobile(context) ? 18.0 : 20.0),
+                                  Responsive.isMobile(context) ? 14.0 : 20.0),
                         ),
                         const ThemeButton(),
                       ],
                     ),
-                    const SizedBox(
-                      height: 20.0,
+                    SizedBox(
+                      height: Responsive.isMobile(context) ? 10.0 : 20.0,
                     ),
                     GestureDetector(
                       onTap: () async {
@@ -141,18 +141,19 @@ class LogoutDialog extends StatelessWidget {
                         style: TextStyle(
                             fontWeight: FontWeight.w500,
                             fontSize:
-                                Responsive.isMobile(context) ? 18.0 : 20.0),
+                                Responsive.isMobile(context) ? 14.0 : 20.0),
                       ),
                     ),
-                    const SizedBox(
-                      height: 25.0,
+                    SizedBox(
+                      height: Responsive.isMobile(context) ? 15.0 : 20.0,
                     ),
                     GestureDetector(
                       onTap: () async {
                         showDeleteAccountAlert(
                           context: context,
                           title: AppLocalizations.of(context)!.deleteAccount,
-                          content: AppLocalizations.of(context)!.confirmDeleteAccount,
+                          content: AppLocalizations.of(context)!
+                              .confirmDeleteAccount,
                         );
                       },
                       child: Text(
@@ -160,7 +161,7 @@ class LogoutDialog extends StatelessWidget {
                         style: TextStyle(
                             fontWeight: FontWeight.w500,
                             fontSize:
-                                Responsive.isMobile(context) ? 18.0 : 20.0,
+                                Responsive.isMobile(context) ? 14.0 : 20.0,
                             color: Colors.red),
                       ),
                     ),
@@ -185,7 +186,7 @@ class LogoutDialog extends StatelessWidget {
             // FirebaseAuth.instance.currentUser!.displayName![0].toUpperCase(),
             FirebaseAuth.instance.currentUser!.email![0].toUpperCase(),
             style: TextStyle(
-                fontSize: (Responsive.isMobile(context)) ? 25 : 35.0,
+                fontSize: (Responsive.isMobile(context)) ? 25 : 40.0,
                 color: Colors.grey[200],
                 fontWeight: FontWeight.w700),
           ),

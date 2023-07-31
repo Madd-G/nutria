@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:camera/camera.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -12,6 +13,7 @@ class CameraContent extends StatefulWidget {
   const CameraContent({Key? key, required this.l10n}) : super(key: key);
 
   final AppLocalizations l10n;
+
   @override
   State<CameraContent> createState() => _CameraContentState();
 }
@@ -24,10 +26,12 @@ class _CameraContentState extends State<CameraContent> {
   late int selectedCameraIndex;
   late String imgPath;
   File? imageGallery;
+  String nutriaUrl = '';
 
   @override
   void initState() {
     super.initState();
+    fetchFirestoreValue();
     availableCameras().then(
       (value) {
         cameras = value;
@@ -53,6 +57,37 @@ class _CameraContentState extends State<CameraContent> {
         }
       },
     );
+  }
+
+  Future<String> fetchFirestoreValue() async {
+    try {
+      // Replace 'your_document_path' with the actual path to your Firestore document.
+      // Replace 'your_field_name' with the actual field name you want to fetch.
+      DocumentSnapshot snapshot = await FirebaseFirestore.instance
+          .collection('url')
+          .doc('HcMAeajSAeVo7S6cytmt')
+          .get();
+
+      if (snapshot.exists) {
+        setState(() {
+          // Explicitly cast the data to the expected type Map<String, dynamic>.
+          Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
+          nutriaUrl = data['nutria-url'];
+        });
+      } else {
+        setState(() {
+          // Document doesn't exist or field is not available.
+          nutriaUrl = 'Value not found';
+        });
+      }
+      return nutriaUrl;
+    } catch (e) {
+      setState(() {
+        // Error occurred while fetching data.
+        nutriaUrl = 'Error: $e';
+      });
+      rethrow;
+    }
   }
 
   Future initCamera(CameraDescription cameraDescription) async {
@@ -130,7 +165,10 @@ class _CameraContentState extends State<CameraContent> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => DetailObjectScreen(image: imageFile!),
+            builder: (context) => DetailObjectScreen(
+              image: imageFile!,
+              url: nutriaUrl,
+            ),
           ),
         );
       }
@@ -160,7 +198,10 @@ class _CameraContentState extends State<CameraContent> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => DetailObjectScreen(image: img!),
+                builder: (context) => DetailObjectScreen(
+                  image: img!,
+                  url: nutriaUrl,
+                ),
               ),
             );
           }
