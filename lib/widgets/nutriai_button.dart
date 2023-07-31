@@ -184,15 +184,20 @@ class Login extends StatelessWidget {
                 GestureDetector(
                   onTap: () {
                     context.read<AuthCubit>().signInWithGoogle(context).then(
-                          (value) => ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text(AppLocalizations.of(context)!
-                                  .loginSuccessfully),
-                            ),
-                          ),
+                        (value) => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ChatScreen(
+                                    l10n: AppLocalizations.of(context)!)))
+                        //     ScaffoldMessenger.of(context).showSnackBar(
+                        //   SnackBar(
+                        //     content: Text(AppLocalizations.of(context)!
+                        //         .loginSuccessfully),
+                        //   ),
+                        // ),
                         );
                     // (mounted) {
-                    Navigator.pop(context);
+                    // Navigator.pop(context);
                     // };
                   },
                   child: Container(
@@ -235,19 +240,22 @@ class Login extends StatelessWidget {
                       ),
                       GestureDetector(
                         onTap: () {
-                          context
-                              .read<AuthCubit>()
-                              .signInWithApple(context)
-                              .then(
-                                (value) =>
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: Text(AppLocalizations.of(context)!
-                                        .loginSuccessfully),
-                                  ),
-                                ),
+                          context.read<AuthCubit>().signInWithApple(context).then(
+                              (value) => Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => ChatScreen(
+                                          l10n: AppLocalizations.of(context)!),
+                                    ),
+                                  )
+                              //     ScaffoldMessenger.of(context).showSnackBar(
+                              //   SnackBar(
+                              //     content: Text(AppLocalizations.of(context)!
+                              //         .loginSuccessfully),
+                              //   ),
+                              // ),
                               );
-                          Navigator.pop(context);
+                          // Navigator.pop(context);
                         },
                         child: Container(
                           decoration: BoxDecoration(

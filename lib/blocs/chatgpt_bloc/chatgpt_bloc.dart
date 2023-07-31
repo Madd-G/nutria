@@ -3,7 +3,6 @@ import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:http/http.dart' as http;
 
@@ -19,13 +18,13 @@ class ChatGPTBloc extends Bloc<ChatGPTEvent, ChatGPTState> {
         color: Colors.black,
         size: 18,
       );
-      String result = await sendMessageToChatGpt(event.message);
+      String result = await sendMessageToChatGpt(event.message, event.apiKey);
 
       emit(ChatGPTIsSuccess(result: result));
     });
   }
 
-  Future<String> sendMessageToChatGpt(String message) async {
+  Future<String> sendMessageToChatGpt(String message, String apiKey) async {
     Uri uri = Uri.parse("https://api.openai.com/v1/chat/completions");
 
     Map<String, dynamic> body = {
@@ -40,7 +39,7 @@ class ChatGPTBloc extends Bloc<ChatGPTEvent, ChatGPTState> {
       headers: {
         "Content-Type": "application/json",
         "Authorization":
-            "Bearer ${dotenv.env['API_KEY']}",
+            "Bearer $apiKey",
       },
       body: json.encode(body),
     );

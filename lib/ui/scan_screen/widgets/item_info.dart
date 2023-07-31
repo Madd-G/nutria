@@ -7,7 +7,7 @@ import 'package:nutria/l10n/flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../blocs/blocs.dart';
 import '../../../responsive.dart';
 
-class ItemInfo extends StatelessWidget {
+class ItemInfo extends StatefulWidget {
   const ItemInfo({
     super.key,
     required this.doc,
@@ -16,6 +16,46 @@ class ItemInfo extends StatelessWidget {
 
   final DocumentSnapshot doc;
   final AppLocalizations l10n;
+
+  @override
+  State<ItemInfo> createState() => _ItemInfoState();
+}
+
+class _ItemInfoState extends State<ItemInfo> {
+  String apiKey = '';
+
+  @override
+  void initState() {
+    fetchApiKey();
+    super.initState();
+  }
+
+  Future<String> fetchApiKey() async {
+    try {
+      DocumentSnapshot snapshot = await FirebaseFirestore.instance
+          .collection('url')
+          .doc('A1LwZfXMxWAh34RJQuu0')
+          .get();
+
+      if (snapshot.exists) {
+        setState(() {
+          Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
+          apiKey = data['api-key'];
+        });
+      } else {
+        setState(() {
+          apiKey = 'Value not found';
+        });
+      }
+      return apiKey;
+    } catch (e) {
+      setState(() {
+        // Error occurred while fetching data.
+        apiKey = 'Error: $e';
+      });
+      rethrow;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +70,7 @@ class ItemInfo extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  doc[l10n.lang]['name'],
+                  widget.doc[widget.l10n.lang]['name'],
                   style: TextStyle(
                       fontSize: (Responsive.isMobile(context)) ? 20.0 : 40.0,
                       fontWeight: FontWeight.w900),
@@ -44,7 +84,7 @@ class ItemInfo extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(
                         vertical: 6.0, horizontal: 25.0),
                     child: Text(
-                      doc[l10n.lang]['category'],
+                      widget.doc[widget.l10n.lang]['category'],
                       textAlign: TextAlign.justify,
                       style: TextStyle(
                         fontSize: (Responsive.isMobile(context)) ? 15.0 : 30.0,
@@ -61,7 +101,7 @@ class ItemInfo extends StatelessWidget {
                   : size.height * 0.02,
             ),
             Text(
-              l10n.nutrientsAndMinerals,
+              widget.l10n.nutrientsAndMinerals,
               style: TextStyle(
                   fontSize: (Responsive.isMobile(context)) ? 11.0 : 30.0,
                   fontWeight: FontWeight.w600),
@@ -73,15 +113,19 @@ class ItemInfo extends StatelessWidget {
               crossAxisCount: 4,
               mainAxisSpacing: 4.0,
               crossAxisSpacing: 2.5,
-              children: doc[l10n.lang]['nutrients'].map<Widget>(
+              children: widget.doc[widget.l10n.lang]['nutrients'].map<Widget>(
                 (label) {
                   return GestureDetector(
                     onTap: () async {
                       showDialog(
                         context: context,
                         builder: (context) {
-                          context.read<ChatGPTBloc>().add(GetResult(
-                              message: '${l10n.definitionAndBenefits} $label'));
+                          context.read<ChatGPTBloc>().add(
+                                GetResult(
+                                    message:
+                                        '${widget.l10n.definitionAndBenefits} $label',
+                                    apiKey: apiKey),
+                              );
                           return AlertDialog(
                             insetPadding: const EdgeInsets.all(8.0),
                             title: Row(
@@ -178,7 +222,7 @@ class ItemInfo extends StatelessWidget {
                   : size.height * 0.025,
             ),
             Text(
-              l10n.description,
+              widget.l10n.description,
               style: TextStyle(
                   fontSize: (Responsive.isMobile(context)) ? 13.0 : 30.0,
                   fontWeight: FontWeight.w600),
@@ -192,10 +236,10 @@ class ItemInfo extends StatelessWidget {
               separatorBuilder: (context, index) => const SizedBox(
                 height: 10.0,
               ),
-              itemCount: doc[l10n.lang]['general-info'].length,
+              itemCount: widget.doc[widget.l10n.lang]['general-info'].length,
               itemBuilder: (context, index) {
                 return Text(
-                  doc[l10n.lang]['general-info'][index],
+                  widget.doc[widget.l10n.lang]['general-info'][index],
                   textAlign: TextAlign.justify,
                   style: TextStyle(
                     fontSize: (Responsive.isMobile(context)) ? 11.0 : 22.0,
@@ -209,7 +253,7 @@ class ItemInfo extends StatelessWidget {
                   : size.height * 0.025,
             ),
             Text(
-              '${l10n.benefitsConsuming} ${doc[l10n.lang]['name']}',
+              '${widget.l10n.benefitsConsuming} ${widget.doc[widget.l10n.lang]['name']}',
               style: TextStyle(
                   fontSize: (Responsive.isMobile(context)) ? 13.0 : 30.0,
                   fontWeight: FontWeight.w600),
@@ -223,10 +267,10 @@ class ItemInfo extends StatelessWidget {
               separatorBuilder: (context, index) => const SizedBox(
                 height: 10.0,
               ),
-              itemCount: doc[l10n.lang]['benefits'].length,
+              itemCount: widget.doc[widget.l10n.lang]['benefits'].length,
               itemBuilder: (context, index) {
                 return Text(
-                  doc[l10n.lang]['benefits'][index],
+                  widget.doc[widget.l10n.lang]['benefits'][index],
                   textAlign: TextAlign.justify,
                   style: TextStyle(
                     fontSize: (Responsive.isMobile(context)) ? 11.0 : 22.0,

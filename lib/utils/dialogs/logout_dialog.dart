@@ -126,7 +126,7 @@ class LogoutDialog extends StatelessWidget {
                       ],
                     ),
                     SizedBox(
-                      height: Responsive.isMobile(context) ? 10.0 : 20.0,
+                      height: Responsive.isMobile(context) ? 15.0 : 20.0,
                     ),
                     GestureDetector(
                       onTap: () async {
@@ -145,7 +145,7 @@ class LogoutDialog extends StatelessWidget {
                       ),
                     ),
                     SizedBox(
-                      height: Responsive.isMobile(context) ? 15.0 : 20.0,
+                      height: Responsive.isMobile(context) ? 20.0 : 20.0,
                     ),
                     GestureDetector(
                       onTap: () async {

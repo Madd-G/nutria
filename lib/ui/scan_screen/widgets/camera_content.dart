@@ -61,8 +61,6 @@ class _CameraContentState extends State<CameraContent> {
 
   Future<String> fetchFirestoreValue() async {
     try {
-      // Replace 'your_document_path' with the actual path to your Firestore document.
-      // Replace 'your_field_name' with the actual field name you want to fetch.
       DocumentSnapshot snapshot = await FirebaseFirestore.instance
           .collection('url')
           .doc('HcMAeajSAeVo7S6cytmt')
@@ -70,13 +68,11 @@ class _CameraContentState extends State<CameraContent> {
 
       if (snapshot.exists) {
         setState(() {
-          // Explicitly cast the data to the expected type Map<String, dynamic>.
           Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
           nutriaUrl = data['nutria-url'];
         });
       } else {
         setState(() {
-          // Document doesn't exist or field is not available.
           nutriaUrl = 'Value not found';
         });
       }
