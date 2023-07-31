@@ -6,7 +6,7 @@ import 'package:nutria/l10n/flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../blocs/blocs.dart';
 import '../../../responsive.dart';
 
-class NutrientInfo extends StatelessWidget {
+class NutrientInfo extends StatefulWidget {
   const NutrientInfo({
     super.key,
     required this.doc,
@@ -15,6 +15,46 @@ class NutrientInfo extends StatelessWidget {
 
   final DocumentSnapshot doc;
   final AppLocalizations l10n;
+
+  @override
+  State<NutrientInfo> createState() => _NutrientInfoState();
+}
+
+class _NutrientInfoState extends State<NutrientInfo> {
+  String apiKey = '';
+
+  @override
+  void initState() {
+    fetchApiKey();
+    super.initState();
+  }
+
+  Future<String> fetchApiKey() async {
+    try {
+      DocumentSnapshot snapshot = await FirebaseFirestore.instance
+          .collection('url')
+          .doc('A1LwZfXMxWAh34RJQuu0')
+          .get();
+
+      if (snapshot.exists) {
+        setState(() {
+          Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
+          apiKey = data['api-key'];
+        });
+      } else {
+        setState(() {
+          apiKey = 'Value not found';
+        });
+      }
+      return apiKey;
+    } catch (e) {
+      setState(() {
+        // Error occurred while fetching data.
+        apiKey = 'Error: $e';
+      });
+      rethrow;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +70,7 @@ class NutrientInfo extends StatelessWidget {
                 height: 12.0,
               ),
             Text(
-              '${l10n.generalInformation} ${doc[l10n.lang]['name']}',
+              '${widget.l10n.generalInformation} ${widget.doc[widget.l10n.lang]['name']}',
               style: TextStyle(
                   fontSize: Responsive.isMobile(context) ? 12.0 : 20.0,
                   fontWeight: FontWeight.w500),
@@ -47,7 +87,8 @@ class NutrientInfo extends StatelessWidget {
                     physics: const NeverScrollableScrollPhysics(),
                     childAspectRatio: 20 / 9,
                     crossAxisCount: (Responsive.isMobile(context)) ? 4 : 5,
-                    children: doc[l10n.lang]['nutrients'].map<Widget>(
+                    children:
+                        widget.doc[widget.l10n.lang]['nutrients'].map<Widget>(
                       (label) {
                         return GestureDetector(
                           onTap: () async {
@@ -57,7 +98,8 @@ class NutrientInfo extends StatelessWidget {
                                 context.read<ChatGPTBloc>().add(
                                       GetResult(
                                           message:
-                                              '${l10n.definitionAndBenefits} $label'),
+                                              '${widget.l10n.definitionAndBenefits} $label',
+                                          apiKey: apiKey),
                                     );
                                 return AlertDialog(
                                   insetPadding: const EdgeInsets.all(8.0),
@@ -167,10 +209,11 @@ class NutrientInfo extends StatelessWidget {
                 separatorBuilder: (context, index) => const SizedBox(
                   height: 10.0,
                 ),
-                itemCount: doc[l10n.lang]['nutrients-info'].length,
+                itemCount:
+                    widget.doc[widget.l10n.lang]['nutrients-info'].length,
                 itemBuilder: (context, index) {
                   return Text(
-                    doc[l10n.lang]['nutrients-info'][index],
+                    widget.doc[widget.l10n.lang]['nutrients-info'][index],
                     textAlign: TextAlign.justify,
                     style: TextStyle(
                       fontSize: (Responsive.isMobile(context)) ? 11.0 : 22.0,
