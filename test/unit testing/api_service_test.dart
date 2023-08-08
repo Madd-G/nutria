@@ -1,10 +1,8 @@
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:dio/dio.dart';
 import 'package:nutria/models/prediction_model.dart';
 
 Future<void> main() async {
-  await dotenv.load(fileName: ".env");
   late List<Prediction> detectedObject;
 
   var base64Image = 'assets/images/kangkung.png';
@@ -14,7 +12,7 @@ Future<void> main() async {
 
   var dio = Dio();
 
-  var baseUrl = dotenv.env['NUTRIA_BASE_URL'];
+  var baseUrl = "https://nutriav3-it6ihfa5za-uc.a.run.app/nutria";
   var response = await dio.post(
     '$baseUrl/detect',
     data: requestBody,

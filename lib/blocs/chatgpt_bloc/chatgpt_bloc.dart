@@ -3,7 +3,6 @@ import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:http/http.dart' as http;
 
@@ -40,8 +39,7 @@ class ChatGPTBloc extends Bloc<ChatGPTEvent, ChatGPTState> {
       headers: {
         "Content-Type": "application/json",
         "Authorization":
-            // "Bearer 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",
-            "Bearer ${dotenv.env['API_KEY']}",
+            "Bearer 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",
       },
       body: json.encode(body),
     );

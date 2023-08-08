@@ -82,7 +82,6 @@ flutter:
   assets:
     - assets/images/
     - assets/animation/
-    - .env
 
   fonts:
     - family: GT Maru
