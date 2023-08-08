@@ -83,7 +83,7 @@ class MyApp extends StatelessWidget {
               return MaterialApp(
                   scrollBehavior: MyCustomScrollBehavior(),
                   debugShowCheckedModeBanner: false,
-                  theme: ThemeData.light(),
+                  theme: themeData,
                   // theme: context.watch<ThemeCubit>().state,
                   // locale: state.selectedLanguage.value,
                   locale: const Locale('id', 'ID'),

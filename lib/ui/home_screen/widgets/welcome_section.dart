@@ -18,9 +18,9 @@ class WelcomeSection extends StatelessWidget {
     String? greeting;
     int dt = DateTime.now().hour;
     int s = 13;
-    if (s! < 12) {
+    if (fakeHour! < 12) {
       greeting = l10n.goodMorning;
-    } else if (s! >= 12 && s! < 18) {
+    } else if (fakeHour! >= 12 && fakeHour! < 18) {
       greeting = l10n.goodAfternoon;
     } else {
       greeting = l10n.goodEvening;
@@ -106,9 +106,9 @@ class WelcomeSection extends StatelessWidget {
                 greeting,
                 key: const Key('greeting_text'),
                 style: TextStyle(
-                    // color: Theme.of(context).brightness == Brightness.dark
-                    //     ? Colors.white
-                    //     : Colors.black,
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? Colors.white
+                        : Colors.black,
                     fontSize: (Responsive.isMobile(context)) ? 22.0 : 35.0,
                     fontWeight: FontWeight.w900),
               ),

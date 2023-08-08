@@ -39,11 +39,11 @@ class HomeScreen extends StatelessWidget {
                     SizedBox(
                       height: size.height * 0.04,
                     ),
-                    // WelcomeSection(
-                    //   size: size,
-                    //   l10n: l10n,
-                    //   fakeHour: fakeHour,
-                    // ),
+                    WelcomeSection(
+                      size: size,
+                      l10n: l10n,
+                      fakeHour: fakeHour,
+                    ),
                     SizedBox(
                       height: size.height * 0.01,
                     ),

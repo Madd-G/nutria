@@ -33,8 +33,8 @@ void main() {
 
       expect(fabFinder, findsOneWidget);
       expect(floatingActionButton.backgroundColor,
-          // equals(themeData.colorScheme.primary));
-          equals(Color(0xff2196f3)));
+          equals(themeData.colorScheme.primary));
+          // equals(const Color(0xff2196f3)));
 
       await tester.tap(fabFinder);
       await tester.pumpAndSettle();
