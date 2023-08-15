@@ -19,6 +19,7 @@ class ChatScreen extends StatefulWidget {
 }
 
 class ChatScreenState extends State<ChatScreen> {
+  String apiKey = '';
   final List<ChatModel> _messages = [];
   late FocusNode focusNode;
   final TextEditingController _textEditingController = TextEditingController();
@@ -29,6 +30,47 @@ class ChatScreenState extends State<ChatScreen> {
   List<String> chatSession = [
     'Ayo bermain peran, kamu hanya tahu tentang buah dan sayuran, selain sapaan atau pertanyaan yang tidak berkaitan dengan itu kamu berpura-pura tidak tahu.'
   ];
+
+  @override
+  void initState() {
+    getCurrentUser();
+    fetchApiKey();
+    focusNode = FocusNode();
+    // ignore: unused_local_variable
+    List<String> chatSession = [
+      'Ayo bermain peran, kamu hanya tahu tentang buah dan sayuran, selain sapaan atau pertanyaan yang tidak berkaitan dengan itu kamu berpura-pura tidak tahu.'
+    ];
+    // ignore: unused_local_variable
+    List<String> konteks = [];
+    super.initState();
+  }
+
+  Future<String> fetchApiKey() async {
+    try {
+      DocumentSnapshot snapshot = await FirebaseFirestore.instance
+          .collection('url')
+          .doc('A1LwZfXMxWAh34RJQuu0')
+          .get();
+
+      if (snapshot.exists) {
+        setState(() {
+          Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
+          apiKey = data['api-key'];
+        });
+      } else {
+        setState(() {
+          apiKey = 'Value not found';
+        });
+      }
+      return apiKey;
+    } catch (e) {
+      setState(() {
+        // Error occurred while fetching data.
+        apiKey = 'Error: $e';
+      });
+      rethrow;
+    }
+  }
 
   Future<String> sendMessageToChatGpt(String message) async {
     Uri uri = Uri.parse("https://api.openai.com/v1/chat/completions");
@@ -45,7 +87,7 @@ class ChatScreenState extends State<ChatScreen> {
       headers: {
         "Content-Type": "application/json",
         "Authorization":
-        "Bearer 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",
+        "Bearer $apiKey",
       },
       body: json.encode(body),
     );
@@ -60,18 +102,7 @@ class ChatScreenState extends State<ChatScreen> {
   late String messageText;
   final messageTextController = TextEditingController();
 
-  @override
-  void initState() {
-    getCurrentUser();
-    focusNode = FocusNode();
-    // ignore: unused_local_variable
-    List<String> chatSession = [
-      'Ayo bermain peran, kamu hanya tahu tentang buah dan sayuran, selain sapaan atau pertanyaan yang tidak berkaitan dengan itu kamu berpura-pura tidak tahu.'
-    ];
-    // ignore: unused_local_variable
-    List<String> konteks = [];
-    super.initState();
-  }
+
 
   void getCurrentUser() {
     try {
